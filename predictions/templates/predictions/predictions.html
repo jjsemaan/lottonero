@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EuroMillions Predictions</title>
+</head>
+<body>
+    <h1>EuroMillions Predictions</h1>
+
+    <h2>Main Ball Numbers</h2>
+    <p>Predicted balls with test_size=0.2 (20% of the total sample):</p>
+    <ul>
+        {% for ball_prediction in predictions.balls %}
+            <li>[ {% for ball in ball_prediction %}{{ ball }} {% endfor %}]</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Lucky Star Numbers</h2>
+    <p>Predicted lucky numbers with test_size=0.2 (20% of the total sample):</p>
+    <ul>
+        {% for lucky_prediction in predictions.lucky %}
+            <li>[ {% for lucky in lucky_prediction %}{{ lucky }} {% endfor %}]</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Home Button -->
+    <a href="/">Home</a>
+</body>
+</html>
