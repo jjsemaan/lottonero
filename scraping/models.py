@@ -1,6 +1,27 @@
 from django.db import models
 
 class EuroMillionsResult(models.Model):
+    """
+    Represents a EuroMillions lottery draw result.
+
+    Attributes:
+        draw_date (str): The date of the lottery draw in the format 'YYYY-MM-DD'.
+        ball_1 (int): The first main ball number drawn.
+        ball_2 (int): The second main ball number drawn.
+        ball_3 (int): The third main ball number drawn.
+        ball_4 (int): The fourth main ball number drawn.
+        ball_5 (int): The fifth main ball number drawn.
+        lucky_star_1 (int): The first lucky star number drawn.
+        lucky_star_2 (int): The second lucky star number drawn.
+
+    Methods:
+        __str__: Returns a string representation of the EuroMillionsResult instance.
+
+    Usage:
+        This model represents the results of EuroMillions lottery draws. Each instance
+        contains the draw date along with the winning numbers and lucky stars drawn.
+    """
+    
     draw_date = models.CharField(max_length=10)
     ball_1 = models.IntegerField()   
     ball_2 = models.IntegerField()

@@ -8,7 +8,7 @@ from scraping.models import EuroMillionsResult  # Import your model
 """
     A Django management command to scrape the latest EuroMillions results from the official
     lottery website. This command extracts the draw date, winning numbers, and lucky stars
-    from the EuroMillions section of the lottery results page.
+    from the EuroMillions section of the lottery results page and writes them to the db.
 
     Attributes:
         help (str): Provides a brief description of the command's purpose, which is 
