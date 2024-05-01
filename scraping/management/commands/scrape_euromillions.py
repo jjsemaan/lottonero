@@ -3,6 +3,21 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 import re  # Import the regular expressions module
+from scraping.models import EuroMillionsResult  # Import your model
+
+"""
+    A Django management command to scrape the latest EuroMillions results from the official
+    lottery website. This command extracts the draw date, winning numbers, and lucky stars
+    from the EuroMillions section of the lottery results page.
+
+    Attributes:
+        help (str): Provides a brief description of the command's purpose, which is 
+                    accessible through the command-line interface.
+
+    Methods:
+        handle(*args, **kwargs): The main entry point for the command. It performs the 
+                                 scraping, parsing, and output of the EuroMillions results.
+    """
 
 class Command(BaseCommand):
     help = 'Scrape EuroMillions results'
@@ -14,24 +29,39 @@ class Command(BaseCommand):
 
         # Locate the section for EuroMillions results
         euromillions_section = soup.find('h3', string=lambda text: 'EuroMillions Results' in text)
-        
+
         # Extract the date text using regex to remove unwanted text
         results_date = euromillions_section.get_text().strip()
         results_date = re.sub(r'EuroMillions Results\s*for\s*', '', results_date)  # Regex to remove the unwanted prefix
 
         # Parse and format the date
         date_object = datetime.strptime(results_date, '%a %d %B %Y')
-        formatted_date = date_object.strftime('%Y-%m-%d')
+        formatted_date = date_object.strftime('%Y/%m/%d')  # Ensure the format matches your model's requirements
 
         # Extract the winning numbers and lucky stars
         draw_results = euromillions_section.find_next_sibling('div', class_='draw-results')
         winning_numbers_section = draw_results.find('div', class_='winning-numbers')
         lucky_stars_section = draw_results.find('div', class_='luckystars')
 
-        winning_numbers = [li.get_text() for li in winning_numbers_section.find_all('li')]
-        lucky_stars = [li.get_text() for li in lucky_stars_section.find_all('li')]
+        winning_numbers = [int(li.get_text()) for li in winning_numbers_section.find_all('li')]
+        lucky_stars = [int(li.get_text()) for li in lucky_stars_section.find_all('li')]
 
-        # Output results
+        # Save the result to the database
+        result = EuroMillionsResult(
+            draw_date=formatted_date,
+            ball_1=winning_numbers[0],
+            ball_2=winning_numbers[1],
+            ball_3=winning_numbers[2],
+            ball_4=winning_numbers[3],
+            ball_5=winning_numbers[4],
+            lucky_star_1=lucky_stars[0],
+            lucky_star_2=lucky_stars[1]
+        )
+        result.save()
+
+        # Output results to console for confirmation
         self.stdout.write(f"Date: {formatted_date}")
         self.stdout.write(f"Winning Numbers: {winning_numbers}")
         self.stdout.write(f"Lucky Stars: {lucky_stars}")
+
+        self.stdout.write("Results successfully saved to the database.")
