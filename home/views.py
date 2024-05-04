@@ -10,7 +10,8 @@ def index(request):
 
 
 def latest_draw(request):
-    latest_result = EuroMillionsResult.objects.latest('id')  # Assuming 'id' or you can also use 'draw_date'
+    """ A view to return the last draw results from the db """
+    latest_result = EuroMillionsResult.objects.latest('id')
     context = {
         'latest_result': latest_result,
     }
