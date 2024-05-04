@@ -12,7 +12,7 @@ from django.shortcuts import render
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 import numpy as np
-import pandas as pd  # Import pandas library
+import pandas as pd
 from scraping.models import EuroMillionsResult
 
 def train_classifier(request):

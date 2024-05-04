@@ -17,6 +17,10 @@ from scraping.models import EuroMillionsResult  # Import your model
     Methods:
         handle(*args, **kwargs): The main entry point for the command. It performs the 
                                  scraping, parsing, and output of the EuroMillions results.
+
+    Command to run this code from the terminal:
+        python manage.py scrape_euromillions_results
+
     """
 
 class Command(BaseCommand):
