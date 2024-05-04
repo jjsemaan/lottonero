@@ -61,7 +61,6 @@ body {
 }
 
 /* -------------------------------- Media Queries */
-
 /* Slightly larger container on xl screens */
 @media (min-width: 1200px) {
   .container {
@@ -83,3 +82,4 @@ body {
         padding-top: 164px;
     }
 }
+

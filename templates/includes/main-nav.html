@@ -1,3 +1,9 @@
+<style>
+    ul.list-inline {
+        margin: 0 !important;  /* Ensures this rule takes precedence */
+    }
+</style>
+
 <div class="collapse navbar-collapse" id="main-nav">
     <ul class="navbar-nav w-auto mx-auto">
         <li class="nav-item dropdown">
@@ -45,6 +51,41 @@
                 <a href="" class="dropdown-item">Clearance</a>
                 <a href="" class="dropdown-item">All Specials</a>
             </div>
+        </li>
+        
+        <li class="list-inline-item">
+            <a class="text-black nav-link d-block d-lg-none" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div style="display: flex; align-items: center;">
+                    <i class="fas fa-user fa-lg"></i>
+                    <p class="my-0" style="margin-left: 10px;">My Account</p>
+                </div>                
+            </a>
+            <div class="dropdown-menu border-0" aria-labelledby="user-options">
+                {% if request.user.is_authenticated %}
+                    {% if request.user.is_superuser %}
+                        <a href="{% url 'account_logout' %}" class="dropdown-item">Product Management</a>
+                    {% endif %}
+                    <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
+                    <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
+                {% else %}
+                    <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
+                    <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
+                {% endif %}
+            </div>
+        </li>
+        <li class="list-inline-item">
+            <a class="{% if grand_total %}text-primary font-weight-bold{% else %}text-black{% endif %} nav-link d-block d-lg-none" href="">
+                <div style="display: flex; align-items: center;">
+                    <div><i class="fas fa-shopping-cart fa-lg"></i></div>
+                    <p class="my-0" style="padding-left: 10px;">
+                        {% if grand_total %}
+                            ${{ grand_total|floatformat:2 }}
+                        {% else %}
+                            € 0.00
+                        {% endif %}
+                    </p>
+                </div>
+            </a>
         </li>
     </ul>
 </div>
