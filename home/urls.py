@@ -4,6 +4,6 @@ from .views import latest_draw
 from .import views
 
 urlpatterns = [
-    path('', views.index, name='home'),
-    path('latest-draw/', views.latest_draw, name='latest_draw'),
+    path('', views.latest_draw, name='home'),  # Make sure this points to latest_draw for the homepage
+    path('latest-draw/', views.latest_draw, name='latest_draw'),  # Optional: This can be removed if you don't need a separate URL
 ]
