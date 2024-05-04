@@ -27,7 +27,7 @@ body {
     width: fit-content;
 }
 
-.shop-now-button {
+.predict-button {
     background: black;
     color: white;
     min-width: 260px;
@@ -38,9 +38,9 @@ body {
     color: white;
 }
 
-.shop-now-button:hover,
-.shop-now-button:active,
-.shop-now-button:focus,
+.predict-button:hover,
+.predict-button:active,
+.predict-button:focus,
 .btn-black:hover,
 .btn-black:active,
 .btn-black:focus {
@@ -59,6 +59,11 @@ body {
 .bg-black {
     background: #000 !important;
 }
+
+/* Light grey border, you can change the color as needed */#topnav {
+    border-bottom: 1px solid #ccc; 
+}
+
 
 /* -------------------------------- Media Queries */
 /* Slightly larger container on xl screens */
@@ -82,4 +87,7 @@ body {
         padding-top: 164px;
     }
 }
+
+
+
 

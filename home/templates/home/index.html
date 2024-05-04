@@ -2,29 +2,35 @@
 {% load static %}
 
 {% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col"></div>
+<div class="container header-container pt-5 mt-5">
+    <div class="row pt-5 mt-3">
+        <div class="col">
+
         </div>
     </div>
+</div>
 {% endblock %}
 
 {% block content %}
-    <div class="container h-100">
-        <div class="row h-100">
-            <div class="col-7 col-md-6 my-auto">
-                <h1 class="display-4 logo-font text-black">
-                    EuroMillions Results 
-                </h1>
-                <h2>Latest Results for {{ latest_result.draw_date }}</h2>
-                <h3>Main Balls: {{ latest_result.ball_1 }} {{ latest_result.ball_2 }} {{ latest_result.ball_3 }} {{ latest_result.ball_4 }} {{ latest_result.ball_5 }}</h3>
-                <h3>Lucky Stars: {{ latest_result.lucky_star_1 }} {{ latest_result.lucky_star_2 }}</h3>
-                <div class="my-5">
-                    <h4>
-                        <a href="" class="shop-now-button btn btn-lg rounded-0 text-uppercase py-3">Predict Now</a>
-                    </h4>
-                </div>
+<div class="container h-100">
+    <div class="row h-100">
+        <div class="col-7 col-md-6 my-auto">
+            <h1 class="logo-font text-black pt-5">
+                EuroMillions Results
+            </h1>
+            <h2>for {{ latest_result.draw_date }}</h2>
+            <h3>
+                {{ latest_result.ball_1 }} {{ latest_result.ball_2 }}
+                {{ latest_result.ball_3 }} {{ latest_result.ball_4 }}
+                {{ latest_result.ball_5 }} {{ latest_result.lucky_star_1 }}
+                {{ latest_result.lucky_star_2 }}
+            </h3>
+            <div class="my-5">
+                <h4>
+                    <a href="" class="predict-button btn btn-lg rounded-0 text-uppercase py-3">Predict Now</a>
+                </h4>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}

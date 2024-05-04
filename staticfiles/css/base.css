@@ -27,7 +27,7 @@ body {
     width: fit-content;
 }
 
-.shop-now-button {
+.predict-button {
     background: black;
     color: white;
     min-width: 260px;
@@ -38,9 +38,9 @@ body {
     color: white;
 }
 
-.shop-now-button:hover,
-.shop-now-button:active,
-.shop-now-button:focus,
+.predict-button:hover,
+.predict-button:active,
+.predict-button:focus,
 .btn-black:hover,
 .btn-black:active,
 .btn-black:focus {
