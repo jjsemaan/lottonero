@@ -12,14 +12,23 @@
 {% endblock %}
 
 {% block content %}
+<style>
+    .col-7.col-md-6.my-auto {
+        background-color: rgba(139, 139, 139, 0.6); /* White with 80% opacity for transparency */
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
 <div class="container h-100">
     <div class="row h-100">
         <div class="col-7 col-md-6 my-auto">
-            <h1 class="logo-font text-black pt-5">
+            <h1 class="logo-font text-white pt-3">
                 EuroMillions Results
             </h1>
-            <h2>for {{ latest_result.draw_date }}</h2>
-            <h3>
+            <h2 class="text-white">for {{ latest_result.draw_date }}</h2>
+            <h3 class="text-white">
                 {{ latest_result.ball_1 }} {{ latest_result.ball_2 }}
                 {{ latest_result.ball_3 }} {{ latest_result.ball_4 }}
                 {{ latest_result.ball_5 }} {{ latest_result.lucky_star_1 }}
