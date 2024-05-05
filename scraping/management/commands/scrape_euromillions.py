@@ -19,7 +19,7 @@ from scraping.models import EuroMillionsResult  # Import your model
                                  scraping, parsing, and output of the EuroMillions results.
 
     Command to run this code from the terminal:
-        python manage.py scrape_euromillions_results
+        python manage.py scrape_euromillions
 
     """
 
@@ -36,11 +36,11 @@ class Command(BaseCommand):
 
         # Extract the date text using regex to remove unwanted text
         results_date = euromillions_section.get_text().strip()
-        results_date = re.sub(r'EuroMillions Results\s*for\s*', '', results_date)  # Regex to remove the unwanted prefix
+        results_date = re.sub(r'EuroMillions Results\s*for\s*', '', results_date)
 
         # Parse and format the date
         date_object = datetime.strptime(results_date, '%a %d %B %Y')
-        formatted_date = date_object.strftime('%Y/%m/%d')  # Ensure the format matches your model's requirements
+        formatted_date = date_object.strftime('%Y/%m/%d')
 
         # Extract the winning numbers and lucky stars
         draw_results = euromillions_section.find_next_sibling('div', class_='draw-results')
@@ -49,6 +49,10 @@ class Command(BaseCommand):
 
         winning_numbers = [int(li.get_text()) for li in winning_numbers_section.find_all('li')]
         lucky_stars = [int(li.get_text()) for li in lucky_stars_section.find_all('li')]
+
+        # Extract jackpot details
+        jackpot_details = draw_results.find('div', class_='jackpot').get_text(strip=True)
+        prize_breakdown_paragraph = draw_results.find('p').get_text(strip=True)
 
         # Save the result to the database
         result = EuroMillionsResult(
@@ -59,7 +63,9 @@ class Command(BaseCommand):
             ball_4=winning_numbers[3],
             ball_5=winning_numbers[4],
             lucky_star_1=lucky_stars[0],
-            lucky_star_2=lucky_stars[1]
+            lucky_star_2=lucky_stars[1],
+            jackpot=jackpot_details,
+            prize_breakdown=prize_breakdown_paragraph  # Use prize_breakdown here
         )
         result.save()
 
@@ -67,5 +73,7 @@ class Command(BaseCommand):
         self.stdout.write(f"Date: {formatted_date}")
         self.stdout.write(f"Winning Numbers: {winning_numbers}")
         self.stdout.write(f"Lucky Stars: {lucky_stars}")
+        self.stdout.write(f"Jackpot Details: {jackpot_details}")
+        self.stdout.write(f"Prize Breakdown: {prize_breakdown_paragraph}")
 
         self.stdout.write("Results successfully saved to the database.")

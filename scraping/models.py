@@ -13,23 +13,28 @@ class EuroMillionsResult(models.Model):
         ball_5 (int): The fifth main ball number drawn.
         lucky_star_1 (int): The first lucky star number drawn.
         lucky_star_2 (int): The second lucky star number drawn.
+        jackpot (str): The jackpot amount for the draw.
+        prize_breakdown (str): A detailed description of the prize distribution.
 
     Methods:
         __str__: Returns a string representation of the EuroMillionsResult instance.
 
     Usage:
         This model represents the results of EuroMillions lottery draws. Each instance
-        contains the draw date along with the winning numbers and lucky stars drawn.
+        contains the draw date along with the winning numbers, lucky stars, jackpot amount,
+        and a description of the prize distribution.
     """
     
     draw_date = models.CharField(max_length=10)
-    ball_1 = models.IntegerField()   
+    ball_1 = models.IntegerField()
     ball_2 = models.IntegerField()
     ball_3 = models.IntegerField()
     ball_4 = models.IntegerField()
     ball_5 = models.IntegerField()
     lucky_star_1 = models.IntegerField()
     lucky_star_2 = models.IntegerField()
+    jackpot = models.CharField(max_length=100)  # Assuming jackpot amounts won't exceed 100 characters.
+    prize_breakdown = models.TextField()  # Use TextField for potentially longer descriptions.
 
     def __str__(self):
-        return f"{self.draw_date}: {self.ball_1}, {self.ball_2}, {self.ball_3}, {self.ball_4}, {self.ball_5}, {self.lucky_star_1}, {self.lucky_star_2}"
+        return f"{self.draw_date}: {self.ball_1}, {self.ball_2}, {self.ball_3}, {self.ball_4}, {self.ball_5}, {self.lucky_star_1}, {self.lucky_star_2}, Jackpot: {self.jackpot}"
