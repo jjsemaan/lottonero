@@ -13,8 +13,8 @@
 
 {% block content %}
 <style>
-    .col-7.col-md-6.my-auto {
-        background-color: rgba(139, 139, 139, 0.6); /* White with 80% opacity for transparency */
+    .backdrop {
+        background-color: rgba(139, 139, 139, 0.6);
         border-radius: 20px;
         padding: 20px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -23,7 +23,7 @@
 
 <div class="container h-100">
     <div class="row h-100">
-        <div class="col-7 col-md-6 my-auto">
+        <div class="col-md-6 col-xs-12 backdrop">
             <h1 class="logo-font text-white pt-3">
                 EuroMillions Results
             </h1>
@@ -34,6 +34,12 @@
                 {{ latest_result.ball_5 }} {{ latest_result.lucky_star_1 }}
                 {{ latest_result.lucky_star_2 }}
             </h3>
+            <h2 class="text-white">
+                {{latest_result.jackpot}}
+            </h2>
+            <p class="text-white">
+                {{latest_result.prize_breakdown}}
+            </p>
             <div class="my-5">
                 <h4>
                     <a href="" class="predict-button btn btn-lg rounded-pill text-uppercase py-3">Predict Now</a>
