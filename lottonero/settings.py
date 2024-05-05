@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'home',
     'scraping',
     'predictions',
-    'admin_backoffice',
 ]
 
 MIDDLEWARE = [
