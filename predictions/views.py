@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from scraping.models import EuroMillionsResult
+from .models import Prediction
 
 # Create your views here.
 def read_data_from_database(request):
@@ -7,6 +8,14 @@ def read_data_from_database(request):
     # You can further process 'results' as needed
     return render(request, 'predictions/predictions.html', {'results': results})
 
+
+def display_predictions(request):
+    # Find the most recent prediction date
+    latest_date = Prediction.objects.latest('prediction_date').prediction_date
+    # Fetch all predictions with the most recent date
+    predictions = Prediction.objects.filter(prediction_date=latest_date)
+    
+    return render(request, 'predictions/predictions.html', {'predictions': predictions})
 
 def backoffice(request):
     # Any logic needed to prepare context data
