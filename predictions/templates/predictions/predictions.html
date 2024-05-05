@@ -26,6 +26,13 @@
     <title>EuroMillions Predictions</title>
 </head>
 
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" name="train" value="Start Training">Train Classifier</button>
+</form>
+
+{% if predictions %}
+    <!-- Display predictions here -->
 <body>
     <div class="container h-100">
         <div class="row h-100">
@@ -51,4 +58,5 @@
         </div>
     </div>
 </body>
+{% endif %}
 {% endblock %}
