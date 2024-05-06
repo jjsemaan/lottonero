@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>EuroMillions Lottery Statistics</title>
+    <meta charset="UTF-8">
+    <title>EuroMillions Stats</title>
 </head>
 <body>
     <h1>EuroMillions Statistics</h1>
-    <div>{{ graph|safe }}</div>
+    <div>
+        <h2>Main Balls Frequency</h2>
+        {{ graph_main_balls|safe }}
+    </div>
+    <div>
+        <h2>Lucky Stars Frequency</h2>
+        {{ graph_lucky_stars|safe }}
+    </div>
 </body>
 </html>
