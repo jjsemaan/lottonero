@@ -1,7 +1,10 @@
 from django.shortcuts import render
-import plotly.express as px
 import pandas as pd
+import plotly.express as px
+import networkx as nx
+import plotly.graph_objs as go
 from scraping.models import EuroMillionsResult  # Ensure this import path is correct
+import itertools
 
 def plot_numbers_frequencies(df, columns, title):
     melted_df = df.melt(value_vars=columns)
@@ -33,33 +36,94 @@ def plot_correlation(df, title):
     num_labels = [f'{i}' for i in range(1, 51)]
     fig.update_xaxes(side="bottom", tickvals=list(range(50)), ticktext=num_labels)
     fig.update_yaxes(tickvals=list(range(50)), ticktext=num_labels)
-    
-    # Configure Plotly tools for the correlation graph
-    fig_config = {'displayModeBar': True, 'scrollZoom': False, 'doubleClick': False, 'dragmode': False, 'displaylogo': False,
-                  'modeBarButtonsToRemove': ['pan2d']}
-    # Remove download plot option
-    # fig_config['modeBarButtonsToAdd'] = ['drawrect', 'drawopenpath', 'drawclosedpath', 'drawcircle', 'drawline', 'drawlines', 'drawmarker', 'eraseshape']
-    
-    return fig.to_html(full_html=False, config=fig_config)
+    return fig.to_html(full_html=False, config={'displayModeBar': True})
+
+def calculate_combinations_frequency(df, columns):
+    combinations = df[columns].apply(lambda row: tuple(sorted(row)), axis=1)
+    frequency = combinations.value_counts()
+    return frequency
+
+def plot_combination_network(frequency, title):
+    G = nx.Graph()
+    for combo, freq in frequency.items():
+        for pair in itertools.combinations(combo, 2):
+            if G.has_edge(pair[0], pair[1]):
+                G[pair[0]][pair[1]]['weight'] += freq
+            else:
+                G.add_edge(pair[0], pair[1], weight=freq)
+    pos = nx.spring_layout(G, k=0.5, iterations=20)
+
+    x_edges = []
+    y_edges = []
+    for edge in G.edges():
+        x0, y0 = pos[edge[0]][0], pos[edge[0]][1]
+        x1, y1 = pos[edge[1]][0], pos[edge[1]][1]
+        x_edges.extend([x0, x1, None])
+        y_edges.extend([y0, y1, None])
+
+    edge_trace = go.Scatter(
+        x=x_edges,
+        y=y_edges,
+        line=dict(width=0.5, color='#888'),
+        hoverinfo='none',
+        mode='lines')
+
+    x_nodes = []
+    y_nodes = []
+    node_text = []
+    node_color = []
+    for node in G.nodes():
+        x_nodes.append(pos[node][0])
+        y_nodes.append(pos[node][1])
+        adjacencies = G.adj[node]
+        node_color.append(len(adjacencies))
+        node_text.append('Number ' + str(node))
+
+    node_trace = go.Scatter(
+        x=x_nodes,
+        y=y_nodes,
+        text=node_text,
+        mode='markers',
+        hoverinfo='text',
+        marker=dict(
+            showscale=True,
+            colorscale='YlGnBu',
+            size=10,
+            color=node_color,
+            colorbar=dict(
+                thickness=15,
+                title='Node Connections',
+                xanchor='left',
+                titleside='right'
+            ),
+            line=dict(width=2)))
+
+    fig = go.Figure(data=[edge_trace, node_trace],
+                    layout=go.Layout(
+                        title=title,
+                        showlegend=False,
+                        hovermode='closest',
+                        margin=dict(b=20, l=5, r=5, t=40),
+                        xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
+                        yaxis=dict(showgrid=False, zeroline=False, showticklabels=False)))
+
+    return fig.to_html(full_html=False, config={'displayModeBar': False})
 
 
 def stats_view(request):
-    # Fetch all results from the database
     data = EuroMillionsResult.objects.all()
     df_main_balls = pd.DataFrame(list(data.values('ball_1', 'ball_2', 'ball_3', 'ball_4', 'ball_5')))
     df_lucky_stars = pd.DataFrame(list(data.values('lucky_star_1', 'lucky_star_2')))
-    
-    # Prepare data for correlation
     prepared_df = prepare_data(df_main_balls)
-    
-    # Use the plotting function to get the graph HTML
+    frequency = calculate_combinations_frequency(df_main_balls, ['ball_1', 'ball_2', 'ball_3', 'ball_4', 'ball_5'])
+    graph_combinations = plot_combination_network(frequency, 'Network Graph of Winning Combinations Frequency')
     graph_main_balls = plot_numbers_frequencies(df_main_balls, ['ball_1', 'ball_2', 'ball_3', 'ball_4', 'ball_5'], 'Frequency of Main EuroMillions Balls')
     graph_lucky_stars = plot_numbers_frequencies(df_lucky_stars, ['lucky_star_1', 'lucky_star_2'], 'Frequency of EuroMillions Lucky Stars')
     graph_correlation = plot_correlation(prepared_df, 'Correlation Between Main Balls')
-    
-    # Render the HTML page with all graphs
     return render(request, 'lottery_stats/stats.html', {
         'graph_main_balls': graph_main_balls,
         'graph_lucky_stars': graph_lucky_stars,
-        'graph_correlation': graph_correlation
+        'graph_correlation': graph_correlation,
+        'graph_combinations': graph_combinations
     })
+
