@@ -19,8 +19,12 @@ def plot_numbers_frequencies(df, columns, title):
         title=title
     )
 
+    fig_config = {
+        'displayModeBar': False  # This disables the mode bar entirely
+    }
+
     # Convert the figure to HTML for web embedding
-    return fig.to_html(full_html=False)
+    return fig.to_html(full_html=False, config=fig_config)
 
 def stats_view(request):
     """
