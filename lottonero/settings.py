@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-9zm4#j8s%#_+e^p(%yncfp82@n31)fys7fm!5!c6tv&kktngz8
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    '8000-jjsemaan-lottonero-jwr574l49n.us1.codeanyapp.com'
+    '8000-jjsemaan-lottonero-jwr574l49n.us1.codeanyapp.com',
+    'herokuapp.com'
 ]
 
 CORS_ALLOWED_ORIGINS = [
