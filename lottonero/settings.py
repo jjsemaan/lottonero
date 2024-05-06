@@ -26,7 +26,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '8000-jjsemaan-lottonero-jwr574l49n.us1.codeanyapp.com',
-    'herokuapp.com'
+    'lottonero-e7dc9a7038d2.herokuapp.com'
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -61,6 +61,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'corsheaders.middleware.CorsMiddleware',
