@@ -109,21 +109,111 @@ def plot_combination_network(frequency, title):
 
     return fig.to_html(full_html=False, config={'displayModeBar': False})
 
+def calculate_pairs_and_triplets_frequency(df, columns):
+    pairs_frequency = {}
+    triplets_frequency = {}
+
+    # Calculate pairs frequency
+    for index, row in df.iterrows():
+        pairs = itertools.combinations(row[columns], 2)
+        for pair in pairs:
+            if pair in pairs_frequency:
+                pairs_frequency[pair] += 1
+            else:
+                pairs_frequency[pair] = 1
+
+    # Calculate triplets frequency
+    for index, row in df.iterrows():
+        triplets = itertools.combinations(row[columns], 3)
+        for triplet in triplets:
+            if triplet in triplets_frequency:
+                triplets_frequency[triplet] += 1
+            else:
+                triplets_frequency[triplet] = 1
+
+    return pairs_frequency, triplets_frequency
+
+
+def plot_network(frequency, title, mode='pairs'):
+    G = nx.Graph()
+    for combo, freq in frequency.items():
+        elements = itertools.combinations(combo, 2) if mode == 'pairs' else itertools.combinations(combo, 3)
+        for pair in elements:
+            if G.has_edge(pair[0], pair[1]):
+                G[pair[0]][pair[1]]['weight'] += freq
+            else:
+                G.add_edge(pair[0], pair[1], weight=freq)
+    
+    # Layout and plotting remain the same
+    pos = nx.spring_layout(G, k=0.5, iterations=20)
+    
+    # Updated part
+    edge_trace = go.Scatter(
+        x=[pos[edge[0]][0] for edge in G.edges()] + [None],
+        y=[pos[edge[0]][1] for edge in G.edges()] + [None],
+        line=dict(width=1.0, color='#888'),  # Adjust the width as needed
+        hoverinfo='none',
+        mode='lines')
+    
+    node_trace = go.Scatter(
+        x=[pos[node][0] for node in G.nodes()],
+        y=[pos[node][1] for node in G.nodes()],
+        text=[f'Number {node}' for node in G.nodes()],
+        mode='markers',
+        hoverinfo='text',
+        marker=dict(
+            showscale=True,
+            colorscale='YlGnBu',
+            size=10,
+            color=[len(G.adj[node]) for node in G.nodes()],
+            colorbar=dict(thickness=15, title='Node Connections')))
+
+    fig = go.Figure(data=[edge_trace, node_trace], layout=go.Layout(
+        title=title, showlegend=False, hovermode='closest',
+        margin=dict(b=20, l=5, r=5, t=40),
+        xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
+        yaxis=dict(showgrid=False, zeroline=False, showticklabels=False)))
+    
+    return fig.to_html(full_html=False, config={'displayModeBar': False})
+
+
 
 def stats_view(request):
     data = EuroMillionsResult.objects.all()
     df_main_balls = pd.DataFrame(list(data.values('ball_1', 'ball_2', 'ball_3', 'ball_4', 'ball_5')))
     df_lucky_stars = pd.DataFrame(list(data.values('lucky_star_1', 'lucky_star_2')))
-    prepared_df = prepare_data(df_main_balls)
-    frequency = calculate_combinations_frequency(df_main_balls, ['ball_1', 'ball_2', 'ball_3', 'ball_4', 'ball_5'])
-    graph_combinations = plot_combination_network(frequency, 'Network Graph of Winning Combinations Frequency')
+    
+    # Calculate frequencies for pairs and triplets
+    pairs_freq, triplets_freq = calculate_pairs_and_triplets_frequency(df_main_balls, ['ball_1', 'ball_2', 'ball_3', 'ball_4', 'ball_5'])
+    
+    # Generate graphs
+    graph_pairs = plot_network(pairs_freq, 'Network Graph of Frequent Number Pairs', mode='pairs')
+    graph_triplets = plot_network(triplets_freq, 'Network Graph of Frequent Number Triplets', mode='triplets')
+    
+    # Existing graphs
     graph_main_balls = plot_numbers_frequencies(df_main_balls, ['ball_1', 'ball_2', 'ball_3', 'ball_4', 'ball_5'], 'Frequency of Main EuroMillions Balls')
     graph_lucky_stars = plot_numbers_frequencies(df_lucky_stars, ['lucky_star_1', 'lucky_star_2'], 'Frequency of EuroMillions Lucky Stars')
+
+    # Calculate combinations frequency
+    frequency = calculate_combinations_frequency(df_main_balls, ['ball_1', 'ball_2', 'ball_3', 'ball_4', 'ball_5'])
+    
+    # Generate combination network graph
+    graph_combinations = plot_combination_network(frequency, 'Network Graph of Winning Combinations Frequency')
+    
+    # Assuming prepare_data is defined earlier in your code
+    prepared_df = prepare_data(df_main_balls)  # Call prepare_data to generate prepared_df
+
+    # Now you can use prepared_df in plot_correlation function
     graph_correlation = plot_correlation(prepared_df, 'Correlation Between Main Balls')
+
+    
     return render(request, 'lottery_stats/stats.html', {
         'graph_main_balls': graph_main_balls,
         'graph_lucky_stars': graph_lucky_stars,
         'graph_correlation': graph_correlation,
-        'graph_combinations': graph_combinations
+        'graph_combinations': graph_combinations,
+        'graph_pairs': graph_pairs,
+        'graph_triplets': graph_triplets
     })
+
 
