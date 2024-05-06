@@ -27,9 +27,14 @@
         </li>
 
         <li class="nav-item dropdown">
-            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'stats_view' %}">
+            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Statistics
             </a>
+            <div class="dropdown-menu border-0" aria-labelledby="specials-link">
+                <a href="{% url 'frequencies' %}" class="dropdown-item">Frequencies</a>
+                <a href="{% url 'correlations' %}" class="dropdown-item">Correlations</a>
+                <a href="{% url 'combinations' %}" class="dropdown-item">Combinations</a>
+            </div>
         </li>
 
         <li class="nav-item dropdown">
