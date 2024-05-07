@@ -60,7 +60,14 @@ body {
     background: #000 !important;
 }
 
-/* Light grey border, you can change the color as needed */#topnav {
+#delivery-banner {
+    background-color: black;
+    color: white;
+}
+
+
+/* Light grey border, you can change the color as needed */
+#topnav {
     border-bottom: 1px solid #ccc; 
 }
 
