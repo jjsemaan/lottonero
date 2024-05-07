@@ -160,6 +160,3 @@ def combinations_time_view(request):
         'selected_draws': num_draws
     })
 
-
-# Further code as necessary...
-
