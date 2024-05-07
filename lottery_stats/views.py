@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objs as go
 from scraping.models import EuroMillionsResult
 
 def plot_numbers_frequencies(df, columns, title):
@@ -62,7 +63,6 @@ def correlations_view(request):
 
 import itertools
 import networkx as nx
-import plotly.graph_objs as go
 
 def calculate_combinations_frequency(df, columns):
     combinations = df[columns].apply(lambda row: tuple(sorted(row)), axis=1)
@@ -115,12 +115,51 @@ def plot_combination_network(frequency, title):
 
     return fig.to_html(full_html=False, config={'displayModeBar': False})
 
-def combinations_view(request):
-    data = EuroMillionsResult.objects.all()
-    df_main_balls = pd.DataFrame(list(data.values('ball_1', 'ball_2', 'ball_3', 'ball_4', 'ball_5')))
-    frequency = calculate_combinations_frequency(df_main_balls, ['ball_1', 'ball_2', 'ball_3', 'ball_4', 'ball_5'])
-    graph_combinations = plot_combination_network(frequency, 'Network Graph of Winning Combinations Frequency')
+
+def calculate_combinations_frequency_over_time(df, columns, num_draws=96):
+    # Assuming each row in df has a 'draw_date'
+    df['combination'] = df[columns].apply(lambda row: tuple(sorted(row)), axis=1)
+    grouped = df.groupby(['draw_date', 'combination']).size().unstack(fill_value=0).cumsum()
+    # Limit the data to the last num_draws
+    if num_draws < len(grouped):
+        grouped = grouped.tail(num_draws)
+    return grouped
+
+def plot_stacked_area_chart(frequency, title):
+    fig = go.Figure()
+    for combo in frequency.columns:
+        fig.add_trace(go.Scatter(
+            x=frequency.index,
+            y=frequency[combo],
+            mode='lines',
+            name=str(combo),  # Convert combo tuple to string for legend
+            stackgroup='one'  # define stack group
+        ))
+    fig.update_layout(
+        title=title,
+        xaxis_title='Date',
+        yaxis_title='Cumulative Frequency',
+        hovermode='x'
+    )
+    return fig.to_html(full_html=False, config={'displayModeBar': True})
+
+def combinations_time_view(request):
+    num_draws = request.GET.get('num_draws', 96)  # Get num_draws from query parameters or default to 96
+    try:
+        num_draws = int(num_draws)
+    except ValueError:
+        num_draws = 96  # Default if conversion fails
+
+    data = EuroMillionsResult.objects.all().values('draw_date', 'ball_1', 'ball_2', 'ball_3', 'ball_4', 'ball_5')
+    df_main_balls = pd.DataFrame(list(data))
+    frequency = calculate_combinations_frequency_over_time(df_main_balls, ['ball_1', 'ball_2', 'ball_3', 'ball_4', 'ball_5'], num_draws)
+    graph_combinations = plot_stacked_area_chart(frequency, 'Cumulative Frequency of Winning Combinations Over Time')
 
     return render(request, 'lottery_stats/combinations.html', {
-        'graph_combinations': graph_combinations
+        'graph_combinations': graph_combinations,
+        'selected_draws': num_draws
     })
+
+
+# Further code as necessary...
+

@@ -81,6 +81,6 @@ def train_classifier(request):
             prediction.save()
 
         context = {'predictions': {'balls': y_pred_balls, 'lucky': y_pred_lucky}}
-        return render(request, 'predictions/predictions.html', context)
+        return render(request, 'backoffice/backoffice.html', context)
     else:
-        return render(request, 'predictions/predictions.html')
+        return render(request, 'backoffice/backoffice.html')
