@@ -41,12 +41,16 @@
                 <p class="text-white">
                     {{latest_result.prize_breakdown}}
                 </p>
-                <h4>
-                    <a href="" class="predict-button btn rounded-pill text-uppercase py-2">Reveal AI Predictions</a>
-                </h4>
-
+                {% if user.is_authenticated %}
+                    <h4>
+                        <a href="{% url 'predictions' %}" class="predict-button btn rounded-pill text-uppercase" style="padding: 10px 30px;">Reveal AI Predictions</a>
+                    </h4>
+                {% else %}
+                    <h4>
+                        <a href="{% url 'account_login' %}" class="predict-button btn rounded-pill text-uppercase" style="padding: 10px 30px;">Reveal AI Predictions</a>
+                    </h4>
+                {% endif %}
             </div>
         </div>
     </div>
-
 {% endblock %}
