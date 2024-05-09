@@ -2,6 +2,10 @@ html {
     height: 100%;
 }
 
+.row {
+    margin: 0;
+}
+
 body {
     background: url('https://res.cloudinary.com/dmebot5lf/image/upload/v1715102482/DALLE5_fg6zww.webp') no-repeat center center fixed;
     background-size: cover;
@@ -30,7 +34,11 @@ body {
 .predict-button {
     background: black;
     color: white;
-    min-width: 260px;
+}
+
+h4.text-center > a.predict-button {
+    width: auto;
+    display: inline-block;
 }
 
 .btn-black {
@@ -60,10 +68,10 @@ body {
     background: #000 !important;
 }
 
-#delivery-banner {
+/*#delivery-banner {
     background-color: black;
     color: white;
-}
+}*/
 
 /* -------------------------------- Media Queries */
 /* Slightly larger container on xl screens */
