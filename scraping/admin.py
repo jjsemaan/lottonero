@@ -1,7 +1,8 @@
 from django.contrib import admin
-
-from django.contrib import admin
 from .models import EuroMillionsResult
+from django.core.management import call_command
+from django.contrib import messages
+
 
 class EuroMillionsResultAdmin(admin.ModelAdmin):
     """
