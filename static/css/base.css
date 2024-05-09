@@ -65,12 +65,6 @@ body {
     color: white;
 }
 
-
-/* Light grey border, you can change the color as needed */
-#topnav {
-    border-bottom: 1px solid #ccc; 
-}
-
 /* -------------------------------- Media Queries */
 /* Slightly larger container on xl screens */
 @media (min-width: 1200px) {
