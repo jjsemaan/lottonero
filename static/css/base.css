@@ -9,12 +9,17 @@ html {
 body {
     background: url('https://res.cloudinary.com/dmebot5lf/image/upload/v1715102482/DALLE5_fg6zww.webp') no-repeat center center fixed;
     background-size: cover;
-    height: calc(100vh - 164px);
     color: #555;
     font-family: 'Lato';
 }
 
-
+/*.backdrop {
+    background-color: rgba(139, 139, 139, 0.6);
+    margin: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}*/
 
 /* from Bulma */
 .icon {
@@ -91,12 +96,14 @@ h4.text-center > a.predict-button {
         right: 0;
         left: 0;
         z-index: 1030;
-    }*/
+    }
 
     .header-container {
         padding-top: 164px;
     }
-}
+}*/
+
+
 
 
 
