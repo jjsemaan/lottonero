@@ -9,7 +9,9 @@ html {
 body {
     background: url('https://res.cloudinary.com/dmebot5lf/image/upload/v1715102482/DALLE5_fg6zww.webp') no-repeat center center fixed;
     background-size: cover;
-    color: #555;
+    height: 100vh;
+    width: auto;
+    
     font-family: 'Lato';
 }
 
@@ -102,6 +104,61 @@ h4.text-center > a.predict-button {
         padding-top: 164px;
     }
 }*/
+
+.backdrop {
+    background-color: rgba(139, 139, 139, 0.6);
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {
+    height: 450px
+}
+
+/* Set gray background color and 100% height */
+.sidenav {
+    padding-top: 20px;
+    background-color: #f1f1f1;
+    height: 100%;
+}
+
+.sidenav-left {
+    padding-top: 20px;
+    background-color: #f1f1f1;
+    height: 100%;
+}
+
+
+@media (min-width: 576px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+@media (max-width: 767px) {
+    .sidenav-left {
+        display: none;
+    }
+}
+
+.container {
+    width: 100%;
+    padding: 0;
+}
+
+.container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+}
+
 
 
 

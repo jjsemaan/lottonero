@@ -23,43 +23,62 @@
 
     {% block extra_css %}
     <style>
-    .backdrop {
-        background-color: rgba(139, 139, 139, 0.6);
-        padding: 2rem;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        position: relative;
-    }
-
-    /* Remove the navbar's default margin-bottom and rounded borders */
-    .navbar {
-        margin-bottom: 0;
-        border-radius: 0;
-    }
-
-    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    .row.content {
-        height: 450px
-    }
-
-    /* Set gray background color and 100% height */
-    .sidenav {
-        padding-top: 20px;
-        background-color: #f1f1f1;
-        height: 100%;
-    }
-
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-        .sidenav {
-            height: auto;
-            padding: 15px;
+        .backdrop {
+            background-color: rgba(139, 139, 139, 0.6);
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
 
+        /* Remove the navbar's default margin-bottom and rounded borders */
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
         .row.content {
-            height: auto;
+            height: 450px
         }
-    }
-</style>
+
+        /* Set gray background color and 100% height */
+        .sidenav {
+            padding-top: 20px;
+            background-color: #f1f1f1;
+            height: 100%;
+        }
+
+        .sidenav-left {
+            padding-top: 20px;
+            background-color: #f1f1f1;
+            height: 100%;
+        }
+
+       
+        @media (min-width: 576px) {
+            .container {
+                max-width: 1140px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .sidenav-left {
+                display: none;
+            }
+        }
+
+        .container {
+            width: 100%;
+            padding: 0;
+        }
+
+        .container-fluid {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+    
+    </style>
     {% endblock %}
 
     {% block corejs %}
@@ -82,7 +101,7 @@
 </head>
 
 <body>
-    <header class="container-fluid fixed-top">
+    <div class="container-fluid" style="padding: 0;">
         <div class="row bg-white pt-lg-2 d-none d-lg-flex" style="border-bottom: 1px solid #ccc;">
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
                 <a href="{% url 'home' %}" class="nav-link main-logo-link">
@@ -93,8 +112,8 @@
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
                 <ul class="list-inline list-unstyled text-center text-lg-right my-0">
                     <li class="list-inline-item dropdown">
-                        <a class="text-black nav-link" href="#" id="user-options" data-toggle="dropdown" 
-                           aria-haspopup="true" aria-expanded="false">
+                        <a class="text-black nav-link" href="#" id="user-options" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
                             <div class="text-center">
                                 <div><i class="fas fa-user fa-lg"></i></div>
                                 <p class="my-0">My Account</p>
@@ -114,7 +133,8 @@
                         </div>
                     </li>
                     <li class="list-inline-item">
-                        <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="#">
+                        <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link"
+                            href="#">
                             <div class="text-center">
                                 <div><i class="fas fa-shopping-cart fa-lg"></i></div>
                                 <p class="my-0">
@@ -133,7 +153,7 @@
         <div class="row bg-white">
             <nav class="navbar navbar-expand-lg navbar-light w-100" style="padding-right: 0;">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav"
-                        aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 {% include 'includes/mobile-top-header.html' %}
@@ -145,21 +165,15 @@
                 <h4 class="logo-font my-2">Subscribe to start earning {{ subscribe_link }}!</h4>
             </div>
         </div>
-    </header>
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
 
     {% if messages %}
     <div class="message-container"></div>
     {% endif %}
-
-    {% block page_header %}
-    {% endblock %}
-
-    {% block content %}
-    {% endblock %}
-
-    {% block postloadjs %}
-    {% endblock %}
-
 
 </body>
 
