@@ -41,6 +41,12 @@
                     <button type="submit" class="predict-button btn btn-lg rounded-pill text-uppercase py-3" name="train" value="Start Training">Scrape EuroMillions Results</button>
                 </h4> 
             </form>
+            <form method="post" action="{% url 'latest_predictions_with_matches' %}">
+                {% csrf_token %}
+                <h4>
+                    <button type="submit" class="predict-button btn btn-lg rounded-pill text-uppercase py-3" name="check_predictions" value="Check Predictions">Check Winning Predictions</button>
+                </h4>
+            </form> 
         </div>
     </div>
 </div>
