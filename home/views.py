@@ -58,18 +58,26 @@ def latest_predictions_with_matches(request):
                 match_info['match_info'] = 'Match 5 + 2'
             elif num_common_numbers == 5:
                 match_info['match_info'] = 'Match 5'
+            elif num_common_numbers == 4 and num_common_lucky_numbers == 2:
+                match_info['match_info'] = 'Match 4 + 2'
             elif num_common_numbers == 4 and num_common_lucky_numbers == 1:
                 match_info['match_info'] = 'Match 4 + 1'
             elif num_common_numbers == 4:
                 match_info['match_info'] = 'Match 4'
+            elif num_common_numbers == 3 and num_common_lucky_numbers == 2:
+                match_info['match_info'] = 'Match 3 + 2'
             elif num_common_numbers == 3 and num_common_lucky_numbers == 1:
                 match_info['match_info'] = 'Match 3 + 1'
             elif num_common_numbers == 3:
                 match_info['match_info'] = 'Match 3'
+            elif num_common_numbers == 2 and num_common_lucky_numbers == 2:
+                match_info['match_info'] = 'Match 2 + 2'
             elif num_common_numbers == 2 and num_common_lucky_numbers == 1:
                 match_info['match_info'] = 'Match 2 + 1'
             elif num_common_numbers == 2:
                 match_info['match_info'] = 'Match 2'
+            elif num_common_numbers == 1 and num_common_lucky_numbers == 2:
+                match_info['match_info'] = 'Match 1 + 2'
 
             if match_info['match_info']:
                 matches.append(match_info)
@@ -78,3 +86,4 @@ def latest_predictions_with_matches(request):
         return HttpResponse("Check terminal for match results.")
     else:
         return HttpResponse("This endpoint only accepts POST requests.")
+
