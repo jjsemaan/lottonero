@@ -31,7 +31,6 @@ def latest_predictions_with_matches(request):
         latest_date = Prediction.objects.aggregate(latest_date=Max('prediction_date'))['latest_date']
         latest_predictions = Prediction.objects.filter(prediction_date=latest_date)
 
-        matches = []
         for prediction in latest_predictions:
             prediction_numbers = {
                 prediction.pred_ball_1, prediction.pred_ball_2, prediction.pred_ball_3,
@@ -46,44 +45,36 @@ def latest_predictions_with_matches(request):
 
             common_numbers = prediction_numbers & draw_numbers
             common_lucky_numbers = prediction_lucky_numbers & draw_lucky_numbers
-            num_common_numbers = len(common_numbers)
-            num_common_lucky_numbers = len(common_lucky_numbers)
 
-            match_info = {
-                'prediction_id': prediction.id,
-                'match_info': None
-            }
+            # Determine the match type
+            match_info = determine_match_type(len(common_numbers), len(common_lucky_numbers))
 
-            if num_common_numbers == 5 and num_common_lucky_numbers == 2:
-                match_info['match_info'] = 'Match 5 + 2'
-            elif num_common_numbers == 5:
-                match_info['match_info'] = 'Match 5'
-            elif num_common_numbers == 4 and num_common_lucky_numbers == 2:
-                match_info['match_info'] = 'Match 4 + 2'
-            elif num_common_numbers == 4 and num_common_lucky_numbers == 1:
-                match_info['match_info'] = 'Match 4 + 1'
-            elif num_common_numbers == 4:
-                match_info['match_info'] = 'Match 4'
-            elif num_common_numbers == 3 and num_common_lucky_numbers == 2:
-                match_info['match_info'] = 'Match 3 + 2'
-            elif num_common_numbers == 3 and num_common_lucky_numbers == 1:
-                match_info['match_info'] = 'Match 3 + 1'
-            elif num_common_numbers == 3:
-                match_info['match_info'] = 'Match 3'
-            elif num_common_numbers == 2 and num_common_lucky_numbers == 2:
-                match_info['match_info'] = 'Match 2 + 2'
-            elif num_common_numbers == 2 and num_common_lucky_numbers == 1:
-                match_info['match_info'] = 'Match 2 + 1'
-            elif num_common_numbers == 2:
-                match_info['match_info'] = 'Match 2'
-            elif num_common_numbers == 1 and num_common_lucky_numbers == 2:
-                match_info['match_info'] = 'Match 1 + 2'
+            # Update the prediction instance
+            if match_info:
+                prediction.match_type = match_info
+                prediction.winning_balls = str(tuple(common_numbers))
+                prediction.winning_lucky_stars = str(tuple(common_lucky_numbers))
+                prediction.save()
 
-            if match_info['match_info']:
-                matches.append(match_info)
-                print(f"Match found: {match_info}")  # Output to the terminal
-
-        return HttpResponse("Check terminal for match results.")
+        return HttpResponse("Match results updated. Check the database for details.")
     else:
         return HttpResponse("This endpoint only accepts POST requests.")
+
+def determine_match_type(num_common_numbers, num_common_lucky_numbers):
+    match_cases = {
+        (5, 2): 'Match 5 + 2',
+        (5, 0): 'Match 5',
+        (4, 2): 'Match 4 + 2',
+        (4, 1): 'Match 4 + 1',
+        (4, 0): 'Match 4',
+        (3, 2): 'Match 3 + 2',
+        (3, 1): 'Match 3 + 1',
+        (3, 0): 'Match 3',
+        (2, 2): 'Match 2 + 2',
+        (2, 1): 'Match 2 + 1',
+        (2, 0): 'Match 2',
+        (1, 2): 'Match 1 + 2'
+    }
+    return match_cases.get((num_common_numbers, num_common_lucky_numbers))
+
 
