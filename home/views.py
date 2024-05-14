@@ -1,29 +1,41 @@
 from django.shortcuts import render
 from scraping.models import EuroMillionsResult
-
-# Create your views here.
+from predictions.models import Prediction
+from django.db.models import Max
 
 def index(request):
-    """ A view to return the index page """
+    """ A view to return the index page with latest draw results and latest winning predictions """
+    
+    # Fetch the latest draw result
+    try:
+        latest_result = EuroMillionsResult.objects.latest('id')
+    except EuroMillionsResult.DoesNotExist:
+        latest_result = None
+    
+    # Get the latest prediction date with non-null match_type
+    latest_date = Prediction.objects.filter(match_type__isnull=False).aggregate(latest_date=Max('prediction_date'))['latest_date']
+    
+    # Fetch all predictions with the latest date and non-null match_type
+    if latest_date:
+        latest_predictions = Prediction.objects.filter(prediction_date=latest_date, match_type__isnull=False)
+    else:
+        latest_predictions = []
 
-    return render(request, 'home/index.html')
-
-
-def latest_draw(request):
-    """ A view to return the last draw results from the db """
-    latest_result = EuroMillionsResult.objects.latest('id')
     context = {
         'latest_result': latest_result,
+        'latest_predictions': latest_predictions,
     }
+
     return render(request, 'home/index.html', context)
 
 
-from django.http import HttpResponse
 from django.shortcuts import render
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from scraping.models import EuroMillionsResult
 from predictions.models import Prediction
 from django.db.models import Max
+
 
 def latest_predictions_with_matches(request):
     if request.method == 'POST':
@@ -52,8 +64,8 @@ def latest_predictions_with_matches(request):
             # Update the prediction instance
             if match_info:
                 prediction.match_type = match_info
-                prediction.winning_balls = str(tuple(common_numbers))
-                prediction.winning_lucky_stars = str(tuple(common_lucky_numbers))
+                prediction.winning_balls = format_numbers(common_numbers)
+                prediction.winning_lucky_stars = format_numbers(common_lucky_numbers)
                 prediction.save()
 
         return HttpResponse("Match results updated. Check the database for details.")
@@ -77,4 +89,7 @@ def determine_match_type(num_common_numbers, num_common_lucky_numbers):
     }
     return match_cases.get((num_common_numbers, num_common_lucky_numbers))
 
-
+def format_numbers(numbers):
+    """Format a set of numbers as a comma-separated string, without extra commas for single numbers."""
+    numbers_list = list(numbers)
+    return ', '.join(map(str, numbers_list))
