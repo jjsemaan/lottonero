@@ -54,7 +54,6 @@ INSTALLED_APPS = [
     'predictions',
     'lottery_stats',
     'corsheaders',
-    'subscriptions',
 ]
 
 MIDDLEWARE = [
