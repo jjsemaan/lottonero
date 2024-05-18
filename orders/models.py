@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import timedelta
-from django_summernote.fields import SummernoteTextField
+from tinymce.models import HTMLField
 
 class SubscriptionType(models.Model):
     """
@@ -27,7 +27,7 @@ class SubscriptionType(models.Model):
 
     subscription_type = models.CharField(max_length=3, choices=SUBSCRIBE_TYPE_CHOICES, unique=True)
     name = models.CharField(max_length=100)
-    description = SummernoteTextField()
+    description = HTMLField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):

@@ -1,9 +1,12 @@
 from django.contrib import admin
-from .models import Subscription, SubscriptionType
-from django_summernote.admin import SummernoteModelAdmin
+from .models import SubscriptionType, Subscription
+from tinymce.widgets import TinyMCE
+from django.db import models
 
-class SubscriptionTypeAdmin(SummernoteModelAdmin):
-    summernote_fields = ('description',)
+class SubscriptionTypeAdmin(admin.ModelAdmin):
+    formfield_overrides = {
+        models.TextField: {'widget': TinyMCE()},
+    }
     list_display = ('name', 'subscription_type', 'price')
     search_fields = ('name', 'subscription_type')
 
