@@ -113,6 +113,23 @@ AUTHENTICATION_BACKENDS = [
 # Set up your site ID
 SITE_ID = 1
 
+# import environ
+
+# Initialize environment variables
+#env = environ.Env()
+
+# Take environment variables from .env file if it exists
+# environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+# Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.office365.com'
+EMAIL_PORT = 587  # Use 465 for SSL or 587 for TLS
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
