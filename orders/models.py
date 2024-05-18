@@ -1,10 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import timedelta
+from django_summernote.fields import SummernoteTextField
 
 class SubscriptionType(models.Model):
     """
-    Model representing a subscription type. Each subscription type has a code,
+    Model representing a subscription type (subscription plans). Each subscription type has an id,
     name, description, and price.
 
     Attributes:
@@ -26,7 +27,7 @@ class SubscriptionType(models.Model):
 
     subscription_type = models.CharField(max_length=3, choices=SUBSCRIBE_TYPE_CHOICES, unique=True)
     name = models.CharField(max_length=100)
-    description = models.TextField()
+    description = SummernoteTextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
