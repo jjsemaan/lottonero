@@ -18,7 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '8000-jjsemaan-lottonero-jwr574l49n.us1.codeanyapp.com',
@@ -112,11 +112,6 @@ AUTHENTICATION_BACKENDS = [
 # Configure Django-allauth settings
 # Set up your site ID
 SITE_ID = 1
-
-# import environ
-
-# Initialize environment variables
-#env = environ.Env()
 
 # Take environment variables from .env file if it exists
 # environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
