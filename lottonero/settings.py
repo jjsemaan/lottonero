@@ -1,6 +1,5 @@
 from pathlib import Path
 import os
-import environ
 import dj_database_url
 if os.path.isfile('env.py'):
     import env
@@ -23,7 +22,8 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     '8000-jjsemaan-lottonero-jwr574l49n.us1.codeanyapp.com',
-    'lottonero-e7dc9a7038d2.herokuapp.com'
+    'lottonero-e7dc9a7038d2.herokuapp.com',
+    'lottonero.com'
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -112,22 +112,6 @@ AUTHENTICATION_BACKENDS = [
 # Configure Django-allauth settings
 # Set up your site ID
 SITE_ID = 1
-
-
-# Initialize environment variables
-env = environ.Env()
-
-# Take environment variables from .env file if it exists
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.office365.com'
-EMAIL_PORT = 587  # Use 465 for SSL or 587 for TLS
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
-EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
