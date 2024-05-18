@@ -37,6 +37,7 @@ CSRF_TRUSTED_ORIGINS = [
 
 # Application definition
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -183,3 +184,9 @@ os.makedirs(STATIC_ROOT, exist_ok=True)
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Lottonero",
+    "site_header": "Lottonero Admin",
+}
