@@ -30,7 +30,7 @@
             position: relative;
         }
 
-        .col-md-8.text-left.backdrop-table{
+        .col-md-8.text-left.backdrop-table {
             padding-left: 0;
             padding-right: 0;
         }
@@ -41,7 +41,8 @@
             position: relative;
         }
 
-        .table td, .table th {
+        .table td,
+        .table th {
             padding: 5px;
             vertical-align: top;
             border-top: 1px solid #dee2e6;
@@ -78,7 +79,7 @@
             height: 100vh;
         }
 
-       
+
         @media (min-width: 576px) {
             .container {
                 max-width: 1140px;
@@ -100,8 +101,6 @@
             padding-left: 0;
             padding-right: 0;
         }
-
-    
     </style>
     {% endblock %}
 
@@ -186,7 +185,9 @@
         </div>
         <div class="row text-center">
             <div class="col bg-dark text-white">
-                <h4 class="logo-font my-2">Subscribe to start earning {{ subscribe_link }}!</h4>
+                <a href="{% url 'plans' %}">
+                    <h4 class="logo-font my-2">Subscribe now!</h4>
+                </a>
             </div>
         </div>
         <div class="container">

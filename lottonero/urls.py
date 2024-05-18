@@ -9,7 +9,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('predictions/', include('predictions.urls')),
     path('tinymce/', include('tinymce.urls')),
-    # path('orders/', include('orders.urls')),
+    path('orders/', include('orders.urls')),
     path('lottery_stats/', include('lottery_stats.urls')),
     path('scraping/', include(('scraping.urls', 'scraping'), namespace='scraping')),
     path('', include('home.urls')),

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+<div class="container header-container pt-5 mt-5">
+    <div class="row pt-5 mt-3">
+        <div class="col">
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<style>
+    .backdrop {
+        background-color: rgba(139, 139, 139, 0.6);
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <title>EuroMillions Subscription Plans</title>
+</head>
+
+<div class="container h-100">
+    <div class="row h-100">
+        <div class="col-md-6 col-xs-12 mt-5 backdrop">
+
+        </div>
+    </div>
+</div>
+<main>
+    <h1>Subscription Types</h1>
+    <div class="subscription-types">
+        {% for subscription in subscription_types %}
+        <div class="subscription-banner">
+            <h2>{{ subscription.name }}</h2>
+            <p>{{ subscription.description|safe }}</p>
+            <p>Price: ${{ subscription.price }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}
