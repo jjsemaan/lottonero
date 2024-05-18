@@ -1,7 +1,9 @@
 from django.contrib import admin
 from .models import Subscription, SubscriptionType
+from django_summernote.admin import SummernoteModelAdmin
 
-class SubscriptionTypeAdmin(admin.ModelAdmin):
+class SubscriptionTypeAdmin(SummernoteModelAdmin):
+    summernote_fields = ('description',)
     list_display = ('name', 'subscription_type', 'price')
     search_fields = ('name', 'subscription_type')
 
