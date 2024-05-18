@@ -51,12 +51,15 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
     'tinymce',
+    'crispy_forms',
+    'crispy_bootstrap4',
     'home',
     'scraping',
     'predictions',
     'lottery_stats',
     'corsheaders',
     'orders',
+    'user_profile',
 ]
 
 MIDDLEWARE = [
@@ -94,6 +97,8 @@ TEMPLATES = [
     },
 ]
 
+# CRISPY FORMS SETTINGS
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Configure authentication backends
 AUTHENTICATION_BACKENDS = [
@@ -185,8 +190,7 @@ os.makedirs(STATIC_ROOT, exist_ok=True)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 JAZZMIN_SETTINGS = {
     "site_title": "Lottonero",
-    "site_header": "Lottonero Admin",
+    "site_brand": "Lottonero",
 }
