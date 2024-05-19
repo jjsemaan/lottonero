@@ -18,6 +18,16 @@ header.masthead {
     background-size: cover;
 }
 
+header.masthead.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #212529;
+    opacity: 0.5;
+}
+
 .col-md-8.text-left.backdrop-table {
     padding-left: 0;
     padding-right: 0;
