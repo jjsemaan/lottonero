@@ -23,13 +23,6 @@
 
     {% block extra_css %}
     <style>
-        .backdrop {
-            background-color: rgba(139, 139, 139, 0.6);
-            padding: 2rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-
         .col-md-8.text-left.backdrop-table {
             padding-left: 0;
             padding-right: 0;
@@ -63,7 +56,7 @@
 
         /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
         .row.content {
-            height: 450px
+            height: auto;
         }
 
         /* Set gray background color and 100% height */
@@ -190,7 +183,7 @@
                 </a>
             </div>
         </div>
-        <div class="container">
+        <div class="bg-image">
             {% block content %}
             {% endblock %}
         </div>
