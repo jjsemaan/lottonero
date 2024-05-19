@@ -23,76 +23,12 @@
 
     {% block extra_css %}
     <style>
-        .col-md-8.text-left.backdrop-table {
-            padding-left: 0;
-            padding-right: 0;
-        }
-
-        .backdrop-table {
-            background-color: rgba(139, 139, 139, 0.6);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-
         .table td,
         .table th {
             padding: 5px;
             vertical-align: top;
             border-top: 1px solid #dee2e6;
             font: 12px Lato;
-        }
-
-        h2 {
-            margin-bottom: 0;
-            font-weight: 500;
-            line-height: 1.2;
-        }
-
-        /* Remove the navbar's default margin-bottom and rounded borders */
-        .navbar {
-            margin-bottom: 0;
-            border-radius: 0;
-        }
-
-        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-        .row.content {
-            height: auto;
-        }
-
-        /* Set gray background color and 100% height */
-        .sidenav {
-            padding-top: 20px;
-            background-color: #f1f1f1;
-            height: 100vh;
-        }
-
-        .sidenav-left {
-            padding-top: 20px;
-            background-color: #f1f1f1;
-            height: 100vh;
-        }
-
-
-        @media (min-width: 576px) {
-            .container {
-                max-width: 1140px;
-            }
-        }
-
-        @media (max-width: 767px) {
-            .sidenav-left {
-                display: none;
-            }
-        }
-
-        .container {
-            width: 100%;
-            padding: 0;
-        }
-
-        .container-fluid {
-            padding-left: 0;
-            padding-right: 0;
         }
     </style>
     {% endblock %}
@@ -183,9 +119,12 @@
                 </a>
             </div>
         </div>
-        <div class="bg-image">
-            {% block content %}
-            {% endblock %}
+        <div>
+            <header class="masthead"
+                style="background-image: url('https://res.cloudinary.com/dmebot5lf/image/upload/v1716146360/lottonero-bg1_xikr4v.jpg')">
+                {% block content %}
+                {% endblock %}
+            </header>
         </div>
     </div>
 

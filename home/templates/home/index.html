@@ -12,26 +12,32 @@
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-6 text-left">
-      <h2 class="logo-font text-white">
-        EuroMillions Results
-      </h2>
-      <h2 class="text-white">for {{ latest_result.draw_date }}</h2>
-      <h3 class="text-white">
-        {{ latest_result.ball_1 }} {{ latest_result.ball_2 }}
-        {{ latest_result.ball_3 }} {{ latest_result.ball_4 }}
-        {{ latest_result.ball_5 }} {{ latest_result.lucky_star_1 }}
-        {{ latest_result.lucky_star_2 }}
-      </h3>
-      <h2 class="text-white">
-        {{latest_result.jackpot}}
-      </h2>
-      <p class="text-white">
-        {{latest_result.prize_breakdown}}
-      </p>
-      <hr style="background-color: white; height: 0.5px; border: none;">
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6 text-left">
+        <h2 class="logo-font text-white">
+          EuroMillions Results
+        </h2>
+        <h2 class="text-white">for {{ latest_result.draw_date }}</h2>
+        <h3 class="text-white">
+          {{ latest_result.ball_1 }} {{ latest_result.ball_2 }}
+          {{ latest_result.ball_3 }} {{ latest_result.ball_4 }}
+          {{ latest_result.ball_5 }} {{ latest_result.lucky_star_1 }}
+          {{ latest_result.lucky_star_2 }}
+        </h3>
+        <h2 class="text-white">
+          {{latest_result.jackpot}}
+        </h2>
+        <p class="text-white">
+          {{latest_result.prize_breakdown}}
+        </p>
+        <hr style="background-color: white; height: 0.5px; border: none;">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 text-left"></div>
+
       <h2 class="text-white">Our Latest Winning Predictions</h2>
       <!-- Debug statement -->
       <p class="text-white">Predictions Count: {{ latest_predictions|length }}</p>
@@ -50,12 +56,12 @@
         <tbody>
           {% for prediction in latest_predictions %}
           <tr>
-            
-            <td>{{ prediction.pred_ball_1 }}, 
-                {{ prediction.pred_ball_2 }}, 
-                {{ prediction.pred_ball_3 }}, 
-                {{ prediction.pred_ball_4 }}, 
-                {{ prediction.pred_ball_5 }}
+
+            <td>{{ prediction.pred_ball_1 }},
+              {{ prediction.pred_ball_2 }},
+              {{ prediction.pred_ball_3 }},
+              {{ prediction.pred_ball_4 }},
+              {{ prediction.pred_ball_5 }}
             </td>
             <td>{{ prediction.pred_lucky_1 }}, {{ prediction.pred_lucky_2 }}</td>
             <td>{{ prediction.winning_balls }}</td>
@@ -68,7 +74,7 @@
       {% else %}
       <p>No predictions available for the latest date with non-null match type.</p>
       {% endif %}
-      
+
       {% if user.is_authenticated %}
       <h4>
         <a href="{% url 'predictions' %}" class="predict-button btn rounded-pill text-uppercase"
@@ -82,5 +88,6 @@
       {% endif %}
     </div>
   </div>
-</div>
+  </div>
+
 {% endblock %}

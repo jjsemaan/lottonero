@@ -10,13 +10,43 @@ body {
     font-family: 'Lato', sans-serif;
 }
 
-.bg-image {
-    background: url('https://res.cloudinary.com/dmebot5lf/image/upload/v1716138781/lottonero-bg_r9h0io.jpg') no-repeat center center;
-    background-size: contain;
-    width: 100vw;
-    height: auto;  /* Allow the height to be flexible based on content */
+header.masthead {
+    background: no-repeat center center;
+    background-color: #868e96;
+    background-attachment: scroll;
     position: relative;
-    box-sizing: border-box;  /* Ensure padding is included in the div size */
+    background-size: cover;
+}
+
+.col-md-8.text-left.backdrop-table {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.backdrop-table {
+    background-color: rgba(139, 139, 139, 0.6);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.table td,
+.table th {
+    padding: 5px;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+    font: 12px Lato;
+}
+
+@media (min-width: 576px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+@media (max-width: 767px) {
+    .sidenav-left {
+        display: none;
+    }
 }
 
 .row {
