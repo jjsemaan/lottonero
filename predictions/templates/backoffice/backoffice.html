@@ -29,24 +29,31 @@
 <div class="container h-100">
     <div class="row h-100">
         <div class="col-md-6 col-xs-12 mt-5 backdrop">
+            {% if user.is_authenticated and user.is_staff %}
             <form action="{% url 'train_classifier' %}" method="post">
                 {% csrf_token %}
                 <h4>
-                    <button type="submit" class="predict-button btn btn-lg rounded-pill text-uppercase py-3" name="train" value="Start Training">Run Prediction</button>
-                </h4> 
+                    <button type="submit" class="predict-button btn btn-lg rounded-pill text-uppercase py-3"
+                        name="train" value="Start Training">Run Prediction</button>
+                </h4>
             </form>
             <form method="post" action="{% url 'scraping:run_scrape_euromillions' %}">
                 {% csrf_token %}
                 <h4>
-                    <button type="submit" class="predict-button btn btn-lg rounded-pill text-uppercase py-3" name="train" value="Start Training">Scrape EuroMillions Results</button>
-                </h4> 
+                    <button type="submit" class="predict-button btn btn-lg rounded-pill text-uppercase py-3"
+                        name="train" value="Start Training">Scrape EuroMillions Results</button>
+                </h4>
             </form>
             <form method="post" action="{% url 'latest_predictions_with_matches' %}">
                 {% csrf_token %}
                 <h4>
-                    <button type="submit" class="predict-button btn btn-lg rounded-pill text-uppercase py-3" name="check_predictions" value="Check Predictions">Check Winning Predictions</button>
+                    <button type="submit" class="predict-button btn btn-lg rounded-pill text-uppercase py-3"
+                        name="check_predictions" value="Check Predictions">Check Winning Predictions</button>
                 </h4>
-            </form> 
+            </form>
+            {% else %}
+            <p class="text-center">You must be an admin to perform these actions.</p>
+            {% endif %}
         </div>
     </div>
 </div>

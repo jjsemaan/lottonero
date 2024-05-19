@@ -1,22 +1,25 @@
 <style>
     ul.list-inline {
-        margin: 0 !important;  /* Ensures this rule takes precedence */
+        margin: 0 !important;
+        /* Ensures this rule takes precedence */
     }
 </style>
 
 <div class="collapse navbar-collapse" id="main-nav">
     <ul class="navbar-nav w-auto mx-auto">
-            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'home' %}" aria-haspopup="true">
-                Home
-            </a>
+        <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'home' %}" aria-haspopup="true">
+            Home
+        </a>
         <li class="nav-item dropdown">
-            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'predictions' %}" aria-haspopup="true">
+            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'predictions' %}"
+                aria-haspopup="true">
                 Predictions
             </a>
         </li>
 
         <li class="nav-item dropdown">
-            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="#" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
                 Statistics
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="specials-link">
@@ -27,7 +30,8 @@
         </li>
 
         <li class="nav-item dropdown">
-            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="#" id="specials-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="#" id="specials-link"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 About Us
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="specials-link">
@@ -37,11 +41,13 @@
                 <a href="" class="dropdown-item">All Specials</a>
             </div>
         </li>
+        {% if user.is_authenticated and user.is_staff %}
         <li class="nav-item dropdown">
             <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'backoffice' %}">
                 Backoffice
             </a>
         </li>
+        {% endif %}
         <!--
         {% if user.is_authenticated and user.is_staff %}
             <li class="nav-item dropdown">
