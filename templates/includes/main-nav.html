@@ -48,6 +48,14 @@
             </a>
         </li>
         {% endif %}
+        {% if request.user.is_authenticated %}
+        <li class="nav-item dropdown">
+            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'account_logout' %}"
+                aria-haspopup="true">
+                Logout
+            </a>
+        </li>
+        {% endif %}
         <!--
         {% if user.is_authenticated and user.is_staff %}
             <li class="nav-item dropdown">
