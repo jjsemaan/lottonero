@@ -45,8 +45,8 @@ def train_classifier(request):
         y_balls_arr = y_balls.values
         y_lucky_arr = y_lucky.values
 
-        X_train_balls, X_test_balls, y_train_balls, y_test_balls = train_test_split(X_arr, y_balls_arr, test_size=0.2, random_state=42)
-        X_train_lucky, X_test_lucky, y_train_lucky, y_test_lucky = train_test_split(X_arr, y_lucky_arr, test_size=0.2, random_state=42)
+        X_train_balls, X_test_balls, y_train_balls, y_test_balls = train_test_split(X_arr, y_balls_arr, test_size=0.3, random_state=42)
+        X_train_lucky, X_test_lucky, y_train_lucky, y_test_lucky = train_test_split(X_arr, y_lucky_arr, test_size=0.3, random_state=42)
 
         rf_classifier_balls = RandomForestClassifier(n_estimators=100, random_state=42)
         rf_classifier_lucky = RandomForestClassifier(n_estimators=100, random_state=42)

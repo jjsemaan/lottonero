@@ -4,9 +4,22 @@ from predictions.models import Prediction
 from django.db.models import Max
 
 def index(request):
-    """ A view to return the index page with latest draw results and latest winning predictions """
+    """
+    A view to return the index page with the latest draw results and latest winning predictions.
+
+    This view fetches the latest EuroMillions draw result from the database. It also identifies the 
+    latest prediction date where predictions have a non-null match type and fetches all predictions 
+    for that date. The context containing the latest draw result and predictions is then passed to 
+    the 'index.html' template for rendering.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        HttpResponse: The rendered 'index.html' template with the context containing latest_result and 
+        latest_predictions.
+    """    
     
-    # Fetch the latest draw result
     try:
         latest_result = EuroMillionsResult.objects.latest('id')
     except EuroMillionsResult.DoesNotExist:
@@ -38,6 +51,22 @@ from django.db.models import Max
 
 
 def latest_predictions_with_matches(request):
+    """
+    A view to update the latest predictions with matching results against the latest EuroMillions draw.
+
+    This view is triggered by a POST request. It fetches the latest draw result and the latest predictions,
+    then compares each prediction's numbers against the draw numbers. It updates each prediction with the 
+    match type, the matching balls, and the matching lucky stars. The updated prediction is then saved back 
+    to the database.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        HttpResponse: A simple text response indicating whether the match results were updated or if 
+        the endpoint was accessed with a non-POST request.
+    """
+    
     if request.method == 'POST':
         latest_result = EuroMillionsResult.objects.latest('id')
         latest_date = Prediction.objects.aggregate(latest_date=Max('prediction_date'))['latest_date']
