@@ -11,6 +11,23 @@
 </div>
 {% endblock %}
 
+{% block subscribe_now %}
+<div class="row text-center">
+    <div class="col bg-dark text-white">
+            <h6 class="logo-font my-2">Subscriptions start from € 9.99 / month </h6>
+    </div>
+</div>
+{% endblock %}
+
+{% block header_content %}
+<div class="masthead-content">
+  <h2>Increase odds of winning by over 25%</h2>
+  <h4>Our total wins till date are € 2,599 {{ total_wins_till_date }}</h4>
+  <h2>{{ latest_result.jackpot }}</h2>
+  <p>Select from a variety a variety of subscriptions to suit your playing needs!</p>
+</div>
+{% endblock %}
+
 {% block content %}
 
 <head>
