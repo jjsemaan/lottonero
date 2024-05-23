@@ -11,6 +11,7 @@ urlpatterns = [
     path('tinymce/', include('tinymce.urls')),
     path('orders/', include('orders.urls')),
     path('lottery_stats/', include('lottery_stats.urls')),
+    path('cart/', include('cart.urls')),
     path('scraping/', include(('scraping.urls', 'scraping'), namespace='scraping')),
     path('', include('home.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
