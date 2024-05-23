@@ -10,34 +10,26 @@
 </div>
 {% endblock %}
 
-{% block content %}
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-6 text-left">
-        <h2 class="logo-font text-white">
-          EuroMillions Results
-        </h2>
-        <h2 class="text-white">for {{ latest_result.draw_date }}</h2>
-        <h3 class="text-white">
-          {{ latest_result.ball_1 }} {{ latest_result.ball_2 }}
-          {{ latest_result.ball_3 }} {{ latest_result.ball_4 }}
-          {{ latest_result.ball_5 }} {{ latest_result.lucky_star_1 }}
-          {{ latest_result.lucky_star_2 }}
-        </h3>
-        <h2 class="text-white">
-          {{latest_result.jackpot}}
-        </h2>
-        <p class="text-white">
-          {{latest_result.prize_breakdown}}
-        </p>
-        <hr style="background-color: white; height: 0.5px; border: none;">
+{% block header_content %}
+<div class="masthead-content">
+  <h2>EUROMILLIONS RESULTS</h2>
+  <h3>for {{ latest_result.draw_date }}</h3>
+  <h3>{{ latest_result.ball_1 }} {{ latest_result.ball_2 }} {{ latest_result.ball_3 }} {{ latest_result.ball_4 }} {{ latest_result.ball_5 }} {{ latest_result.lucky_star_1 }} {{ latest_result.lucky_star_2 }}</h3>
+  <h2>{{ latest_result.jackpot }}</h2>
+  <p>There was no winner of the EuroMillions jackpot. In total, over 32,000 players in Ireland won prizes in the EuroMillions and Plus games.</p>
+</div>
+{% endblock %}
 
-      <h2 class="text-white">Our Latest Winning Predictions</h2>
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h2 class="text-dark">Our Latest Winning Predictions</h2>
       <!-- Debug statement -->
-      <p class="text-white">Predictions Count: {{ latest_predictions|length }}</p>
+      <p class="text-dark">Predictions Count: {{ latest_predictions|length }}</p>
 
       {% if latest_predictions %}
-      <table class="table table-striped table-bordered text-white">
+      <table class="table table-striped table-bordered text-dark">
         <thead>
           <tr>
             <th>Predictions</th>
@@ -67,7 +59,10 @@
       {% else %}
       <p>No predictions available for the latest date with non-null match type.</p>
       {% endif %}
-
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 text-center">
       {% if user.is_authenticated %}
       <h4>
         <a href="{% url 'predictions' %}" class="predict-button btn rounded-pill text-uppercase"
@@ -81,5 +76,5 @@
       {% endif %}
     </div>
   </div>
-  </div>
+</div>
 {% endblock %}

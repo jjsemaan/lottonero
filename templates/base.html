@@ -38,7 +38,7 @@
         .masthead {
             position: relative;
             width: 100%;
-            height: 100vh;
+            height: auto;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -46,14 +46,23 @@
             text-align: center;
         }
 
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+        .masthead-content {
+            position: relative;
+            z-index: 2;
+            background: rgba(7, 7, 7, 0.8);  /* Semi-transparent white background */
+            border-radius: 15px;  /* Rounded corners */
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 80%;  /* Adjust the width as needed */
         }
+
+        .content-below-bg {
+            position: relative;
+            background: white;
+            padding: 20px;
+            z-index: 1;
+        }
+        
     </style>
     {% endblock %}
 
@@ -143,13 +152,17 @@
                 </a>
             </div>
         </div>
-        <div>
-            <header class="masthead"
-                style="background-image: url('https://res.cloudinary.com/dmebot5lf/image/upload/v1716495659/The_AI_Lotto_Prediction_for_Euro_Millions_vqoh4y.webp')">
-                <div class="overlay"></div>
-                {% block content %}
-                {% endblock %}
-            </header>
+        <header class="masthead pt-5 pb-5"
+            style="background-image: url('https://res.cloudinary.com/dmebot5lf/image/upload/v1716495659/The_AI_Lotto_Prediction_for_Euro_Millions_vqoh4y.webp')">
+            <div class="container">
+                
+                    {% block header_content %}
+                    {% endblock %}
+                
+            </div>
+        </header>
+        <div class="content-below-bg">
+            {% block content %}{% endblock %}
         </div>
     </div>
 
