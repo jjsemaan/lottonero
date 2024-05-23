@@ -21,16 +21,21 @@
 
 <main>
     <style>
-
         .row {
             margin: 0;
         }
 
         .card-body {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+            color: black;
+        }
+
+        .card-title,
+        .card-text {
+            color: black;
         }
 
         .price-text {
@@ -42,7 +47,6 @@
             display: flex;
             justify-content: center;
         }
-
     </style>
     <div class="row subscription-types d-flex flex-wrap justify-content-center">
         {% for subscription in subscription_types %}

@@ -5,18 +5,16 @@
 <div class="container header-container pt-5 mt-5">
   <div class="row pt-5 mt-3">
     <div class="col">
-
     </div>
   </div>
 </div>
 {% endblock %}
 
 {% block content %}
-
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-6 text-left">
-        <h2 class="logo-font poetsen-one-regular text-white">
+        <h2 class="logo-font text-white">
           EuroMillions Results
         </h2>
         <h2 class="text-white">for {{ latest_result.draw_date }}</h2>
@@ -52,7 +50,6 @@
         <tbody>
           {% for prediction in latest_predictions %}
           <tr>
-
             <td>{{ prediction.pred_ball_1 }},
               {{ prediction.pred_ball_2 }},
               {{ prediction.pred_ball_3 }},
@@ -85,5 +82,4 @@
     </div>
   </div>
   </div>
-
 {% endblock %}
