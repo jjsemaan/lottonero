@@ -20,20 +20,43 @@
 </head>
 
 <main>
-    <div class="subscription-types d-flex flex-wrap justify-content-center">
+    <style>
+
+        .row {
+            margin: 0;
+        }
+
+        .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        text-align: center;
+        }
+
+        .price-text {
+            margin-top: auto;
+        }
+
+        .btn-container {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+        }
+
+    </style>
+    <div class="row subscription-types d-flex flex-wrap justify-content-center">
         {% for subscription in subscription_types %}
         <div class="card m-2" style="width: 18rem;">
             <div class="card-body">
                 <h2 class="card-title">{{ subscription.name }}</h2>
                 <p class="card-text">{{ subscription.description|safe }}</p>
-                <p class="card-text">Price: €{{ subscription.price }}</p>
-                <a href="#" class="btn btn-primary">Purchase</a>
+                <p class="card-text price-text">Price: €{{ subscription.price }}</p>
+                <div class="btn-container">
+                    <a href="#" class="btn btn-primary">Purchase</a>
+                </div>
             </div>
         </div>
         {% endfor %}
     </div>
 </main>
-
-
-
 {% endblock %}
