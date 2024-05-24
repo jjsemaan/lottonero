@@ -22,7 +22,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato&display=swap">
-    <link rel="stylesheet" href="{% static 'css/base.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" rel="stylesheet">
     {% endblock %}
 
     {% block extra_css %}
@@ -63,6 +63,12 @@
             z-index: 1;
         }
         
+        .ball-images img {
+            width: 50px; /* Set the desired width */
+            height: auto; /* Maintain aspect ratio */
+            max-width: 100%;
+            margin: 5px; /* Optional: Add some space between images */
+        }
     </style>
     {% endblock %}
 

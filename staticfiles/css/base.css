@@ -52,6 +52,13 @@ header.masthead .overlay {
     font: 12px Lato;
 }
 
+.ball-images img {
+    width: 50px; /* Set the desired width */
+    height: auto; /* Maintain aspect ratio */
+    max-width: 100%;
+    margin: 5px; /* Optional: Add some space between images */
+}
+
 @media (min-width: 576px) {
     .container {
         max-width: 1140px;
