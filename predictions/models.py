@@ -16,5 +16,8 @@ class Prediction(models.Model):
     winning_balls = models.CharField(max_length=50, blank=True, null=True)  # Stored as a string
     winning_lucky_stars = models.CharField(max_length=50, blank=True, null=True)  # Stored as a string
 
+    # New field for win amount
+    win_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+
     def __str__(self):
         return f"Prediction on {self.prediction_date} - {self.match_type if self.match_type else 'No match'}"

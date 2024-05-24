@@ -48,6 +48,7 @@
       <table class="table table-striped table-bordered text-dark">
         <thead>
           <tr>
+            <th>Draw Date</th>
             <th>Predictions</th>
             <th>Lucky Stars</th>
             <th>Winning Balls</th>
@@ -58,7 +59,9 @@
         <tbody>
           {% for prediction in latest_predictions %}
           <tr>
-            <td>{{ prediction.pred_ball_1 }},
+            <td>{{ prediction.draw_date }}</td>
+            <td>
+              {{ prediction.pred_ball_1 }},
               {{ prediction.pred_ball_2 }},
               {{ prediction.pred_ball_3 }},
               {{ prediction.pred_ball_4 }},
