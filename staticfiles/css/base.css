@@ -6,7 +6,7 @@ body {
     background-color: #000000;
     margin: 0;
     height: 100vh;
-    color: #fff;  /* Change to white for better contrast */
+    color: #fff;
 }
 
 header.masthead {
@@ -27,11 +27,6 @@ header.masthead .overlay {
     opacity: 0.5;
 }
 
-.poetsen-one-regular {
-    font-family: "Poetsen One", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }  
 
 .col-md-8.text-left.backdrop-table {
     padding-left: 0;

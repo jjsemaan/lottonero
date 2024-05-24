@@ -22,6 +22,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato&display=swap">
+    <link rel="stylesheet" href="https://use.typekit.net/tnq1vnk.css">
     <link rel="stylesheet" href="{% static 'css/base.css' %}" rel="stylesheet">
     {% endblock %}
 
@@ -57,9 +58,23 @@
             border-radius: 15px;  /* Rounded corners */
             padding: 20px;
             margin: 20px auto;
-            max-width: 80%;  /* Adjust the width as needed */
+            max-width: 60%;  /* Adjust the width as needed */
         }
-    
+        
+        .header-font {
+            font-family: "futura-pt", sans-serif;
+            font-weight: 800;
+            font-style: normal;
+        }
+
+        .header-button-font {
+            font-family: "futura-pt-condensed", sans-serif;
+            font-weight: 500;
+            font-style: normal;
+            background-color: rgb(255, 221, 0);
+            color: black;
+        }
+
         .content-below-bg {
             position: relative;
             background: white;
@@ -196,7 +211,8 @@
             </div>
         </header>
         <div class="content-below-bg">
-            {% block content %}{% endblock %}
+            {% block content %}
+            {% endblock %}
         </div>
     </div>
 
