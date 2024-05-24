@@ -14,7 +14,8 @@
 <div class="masthead-content">
   <h2>EUROMILLIONS RESULTS</h2>
   <h3>for {{ latest_result.draw_date }}</h3>
-  <div class="ball-images">
+  
+  <div class="ball-images justify-content-center">
     <!-- Balls -->
     <img src="{{ MEDIA_URL }}{% if latest_result.ball_1 < 10 %}0{{ latest_result.ball_1 }}{% else %}{{ latest_result.ball_1 }}{% endif %}.webp" alt="Ball {{ latest_result.ball_1 }}">
     <img src="{{ MEDIA_URL }}{% if latest_result.ball_2 < 10 %}0{{ latest_result.ball_2 }}{% else %}{{ latest_result.ball_2 }}{% endif %}.webp" alt="Ball {{ latest_result.ball_2 }}">
@@ -23,8 +24,10 @@
     <img src="{{ MEDIA_URL }}{% if latest_result.ball_5 < 10 %}0{{ latest_result.ball_5 }}{% else %}{{ latest_result.ball_5 }}{% endif %}.webp" alt="Ball {{ latest_result.ball_5 }}">
     
     <!-- Lucky Stars -->
-    <img src="{{ MEDIA_URL }}star{{ latest_result.lucky_star_1 }}.webp" alt="Lucky Star {{ latest_result.lucky_star_1 }}">
-    <img src="{{ MEDIA_URL }}star{{ latest_result.lucky_star_2 }}.webp" alt="Lucky Star {{ latest_result.lucky_star_2 }}">
+    <div class="lucky-stars justify-content-center">
+      <img src="{{ MEDIA_URL }}star{{ latest_result.lucky_star_1 }}.webp" alt="Lucky Star {{ latest_result.lucky_star_1 }}">
+      <img src="{{ MEDIA_URL }}star{{ latest_result.lucky_star_2 }}.webp" alt="Lucky Star {{ latest_result.lucky_star_2 }}">
+    </div>
   </div>
   <p>{{ latest_result.prize_breakdown }}</p>
 </div>
