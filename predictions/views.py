@@ -29,11 +29,23 @@ import pandas as pd
 from .models import Prediction
 from django.views.decorators.csrf import csrf_protect
 from django.utils import timezone
-
+from django.http import HttpResponseBadRequest
+import datetime
 
 @csrf_protect
 def train_classifier(request):
     if request.method == 'POST':
+        draw_date = request.POST.get('draw_date')
+        if not draw_date:
+            return HttpResponseBadRequest("Draw date is required.")
+
+        # Convert the draw_date to YYYY/MM/DD format
+        try:
+            draw_date_obj = datetime.datetime.strptime(draw_date, '%Y-%m-%d')
+            draw_date_str = draw_date_obj.strftime('%Y/%m/%d')
+        except ValueError:
+            return HttpResponseBadRequest("Invalid date format.")
+
         data = EuroMillionsResult.objects.values('ball_1', 'ball_2', 'ball_3', 'ball_4', 'ball_5', 'lucky_star_1', 'lucky_star_2')
         df = pd.DataFrame(list(data))
         
@@ -77,6 +89,7 @@ def train_classifier(request):
                         unique_full_sets.add(full_set)
                         prediction = Prediction(
                             prediction_date=today_str,
+                            draw_date=draw_date_str,
                             pred_ball_1=ball_pred[0],
                             pred_ball_2=ball_pred[1],
                             pred_ball_3=ball_pred[2],

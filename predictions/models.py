@@ -2,7 +2,7 @@ from django.db import models
 
 class Prediction(models.Model):
     prediction_date = models.CharField(max_length=10)  # YYYY/MM/DD format
-    draw_date = models.DateField(null=True, blank=True)  # New field for draw date
+    draw_date = models.CharField(max_length=10, null=True, blank=True)  # New field for draw date
     pred_ball_1 = models.IntegerField()
     pred_ball_2 = models.IntegerField()
     pred_ball_3 = models.IntegerField()

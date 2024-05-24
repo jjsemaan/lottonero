@@ -32,6 +32,10 @@
             {% if user.is_authenticated and user.is_staff %}
             <form action="{% url 'train_classifier' %}" method="post">
                 {% csrf_token %}
+                <div class="form-group">
+                    <label for="draw_date">Select Draw Date:</label>
+                    <input type="date" id="draw_date" name="draw_date" class="form-control" required>
+                </div>
                 <h4>
                     <button type="submit" class="predict-button btn btn-lg rounded-pill text-uppercase py-3"
                         name="train" value="Start Training">Run Prediction</button>
