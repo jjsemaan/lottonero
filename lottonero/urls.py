@@ -13,4 +13,7 @@ urlpatterns = [
     path('lottery_stats/', include('lottery_stats.urls')),
     path('scraping/', include(('scraping.urls', 'scraping'), namespace='scraping')),
     path('', include('home.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

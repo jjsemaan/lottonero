@@ -24,10 +24,8 @@
     <img src="{{ MEDIA_URL }}{% if latest_result.ball_5 < 10 %}0{{ latest_result.ball_5 }}{% else %}{{ latest_result.ball_5 }}{% endif %}.webp" alt="Ball {{ latest_result.ball_5 }}">
     
     <!-- Lucky Stars -->
-    <div class="lucky-stars justify-content-center">
-      <img src="{{ MEDIA_URL }}star{{ latest_result.lucky_star_1 }}.webp" alt="Lucky Star {{ latest_result.lucky_star_1 }}">
-      <img src="{{ MEDIA_URL }}star{{ latest_result.lucky_star_2 }}.webp" alt="Lucky Star {{ latest_result.lucky_star_2 }}">
-    </div>
+    <img src="{{ MEDIA_URL }}star{{ latest_result.lucky_star_1 }}.webp" alt="Lucky Star {{ latest_result.lucky_star_1 }}">
+    <img src="{{ MEDIA_URL }}star{{ latest_result.lucky_star_2 }}.webp" alt="Lucky Star {{ latest_result.lucky_star_2 }}">
   </div>
   <p>{{ latest_result.prize_breakdown }}</p>
 </div>
