@@ -48,6 +48,10 @@
 
         .masthead-content {
             position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
             z-index: 2;
             background: rgba(7, 7, 7, 0.8);  /* Semi-transparent white background */
             border-radius: 15px;  /* Rounded corners */
@@ -55,7 +59,7 @@
             margin: 20px auto;
             max-width: 80%;  /* Adjust the width as needed */
         }
-
+    
         .content-below-bg {
             position: relative;
             background: white;
@@ -63,25 +67,33 @@
             z-index: 1;
         }
         
+
         .ball-images {
             display: flex;
-            align-items: center; /* Center items vertically */
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0; /* Space above and below the images */
         }
 
         .ball-images img {
-            width: 50px; /* Set the desired width */
-            height: auto; /* Maintain aspect ratio */
-            max-width: 100%;
-            margin: 5px; /* Optional: Add some space between images */
+            width: 50px; /* Adjust size as needed */
+            height: auto;
+            margin: 5px; /* Space between images */
         }
 
-        .lucky-stars {
-            display: flex;
-            margin-left: 20px; /* Add space to the left of the lucky stars container */
+        /* Media query for screens 323px wide or less */
+        @media (max-width: 323px) {
+            .masthead-content h2 {
+                font-size: 1.5em; /* Smaller font size for small screens */
+            }
         }
 
-        .lucky-stars img {
-            margin-left: 10px; /* Add space between the lucky stars */
+        @media (max-width: 640px) {
+            .ball-images img {
+                width: 40px; /* Adjust size as needed */
+                height: auto;
+                margin: 3px; /* Space between images */
+            }
         }
     </style>
     {% endblock %}
