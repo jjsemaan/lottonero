@@ -60,6 +60,7 @@
       <table class="table text-dark">
         <thead>
           <tr class="text-center align-middle">
+            <th class="font-weight-bold">ID</th>
             <th class="font-weight-bold">Draw Date</th>
             <th class="font-weight-bold">Winning Balls</th>
             <th class="font-weight-bold">Win Type</th>
@@ -69,6 +70,7 @@
         <tbody>
           {% for prediction in latest_predictions %}
           <tr class="table-balls">
+            <td class="text-center align-middle">{{ prediction.id }}</td>
             <td class="text-center align-middle">{{ prediction.draw_date }}</td>
             <td class="text-center align-middle">
               {% with winning_balls_list=prediction.winning_balls|split_and_strip|map_to_int winning_stars_list=prediction.winning_lucky_stars|split_and_strip|map_to_int %}

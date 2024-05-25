@@ -34,15 +34,17 @@
         <table class="table">
             <thead>
                 <tr>
+                    <th class="text-center align-middle font-weight-bold">ID</th>
                     <th class="text-center align-middle font-weight-bold">Draw Date</th>
                     <th class="text-center align-middle font-weight-bold">Winning Balls</th>
                     <th class="text-center align-middle font-weight-bold">Match Type</th>
-                    <th class="text-center align-middle font-weight-bold">Win Amount</th>
+                    <th class="text-center align-middle font-weight-bold">€</th>
                 </tr>
             </thead>
             <tbody>
                 {% for prediction in alltime_winning_predictions %}
                 <tr class="table-balls">
+                    <td class="text-center align-middle">{{ prediction.id }}</td>
                     <td class="text-center align-middle">{{ prediction.draw_date }}</td>
                     <td class="text-center align-middle">
                         {% with winning_balls_list=prediction.winning_balls|split_and_strip|map_to_int winning_stars_list=prediction.winning_lucky_stars|split_and_strip|map_to_int %}
