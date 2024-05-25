@@ -62,10 +62,10 @@
       <table class="table text-dark">
         <thead>
           <tr class="text-center align-middle">
-            <th>Draw Date</th>
-            <th>Winning Predictions</th>
-            <th>Win Type</th>
-            <th>€</th>
+            <th class="font-weight-bold">Draw Date</th>
+            <th class="font-weight-bold">Latest Winning Predictions</th>
+            <th class="font-weight-bold">Win Type</th>
+            <th class="font-weight-bold">€</th>
           </tr>
         </thead>
         <tbody>
@@ -102,32 +102,16 @@
             <td class="text-center align-middle">{{ prediction.win_amount }}</td>
           </tr>
           {% endfor %}
-        </tbody>
-
-      </table>
-      {% else %}
-      <p>No predictions available for the latest date with non-null match type.</p>
-      {% endif %}
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12 text-center">
-      <h2 class="text-dark">Our Latest Winning Predictions</h2>
-      <!-- Debug statement -->
-      <p class="text-dark">Predictions Count: {{ latest_predictions|length }}</p>
-
-      {% if latest_predictions %}
-      <table class="table text-dark">
-        <thead>
-          <tr class="text-center align-middle">
-            <th>Draw Date</th>
-            <th>Winning Predictions</th>
-            <th>Win Type</th>
-            <th>€</th>
+          {% else %}
+            <p>No winning predictions for the above draw.</p>
+          {% endif %}
+          <tr class="table-balls">
+            <td class="text-center align-middle"></td>
+            <td class="text-center align-middle font-weight-bold">Alltime Winning Predictions</td>
+            <td class="text-center align-middle"></td>
+            <td class="text-center align-middle"></td>
           </tr>
-        </thead>
-        <tbody>
+
           {% for prediction in alltime_winning_predictions %}
           <tr class="table-balls">
             <td class="text-center align-middle">{{ prediction.draw_date }}</td>
@@ -161,6 +145,29 @@
             <td class="text-center align-middle">{{ prediction.win_amount }}</td>
           </tr>
           {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h2 class="text-dark">Our Latest Winning Predictions</h2>
+      <!-- Debug statement -->
+      <p class="text-dark">Predictions Count: {{ latest_predictions|length }}</p>
+
+      {% if latest_predictions %}
+      <table class="table text-dark">
+        <thead>
+          <tr class="text-center align-middle">
+            <th>Draw Date</th>
+            <th>Winning Predictions</th>
+            <th>Win Type</th>
+            <th>€</th>
+          </tr>
+        </thead>
+        <tbody>
+          
         </tbody>
       </table>
       {% else %}
