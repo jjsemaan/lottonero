@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block page_header %}
+<div class="container header-container pt-5 mt-5">
+    <div class="row pt-5 mt-3">
+        <div class="col">
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block header_content %}
+<div class="my-3 pt-5 pb-5 justify-content-center">
+    <h1 class="header-font">AI Lotto Predictions</h1>
+    <h1 class="header-font">for EuroMillions</h1>
+    <a href="#" class="btn btn-lg header-button-font rounded-pill text-uppercase mt-3">Get Predictions</a>
+</div>
+{% endblock %}
+
+{% block content %}
+{% load custom_filters %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Alltime Winning Predictions</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center my-4">Lottonero's Alltime Winning Predictions</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-center align-middle font-weight-bold">Draw Date</th>
+                    <th class="text-center align-middle font-weight-bold">Predicted Winning Balls</th>
+                    <th class="text-center align-middle font-weight-bold">Match Type</th>
+                    <th class="text-center align-middle font-weight-bold">Win Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for prediction in alltime_winning_predictions %}
+                <tr class="table-balls">
+                    <td class="text-center align-middle">{{ prediction.draw_date }}</td>
+                    <td class="text-center align-middle">
+                        {% with winning_balls_list=prediction.winning_balls|split_and_strip|map_to_int winning_stars_list=prediction.winning_lucky_stars|split_and_strip|map_to_int %}
+                            <img src="{{ MEDIA_URL }}{% if prediction.pred_ball_1|to_int in winning_balls_list %}green{% endif %}{% if prediction.pred_ball_1 < 10 %}0{{ prediction.pred_ball_1 }}{% else %}{{ prediction.pred_ball_1 }}{% endif %}.webp" alt="Ball {{ prediction.pred_ball_1 }}">
+                            <img src="{{ MEDIA_URL }}{% if prediction.pred_ball_2|to_int in winning_balls_list %}green{% endif %}{% if prediction.pred_ball_2 < 10 %}0{{ prediction.pred_ball_2 }}{% else %}{{ prediction.pred_ball_2 }}{% endif %}.webp" alt="Ball {{ prediction.pred_ball_2 }}">
+                            <img src="{{ MEDIA_URL }}{% if prediction.pred_ball_3|to_int in winning_balls_list %}green{% endif %}{% if prediction.pred_ball_3 < 10 %}0{{ prediction.pred_ball_3 }}{% else %}{{ prediction.pred_ball_3 }}{% endif %}.webp" alt="Ball {{ prediction.pred_ball_3 }}">
+                            <img src="{{ MEDIA_URL }}{% if prediction.pred_ball_4|to_int in winning_balls_list %}green{% endif %}{% if prediction.pred_ball_4 < 10 %}0{{ prediction.pred_ball_4 }}{% else %}{{ prediction.pred_ball_4 }}{% endif %}.webp" alt="Ball {{ prediction.pred_ball_4 }}">
+                            <img src="{{ MEDIA_URL }}{% if prediction.pred_ball_5|to_int in winning_balls_list %}green{% endif %}{% if prediction.pred_ball_5 < 10 %}0{{ prediction.pred_ball_5 }}{% else %}{{ prediction.pred_ball_5 }}{% endif %}.webp" alt="Ball {{ prediction.pred_ball_5 }}">
+                            
+                            <img src="{{ MEDIA_URL }}{% if prediction.pred_lucky_1|to_int in winning_stars_list %}brown{% endif %}star{{ prediction.pred_lucky_1 }}.webp" alt="Lucky Star {{ prediction.pred_lucky_1 }}">
+                            <img src="{{ MEDIA_URL }}{% if prediction.pred_lucky_2|to_int in winning_stars_list %}brown{% endif %}star{{ prediction.pred_lucky_2 }}.webp" alt="Lucky Star {{ prediction.pred_lucky_2 }}">
+                        {% endwith %}
+                    </td>
+                    <td class="text-center align-middle">{{ prediction.match_type }}</td>
+                    <td class="text-center align-middle">{{ prediction.win_amount }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+
+{% endblock %}

@@ -47,7 +47,27 @@ def index(request):
 
     return render(request, 'home/index.html', context)
 
+def alltime_winning_predictions_view(request):
+    """
+    A view to return the all-time winning predictions page.
 
+    This view fetches all winning predictions from the database where match_type is not null,
+    sorted by draw_date in descending order. The context containing the all-time winning predictions
+    is then passed to the 'alltime.html' template for rendering.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        HttpResponse: The rendered 'alltime.html' template with the context containing alltime_winning_predictions.
+    """    
+    alltime_winning_predictions = Prediction.objects.filter(match_type__isnull=False).order_by('-draw_date')
+
+    context = {
+        'alltime_winning_predictions': alltime_winning_predictions,
+    }
+
+    return render(request, 'home/alltime.html', context)
 
 from django.shortcuts import render
 from django.http import HttpResponse
