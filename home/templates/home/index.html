@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
+
 {% block page_header %}
 <div class="container header-container pt-5 mt-5">
   <div class="row pt-5 mt-3">
@@ -19,6 +20,7 @@
 {% endblock %}
 
 {% block content %}
+{% load custom_filters %}
 <div class="masthead-content">
   <h2>EUROMILLIONS RESULTS</h2>
   <h3>for {{ latest_result.draw_date }}</h3>
@@ -50,7 +52,6 @@
           <tr>
             <th>Draw Date</th>
             <th>Predictions</th>
-            <th>Lucky Stars</th>
             <th>Winning Balls</th>
             <th>Winning Lucky Stars</th>
             <th>Match Type</th>
@@ -71,8 +72,16 @@
               <img src="{{ MEDIA_URL }}star{{ prediction.pred_lucky_1 }}.webp" alt="Lucky Star {{ latest_result.lucky_star_1 }}" alt="Lucky Star {{ prediction.pred_lucky_1 }}">
               <img src="{{ MEDIA_URL }}star{{ prediction.pred_lucky_2 }}.webp" alt="Lucky Star {{ latest_result.lucky_star_2 }}" alt="Lucky Star {{ prediction.pred_lucky_2 }}">
             </td>
-            <td>{{ prediction.winning_balls }}</td>
-            <td>{{ prediction.winning_lucky_stars }}</td>
+            <td>
+              {% for ball in prediction.winning_balls|split_and_strip %}
+              <img src="{{ MEDIA_URL }}{% if ball|to_int < 10 %}0{{ ball|to_int }}{% else %}{{ ball|to_int }}{% endif %}.webp" alt="Ball {{ ball|to_int }}">
+              {% endfor %}
+            </td>
+            <td>
+              {% if star|to_int is not None %}
+              <img src="{{ MEDIA_URL }}star{{ star|to_int }}.webp" alt="Lucky Star {{ star|to_int }}">
+              {% endif %}
+            </td>
             <td>{{ prediction.match_type }}</td>
             <td>{{ prediction.win_amount }}</td>
           </tr>
