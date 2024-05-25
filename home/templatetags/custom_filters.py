@@ -12,3 +12,7 @@ def to_int(value):
         return int(value) if value else None
     except (ValueError, TypeError):
         return None
+
+@register.filter
+def map_to_int(value):
+    return [int(item) for item in value if item.isdigit()]

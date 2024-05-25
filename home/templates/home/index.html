@@ -63,14 +63,16 @@
           <tr class="table-balls">
             <td>{{ prediction.draw_date }}</td>
             <td>
-              <img src="{{ MEDIA_URL }}{% if prediction.pred_ball_1 < 10 %}0{{ prediction.pred_ball_1 }}{% else %}{{ prediction.pred_ball_1 }}{% endif %}.webp" alt="Ball {{ prediction.pred_ball_1 }}">
-              <img src="{{ MEDIA_URL }}{% if prediction.pred_ball_2 < 10 %}0{{ prediction.pred_ball_2 }}{% else %}{{ prediction.pred_ball_2 }}{% endif %}.webp" alt="Ball {{ prediction.pred_ball_2 }}">
-              <img src="{{ MEDIA_URL }}{% if prediction.pred_ball_3 < 10 %}0{{ prediction.pred_ball_3 }}{% else %}{{ prediction.pred_ball_3 }}{% endif %}.webp" alt="Ball {{ prediction.pred_ball_3 }}">
-              <img src="{{ MEDIA_URL }}{% if prediction.pred_ball_4 < 10 %}0{{ prediction.pred_ball_4 }}{% else %}{{ prediction.pred_ball_4 }}{% endif %}.webp" alt="Ball {{ prediction.pred_ball_4 }}">
-              <img src="{{ MEDIA_URL }}{% if prediction.pred_ball_5 < 10 %}0{{ prediction.pred_ball_5 }}{% else %}{{ prediction.pred_ball_5 }}{% endif %}.webp" alt="Ball {{ prediction.pred_ball_5 }}">
-              
-              <img src="{{ MEDIA_URL }}star{{ prediction.pred_lucky_1 }}.webp" alt="Lucky Star {{ latest_result.lucky_star_1 }}" alt="Lucky Star {{ prediction.pred_lucky_1 }}">
-              <img src="{{ MEDIA_URL }}star{{ prediction.pred_lucky_2 }}.webp" alt="Lucky Star {{ latest_result.lucky_star_2 }}" alt="Lucky Star {{ prediction.pred_lucky_2 }}">
+              {% with winning_balls_list=prediction.winning_balls|split_and_strip|map_to_int %}
+                <img src="{{ MEDIA_URL }}{% if prediction.pred_ball_1|to_int in winning_balls_list %}green{% endif %}{% if prediction.pred_ball_1 < 10 %}0{{ prediction.pred_ball_1 }}{% else %}{{ prediction.pred_ball_1 }}{% endif %}.webp" alt="Ball {{ prediction.pred_ball_1 }}">
+                <img src="{{ MEDIA_URL }}{% if prediction.pred_ball_2|to_int in winning_balls_list %}green{% endif %}{% if prediction.pred_ball_2 < 10 %}0{{ prediction.pred_ball_2 }}{% else %}{{ prediction.pred_ball_2 }}{% endif %}.webp" alt="Ball {{ prediction.pred_ball_2 }}">
+                <img src="{{ MEDIA_URL }}{% if prediction.pred_ball_3|to_int in winning_balls_list %}green{% endif %}{% if prediction.pred_ball_3 < 10 %}0{{ prediction.pred_ball_3 }}{% else %}{{ prediction.pred_ball_3 }}{% endif %}.webp" alt="Ball {{ prediction.pred_ball_3 }}">
+                <img src="{{ MEDIA_URL }}{% if prediction.pred_ball_4|to_int in winning_balls_list %}green{% endif %}{% if prediction.pred_ball_4 < 10 %}0{{ prediction.pred_ball_4 }}{% else %}{{ prediction.pred_ball_4 }}{% endif %}.webp" alt="Ball {{ prediction.pred_ball_4 }}">
+                <img src="{{ MEDIA_URL }}{% if prediction.pred_ball_5|to_int in winning_balls_list %}green{% endif %}{% if prediction.pred_ball_5 < 10 %}0{{ prediction.pred_ball_5 }}{% else %}{{ prediction.pred_ball_5 }}{% endif %}.webp" alt="Ball {{ prediction.pred_ball_5 }}">
+                
+                <img src="{{ MEDIA_URL }}star{{ prediction.pred_lucky_1 }}.webp" alt="Lucky Star {{ prediction.pred_lucky_1 }}">
+                <img src="{{ MEDIA_URL }}star{{ prediction.pred_lucky_2 }}.webp" alt="Lucky Star {{ prediction.pred_lucky_2 }}">
+              {% endwith %}
             </td>
             <td>
               {% for ball in prediction.winning_balls|split_and_strip %}
