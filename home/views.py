@@ -36,8 +36,8 @@ def index(request):
     else:
         latest_predictions = []
     
-    # Fetch all winning predictions where match_type is not null
-    alltime_winning_predictions = Prediction.objects.filter(match_type__isnull=False)
+    # Fetch all winning predictions where match_type is not null, sorted by draw_date in descending order
+    alltime_winning_predictions = Prediction.objects.filter(match_type__isnull=False).order_by('-draw_date')
 
     context = {
         'latest_result': latest_result,
