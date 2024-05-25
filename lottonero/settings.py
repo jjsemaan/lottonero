@@ -17,9 +17,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
-# Set the environment variable 'DEVELOPMENT' to 'True' if not set
-os.environ.setdefault("DEVELOPMENT", "False")
-
 # Set DEBUG based on the 'DEVELOPMENT' environment variable
 DEBUG = os.environ.get("DEVELOPMENT") == "True"
 
