@@ -97,5 +97,65 @@
       {% endif %}
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h2 class="text-dark">Our Latest Winning Predictions</h2>
+      <!-- Debug statement -->
+      <p class="text-dark">Predictions Count: {{ latest_predictions|length }}</p>
+
+      {% if latest_predictions %}
+      <table class="table table-striped table-bordered text-dark">
+        <thead>
+          <tr>
+            <th>Draw Date</th>
+            <th>Predictions</th>
+            <th>Lucky Stars</th>
+            <th>Winning Balls</th>
+            <th>Winning Lucky Stars</th>
+            <th>Match Type</th>
+            <th>€</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for prediction in alltime_winning_predictions %}
+          <tr>
+            <td>{{ prediction.draw_date }}</td>
+            <td>
+              {{ prediction.pred_ball_1 }},
+              {{ prediction.pred_ball_2 }},
+              {{ prediction.pred_ball_3 }},
+              {{ prediction.pred_ball_4 }},
+              {{ prediction.pred_ball_5 }}
+            </td>
+            <td>{{ prediction.pred_lucky_1 }}, {{ prediction.pred_lucky_2 }}</td>
+            <td>{{ prediction.winning_balls }}</td>
+            <td>{{ prediction.winning_lucky_stars }}</td>
+            <td>{{ prediction.match_type }}</td>
+            <td>{{ prediction.win_amount}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>No predictions available for the latest date with non-null match type.</p>
+      {% endif %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 text-center">
+      {% if user.is_authenticated %}
+      <h4>
+        <a href="{% url 'predictions' %}" class="predict-button btn rounded-pill text-uppercase"
+          style="padding: 10px 30px;">Next Draw Predictions</a>
+      </h4>
+      {% else %}
+      <h4>
+        <a href="{% url 'account_login' %}" class="predict-button btn rounded-pill text-uppercase"
+          style="padding: 10px 30px;">Next Draw Predictions</a>
+      </h4>
+      {% endif %}
+    </div>
+  </div>
 </div>
 {% endblock %}

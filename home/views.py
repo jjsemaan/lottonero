@@ -3,21 +3,23 @@ from scraping.models import EuroMillionsResult
 from predictions.models import Prediction
 from django.db.models import Max
 
+
 def index(request):
     """
     A view to return the index page with the latest draw results and latest winning predictions.
 
     This view fetches the latest EuroMillions draw result from the database. It also identifies the 
     latest prediction date where predictions have a non-null match type and fetches all predictions 
-    for that date. The context containing the latest draw result and predictions is then passed to 
-    the 'index.html' template for rendering.
+    for that date. Additionally, it fetches all winning predictions. The context containing the latest 
+    draw result, latest predictions, and winning predictions is then passed to the 'index.html' template 
+    for rendering.
 
     Args:
         request: The HTTP request object.
 
     Returns:
-        HttpResponse: The rendered 'index.html' template with the context containing latest_result and 
-        latest_predictions.
+        HttpResponse: The rendered 'index.html' template with the context containing latest_result, 
+        latest_predictions, and winning_predictions.
     """    
     
     try:
@@ -33,13 +35,18 @@ def index(request):
         latest_predictions = Prediction.objects.filter(prediction_date=latest_date, match_type__isnull=False)
     else:
         latest_predictions = []
+    
+    # Fetch all winning predictions where match_type is not null
+    alltime_winning_predictions = Prediction.objects.filter(match_type__isnull=False)
 
     context = {
         'latest_result': latest_result,
         'latest_predictions': latest_predictions,
+        'alltime_winning_predictions': alltime_winning_predictions,
     }
 
     return render(request, 'home/index.html', context)
+
 
 
 from django.shortcuts import render
