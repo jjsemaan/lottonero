@@ -17,8 +17,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG =  'DEVELOPMENT'
+# Set the environment variable 'DEVELOPMENT' to 'True' if not set
+os.environ.setdefault("DEVELOPMENT", "False")
+
+# Set DEBUG based on the 'DEVELOPMENT' environment variable
+DEBUG = os.environ.get("DEVELOPMENT") == "True"
+
+# You can also print the DEBUG status for verification
+print(f"DEBUG is set to: {DEBUG}")
 
 ALLOWED_HOSTS = [
     '8000-jjsemaan-lottonero-jwr574l49n.us1.codeanyapp.com',
