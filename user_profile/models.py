@@ -1,53 +1,31 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils import timezone
-from orders.models import Subscription, SubscriptionType
-
-class UserProfile(models.Model):
-    """
-    Model representing a user profile. Each profile is linked to a user and optionally to a subscription type.
-
-    Attributes:
-        user (User): The user who owns the profile.
-        subscription_type (SubscriptionType): The type of subscription associated with the profile, if any.
-    
-    Methods:
-        __str__(): Returns a string representation of the profile, which is the username of the user.
-        is_subscriber(): Checks if the user is currently a subscriber by verifying the presence of an active subscription.
-    """
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    subscription_type = models.ForeignKey(SubscriptionType, null=True, blank=True, on_delete=models.SET_NULL)
-
-    def __str__(self):
-        """
-        Returns a string representation of the profile, which is the username of the user.
-        """
-        return self.user.username
-
-    @property
-    def is_subscriber(self):
-        """
-        Checks if the user is currently a subscriber.
-
-        A user is considered a subscriber if they have a subscription with a subscribe_end_date
-        that is in the future or today.
-
-        Returns:
-            bool: True if the user is a subscriber, False otherwise.
-        """
-        current_subscription = Subscription.objects.filter(
-            user=self.user, subscribe_end_date__gte=timezone.now()
-        ).exists()
-        return current_subscription
-
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.conf import settings
+import datetime
 
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
+
+class Profile(models.Model):
+    """
+    Extends User model to include additional user information.
+    Fields include the user's location and phone number.
+    """
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    location = models.CharField(max_length=100, blank=True, null=True)
+    phone_number = models.CharField(max_length=15, blank=True, null=True)
+
+    def __str__(self):
+        return "%s %s" % (self.user.first_name, self.user.last_name)
+
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_or_update_user_profile(sender, instance, created, **kwargs):
+    """
+    Signal to create or update the profile whenever a user
+    instance is saved. Creates a new profile with the user
+    instance if the user is created.
+    """
     if created:
-        UserProfile.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.userprofile.save()
+        Profile.objects.create(user=instance)
+    instance.profile.save()
