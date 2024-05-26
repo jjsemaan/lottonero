@@ -66,6 +66,8 @@
             max-width: 80%;  /* Adjust the width as needed */
         }
         
+        
+
         .header-font {
             font-family: "futura-pt", sans-serif;
             font-weight: 800;
@@ -177,7 +179,7 @@
                             <a href="" class="dropdown-item">My Profile</a>
                             <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
                             {% else %}
-                            <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
+                            <a href="{% url 'register' %}" class="dropdown-item">Register</a>
                             <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
                             {% endif %}
                         </div>

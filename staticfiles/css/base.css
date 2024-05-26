@@ -28,7 +28,6 @@ header.masthead .overlay {
     opacity: 0.5;
 }
 
-
 .col-md-8.text-left.backdrop-table {
     padding-left: 0;
     padding-right: 0;
@@ -53,6 +52,10 @@ header.masthead .overlay {
     height: auto; /* Maintain aspect ratio */
     max-width: 100%;
     margin: 5px; /* Optional: Add some space between images */
+}
+
+form {
+    color: black;
 }
 
 @media (min-width: 576px) {
