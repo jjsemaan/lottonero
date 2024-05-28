@@ -1,35 +1,102 @@
 html {
     height: 100%;
+    width: 100%vw;
+}
+
+.table td,
+.table th {
+    padding: 5px;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+    font: 12px Lato;
+}
+
+.masthead {
+    position: relative;
+    width: 100%;
+    height: auto;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    text-align: center;
+}
+
+.masthead-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    z-index: 2;
+    background: rgba(7, 7, 7, 0.8);  /* Semi-transparent white background */
+    border-radius: 15px;  /* Rounded corners */
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 80%;  /* Adjust the width as needed */
+}
+
+.header-font {
+    font-family: "futura-pt", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+}
+
+.forms-font {
+    font-family: "futura-pt", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    color: rgb(90, 90, 90);
+}
+
+.header-button-font {
+    font-family: "futura-pt-condensed", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    background-color: rgb(255, 221, 0);
+    color: black;
+}
+
+.content-below-bg {
+    position: relative;
+    background: white;
+    padding: 20px;
+    z-index: 1;
+}
+
+.ball-images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px 0; /* Space above and below the images */
+}
+
+.ball-images img {
+    width: 50px; /* Adjust size as needed */
+    height: auto;
+    margin: 5px; /* Space between images */
+}
+
+.table-balls img {
+    width: 30px; /* Adjust size as needed */
+    height: auto;
+    margin: 1px; /* Space between images */
 }
 
 .row {
     margin: 0;
 }
 
-/*body {
-    background: url('https://res.cloudinary.com/dmebot5lf/image/upload/v1716138781/lottonero-bg_r9h0io.jpg') no-repeat center center fixed;
-    background-size: cover;
-    height: 100vh;
-    width: auto;
-    
-    font-family: 'Lato';
-}*/
-
-/*.backdrop {
-    background-color: rgba(139, 139, 139, 0.6);
-    margin: 1rem;
-    padding: 2rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: relative;
-}*/
-
-/* from Bulma */
 .icon {
     align-items: center;
     display: inline-flex;
     justify-content: center;
     height: 1.5rem;
     width: 1.5rem;
+}
+
+form {
+    color: black;
 }
 
 .logo-font {
@@ -77,34 +144,6 @@ h4.text-center > a.predict-button {
     background: #000 !important;
 }
 
-/*#delivery-banner {
-    background-color: black;
-    color: white;
-}*/
-
-/* -------------------------------- Media Queries */
-/* Slightly larger container on xl screens */
-/*@media (min-width: 1200px) {
-  .container {
-    max-width: 80%;
-  }
-}*/
-
-/* fixed top navbar only on medium and up */
-/*@media (min-width: 992px) {
-    .fixed-top-desktop-only {
-        position: fixed;
-        top: 0;
-        right: 0;
-        left: 0;
-        z-index: 1030;
-    }
-
-    .header-container {
-        padding-top: 164px;
-    }
-}*/
-
 .backdrop {
     background-color: rgba(139, 139, 139, 0.6);
     padding: 2rem;
@@ -136,6 +175,30 @@ h4.text-center > a.predict-button {
     height: 100%;
 }
 
+.container {
+    width: 100%;
+    padding: 0;
+}
+
+.container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* Media query for screens 323px wide or less */
+@media (max-width: 323px) {
+    .masthead-content h2 {
+        font-size: 1.5em; /* Smaller font size for small screens */
+    }
+}
+
+@media (max-width: 640px) {
+    .ball-images img {
+        width: 40px; /* Adjust size as needed */
+        height: auto;
+        margin: 3px; /* Space between images */
+    }
+}
 
 @media (min-width: 576px) {
     .container {
@@ -148,19 +211,6 @@ h4.text-center > a.predict-button {
         display: none;
     }
 }
-
-.container {
-    width: 100%;
-    padding: 0;
-}
-
-.container-fluid {
-    padding-left: 0;
-    padding-right: 0;
-}
-
-
-
 
 
 

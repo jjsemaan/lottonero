@@ -3,43 +3,6 @@ html {
     width: 100%vw;
 }
 
-body {
-    background-color: #000000;
-    margin: 0;
-    height: 100vh;
-    color: #fff;
-}
-
-header.masthead {
-    background: no-repeat center center;
-    background-color: #868e96;
-    background-attachment: scroll;
-    position: relative;
-    background-size: cover;
-}
-
-header.masthead .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-color: #212529;
-    opacity: 0.5;
-}
-
-
-.col-md-8.text-left.backdrop-table {
-    padding-left: 0;
-    padding-right: 0;
-}
-
-.backdrop-table {
-    background-color: rgba(139, 139, 139, 0.6);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: relative;
-}
-
 .table td,
 .table th {
     padding: 5px;
@@ -48,45 +11,92 @@ header.masthead .overlay {
     font: 12px Lato;
 }
 
+.masthead {
+    position: relative;
+    width: 100%;
+    height: auto;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    text-align: center;
+}
+
+.masthead-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    z-index: 2;
+    background: rgba(7, 7, 7, 0.8);  /* Semi-transparent white background */
+    border-radius: 15px;  /* Rounded corners */
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 80%;  /* Adjust the width as needed */
+}
+
+.header-font {
+    font-family: "futura-pt", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+}
+
+.forms-font {
+    font-family: "futura-pt", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    color: rgb(90, 90, 90);
+}
+
+.header-button-font {
+    font-family: "futura-pt-condensed", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    background-color: rgb(255, 221, 0);
+    color: black;
+}
+
+.content-below-bg {
+    position: relative;
+    background: white;
+    padding: 20px;
+    z-index: 1;
+}
+
+.ball-images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px 0; /* Space above and below the images */
+}
+
 .ball-images img {
-    width: 50px; /* Set the desired width */
-    height: auto; /* Maintain aspect ratio */
-    max-width: 100%;
-    margin: 5px; /* Optional: Add some space between images */
+    width: 50px; /* Adjust size as needed */
+    height: auto;
+    margin: 5px; /* Space between images */
 }
 
-@media (min-width: 576px) {
-    .container {
-        max-width: 1140px;
-    }
-}
-
-@media (max-width: 767px) {
-    .sidenav-left {
-        display: none;
-    }
+.table-balls img {
+    width: 30px; /* Adjust size as needed */
+    height: auto;
+    margin: 1px; /* Space between images */
 }
 
 .row {
-    display: flex;
     margin: 0;
 }
 
-.col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto {
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-}
-
-
-/* from Bulma */
 .icon {
     align-items: center;
     display: inline-flex;
     justify-content: center;
     height: 1.5rem;
     width: 1.5rem;
+}
+
+form {
+    color: black;
 }
 
 .logo-font {
@@ -100,6 +110,11 @@ header.masthead .overlay {
 .predict-button {
     background: black;
     color: white;
+}
+
+h4.text-center > a.predict-button {
+    width: auto;
+    display: inline-block;
 }
 
 .btn-black {
@@ -124,3 +139,79 @@ header.masthead .overlay {
 .border-black {
     border: 1px solid black !important;
 }
+
+.bg-black {
+    background: #000 !important;
+}
+
+.backdrop {
+    background-color: rgba(139, 139, 139, 0.6);
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {
+    height: 450px
+}
+
+/* Set gray background color and 100% height */
+.sidenav {
+    padding-top: 20px;
+    background-color: #f1f1f1;
+    height: 100%;
+}
+
+.sidenav-left {
+    padding-top: 20px;
+    background-color: #f1f1f1;
+    height: 100%;
+}
+
+.container {
+    width: 100%;
+    padding: 0;
+}
+
+.container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* Media query for screens 323px wide or less */
+@media (max-width: 323px) {
+    .masthead-content h2 {
+        font-size: 1.5em; /* Smaller font size for small screens */
+    }
+}
+
+@media (max-width: 640px) {
+    .ball-images img {
+        width: 40px; /* Adjust size as needed */
+        height: auto;
+        margin: 3px; /* Space between images */
+    }
+}
+
+@media (min-width: 576px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+@media (max-width: 767px) {
+    .sidenav-left {
+        display: none;
+    }
+}
+
+
+
+
