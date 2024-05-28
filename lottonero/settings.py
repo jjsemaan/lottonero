@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
     'tinymce',
+    'cloudinary',
     'crispy_forms',
     'crispy_bootstrap4',
     'home',
@@ -63,7 +64,6 @@ INSTALLED_APPS = [
     'lottery_stats',
     'corsheaders',
     'orders',
-    
 ]
 
 MIDDLEWARE = [
@@ -116,8 +116,6 @@ AUTHENTICATION_BACKENDS = [
 # Set up your site ID
 SITE_ID = 1
 
-
-
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.office365.com'
@@ -131,8 +129,9 @@ DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = False
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
@@ -193,7 +192,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
@@ -210,14 +208,6 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'CLOUDINARY_CLOUD_NAME',
-    'API_KEY': 'CLOUDINARY_API_KEY',
-    'API_SECRET': 'CLOUDINARY_API_SECRET',
-}
-
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
 os.makedirs(STATIC_ROOT, exist_ok=True)
