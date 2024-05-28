@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from scraping.models import EuroMillionsResult
 from .models import Prediction
 
@@ -105,3 +105,61 @@ def train_classifier(request):
         return render(request, 'backoffice/backoffice.html', context)
     else:
         return render(request, 'backoffice/backoffice.html')
+
+
+from django.shortcuts import render, redirect
+from .forms import UploadImageForm, OverwriteConfirmationForm
+from .models import UploadImageModel
+from django.contrib import messages
+import cloudinary.uploader
+import os
+import tempfile
+
+def upload_image(request):
+    if request.method == 'POST':
+        if 'confirm' in request.POST:
+            # Handle the confirmation form submission
+            confirmation_form = OverwriteConfirmationForm(request.POST)
+            if confirmation_form.is_valid():
+                file_name = confirmation_form.cleaned_data['file_name']
+                temp_file_path = request.session.get('temp_file_path')
+                if temp_file_path:
+                    upload_result = cloudinary.uploader.upload(temp_file_path, public_id=file_name, overwrite=True)
+                    if upload_result:
+                        existing_file = UploadImageModel.objects.get(name=file_name)
+                        existing_file.image = upload_result['secure_url']  # Use secure_url to save the actual URL
+                        existing_file.save()
+                        os.remove(temp_file_path)  # Clean up the temp file
+                        messages.success(request, f"File {file_name} was overwritten.")
+                        request.session.pop('temp_file_path')  # Clear the temp file path from the session
+                        return redirect('upload_success')
+        else:
+            form = UploadImageForm(request.POST, request.FILES)
+            if form.is_valid():
+                file_name = form.cleaned_data['name']
+                file = form.cleaned_data['image']
+                if UploadImageModel.objects.filter(name=file_name).exists():
+                    # Save the file to a temporary location
+                    temp_file = tempfile.NamedTemporaryFile(delete=False)
+                    for chunk in file.chunks():
+                        temp_file.write(chunk)
+                    temp_file.close()
+                    request.session['temp_file_path'] = temp_file.name
+                    # Render a confirmation form
+                    confirmation_form = OverwriteConfirmationForm(initial={'file_name': file_name})
+                    return render(request, 'upload/confirm_overwrite.html', {
+                        'confirmation_form': confirmation_form,
+                        'file_name': file_name
+                    })
+                else:
+                    upload_result = cloudinary.uploader.upload(file, public_id=file_name, overwrite=True)
+                    if upload_result:
+                        UploadImageModel.objects.create(name=file_name, image=upload_result['secure_url'])  # Use secure_url to save the actual URL
+                        messages.success(request, f"File {file_name} was uploaded successfully.")
+                    return redirect('upload_success')
+    else:
+        form = UploadImageForm()
+    return render(request, 'upload/upload_image.html', {'form': form})
+
+def upload_success(request):
+    return render(request, 'upload/upload_success.html')

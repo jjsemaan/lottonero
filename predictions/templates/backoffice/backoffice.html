@@ -55,6 +55,12 @@
                         name="check_predictions" value="Check Predictions">Check Winning Predictions</button>
                 </h4>
             </form>
+            <h2>Upload Image</h2>
+            <form method="post" action="{% url 'upload_image' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Upload</button>
+            </form>
             {% else %}
             <p class="text-center">You must be an admin to perform these actions.</p>
             {% endif %}

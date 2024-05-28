@@ -63,7 +63,8 @@ INSTALLED_APPS = [
     'lottery_stats',
     'corsheaders',
     'orders',
-    'user_profile',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -116,8 +117,7 @@ AUTHENTICATION_BACKENDS = [
 # Set up your site ID
 SITE_ID = 1
 
-# Take environment variables from .env file if it exists
-# environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -200,6 +200,15 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static/'),)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'CLOUDINARY_CLOUD_NAME',
+    'API_KEY': 'CLOUDINARY_API_KEY',
+    'API_SECRET': 'CLOUDINARY_API_SECRET',
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
 os.makedirs(STATIC_ROOT, exist_ok=True)
 

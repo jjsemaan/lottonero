@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Overwrite</title>
+</head>
+<body>
+    <h1>Confirm Overwrite</h1>
+    <p>A file named {{ file_name }} already exists. Do you want to overwrite it?</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ confirmation_form.as_p }}
+        <button type="submit">Yes, overwrite</button>
+        <a href="{% url 'upload_image' %}">No, cancel</a>
+    </form>
+</body>
+</html>

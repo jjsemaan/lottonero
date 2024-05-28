@@ -21,3 +21,15 @@ class Prediction(models.Model):
 
     def __str__(self):
         return f"Prediction on {self.prediction_date} - {self.match_type if self.match_type else 'No match'}"
+
+
+from cloudinary.models import CloudinaryField
+
+class UploadImageModel(models.Model):
+    name = models.CharField(max_length=100)
+    image = CloudinaryField('image')
+
+    def __str__(self):
+        return self.name
+
+
