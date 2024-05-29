@@ -1,18 +1,8 @@
-{% extends "base.html" %}
+{% extends "account/base.html" %}
 {% load static %}
 
-{% block page_header %}
-<div class="container header-container pt-5 mt-5">
-    <div class="row pt-5 mt-3">
-        <div class="col">
-
-        </div>
-    </div>
-</div>
-{% endblock %}
-
 {% block header_content %}
-<div class="container">
+<div class="container forms-font">
     <div class="row justify-content-center">
         <div class="col-xl-10 col-lg-12 col-md-9">
             <div class="card o-hidden border-0 shadow-lg my-5">
@@ -25,40 +15,45 @@
                                     <h1 class="h4 text-gray-900 mb-4">User Profile</h1>
                                 </div>
 
+                                {% if messages %}
+                                <div class="alert alert-success" role="alert">
+                                    {% for message in messages %}
+                                    {{ message }}
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
 
                                 <form method="post" action="{% url 'update_profile' %}">
                                     {% csrf_token %}
-                                    <label for="username">Username:</label>
-                                    <input type="text" id="username" name="username" value="{{ user.username }}"><br>
+                                    
+                                    <div class="form-group text-left">
+                                        <label for="username">Username:</label>
+                                        <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}">
+                                    </div>
 
-                                    <label for="first_name">First Name:</label>
-                                    <input type="text" id="first_name" name="first_name"
-                                        value="{{ user.first_name }}"><br>
+                                    <div class="form-group text-left">
+                                        <label for="first_name">First Name:</label>
+                                        <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}">
+                                    </div>
 
-                                    <label for="last_name">Last Name:</label>
-                                    <input type="text" id="last_name" name="last_name" value="{{ user.last_name }}"><br>
+                                    <div class="form-group text-left">
+                                        <label for="last_name">Last Name:</label>
+                                        <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}">
+                                    </div>
 
-                                    <label for="email">Email:</label>
-                                    <input type="email" id="email" name="email" value="{{ email.email }}"><br>
+                                    <div class="form-group text-left">
+                                        <label for="email">Email:</label>
+                                        <input type="email" class="form-control" id="email" name="email" value="{{ email.email }}" readonly>
+                                    </div>
 
-                                    <button type="submit">Update Profile</button>
+                                    <button type="submit" class="btn btn-dark btn-block">Update Profile</button>
                                 </form>
-
-                                <a href="{% url 'change_password' %}">Change Password</a>
-
-                                {% if messages %}
-                                <ul>
-                                    {% for message in messages %}
-                                    <li>{{ message }}</li>
-                                    {% endfor %}
-                                </ul>
-                                {% endif %}
-                                <div class="text-center">
-                                    <a class="small" href="{% url 'account_login' %}">Already have an account?
-                                        Login!</a>
+                                <div class="text-center mt-3">
+                                    <a href="{% url 'change_password' %}" class="btn btn-link">Change Password</a>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-2 d-none d-lg-block"></div>
                     </div>
                 </div>
             </div>

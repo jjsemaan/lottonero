@@ -1,8 +1,5 @@
-from django.shortcuts import render
-
-# Create your views here.
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.contrib.auth.models import User
 from allauth.account.models import EmailAddress
 from django.contrib import messages
@@ -27,9 +24,9 @@ def update_profile(request):
         email.save()
         
         messages.success(request, 'Your profile was updated successfully.')
-        return redirect('profile_view')
+        return render(request, 'user_profile/profile.html', {'user': user, 'email': email})
     else:
-        return redirect('profile_view')
+        return render(request, 'user_profile/profile.html', {'user': request.user, 'email': EmailAddress.objects.get(user=request.user)})
 
 @login_required
 def change_password(request):
@@ -39,6 +36,6 @@ def change_password(request):
         user.set_password(new_password)
         user.save()
         messages.success(request, 'Your password was changed successfully.')
-        return redirect('profile_view')
+        return render(request, 'user_profile/profile.html', {'user': user, 'email': EmailAddress.objects.get(user=user)})
     else:
         return render(request, 'user_profile/change_password.html')
