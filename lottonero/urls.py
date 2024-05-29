@@ -13,6 +13,7 @@ urlpatterns = [
     path('lottery_stats/', include('lottery_stats.urls')),
     path('scraping/', include(('scraping.urls', 'scraping'), namespace='scraping')),
     path('', include('home.urls')),
+    path('user/', include('user_profile.urls')),
 ]
 
 if settings.DEBUG:

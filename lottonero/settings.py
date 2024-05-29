@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'lottery_stats',
     'corsheaders',
     'orders',
+    'user_profile',
 ]
 
 MIDDLEWARE = [
