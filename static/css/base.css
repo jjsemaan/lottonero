@@ -20,6 +20,7 @@ html {
     background-repeat: no-repeat;
     color: white;
     text-align: center;
+
 }
 
 .masthead-content {
@@ -36,6 +37,21 @@ html {
     max-width: 80%;  /* Adjust the width as needed */
 }
 
+/* Style Allauth forms*/
+.form-group {
+    text-align: left;
+}
+
+.form-check {
+    text-align: center;
+}
+
+.text-muted {
+    text-align: center;
+    margin-top: 12px;
+}
+
+/* Header */
 .header-font {
     font-family: "futura-pt", sans-serif;
     font-weight: 800;

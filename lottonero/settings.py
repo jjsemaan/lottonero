@@ -4,6 +4,7 @@ import dj_database_url
 if os.path.isfile('env.py'):
     import env
 
+
 # Use the DATABASE_URL environment variable for database configuration
 DATABASES = {
     'default': dj_database_url.config(
@@ -93,11 +94,15 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request', # required by allauth
+                'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
             ],
+             'builtins': [
+                'crispy_forms.templatetags.crispy_forms_tags',
+                'crispy_forms.templatetags.crispy_forms_field',
+            ]
         },
     },
 ]
@@ -113,7 +118,6 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-# Configure Django-allauth settings
 # Set up your site ID
 SITE_ID = 1
 
@@ -132,8 +136,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_EMAIL_NOTIFICATIONS = True
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = False
-ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
-ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = False
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_USERNAME_MIN_LENGTH = 4
@@ -142,7 +145,6 @@ LOGIN_REDIRECT_URL = '/'
 
 WSGI_APPLICATION = 'lottonero.wsgi.application'
 
-# Configure social account providers
 # Example configurations for Google and Facebook
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
