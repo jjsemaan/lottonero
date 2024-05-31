@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from scraping.models import EuroMillionsResult
-from predictions.models import Prediction
+from predictions.models import Prediction, UploadImageModel
 from django.db.models import Max
 
+def get_image_url(name):
+    image = UploadImageModel.objects.filter(name=name).values('name', 'image').first()
+    return image['image'] if image else None
 
 def index(request):
     """
@@ -26,7 +29,7 @@ def index(request):
         latest_result = EuroMillionsResult.objects.latest('id')
     except EuroMillionsResult.DoesNotExist:
         latest_result = None
-    
+
     # Get the latest prediction date with non-null match_type
     latest_date = Prediction.objects.filter(match_type__isnull=False).aggregate(latest_date=Max('prediction_date'))['latest_date']
     
@@ -39,13 +42,31 @@ def index(request):
     # Fetch all winning predictions where match_type is not null, sorted by draw_date in descending order
     alltime_winning_predictions = Prediction.objects.filter(match_type__isnull=False).order_by('-draw_date')
 
+    # Fetch images for the latest result balls and stars
+    ball_1_image = get_image_url(f"{latest_result.ball_1:02}") if latest_result else None
+    ball_2_image = get_image_url(f"{latest_result.ball_2:02}") if latest_result else None
+    ball_3_image = get_image_url(f"{latest_result.ball_3:02}") if latest_result else None
+    ball_4_image = get_image_url(f"{latest_result.ball_4:02}") if latest_result else None
+    ball_5_image = get_image_url(f"{latest_result.ball_5:02}") if latest_result else None
+
+    star_1_image = get_image_url(f"star{latest_result.lucky_star_1}") if latest_result else None
+    star_2_image = get_image_url(f"star{latest_result.lucky_star_2}") if latest_result else None
+
     context = {
         'latest_result': latest_result,
         'latest_predictions': latest_predictions,
         'alltime_winning_predictions': alltime_winning_predictions,
+        'ball_1_image': ball_1_image,
+        'ball_2_image': ball_2_image,
+        'ball_3_image': ball_3_image,
+        'ball_4_image': ball_4_image,
+        'ball_5_image': ball_5_image,
+        'star_1_image': star_1_image,
+        'star_2_image': star_2_image,
     }
 
     return render(request, 'home/index.html', context)
+
 
 def alltime_winning_predictions_view(request):
     """
@@ -149,3 +170,4 @@ def format_numbers(numbers):
     """Format a set of numbers as a comma-separated string, without extra commas for single numbers."""
     numbers_list = list(numbers)
     return ', '.join(map(str, numbers_list))
+
