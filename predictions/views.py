@@ -1,6 +1,11 @@
 from django.shortcuts import render, redirect
 from scraping.models import EuroMillionsResult
 from .models import Prediction
+from django.db.models import Max
+
+def get_image_url(name):
+    image = UploadImageModel.objects.filter(name=name).values('image').first()
+    return image['image'] if image else None
 
 # Create your views here.
 def read_data_from_database(request):
@@ -15,7 +20,29 @@ def display_predictions(request):
     # Fetch all predictions with the most recent date
     predictions = Prediction.objects.filter(prediction_date=latest_date)
     
-    return render(request, 'predictions/predictions.html', {'predictions': predictions})
+    predictions_with_images = []
+    for prediction in predictions:
+        pred_ball_1_image = get_image_url(f"{prediction.pred_ball_1:02}")
+        pred_ball_2_image = get_image_url(f"{prediction.pred_ball_2:02}")
+        pred_ball_3_image = get_image_url(f"{prediction.pred_ball_3:02}")
+        pred_ball_4_image = get_image_url(f"{prediction.pred_ball_4:02}")
+        pred_ball_5_image = get_image_url(f"{prediction.pred_ball_5:02}")
+
+        pred_lucky_1_image = get_image_url(f"star{prediction.pred_lucky_1}")
+        pred_lucky_2_image = get_image_url(f"star{prediction.pred_lucky_2}")
+
+        predictions_with_images.append({
+            'prediction': prediction,
+            'pred_ball_1_image': pred_ball_1_image,
+            'pred_ball_2_image': pred_ball_2_image,
+            'pred_ball_3_image': pred_ball_3_image,
+            'pred_ball_4_image': pred_ball_4_image,
+            'pred_ball_5_image': pred_ball_5_image,
+            'pred_lucky_1_image': pred_lucky_1_image,
+            'pred_lucky_2_image': pred_lucky_2_image,
+        })
+    
+    return render(request, 'predictions/predictions.html', {'predictions_with_images': predictions_with_images})
 
 def backoffice(request):
     # Any logic needed to prepare context data

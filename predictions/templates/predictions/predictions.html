@@ -33,25 +33,25 @@
             </tr>
         </thead>
         <tbody>
-            {% for prediction in predictions %}
+            {% for prediction_info in predictions_with_images %}
             <tr class="table-balls">
-                <td class="text-center align-middle">{{ prediction.id }}</td>
-                <td class="text-center align-middle">{{ prediction.draw_date }}</td>
+                <td class="text-center align-middle">{{ prediction_info.prediction.id }}</td>
+                <td class="text-center align-middle">{{ prediction_info.prediction.draw_date }}</td>
                 <td class="text-center align-middle">
-                    <img src="{{ MEDIA_URL }}{% if prediction.pred_ball_1 < 10 %}0{% endif %}{{ prediction.pred_ball_1 }}.webp" alt="Ball {{ prediction.pred_ball_1 }}">
-                    <img src="{{ MEDIA_URL }}{% if prediction.pred_ball_2 < 10 %}0{% endif %}{{ prediction.pred_ball_2 }}.webp" alt="Ball {{ prediction.pred_ball_2 }}">
-                    <img src="{{ MEDIA_URL }}{% if prediction.pred_ball_3 < 10 %}0{% endif %}{{ prediction.pred_ball_3 }}.webp" alt="Ball {{ prediction.pred_ball_3 }}">
-                    <img src="{{ MEDIA_URL }}{% if prediction.pred_ball_4 < 10 %}0{% endif %}{{ prediction.pred_ball_4 }}.webp" alt="Ball {{ prediction.pred_ball_4 }}">
-                    <img src="{{ MEDIA_URL }}{% if prediction.pred_ball_5 < 10 %}0{% endif %}{{ prediction.pred_ball_5 }}.webp" alt="Ball {{ prediction.pred_ball_5 }}">
+                    <img src="{{ prediction_info.pred_ball_1_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_1 }}">
+                    <img src="{{ prediction_info.pred_ball_2_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_2 }}">
+                    <img src="{{ prediction_info.pred_ball_3_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_3 }}">
+                    <img src="{{ prediction_info.pred_ball_4_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_4 }}">
+                    <img src="{{ prediction_info.pred_ball_5_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_5 }}">
                 </td>
                 <td class="text-center align-middle">
-                    <img src="{{ MEDIA_URL }}star{{ prediction.pred_lucky_1 }}.webp" alt="Lucky Star {{ prediction.pred_lucky_1 }}">
-                    <img src="{{ MEDIA_URL }}star{{ prediction.pred_lucky_2 }}.webp" alt="Lucky Star {{ prediction.pred_lucky_2 }}">
+                    <img src="{{ prediction_info.pred_lucky_1_image }}" alt="Lucky Star {{ prediction_info.prediction.pred_lucky_1 }}">
+                    <img src="{{ prediction_info.pred_lucky_2_image }}" alt="Lucky Star {{ prediction_info.prediction.pred_lucky_2 }}">
                 </td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="3">No predictions available.</td>
+                <td colspan="4">No predictions available.</td>
             </tr>
             {% endfor %}
         </tbody>
