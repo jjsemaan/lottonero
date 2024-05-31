@@ -4,7 +4,7 @@ from predictions.models import Prediction, UploadImageModel
 from django.db.models import Max
 
 def get_image_url(name):
-    image = UploadImageModel.objects.filter(name=name).values('name', 'image').first()
+    image = UploadImageModel.objects.filter(name=name).values('image').first()
     return image['image'] if image else None
 
 def index(request):
@@ -43,14 +43,43 @@ def index(request):
     alltime_winning_predictions = Prediction.objects.filter(match_type__isnull=False).order_by('-draw_date')
 
     # Fetch images for the latest result balls and stars
-    ball_1_image = get_image_url(f"{latest_result.ball_1:02}") if latest_result else None
-    ball_2_image = get_image_url(f"{latest_result.ball_2:02}") if latest_result else None
-    ball_3_image = get_image_url(f"{latest_result.ball_3:02}") if latest_result else None
-    ball_4_image = get_image_url(f"{latest_result.ball_4:02}") if latest_result else None
-    ball_5_image = get_image_url(f"{latest_result.ball_5:02}") if latest_result else None
+    if latest_result:
+        ball_1_image = get_image_url(f"{latest_result.ball_1:02}")
+        ball_2_image = get_image_url(f"{latest_result.ball_2:02}")
+        ball_3_image = get_image_url(f"{latest_result.ball_3:02}")
+        ball_4_image = get_image_url(f"{latest_result.ball_4:02}")
+        ball_5_image = get_image_url(f"{latest_result.ball_5:02}")
 
-    star_1_image = get_image_url(f"star{latest_result.lucky_star_1}") if latest_result else None
-    star_2_image = get_image_url(f"star{latest_result.lucky_star_2}") if latest_result else None
+        star_1_image = get_image_url(f"star{latest_result.lucky_star_1}")
+        star_2_image = get_image_url(f"star{latest_result.lucky_star_2}")
+    else:
+        ball_1_image = ball_2_image = ball_3_image = ball_4_image = ball_5_image = None
+        star_1_image = star_2_image = None
+
+    predictions_with_images = []
+    for prediction in latest_predictions:
+        winning_balls_list = [int(ball) for ball in prediction.winning_balls.split(',')] if prediction.winning_balls else []
+        winning_stars_list = [int(star) for star in prediction.winning_lucky_stars.split(',')] if prediction.winning_lucky_stars else []
+
+        pred_ball_1_image = get_image_url(f"green{prediction.pred_ball_1:02}" if prediction.pred_ball_1 in winning_balls_list else f"{prediction.pred_ball_1:02}")
+        pred_ball_2_image = get_image_url(f"green{prediction.pred_ball_2:02}" if prediction.pred_ball_2 in winning_balls_list else f"{prediction.pred_ball_2:02}")
+        pred_ball_3_image = get_image_url(f"green{prediction.pred_ball_3:02}" if prediction.pred_ball_3 in winning_balls_list else f"{prediction.pred_ball_3:02}")
+        pred_ball_4_image = get_image_url(f"green{prediction.pred_ball_4:02}" if prediction.pred_ball_4 in winning_balls_list else f"{prediction.pred_ball_4:02}")
+        pred_ball_5_image = get_image_url(f"green{prediction.pred_ball_5:02}" if prediction.pred_ball_5 in winning_balls_list else f"{prediction.pred_ball_5:02}")
+
+        pred_lucky_1_image = get_image_url(f"brownstar{prediction.pred_lucky_1}" if prediction.pred_lucky_1 in winning_stars_list else f"star{prediction.pred_lucky_1}")
+        pred_lucky_2_image = get_image_url(f"brownstar{prediction.pred_lucky_2}" if prediction.pred_lucky_2 in winning_stars_list else f"star{prediction.pred_lucky_2}")
+
+        predictions_with_images.append({
+            'prediction': prediction,
+            'pred_ball_1_image': pred_ball_1_image,
+            'pred_ball_2_image': pred_ball_2_image,
+            'pred_ball_3_image': pred_ball_3_image,
+            'pred_ball_4_image': pred_ball_4_image,
+            'pred_ball_5_image': pred_ball_5_image,
+            'pred_lucky_1_image': pred_lucky_1_image,
+            'pred_lucky_2_image': pred_lucky_2_image,
+        })
 
     context = {
         'latest_result': latest_result,
@@ -63,9 +92,11 @@ def index(request):
         'ball_5_image': ball_5_image,
         'star_1_image': star_1_image,
         'star_2_image': star_2_image,
+        'predictions_with_images': predictions_with_images,
     }
 
     return render(request, 'home/index.html', context)
+
 
 
 def alltime_winning_predictions_view(request):
