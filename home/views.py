@@ -67,8 +67,8 @@ def index(request):
         pred_ball_4_image = get_image_url(f"green{prediction.pred_ball_4:02}" if prediction.pred_ball_4 in winning_balls_list else f"{prediction.pred_ball_4:02}")
         pred_ball_5_image = get_image_url(f"green{prediction.pred_ball_5:02}" if prediction.pred_ball_5 in winning_balls_list else f"{prediction.pred_ball_5:02}")
 
-        pred_lucky_1_image = get_image_url(f"brownstar{prediction.pred_lucky_1}" if prediction.pred_lucky_1 in winning_stars_list else f"star{prediction.pred_lucky_1}")
-        pred_lucky_2_image = get_image_url(f"brownstar{prediction.pred_lucky_2}" if prediction.pred_lucky_2 in winning_stars_list else f"star{prediction.pred_lucky_2}")
+        pred_lucky_1_image = get_image_url(f"greenstar{prediction.pred_lucky_1}" if prediction.pred_lucky_1 in winning_stars_list else f"star{prediction.pred_lucky_1}")
+        pred_lucky_2_image = get_image_url(f"greenstar{prediction.pred_lucky_2}" if prediction.pred_lucky_2 in winning_stars_list else f"star{prediction.pred_lucky_2}")
 
         predictions_with_images.append({
             'prediction': prediction,
