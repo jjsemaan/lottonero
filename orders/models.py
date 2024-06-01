@@ -54,12 +54,19 @@ class Subscription(models.Model):
     total_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     order_number = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 
+    def _generate_order_number(self):
+        """
+        Generate a random, unique order number using UUID
+        """
+        return uuid.uuid4().hex.upper()
+
     def save(self, *args, **kwargs):
         """
-        Overrides the save method to automatically set the subscribe_end_date and subscribe_renewal_date
-        to 12 months from the created_on date if they are not already set. It also sets the subscribe_price
-        based on the subscription_type if not already set.
+        Override the original save method to set the order number
+        if it hasn't been set already.
         """
+        if not self.order_number:
+            self.order_number = self._generate_order_number()
         if self.subscription_type:
             self.subscribe_price = self.subscription_type.price
         if not self.subscribe_end_date:
@@ -70,6 +77,6 @@ class Subscription(models.Model):
 
     def __str__(self):
         """
-        Returns a string representation of the subscription, which includes the username and email of the user.
+        Returns a string representation of the subscription, which includes the username, email, and order number.
         """
-        return f"{self.user.username} ({self.user.email})"
+        return f"{self.user.username} ({self.user.email}) - Order Number: {self.order_number}"
