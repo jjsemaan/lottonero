@@ -99,6 +99,13 @@ def index(request):
 
 
 
+from django.shortcuts import render
+from predictions.models import Prediction, UploadImageModel
+
+def get_image_url(name):
+    image = UploadImageModel.objects.filter(name=name).values('image').first()
+    return image['image'] if image else None
+
 def alltime_winning_predictions_view(request):
     """
     A view to return the all-time winning predictions page.
@@ -115,11 +122,37 @@ def alltime_winning_predictions_view(request):
     """    
     alltime_winning_predictions = Prediction.objects.filter(match_type__isnull=False).order_by('-draw_date')
 
+    predictions_with_images = []
+    for prediction in alltime_winning_predictions:
+        winning_balls_list = [int(ball) for ball in prediction.winning_balls.split(',')] if prediction.winning_balls else []
+        winning_stars_list = [int(star) for star in prediction.winning_lucky_stars.split(',')] if prediction.winning_lucky_stars else []
+
+        pred_ball_1_image = get_image_url(f"green{prediction.pred_ball_1:02}" if prediction.pred_ball_1 in winning_balls_list else f"{prediction.pred_ball_1:02}")
+        pred_ball_2_image = get_image_url(f"green{prediction.pred_ball_2:02}" if prediction.pred_ball_2 in winning_balls_list else f"{prediction.pred_ball_2:02}")
+        pred_ball_3_image = get_image_url(f"green{prediction.pred_ball_3:02}" if prediction.pred_ball_3 in winning_balls_list else f"{prediction.pred_ball_3:02}")
+        pred_ball_4_image = get_image_url(f"green{prediction.pred_ball_4:02}" if prediction.pred_ball_4 in winning_balls_list else f"{prediction.pred_ball_4:02}")
+        pred_ball_5_image = get_image_url(f"green{prediction.pred_ball_5:02}" if prediction.pred_ball_5 in winning_balls_list else f"{prediction.pred_ball_5:02}")
+
+        pred_lucky_1_image = get_image_url(f"greenstar{prediction.pred_lucky_1}" if prediction.pred_lucky_1 in winning_stars_list else f"star{prediction.pred_lucky_1}")
+        pred_lucky_2_image = get_image_url(f"greenstar{prediction.pred_lucky_2}" if prediction.pred_lucky_2 in winning_stars_list else f"star{prediction.pred_lucky_2}")
+
+        predictions_with_images.append({
+            'prediction': prediction,
+            'pred_ball_1_image': pred_ball_1_image,
+            'pred_ball_2_image': pred_ball_2_image,
+            'pred_ball_3_image': pred_ball_3_image,
+            'pred_ball_4_image': pred_ball_4_image,
+            'pred_ball_5_image': pred_ball_5_image,
+            'pred_lucky_1_image': pred_lucky_1_image,
+            'pred_lucky_2_image': pred_lucky_2_image,
+        })
+
     context = {
-        'alltime_winning_predictions': alltime_winning_predictions,
+        'alltime_winning_predictions': predictions_with_images,
     }
 
     return render(request, 'home/alltime.html', context)
+
 
 from django.shortcuts import render
 from django.http import HttpResponse

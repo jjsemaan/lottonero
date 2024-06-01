@@ -42,24 +42,21 @@
                 </tr>
             </thead>
             <tbody>
-                {% for prediction in alltime_winning_predictions %}
+                {% for prediction_info in alltime_winning_predictions %}
                 <tr class="table-balls">
-                    <td class="text-center align-middle">{{ prediction.id }}</td>
-                    <td class="text-center align-middle">{{ prediction.draw_date }}</td>
+                    <td class="text-center align-middle">{{ prediction_info.prediction.id }}</td>
+                    <td class="text-center align-middle">{{ prediction_info.prediction.draw_date }}</td>
                     <td class="text-center align-middle">
-                        {% with winning_balls_list=prediction.winning_balls|split_and_strip|map_to_int winning_stars_list=prediction.winning_lucky_stars|split_and_strip|map_to_int %}
-                            <img src="{{ MEDIA_URL }}{% if prediction.pred_ball_1|to_int in winning_balls_list %}green{% endif %}{% if prediction.pred_ball_1 < 10 %}0{{ prediction.pred_ball_1 }}{% else %}{{ prediction.pred_ball_1 }}{% endif %}.webp" alt="Ball {{ prediction.pred_ball_1 }}">
-                            <img src="{{ MEDIA_URL }}{% if prediction.pred_ball_2|to_int in winning_balls_list %}green{% endif %}{% if prediction.pred_ball_2 < 10 %}0{{ prediction.pred_ball_2 }}{% else %}{{ prediction.pred_ball_2 }}{% endif %}.webp" alt="Ball {{ prediction.pred_ball_2 }}">
-                            <img src="{{ MEDIA_URL }}{% if prediction.pred_ball_3|to_int in winning_balls_list %}green{% endif %}{% if prediction.pred_ball_3 < 10 %}0{{ prediction.pred_ball_3 }}{% else %}{{ prediction.pred_ball_3 }}{% endif %}.webp" alt="Ball {{ prediction.pred_ball_3 }}">
-                            <img src="{{ MEDIA_URL }}{% if prediction.pred_ball_4|to_int in winning_balls_list %}green{% endif %}{% if prediction.pred_ball_4 < 10 %}0{{ prediction.pred_ball_4 }}{% else %}{{ prediction.pred_ball_4 }}{% endif %}.webp" alt="Ball {{ prediction.pred_ball_4 }}">
-                            <img src="{{ MEDIA_URL }}{% if prediction.pred_ball_5|to_int in winning_balls_list %}green{% endif %}{% if prediction.pred_ball_5 < 10 %}0{{ prediction.pred_ball_5 }}{% else %}{{ prediction.pred_ball_5 }}{% endif %}.webp" alt="Ball {{ prediction.pred_ball_5 }}">
-                            
-                            <img src="{{ MEDIA_URL }}{% if prediction.pred_lucky_1|to_int in winning_stars_list %}brown{% endif %}star{{ prediction.pred_lucky_1 }}.webp" alt="Lucky Star {{ prediction.pred_lucky_1 }}">
-                            <img src="{{ MEDIA_URL }}{% if prediction.pred_lucky_2|to_int in winning_stars_list %}brown{% endif %}star{{ prediction.pred_lucky_2 }}.webp" alt="Lucky Star {{ prediction.pred_lucky_2 }}">
-                        {% endwith %}
+                        <img src="{{ prediction_info.pred_ball_1_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_1 }}">
+                        <img src="{{ prediction_info.pred_ball_2_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_2 }}">
+                        <img src="{{ prediction_info.pred_ball_3_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_3 }}">
+                        <img src="{{ prediction_info.pred_ball_4_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_4 }}">
+                        <img src="{{ prediction_info.pred_ball_5_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_5 }}">
+                        <img src="{{ prediction_info.pred_lucky_1_image }}" alt="Lucky Star {{ prediction_info.prediction.pred_lucky_1 }}">
+                        <img src="{{ prediction_info.pred_lucky_2_image }}" alt="Lucky Star {{ prediction_info.prediction.pred_lucky_2 }}">
                     </td>
-                    <td class="text-center align-middle">{{ prediction.match_type }}</td>
-                    <td class="text-center align-middle">{{ prediction.win_amount }}</td>
+                    <td class="text-center align-middle">{{ prediction_info.prediction.match_type }}</td>
+                    <td class="text-center align-middle">{{ prediction_info.prediction.win_amount }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
