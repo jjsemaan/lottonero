@@ -11,3 +11,5 @@ def subscription_types_view(request):
     }
     return render(request, 'plans/plans.html', context)
 
+
+

@@ -203,6 +203,13 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+# Revolut Configuration
+REVOLUT_SETTINGS = {
+    'REVOLUT_API_SECRET_KEY': os.getenv('REVOLUT_API_KEY')
+}
+
+
+
 # Cloudinary configuration
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),

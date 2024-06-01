@@ -74,3 +74,5 @@ class Subscription(models.Model):
         Returns a string representation of the subscription, which includes the username and email of the user.
         """
         return f"{self.user.username} ({self.user.email})"
+
+
