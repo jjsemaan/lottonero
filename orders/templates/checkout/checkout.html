@@ -13,16 +13,14 @@
                         <div class="col-lg-8">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Sign Up</h1>
+                                    <h1 class="h4 text-gray-900 mb-4">Checkout</h1>
                                 </div>
-                                <form class="signup" method="post" action="{% url 'account_signup' %}" onsubmit="return validateForm()">
-                                    {% csrf_token %}
-                                    {{ form|crispy }}
-                                    {% if redirect_field_value %}
-                                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-                                    {% endif %}
-                                    <button type="submit" class="btn btn-primary">Sign Up</button>
-                                </form>
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        {{ form|crispy }}
+                                        <!--{{ form.as_p }}-->
+                                        <button type="submit" class="btn btn-success">Submit Order</button>
+                                    </form>
                                 <hr>
                                 <div class="text-center">
                                     <a class="small" href="{% url 'account_login' %}">Already have an account? Login!</a>
@@ -38,7 +36,7 @@
 
 <script>
     function validateForm() {
-        var form = document.getElementById('signup_form');
+        var form = document.getElementById('OrderForm');
         var inputs = form.getElementsByTagName('input');
         for (var i = 0; i < inputs.length; i++) {
             if (inputs[i].value === '') {

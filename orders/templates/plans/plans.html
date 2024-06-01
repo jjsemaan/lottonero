@@ -71,9 +71,9 @@
             <div class="card-body">
                 <h2 class="card-title">{{ subscription.name }}</h2>
                 <p class="card-text">{{ subscription.description|safe }}</p>
-                <p class="card-text price-text">Price: €{{ subscription.price }}</p>
+                <p class="card-text price-text">Price: € {{ subscription.price }}</p>
                 <div class="btn-container">
-                    <a href="#" class="btn btn-primary">Purchase</a>
+                    <a href="{% url 'checkout' subscription.id %}" class="btn btn-primary">Purchase</a>
                 </div>
             </div>
         </div>
