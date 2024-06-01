@@ -16,5 +16,12 @@ class SubscriptionTypeAdmin(admin.ModelAdmin):
 
 @admin.register(Subscription)
 class SubscriptionAdmin(admin.ModelAdmin):
-    list_display = ('user', 'subscription_type', 'subscribe_end_date', 'created_on')
+    list_display = ('user', 'subscription_type', 'subscribe_end_date', 'created_on', 'order_number')
     search_fields = ('user__username', 'subscription_type__name')
+    readonly_fields = ('order_number',)  # Make order_number read-only
+
+    def save_model(self, request, obj, form, change):
+        # Ensure the price is updated from the subscription type when saving
+        if obj.subscription_type:
+            obj.subscribe_price = obj.subscription_type.price
+        super().save_model(request, obj, form, change)
