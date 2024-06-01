@@ -7,7 +7,7 @@ from django.db import models
 class SubscriptionTypeAdmin(admin.ModelAdmin):
     list_display = ('name', 'price', 'created_on', 'created_by')
     search_fields = ('name',)
-    readonly_fields = ('created_on', 'created_by')  # Make created_by read-only
+    readonly_fields = ('created_on', 'created_by')
 
     def save_model(self, request, obj, form, change):
         if not obj.pk:  # Only set created_by during the first save
@@ -17,8 +17,8 @@ class SubscriptionTypeAdmin(admin.ModelAdmin):
 @admin.register(Subscription)
 class SubscriptionAdmin(admin.ModelAdmin):
     list_display = ('user', 'subscription_type', 'subscribe_end_date', 'created_on', 'order_number')
-    search_fields = ('user__username', 'subscription_type__name')
-    readonly_fields = ('order_number',)  # Make order_number read-only
+    search_fields = ('user__username', 'subscription_type__name', 'order_number')
+    readonly_fields = ('order_number', 'created_on',)
 
     def save_model(self, request, obj, form, change):
         # Ensure the price is updated from the subscription type when saving
