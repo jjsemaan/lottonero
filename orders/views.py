@@ -19,15 +19,17 @@ from .forms import OrderForm
 def checkout(request, subscription_id):
     subscription_type = SubscriptionType.objects.get(id=subscription_id)
     if request.method == 'POST':
-        form = OrderForm(request.POST, user=request.user)
+        form = OrderForm(request.POST, user=request.user, subscription_type=subscription_type)
         if form.is_valid():
             subscription = form.save(commit=False)
             subscription.user = request.user
             subscription.subscription_type = subscription_type
+            subscription.subscribe_price = form.cleaned_data['total_price']
+            subscription.total_price = form.cleaned_data['total_price']
             subscription.save()
             return redirect('subscription_success')  # Redirect to a success page
     else:
-        form = OrderForm(user=request.user)
+        form = OrderForm(user=request.user, subscription_type=subscription_type)
 
     context = {
         'form': form,
@@ -35,7 +37,5 @@ def checkout(request, subscription_id):
     }
     return render(request, 'checkout/checkout.html', context)
 
-
 def subscription_success(request):
     return render(request, 'checkout/subscription_success.html')
-
