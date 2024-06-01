@@ -43,9 +43,10 @@ class Subscription(models.Model):
         created_on (datetime): The date and time when the subscription was created.
         total_price (Decimal): The total price paid for the subscription.
         order_number (UUID): A unique identifier for the subscription.
+        email (str): The email of the user.
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    subscription_type = models.ForeignKey(SubscriptionType, on_delete=models.SET_NULL, null=True, blank=True)
+    subscription_type = models.ForeignKey('SubscriptionType', on_delete=models.SET_NULL, null=True, blank=True)
     subscribe_end_date = models.DateField(blank=True, null=True)
     subscribe_cancel_date = models.DateField(blank=True, null=True)
     subscribe_renewal_date = models.DateField(blank=True, null=True)
@@ -53,6 +54,7 @@ class Subscription(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     order_number = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    email = models.EmailField(max_length=254, blank=True, null=True)
 
     def _generate_order_number(self):
         """
@@ -63,7 +65,7 @@ class Subscription(models.Model):
     def save(self, *args, **kwargs):
         """
         Override the original save method to set the order number
-        if it hasn't been set already.
+        if it hasn't been set already, and ensure email is synced with the user.
         """
         if not self.order_number:
             self.order_number = self._generate_order_number()
@@ -73,6 +75,7 @@ class Subscription(models.Model):
             self.subscribe_end_date = self.created_on.date() + timedelta(days=365)
         if not self.subscribe_renewal_date:
             self.subscribe_renewal_date = self.created_on.date() + timedelta(days=365)
+        self.email = self.user.email  # Sync email with user's email
         super(Subscription, self).save(*args, **kwargs)
 
     def __str__(self):
