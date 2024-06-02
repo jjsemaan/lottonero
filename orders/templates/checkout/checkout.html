@@ -15,45 +15,44 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Checkout</h1>
                                 </div>
-                                    <form method="post" id="subscription-form">
-                                        {% csrf_token %}
-                                        {{ form|crispy }}
-                                        <fieldset class="rounded px-3 mb-5">
-                                            <legend class="fieldset-label small text-black px-2 w-auto">Details</legend>
-                                            
-                                            
-                                        </fieldset>
-                                        
-                                        <fieldset class="px-3">
-                                            <legend class="fieldset-label small text-black px-2 w-auto">Payment</legend>
-                                            <!-- A Stripe card element will go here -->
-                                            <div class="mb-3" id="card-element"></div>
+                                <form method="post" id="subscription-form">
+                                    {% csrf_token %}
+                                    <fieldset class="rounded px-3 mb-5">
+                                        <legend class="fieldset-label small text-black px-2 w-auto">User Info</legend>
+                                        {% if not user_info.first_name or not user_info.last_name %}
+                                            {{ form.first_name|as_crispy_field }}
+                                            {{ form.last_name|as_crispy_field }}
+                                        {% else %}
+                                            <p>First Name: {{ user_info.first_name }}</p>
+                                            <p>Last Name: {{ user_info.last_name }}</p>
+                                            <p>Email: {{ user_info.email }}</p>
+                                        {% endif %}
+                                    </fieldset>
                     
-                                            <!-- Used to display form errors -->
-                                            <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
-                                        </fieldset>
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        <div id="total-price" class="mt-3"></div>
-                                        <button type="submit" class="btn btn-success">Submit Order</button>
-                                    </form>
+                                    <fieldset class="rounded px-3 mb-5">
+                                        <legend class="fieldset-label small text-black px-2 w-auto">Subscription Details</legend>
+                                        <div class="card m-2" style="width: 18rem;">
+                                            <div class="card-body">
+                                                <h2 class="card-title">{{ subscription_name }}</h2>
+                                                <p class="card-text">{{ subscription_description|safe }}</p>
+                                                <p class="card-text price-text">Price: € {{ subscription_type.price }}</p>
+                                            </div>
+                                        </div>
+                                        {{ form.subscription_option|as_crispy_field }}
+                                    </fieldset>
+
+                                    <fieldset class="px-3">
+                                        <legend class="fieldset-label small text-black px-2 w-auto">Payment</legend>
+                                        <!-- A Stripe card element will go here -->
+                                        <div class="mb-3" id="card-element"></div>
+
+                                        <!-- Used to display form errors -->
+                                        <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
+                                    </fieldset>
+                                    <input type="hidden" id="id_total_price" name="total_price" value="{{ form.total_price.value }}">
+                                    <div id="total-price" class="mt-3"></div>
+                                    <button type="submit" class="btn btn-success">Submit Order</button>
+                                </form>
                                 <hr>
                                 <div class="text-center">
                                     <a class="small" href="{% url 'account_login' %}">Already have an account? Login!</a>

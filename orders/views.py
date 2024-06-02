@@ -15,18 +15,30 @@ def subscription_types_view(request):
 from django.contrib.auth.decorators import login_required
 from .forms import OrderForm
 
+
 @login_required
 def checkout(request, subscription_id):
     subscription_type = SubscriptionType.objects.get(id=subscription_id)
     if request.method == 'POST':
         form = OrderForm(request.POST, user=request.user, subscription_type=subscription_type)
         if form.is_valid():
-            subscription = form.save(commit=False)
-            subscription.user = request.user
-            subscription.subscription_type = subscription_type
-            subscription.subscribe_price = form.cleaned_data['total_price']
-            subscription.total_price = form.cleaned_data['total_price']
+            subscription = Subscription(
+                user=request.user,
+                subscription_type=subscription_type,
+                subscribe_price=form.cleaned_data['total_price'],
+                total_price=form.cleaned_data['total_price'],
+                subscribe_end_date=request.POST.get('subscribe_end_date'),
+                subscribe_cancel_date=request.POST.get('subscribe_cancel_date'),
+                subscribe_renewal_date=request.POST.get('subscribe_renewal_date'),
+                email=request.user.email,
+            )
             subscription.save()
+
+            # Update user details
+            request.user.first_name = form.cleaned_data['first_name']
+            request.user.last_name = form.cleaned_data['last_name']
+            request.user.save()
+
             return redirect('subscription_success')  # Redirect to a success page
     else:
         form = OrderForm(user=request.user, subscription_type=subscription_type)
@@ -34,8 +46,19 @@ def checkout(request, subscription_id):
     context = {
         'form': form,
         'subscription_type': subscription_type,
+        'user_info': {
+            'first_name': request.user.first_name,
+            'last_name': request.user.last_name,
+            'email': request.user.email,
+        },
+        'subscription_name': subscription_type.name,
+        'subscription_description': subscription_type.description,
     }
     return render(request, 'checkout/checkout.html', context)
+
+def subscription_success(request):
+    return render(request, 'checkout/subscription_success.html')
+
 
 def subscription_success(request):
     return render(request, 'checkout/subscription_success.html')
