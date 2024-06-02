@@ -13,33 +13,46 @@
                         <div class="col-lg-8">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Checkout</h1>
+                                    <h1 class="h4 text-black mb-4">Checkout</h1>
                                 </div>
                                 <form method="post" id="subscription-form">
                                     {% csrf_token %}
                                     <fieldset class="rounded px-3 mb-5">
-                                        <legend class="fieldset-label small text-black px-2 w-auto">User Info</legend>
+                                        <legend class="fieldset-label small text-black px-2 w-auto"></legend>
                                         {% if not user_info.first_name or not user_info.last_name %}
-                                            {{ form.first_name|as_crispy_field }}
-                                            {{ form.last_name|as_crispy_field }}
+                                            <table class="table text-dark">
+                                                <tr>
+                                                    <td class="text-left">{{ form.first_name.label_tag }}</td>
+                                                    <td class="text-left">{{ form.first_name|as_crispy_field }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left">{{ form.last_name.label_tag }}</td>
+                                                    <td class="text-left">{{ form.last_name|as_crispy_field }}</td>
+                                                </tr>
+                                            </table>
                                         {% else %}
-                                            <p>First Name: {{ user_info.first_name }}</p>
-                                            <p>Last Name: {{ user_info.last_name }}</p>
-                                            <p>Email: {{ user_info.email }}</p>
+                                            <table class="table text-dark">
+                                                <tr>
+                                                    <td class="text-left font-weight-bold">First Name:</td>
+                                                    <td class="text-left">{{ user_info.first_name }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left font-weight-bold">Last Name:</td>
+                                                    <td class="text-left">{{ user_info.last_name }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left font-weight-bold">Email:</td>
+                                                    <td class="text-left">{{ user_info.email }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left font-weight-bold">Subscription:</td>
+                                                    <td class="text-left">{{ subscription_name }}</td>
+                                                </tr>                                                 
+                                            </table>
                                         {% endif %}
+                                        
                                     </fieldset>
-
-                                    <fieldset class="rounded px-3 mb-5">
-                                        <legend class="fieldset-label small text-black px-2 w-auto">Subscription Details</legend>
-                                        <div class="card m-2" style="width: 18rem;">
-                                            <div class="card-body">
-                                                <h2 class="card-title">{{ subscription_name }}</h2>
-                                                <p class="card-text">{{ subscription_description|safe }}</p>
-                                                <p class="card-text price-text">Price: € {{ subscription_type.price }}</p>
-                                            </div>
-                                        </div>
-                                        {{ form.subscription_option|as_crispy_field }}
-                                    </fieldset>
+                                    {{ form.subscription_option }}
 
                                     <fieldset class="px-3">
                                         <legend class="fieldset-label small text-black px-2 w-auto">Payment</legend>
