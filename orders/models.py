@@ -46,7 +46,8 @@ class Subscription(models.Model):
         email (str): The email of the user.
         recurring_subscription (bool): Indicates if the subscription is recurring.
     """
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     subscription_type = models.ForeignKey('SubscriptionType', on_delete=models.SET_NULL, null=True, blank=True)
     subscribe_end_date = models.DateField(blank=True, null=True)
     subscribe_cancel_date = models.DateField(blank=True, null=True)

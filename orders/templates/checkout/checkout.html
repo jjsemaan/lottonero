@@ -47,24 +47,30 @@
                                                 <tr>
                                                     <td class="text-left font-weight-bold">Subscription:</td>
                                                     <td class="text-left">{{ subscription_name }}</td>
+                                                </tr> 
+                                                <tr>
+                                                    <td class="text-left font-weight-bold">Subscription Option</td>
+                                                    <td class="text-left">{{ form.subscription_option }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left font-weight-bold">Total Price:</td>
+                                                    <td id="total-price-value" class="text-left">{{ total_price.value }}</td>
                                                 </tr>                                                 
                                             </table>
                                         {% endif %}
-                                        
                                     </fieldset>
-                                    {{ form.subscription_option }}
-
-                                    <fieldset class="px-3">
-                                        <legend class="fieldset-label small text-black px-2 w-auto">Payment</legend>
+                                    <fieldset>
+                                        <input type="hidden" id="id_total_price" name="total_price" value="{{ form.total_price.value }}">
+                                        <div id="total-price" class="mt-3 mb-3">
+                                            <span id="total-price-value"></span>
+                                        </div>
                                         <!-- A Stripe card element will go here -->
                                         <div class="mb-3" id="card-element"></div>
-
                                         <!-- Used to display form errors -->
                                         <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
                                     </fieldset>
-                                    <input type="hidden" id="id_total_price" name="total_price" value="{{ form.total_price.value }}">
-                                    <div id="total-price" class="mt-3"></div>
-                                    <button type="submit" class="btn btn-success">Submit Order</button>
+                                    
+                                    <button type="submit" class="btn btn-dark">Submit Order</button>
                                 </form>
                                 <hr>
                                 <div class="text-center">
@@ -98,6 +104,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         const subscriptionOptions = document.querySelectorAll('input[name="subscription_option"]');
         const totalPriceField = document.getElementById('id_total_price');
+        const totalPriceDisplay = document.getElementById('total-price-value');
     
         const monthlyPrice = "{{ subscription_type.price }}";
         const annualPrice = (parseFloat(monthlyPrice) * 12 * 0.85).toFixed(2);
@@ -108,7 +115,7 @@
                 const price = selectedOption.value === 'monthly' ? monthlyPrice : annualPrice;
                 totalPriceField.value = price;
                 const suffix = selectedOption.value === 'monthly' ? ' / month' : ' / year';
-                document.getElementById('total-price').textContent = `Total: € ${price}${suffix}`;
+                totalPriceDisplay.textContent = `€ ${price}${suffix}`;
             }
         }
     
@@ -119,5 +126,6 @@
         // Initialize the total price on page load
         updateTotalPrice();
     });
-    </script>
+</script>
+    
 {% endblock %}

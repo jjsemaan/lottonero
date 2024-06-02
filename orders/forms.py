@@ -5,17 +5,16 @@ from decimal import Decimal
 
 class OrderForm(forms.ModelForm):
     SUBSCRIPTION_CHOICES = [
-        ('monthly', 'Monthly'),
-        ('annual', 'Annual'),
+        ('monthly', 'Monthly (€ 9.99)'),
+        ('annual', 'Annual (€ 102.00)'),
     ]
 
     subscription_option = forms.ChoiceField(
         choices=SUBSCRIPTION_CHOICES,
         widget=forms.RadioSelect,
+        initial='monthly',  # Set the default value
         label="Choose your subscription"
     )
-    first_name = forms.CharField(max_length=30, required=False, label="First Name")
-    last_name = forms.CharField(max_length=30, required=False, label="Last Name")
 
     class Meta:
         model = Subscription
@@ -30,7 +29,12 @@ class OrderForm(forms.ModelForm):
         user = kwargs.pop('user', None)
         subscription_type = kwargs.pop('subscription_type', None)
         super().__init__(*args, **kwargs)
-        
+        placeholders = {
+            'subscribe_end_date': 'Subscription End Date',
+            'subscribe_cancel_date': 'YYYY-MM-DD',
+            'subscribe_renewal_date': 'Subscription Renewal Date',
+        }
+
         if subscription_type:
             self.subscription_type = subscription_type
             monthly_price = subscription_type.price
@@ -41,15 +45,10 @@ class OrderForm(forms.ModelForm):
                 ('annual', f'Annual (€ {annual_price})')
             ]
 
-        if user:
-            self.fields['first_name'].initial = user.first_name
-            self.fields['last_name'].initial = user.last_name
-        
-        for field in ['first_name', 'last_name']:
-            if not getattr(user, field):
-                self.fields[field].required = True
-
         for field in self.fields:
+            if field in placeholders:
+                placeholder = f"{placeholders[field]}{' *' if self.fields[field].required else ''}"
+                self.fields[field].widget.attrs['placeholder'] = placeholder
             self.fields[field].widget.attrs['class'] = 'stripe-style-input'
             self.fields[field].label = False
         

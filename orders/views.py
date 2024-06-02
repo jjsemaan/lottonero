@@ -34,7 +34,7 @@ def checkout(request, subscription_id):
             subscription = Subscription(
                 user=request.user,
                 subscription_type=subscription_type,
-                subscribe_price=form.cleaned_data['total_price'],
+                subscribe_price=subscription_type.price,
                 total_price=form.cleaned_data['total_price'],
                 subscribe_end_date=datetime.now().date() + timedelta(days=365),
                 subscribe_cancel_date=request.POST.get('subscribe_cancel_date'),
