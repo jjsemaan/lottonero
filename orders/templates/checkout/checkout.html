@@ -28,7 +28,7 @@
                                             <p>Email: {{ user_info.email }}</p>
                                         {% endif %}
                                     </fieldset>
-                    
+
                                     <fieldset class="rounded px-3 mb-5">
                                         <legend class="fieldset-label small text-black px-2 w-auto">Subscription Details</legend>
                                         <div class="card m-2" style="width: 18rem;">
@@ -80,6 +80,7 @@
         return true;
     }
 </script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const subscriptionOptions = document.querySelectorAll('input[name="subscription_option"]');

@@ -12,9 +12,11 @@ def subscription_types_view(request):
     return render(request, 'plans/plans.html', context)
 
 
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from .models import Subscription, SubscriptionType
 from .forms import OrderForm
-
+from datetime import datetime, timedelta
 
 @login_required
 def checkout(request, subscription_id):
@@ -22,23 +24,24 @@ def checkout(request, subscription_id):
     if request.method == 'POST':
         form = OrderForm(request.POST, user=request.user, subscription_type=subscription_type)
         if form.is_valid():
+            # Update user details if necessary
+            if not request.user.first_name:
+                request.user.first_name = form.cleaned_data['first_name']
+            if not request.user.last_name:
+                request.user.last_name = form.cleaned_data['last_name']
+            request.user.save()
+            
             subscription = Subscription(
                 user=request.user,
                 subscription_type=subscription_type,
-                subscribe_price=form.cleaned_data['total_price'],
+                subscribe_price=subscription_type.price,
                 total_price=form.cleaned_data['total_price'],
-                subscribe_end_date=request.POST.get('subscribe_end_date'),
+                subscribe_end_date=datetime.now().date() + timedelta(days=365),
                 subscribe_cancel_date=request.POST.get('subscribe_cancel_date'),
-                subscribe_renewal_date=request.POST.get('subscribe_renewal_date'),
+                subscribe_renewal_date=datetime.now().date() + timedelta(days=365),
                 email=request.user.email,
             )
             subscription.save()
-
-            # Update user details
-            request.user.first_name = form.cleaned_data['first_name']
-            request.user.last_name = form.cleaned_data['last_name']
-            request.user.save()
-
             return redirect('subscription_success')  # Redirect to a success page
     else:
         form = OrderForm(user=request.user, subscription_type=subscription_type)
@@ -55,9 +58,6 @@ def checkout(request, subscription_id):
         'subscription_description': subscription_type.description,
     }
     return render(request, 'checkout/checkout.html', context)
-
-def subscription_success(request):
-    return render(request, 'checkout/subscription_success.html')
 
 
 def subscription_success(request):

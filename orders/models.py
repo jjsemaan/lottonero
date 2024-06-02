@@ -56,7 +56,7 @@ class Subscription(models.Model):
     total_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     order_number = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     email = models.EmailField(max_length=254, blank=True, null=True)
-    recurring_subscription = models.BooleanField(default=False)  # New field added
+    recurring_subscription = models.BooleanField(default=)
 
     def _generate_order_number(self):
         """
@@ -73,10 +73,12 @@ class Subscription(models.Model):
             self.order_number = self._generate_order_number()
         if self.subscription_type:
             self.subscribe_price = self.subscription_type.price
+        if not self.pk:
+            self.created_on = datetime.now()
         if not self.subscribe_end_date:
-            self.subscribe_end_date = self.created_on.date() + timedelta(days=365)
+            self.subscribe_end_date = (self.created_on + timedelta(days=365)).date()
         if not self.subscribe_renewal_date:
-            self.subscribe_renewal_date = self.created_on.date() + timedelta(days=365)
+            self.subscribe_renewal_date = (self.created_on + timedelta(days=365)).date()
         self.email = self.user.email  # Sync email with user's email
         super(Subscription, self).save(*args, **kwargs)
 
