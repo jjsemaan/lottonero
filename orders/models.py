@@ -44,6 +44,7 @@ class Subscription(models.Model):
         total_price (Decimal): The total price paid for the subscription.
         order_number (UUID): A unique identifier for the subscription.
         email (str): The email of the user.
+        recurring_subscription (bool): Indicates if the subscription is recurring.
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     subscription_type = models.ForeignKey('SubscriptionType', on_delete=models.SET_NULL, null=True, blank=True)
@@ -55,6 +56,7 @@ class Subscription(models.Model):
     total_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     order_number = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     email = models.EmailField(max_length=254, blank=True, null=True)
+    recurring_subscription = models.BooleanField(default=False)  # New field added
 
     def _generate_order_number(self):
         """

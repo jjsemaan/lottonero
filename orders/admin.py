@@ -15,12 +15,15 @@ class SubscriptionTypeAdmin(admin.ModelAdmin):
             obj.created_by = request.user
         super().save_model(request, obj, form, change)
 
+from django.contrib import admin
+from .models import Subscription
+
 @admin.register(Subscription)
 class SubscriptionAdmin(admin.ModelAdmin):
-    list_display = ('order_number', 'subscription_type', 'user', 'created_on', 'subscribe_end_date',)
-    fields = ('order_number', 'subscription_type', 'user', 'created_on', 'subscribe_end_date',)
-    search_fields = ('user__username', 'subscription_type__name', 'order_number',)
-    readonly_fields = ('order_number', 'created_on',)
+    list_display = ('order_number', 'subscription_type', 'user', 'created_on', 'subscribe_end_date', 'recurring_subscription')
+    fields = ('order_number', 'subscription_type', 'user', 'created_on', 'subscribe_end_date', 'recurring_subscription')
+    search_fields = ('user__username', 'subscription_type__name', 'order_number')
+    readonly_fields = ('order_number', 'created_on')
     ordering = ('-created_on',)
 
     def save_model(self, request, obj, form, change):
@@ -28,3 +31,4 @@ class SubscriptionAdmin(admin.ModelAdmin):
         if obj.subscription_type:
             obj.subscribe_price = obj.subscription_type.price
         super().save_model(request, obj, form, change)
+
