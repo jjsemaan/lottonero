@@ -56,7 +56,7 @@ class Subscription(models.Model):
     total_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     order_number = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     email = models.EmailField(max_length=254, blank=True, null=True)
-    recurring_subscription = models.BooleanField(default=)
+    recurring_subscription = models.BooleanField(default=False)  # New field added
 
     def _generate_order_number(self):
         """

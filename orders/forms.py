@@ -14,10 +14,17 @@ class OrderForm(forms.ModelForm):
         widget=forms.RadioSelect,
         label="Choose your subscription"
     )
+    first_name = forms.CharField(max_length=30, required=False, label="First Name")
+    last_name = forms.CharField(max_length=30, required=False, label="Last Name")
 
     class Meta:
         model = Subscription
-        fields = ()  # Remove fields that are automatically set
+        fields = (
+            'subscribe_end_date',
+            'subscribe_cancel_date',
+            'subscribe_renewal_date',
+            'total_price',
+        )
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
@@ -27,14 +34,27 @@ class OrderForm(forms.ModelForm):
         if subscription_type:
             self.subscription_type = subscription_type
             monthly_price = subscription_type.price
-            annual_price = (monthly_price * Decimal(12) * Decimal(0.85)).quantize(Decimal('0.01'))
+            annual_price = (monthly_price * Decimal(12) * Decimal(0.85)).quantize(Decimal('0.01'))  # 15% discount for annual subscription
 
             self.fields['subscription_option'].widget.choices = [
                 ('monthly', f'Monthly (€ {monthly_price})'),
                 ('annual', f'Annual (€ {annual_price})')
             ]
+
+        if user:
+            self.fields['first_name'].initial = user.first_name
+            self.fields['last_name'].initial = user.last_name
         
-        self.fields['total_price'] = forms.CharField(widget=forms.HiddenInput(), required=False)
+        for field in ['first_name', 'last_name']:
+            if not getattr(user, field):
+                self.fields[field].required = True
+
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'stripe-style-input'
+            self.fields[field].label = False
+        
+        self.fields['total_price'].widget.attrs['readonly'] = True
+        self.fields['total_price'].widget.attrs['class'] += ' readonly'
 
     def clean_total_price(self):
         cleaned_data = super().clean()

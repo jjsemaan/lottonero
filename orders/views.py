@@ -34,7 +34,7 @@ def checkout(request, subscription_id):
             subscription = Subscription(
                 user=request.user,
                 subscription_type=subscription_type,
-                subscribe_price=subscription_type.price,
+                subscribe_price=form.cleaned_data['total_price'],
                 total_price=form.cleaned_data['total_price'],
                 subscribe_end_date=datetime.now().date() + timedelta(days=365),
                 subscribe_cancel_date=request.POST.get('subscribe_cancel_date'),
@@ -58,7 +58,6 @@ def checkout(request, subscription_id):
         'subscription_description': subscription_type.description,
     }
     return render(request, 'checkout/checkout.html', context)
-
 
 def subscription_success(request):
     return render(request, 'checkout/subscription_success.html')

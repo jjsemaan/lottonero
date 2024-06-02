@@ -204,9 +204,7 @@ STATICFILES_DIRS = [
 ]
 
 # Revolut Configuration
-REVOLUT_SETTINGS = {
-    'REVOLUT_API_SECRET_KEY': os.getenv('REVOLUT_API_KEY')
-}
+# REVOLUT_SETTINGS = {'REVOLUT_API_SECRET_KEY': os.getenv('REVOLUT_API_KEY')}
 
 
 
