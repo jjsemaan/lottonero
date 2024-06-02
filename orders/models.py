@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import timedelta
+from datetime import timedelta, datetime
 from tinymce.models import HTMLField
 import uuid
 

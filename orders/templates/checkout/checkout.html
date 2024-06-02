@@ -54,7 +54,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="text-left font-weight-bold">Total Price:</td>
-                                                    <td id="total-price-value" class="text-left">{{ total_price.value }}</td>
+                                                    <td id="total-price-value" class="text-left">{{ form.total_price.value }}</td>
                                                 </tr>                                                 
                                             </table>
                                         {% endif %}
@@ -116,6 +116,9 @@
                 totalPriceField.value = price;
                 const suffix = selectedOption.value === 'monthly' ? ' / month' : ' / year';
                 totalPriceDisplay.textContent = `€ ${price}${suffix}`;
+
+                // Print the total price to the console for debugging
+                console.log(`Total price set to: ${price}`);
             }
         }
     
@@ -127,5 +130,7 @@
         updateTotalPrice();
     });
 </script>
+
+
     
 {% endblock %}
