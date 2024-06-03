@@ -228,5 +228,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 JAZZMIN_SETTINGS = {
     "site_title": "Lottonero",
+    "site_header": "Lottonero Admin",
     "site_brand": "Lottonero",
-}
+    "user_avatar": None,
+    "welcome_sign": "Welcome Lottonero's Admin Portal!",
+
+    # Copyright on the footer
+    "copyright": "ParaBIM Ltd.",
+
+    # Side menu
+    "navigation_expanded": False,
+
+    "usermenu_links": [
+
+        # Url that gets reversed (Permissions can be added)
+        {"name": "Lottonero Home",  "url": "/", "permissions": ["auth.view_user"]},
+    
+
+        # external url that opens in a new window (Permissions can be added)
+        {"name": "Lottonero Github Repo", "url": "https://github.com/jjsemaan/lottonero", "new_window": True},
+
+    ],
+}   
