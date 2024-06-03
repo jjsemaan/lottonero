@@ -45,6 +45,9 @@ class Subscription(models.Model):
         order_number (UUID): A unique identifier for the subscription.
         email (str): The email of the user.
         recurring_subscription (bool): Indicates if the subscription is recurring.
+        trial_price (Decimal): The price of the trial period, defaults to 0.
+        subscription_status (str): The status of the subscription, defaults to "active".
+        subscription_start_date (date): The date when the subscription starts.
     """
     
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -57,7 +60,10 @@ class Subscription(models.Model):
     total_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     order_number = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     email = models.EmailField(max_length=254, blank=True, null=True)
-    recurring_subscription = models.BooleanField(default=False)  # New field added
+    recurring_subscription = models.BooleanField(default=True)
+    trial_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    subscription_status = models.CharField(max_length=20, default='active')
+    subscription_start_date = models.DateField(blank=True, null=True)
 
     def _generate_order_number(self):
         """
@@ -77,10 +83,16 @@ class Subscription(models.Model):
         if not self.pk:
             self.created_on = datetime.now()
         if not self.subscribe_end_date:
-            self.subscribe_end_date = (self.created_on + timedelta(days=365)).date()
+            self.subscribe_end_date = (self.subscription_start_date + timedelta(days=365)).date()
         if not self.subscribe_renewal_date:
-            self.subscribe_renewal_date = (self.created_on + timedelta(days=365)).date()
-        self.email = self.user.email  # Sync email with user's email
+            self.subscribe_renewal_date = (selfsubscription_start_date + timedelta(days=365)).date()
+        if not self.subscription_start_date:
+            self.subscription_start_date = (self.created_on + timedelta(days=7)).date()
+        if self.subscribe_cancel_date:
+            self.subscription_status = 'disabled'
+        else:
+            self.subscription_status = 'active'
+        self.email = self.user.email
         super(Subscription, self).save(*args, **kwargs)
 
     def __str__(self):
