@@ -10,23 +10,29 @@
                     <div class="row mb-4">
                         <div class="col-lg-2 d-none d-lg-block"></div>
                         <div class="col-lg-8">
-                            <div class="p-5">
-                                <div class="text-center">
-                                    <h1 class="h4 text-black mb-4">Checkout</h1>
-                                </div>
-                                <form method="post" id="subscription-form">
-                                    {% csrf_token %}
-                                    <fieldset class="rounded px-3 mb-5">
-                                        <legend class="fieldset-label small text-black px-2 w-auto"></legend>
+
+                            <div class="text-center">
+                                <h1 class="h4 text-black mt-4 mb-4">Checkout</h1>
+                            </div>
+                            <div class="container-fluid">
+                                
+
+                                    <form method="post" id="subscription-form">
+                                        {% csrf_token %}
+
+                                        <legend class="fieldset-label small text-black px-2 w-auto">
+                                        </legend>
                                         {% if not user_info.first_name or not user_info.last_name %}
                                         <table class="table text-dark">
                                             <tr>
                                                 <td class="text-left">{{ form.first_name.label_tag }}</td>
-                                                <td class="text-left">{{ form.first_name|as_crispy_field }}</td>
+                                                <td class="text-left">{{ form.first_name|as_crispy_field }}
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-left">{{ form.last_name.label_tag }}</td>
-                                                <td class="text-left">{{ form.last_name|as_crispy_field }}</td>
+                                                <td class="text-left">{{ form.last_name|as_crispy_field }}
+                                                </td>
                                             </tr>
                                         </table>
                                         {% else %}
@@ -48,12 +54,14 @@
                                                 <td class="text-left">{{ subscription_name }}</td>
                                             </tr>
                                             <tr>
-                                                <td class="text-left font-weight-bold">Subscription Option</td>
+                                                <td class="text-left font-weight-bold">Subscription Option
+                                                </td>
                                                 <td class="text-left">{{ form.subscription_option }}</td>
                                             </tr>
                                             <tr>
                                                 <td class="text-left font-weight-bold">Total Price:</td>
-                                                <td id="total-price-value" class="text-left">{{ form.total_price.value
+                                                <td id="total-price-value" class="text-left">{{
+                                                    form.total_price.value
                                                     }}</td>
                                             </tr>
                                             <tr>
@@ -64,7 +72,8 @@
                                             </tr>
                                             <tr>
                                                 <td colspan="2">
-                                                    <button type="submit" class="btn btn-dark">Submit Order</button>
+                                                    <button type="submit" class="btn btn-dark">Submit
+                                                        Order</button>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -75,17 +84,15 @@
                                             </tr>
                                         </table>
                                         {% endif %}
-                                    </fieldset>
-                                    <fieldset>
                                         <input type="hidden" id="id_total_price" name="total_price"
                                             value="{{ form.total_price.value }}">
-                                    </fieldset>
-                                </form>
-                                <hr>
-                                <div class="text-center">
-                                    <a class="small" href="{% url 'account_login' %}">Already have an account?
-                                        Login!</a>
-                                </div>
+                                    </form>
+                               
+                            </div>
+                            
+                            <div class="text-center">
+                                <a class="small" href="{% url 'account_login' %}">Already have an account?
+                                    Login!</a>
                             </div>
                         </div>
                     </div>
