@@ -18,6 +18,7 @@ from .models import Subscription, SubscriptionType
 from .forms import OrderForm
 from datetime import datetime, timedelta
 from decimal import Decimal
+from django.conf import settings
 
 @login_required
 def checkout(request, subscription_id):
@@ -69,6 +70,8 @@ def checkout(request, subscription_id):
         },
         'subscription_name': subscription_type.name,
         'subscription_description': subscription_type.description,
+        'stripe_public_key': settings.STRIPE_PUBLISHABLE_KEY,
+        'client_secret': settings.STRIPE_SECRET_KEY,
     }
     return render(request, 'checkout/checkout.html', context)
 
@@ -83,6 +86,7 @@ def subscription_success(request):
 from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
 from .forms import OrderForm
+from django.conf import settings
 
 def checkout(request):
     bag = request.session.get('bag', {})
@@ -94,8 +98,8 @@ def checkout(request):
     template = 'checkout/checkout.html'
     context = {
         'order_form': order_form,
-        'stripe_public_key': 'pk_test_0SMREd7Vdweb1MGRi8S0EycR00JVzSAs5O',
-        'client_secret': 'test client secret',
+        'stripe_public_key': settings.STRIPE_PUBLISHABLE_KEY,
+        'client_secret': settings.STRIPE_SECRET_KEY,
     }
 
     return render(request, template, context)

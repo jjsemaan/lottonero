@@ -203,9 +203,11 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-# Revolut Configuration
-# REVOLUT_SETTINGS = {'REVOLUT_API_SECRET_KEY': os.getenv('REVOLUT_API_KEY')}
-
+# Stripe Configuration
+# Stripe Payment Configuration  
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
+STRIPE_ENDPOINT_SECRET = os.environ.get('STRIPE_ENDPOINT_SECRET')
 
 
 # Cloudinary configuration
