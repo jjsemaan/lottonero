@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}" rel="stylesheet">
     {% endblock %}
 
+    {% block extra_css %}
+    {% endblock %}
 
     {% block corejs %}
     <script src="https://kit.fontawesome.com/e9c73d7092.js" crossorigin="anonymous"></script>
@@ -41,12 +43,9 @@
         <script src="https://js.stripe.com/v3/"></script>
     {% endblock %}
 
-    {% block postloadjs %}
-        {{ block.super }}
-        {{ stripe_public_key|json_script:"id_stripe_public_key" }}
-        {{ client_secret|json_script:"id_client_secret" }}
-        <script src="{% static 'checkout/js/stripe_elements.js' %}"></script>
+    {% block extra_js %}
     {% endblock %}
+
 
     <title>Lottonero {% block extra_title %}{% endblock %}</title>
 </head>
