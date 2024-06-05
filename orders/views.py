@@ -25,6 +25,9 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 @login_required
 def checkout(request, subscription_id):
+    stripe_public_key = settings.STRIPE_PUBLISHABLE_KEY
+    stripe_secret_key = settings.STRIPE_SECRET_KEY
+
     subscription_type = SubscriptionType.objects.get(id=subscription_id)
     if request.method == 'POST':
         form = OrderForm(request.POST, user=request.user, subscription_type=subscription_type)
@@ -57,10 +60,11 @@ def checkout(request, subscription_id):
 
     # Create a PaymentIntent
     intent = stripe.PaymentIntent.create(
-        amount=int(subscription_type.price * 100),  # amount in cents
+        amount=int(subscription_type.price * 100),
         currency='eur',
     )
 
+    template = 'checkout/checkout.html'
     context = {
         'form': form,
         'subscription_type': subscription_type,
@@ -74,31 +78,8 @@ def checkout(request, subscription_id):
         'stripe_public_key': settings.STRIPE_PUBLISHABLE_KEY,
         'client_secret': intent.client_secret,
     }
-    return render(request, 'checkout/checkout.html', context)
+    return render(request, template, context)
 
 def subscription_success(request):
     return render(request, 'checkout/subscription_success.html')
 
-
-"""
-from django.shortcuts import render, redirect, reverse
-from django.contrib import messages
-from .forms import OrderForm
-from django.conf import settings
-
-def checkout(request):
-    bag = request.session.get('bag', {})
-    if not bag:
-        messages.error(request, "There's nothing in your bag at the moment")
-        return redirect(reverse('products'))
-
-    order_form = OrderForm()
-    template = 'checkout/checkout.html'
-    context = {
-        'order_form': order_form,
-        'stripe_public_key': settings.STRIPE_PUBLISHABLE_KEY,
-        'client_secret': settings.STRIPE_SECRET_KEY,
-    }
-
-    return render(request, template, context)
-"""
