@@ -206,6 +206,21 @@ def get_image_url(name):
 
 @csrf_protect
 def generate_shuffled_predictions(request):
+    """
+    A view to generate shuffled predictions based on the latest predictions.
+
+    This view handles POST requests to generate a set number of shuffled predictions from the latest set of predictions.
+    It fetches the latest predictions, extracts the unique balls and lucky stars, and generates new shuffled predictions
+    by randomly selecting and shuffling these numbers. Each unique combination of balls and lucky stars is saved as a 
+    new ShuffledPrediction. A success message is added upon completion.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        HttpResponse: Renders the 'backoffice/backoffice.html' template with a success message if predictions 
+        were successfully generated, or an error message if no predictions were found.
+    """
     if request.method == 'POST':
         latest_prediction_date = Prediction.objects.aggregate(Max('prediction_date'))['prediction_date__max']
         if not latest_prediction_date:
@@ -243,7 +258,7 @@ def generate_shuffled_predictions(request):
                 unique_combinations.add(full_set)
                 shuffled_prediction = ShuffledPrediction(
                     prediction_date=latest_prediction_date,
-                    draw_date=latest_predictions.first().draw_date,  # Using the same draw date for consistency
+                    draw_date=latest_predictions.first().draw_date,
                     pred_ball_1=new_balls[0],
                     pred_ball_2=new_balls[1],
                     pred_ball_3=new_balls[2],
@@ -265,6 +280,22 @@ def generate_shuffled_predictions(request):
         return render(request, 'backoffice/backoffice.html')
 
 def display_shuffled_predictions(request):
+    """
+    A view to display the most recent shuffled predictions.
+
+    This view fetches the latest prediction date from the ShuffledPrediction model,
+    retrieves all shuffled predictions for that date, and prepares the necessary
+    image URLs for each prediction. The context containing the predictions and their
+    associated images is then passed to the 'shuffled_predictions/shuffled_predictions.html'
+    template for rendering.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        HttpResponse: The rendered 'shuffled_predictions/shuffled_predictions.html' template with
+        the context containing predictions_with_images.
+    """
     # Find the most recent prediction date
     latest_date = ShuffledPrediction.objects.latest('prediction_date').prediction_date
     # Fetch all shuffled predictions with the most recent date
@@ -293,3 +324,5 @@ def display_shuffled_predictions(request):
         })
     
     return render(request, 'shuffled_predictions/shuffled_predictions.html', {'predictions_with_images': predictions_with_images})
+
+
