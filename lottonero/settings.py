@@ -251,4 +251,4 @@ JAZZMIN_SETTINGS = {
         {"name": "Lottonero Github Repo", "url": "https://github.com/jjsemaan/lottonero", "new_window": True},
 
     ],
-}   
+}

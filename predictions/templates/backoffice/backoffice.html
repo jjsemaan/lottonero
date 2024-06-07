@@ -64,6 +64,20 @@
             {% else %}
             <p class="text-center">You must be an admin to perform these actions.</p>
             {% endif %}
+            <!-- Toast Messages -->
+            {% if messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endif %}
+
+            <form method="POST" action="{% url 'generate_shuffled_predictions' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Generate Shuffled Predictions</button>
+            </form>
         </div>
     </div>
 </div>

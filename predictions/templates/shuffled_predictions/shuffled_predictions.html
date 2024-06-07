@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block page_header %}
+<div class="container header-container pt-5 mt-5">
+    <div class="row pt-5 mt-3">
+        <div class="col">
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block header_content %}
+<div class="my-3 pt-5 pb-5 justify-content-center">
+    <h1 class="header-font">Shuffled AI Lotto Predictions</h1>
+    <h1 class="header-font">for EuroMillions</h1>
+    <a href="#" class="btn btn-lg header-button-font rounded-pill text-uppercase mt-3">See Below Predictions!</a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center my-4">Lottonero's Shuffled Predictions</h1>
+    <p class="text-center">Disclaimer...Agree to terms and conditions</p>
+    <table class="table text-center">
+        <thead>
+            <tr>
+                <th class="text-center align-middle font-weight-bold">ID</th>
+                <th class="text-center align-middle font-weight-bold">Draw Date</th>
+                <th class="text-center align-middle font-weight-bold">Shuffled Balls</th>
+                <th class="text-center align-middle font-weight-bold">Shuffled Lucky Stars</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for prediction_info in predictions_with_images %}
+            <tr class="table-balls">
+                <td class="text-center align-middle">{{ prediction_info.prediction.id }}</td>
+                <td class="text-center align-middle">{{ prediction_info.prediction.draw_date }}</td>
+                <td class="text-center align-middle">
+                    <img src="{{ prediction_info.pred_ball_1_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_1 }}">
+                    <img src="{{ prediction_info.pred_ball_2_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_2 }}">
+                    <img src="{{ prediction_info.pred_ball_3_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_3 }}">
+                    <img src="{{ prediction_info.pred_ball_4_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_4 }}">
+                    <img src="{{ prediction_info.pred_ball_5_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_5 }}">
+                </td>
+                <td class="text-center align-middle">
+                    <img src="{{ prediction_info.pred_lucky_1_image }}" alt="Lucky Star {{ prediction_info.prediction.pred_lucky_1 }}">
+                    <img src="{{ prediction_info.pred_lucky_2_image }}" alt="Lucky Star {{ prediction_info.prediction.pred_lucky_2 }}">
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No shuffled predictions available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

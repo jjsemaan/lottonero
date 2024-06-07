@@ -190,3 +190,106 @@ def upload_image(request):
 
 def upload_success(request):
     return render(request, 'upload/upload_success.html')
+
+
+from django.http import HttpResponseBadRequest
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_protect
+from django.contrib import messages
+from .models import Prediction, ShuffledPrediction, UploadImageModel
+from django.db.models import Max
+import random
+
+def get_image_url(name):
+    image = UploadImageModel.objects.filter(name=name).values('image').first()
+    return image['image'] if image else None
+
+@csrf_protect
+def generate_shuffled_predictions(request):
+    if request.method == 'POST':
+        latest_prediction_date = Prediction.objects.aggregate(Max('prediction_date'))['prediction_date__max']
+        if not latest_prediction_date:
+            return HttpResponseBadRequest("No predictions found.")
+
+        latest_predictions = Prediction.objects.filter(prediction_date=latest_prediction_date)
+        if not latest_predictions.exists():
+            return HttpResponseBadRequest("No predictions found for the latest date.")
+
+        unique_combinations = set()
+        shuffled_predictions = []
+
+        while len(shuffled_predictions) < 30:
+            for prediction in latest_predictions:
+                balls = [
+                    prediction.pred_ball_1, prediction.pred_ball_2, prediction.pred_ball_3,
+                    prediction.pred_ball_4, prediction.pred_ball_5
+                ]
+                lucky_stars = [prediction.pred_lucky_1, prediction.pred_lucky_2]
+
+                random.shuffle(balls)
+                random.shuffle(lucky_stars)
+
+                balls.sort()
+                lucky_stars.sort()
+
+                balls_tuple = tuple(balls)
+                lucky_stars_tuple = tuple(lucky_stars)
+                full_set = balls_tuple + lucky_stars_tuple
+
+                if full_set not in unique_combinations:
+                    unique_combinations.add(full_set)
+                    shuffled_prediction = ShuffledPrediction(
+                        prediction_date=latest_prediction_date,
+                        draw_date=prediction.draw_date,
+                        pred_ball_1=balls[0],
+                        pred_ball_2=balls[1],
+                        pred_ball_3=balls[2],
+                        pred_ball_4=balls[3],
+                        pred_ball_5=balls[4],
+                        pred_lucky_1=lucky_stars[0],
+                        pred_lucky_2=lucky_stars[1]
+                    )
+                    shuffled_prediction.save()
+                    shuffled_predictions.append(shuffled_prediction)
+
+                    if len(shuffled_predictions) >= 30:
+                        break
+
+        # Clear other irrelevant messages and add a success message
+        storage = messages.get_messages(request)
+        storage.used = True
+        messages.success(request, 'Shuffled predictions generated successfully!')
+
+        return render(request, 'backoffice/backoffice.html')
+    else:
+        return render(request, 'backoffice/backoffice.html')
+
+def display_shuffled_predictions(request):
+    # Find the most recent prediction date
+    latest_date = ShuffledPrediction.objects.latest('prediction_date').prediction_date
+    # Fetch all shuffled predictions with the most recent date
+    predictions = ShuffledPrediction.objects.filter(prediction_date=latest_date)
+    
+    predictions_with_images = []
+    for prediction in predictions:
+        pred_ball_1_image = get_image_url(f"{prediction.pred_ball_1:02}")
+        pred_ball_2_image = get_image_url(f"{prediction.pred_ball_2:02}")
+        pred_ball_3_image = get_image_url(f"{prediction.pred_ball_3:02}")
+        pred_ball_4_image = get_image_url(f"{prediction.pred_ball_4:02}")
+        pred_ball_5_image = get_image_url(f"{prediction.pred_ball_5:02}")
+
+        pred_lucky_1_image = get_image_url(f"star{prediction.pred_lucky_1}")
+        pred_lucky_2_image = get_image_url(f"star{prediction.pred_lucky_2}")
+
+        predictions_with_images.append({
+            'prediction': prediction,
+            'pred_ball_1_image': pred_ball_1_image,
+            'pred_ball_2_image': pred_ball_2_image,
+            'pred_ball_3_image': pred_ball_3_image,
+            'pred_ball_4_image': pred_ball_4_image,
+            'pred_ball_5_image': pred_ball_5_image,
+            'pred_lucky_1_image': pred_lucky_1_image,
+            'pred_lucky_2_image': pred_lucky_2_image,
+        })
+    
+    return render(request, 'shuffled_predictions/shuffled_predictions.html', {'predictions_with_images': predictions_with_images})
