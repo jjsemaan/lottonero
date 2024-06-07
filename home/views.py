@@ -98,7 +98,6 @@ def index(request):
     return render(request, 'home/index.html', context)
 
 
-
 from django.shortcuts import render
 from predictions.models import Prediction, UploadImageModel
 

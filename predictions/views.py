@@ -106,7 +106,7 @@ def train_classifier(request):
             y_pred_lucky = rf_classifier_lucky.predict(X_test_lucky)
 
             for ball_pred, lucky_pred in zip(y_pred_balls, y_pred_lucky):
-                if len(set(ball_pred)) == 5 and len(set(lucky_pred)) == 2:  # Check for internal uniqueness
+                if len(set(ball_pred)) == 5 and len(set(lucky_pred)) == 2:
                     ball_set = tuple(sorted(ball_pred))
                     lucky_set = tuple(sorted(lucky_pred))
                     full_set = ball_set + lucky_set
@@ -218,42 +218,42 @@ def generate_shuffled_predictions(request):
         unique_combinations = set()
         shuffled_predictions = []
 
+        all_balls = set()
+        all_lucky_stars = set()
+        
+        for prediction in latest_predictions:
+            all_balls.update([
+                prediction.pred_ball_1, prediction.pred_ball_2, prediction.pred_ball_3,
+                prediction.pred_ball_4, prediction.pred_ball_5
+            ])
+            all_lucky_stars.update([prediction.pred_lucky_1, prediction.pred_lucky_2])
+        
+        all_balls = list(all_balls)
+        all_lucky_stars = list(all_lucky_stars)
+
         while len(shuffled_predictions) < 30:
-            for prediction in latest_predictions:
-                balls = [
-                    prediction.pred_ball_1, prediction.pred_ball_2, prediction.pred_ball_3,
-                    prediction.pred_ball_4, prediction.pred_ball_5
-                ]
-                lucky_stars = [prediction.pred_lucky_1, prediction.pred_lucky_2]
+            new_balls = sorted(random.sample(all_balls, 5))
+            new_lucky_stars = sorted(random.sample(all_lucky_stars, 2))
 
-                random.shuffle(balls)
-                random.shuffle(lucky_stars)
+            balls_tuple = tuple(new_balls)
+            lucky_stars_tuple = tuple(new_lucky_stars)
+            full_set = balls_tuple + lucky_stars_tuple
 
-                balls.sort()
-                lucky_stars.sort()
-
-                balls_tuple = tuple(balls)
-                lucky_stars_tuple = tuple(lucky_stars)
-                full_set = balls_tuple + lucky_stars_tuple
-
-                if full_set not in unique_combinations:
-                    unique_combinations.add(full_set)
-                    shuffled_prediction = ShuffledPrediction(
-                        prediction_date=latest_prediction_date,
-                        draw_date=prediction.draw_date,
-                        pred_ball_1=balls[0],
-                        pred_ball_2=balls[1],
-                        pred_ball_3=balls[2],
-                        pred_ball_4=balls[3],
-                        pred_ball_5=balls[4],
-                        pred_lucky_1=lucky_stars[0],
-                        pred_lucky_2=lucky_stars[1]
-                    )
-                    shuffled_prediction.save()
-                    shuffled_predictions.append(shuffled_prediction)
-
-                    if len(shuffled_predictions) >= 30:
-                        break
+            if full_set not in unique_combinations:
+                unique_combinations.add(full_set)
+                shuffled_prediction = ShuffledPrediction(
+                    prediction_date=latest_prediction_date,
+                    draw_date=latest_predictions.first().draw_date,  # Using the same draw date for consistency
+                    pred_ball_1=new_balls[0],
+                    pred_ball_2=new_balls[1],
+                    pred_ball_3=new_balls[2],
+                    pred_ball_4=new_balls[3],
+                    pred_ball_5=new_balls[4],
+                    pred_lucky_1=new_lucky_stars[0],
+                    pred_lucky_2=new_lucky_stars[1]
+                )
+                shuffled_prediction.save()
+                shuffled_predictions.append(shuffled_prediction)
 
         # Clear other irrelevant messages and add a success message
         storage = messages.get_messages(request)
