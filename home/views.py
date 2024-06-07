@@ -347,7 +347,3 @@ def determine_match_type(num_common_numbers, num_common_lucky_numbers):
         (1, 2): 'Match 1 + 2'
     }
     return match_cases.get((num_common_numbers, num_common_lucky_numbers))
-
-
-
-
