@@ -11,16 +11,14 @@
             Home
         </a>
         <li class="nav-item dropdown">
-            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'predictions' %}"
-                aria-haspopup="true">
+            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="#" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
                 Predictions
             </a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'display_shuffled_predictions' %}"
-                aria-haspopup="true">
-                Extra Predictions
-            </a>
+            <div class="dropdown-menu border-0" aria-labelledby="specials-link">
+                <a href="{% url 'predictions' %}" class="dropdown-item">Basic Predictions</a>
+                <a href="{% url 'display_shuffled_predictions' %}" class="dropdown-item">Super Predictions</a>
+            </div>
         </li>
 
         <li class="nav-item dropdown">
