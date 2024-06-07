@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from scraping.models import EuroMillionsResult
-from predictions.models import Prediction, UploadImageModel
+from predictions.models import Prediction, ShuffledPrediction, UploadImageModel
 from django.db.models import Max
 
 def get_image_url(name):
@@ -81,6 +81,43 @@ def index(request):
             'pred_lucky_2_image': pred_lucky_2_image,
         })
 
+    # Get the latest shuffled prediction date with non-null match_type
+    latest_shuffled_date = ShuffledPrediction.objects.filter(match_type__isnull=False).aggregate(latest_date=Max('prediction_date'))['latest_date']
+    
+    # Fetch all shuffled predictions with the latest date and non-null match_type
+    if latest_shuffled_date:
+        latest_shuffled_predictions = ShuffledPrediction.objects.filter(prediction_date=latest_shuffled_date, match_type__isnull=False)
+    else:
+        latest_shuffled_predictions = []
+    
+    # Fetch all winning shuffled predictions where match_type is not null, sorted by draw_date in descending order
+    alltime_winning_shuffled_predictions = ShuffledPrediction.objects.filter(match_type__isnull=False).order_by('-draw_date')
+
+    shuffled_predictions_with_images = []
+    for prediction in latest_shuffled_predictions:
+        winning_balls_list = [int(ball) for ball in prediction.winning_balls.split(',')] if prediction.winning_balls else []
+        winning_stars_list = [int(star) for star in prediction.winning_lucky_stars.split(',')] if prediction.winning_lucky_stars else []
+
+        pred_ball_1_image = get_image_url(f"green{prediction.pred_ball_1:02}" if prediction.pred_ball_1 in winning_balls_list else f"{prediction.pred_ball_1:02}")
+        pred_ball_2_image = get_image_url(f"green{prediction.pred_ball_2:02}" if prediction.pred_ball_2 in winning_balls_list else f"{prediction.pred_ball_2:02}")
+        pred_ball_3_image = get_image_url(f"green{prediction.pred_ball_3:02}" if prediction.pred_ball_3 in winning_balls_list else f"{prediction.pred_ball_3:02}")
+        pred_ball_4_image = get_image_url(f"green{prediction.pred_ball_4:02}" if prediction.pred_ball_4 in winning_balls_list else f"{prediction.pred_ball_4:02}")
+        pred_ball_5_image = get_image_url(f"green{prediction.pred_ball_5:02}" if prediction.pred_ball_5 in winning_balls_list else f"{prediction.pred_ball_5:02}")
+
+        pred_lucky_1_image = get_image_url(f"greenstar{prediction.pred_lucky_1}" if prediction.pred_lucky_1 in winning_stars_list else f"star{prediction.pred_lucky_1}")
+        pred_lucky_2_image = get_image_url(f"greenstar{prediction.pred_lucky_2}" if prediction.pred_lucky_2 in winning_stars_list else f"star{prediction.pred_lucky_2}")
+
+        shuffled_predictions_with_images.append({
+            'prediction': prediction,
+            'pred_ball_1_image': pred_ball_1_image,
+            'pred_ball_2_image': pred_ball_2_image,
+            'pred_ball_3_image': pred_ball_3_image,
+            'pred_ball_4_image': pred_ball_4_image,
+            'pred_ball_5_image': pred_ball_5_image,
+            'pred_lucky_1_image': pred_lucky_1_image,
+            'pred_lucky_2_image': pred_lucky_2_image,
+        })
+
     context = {
         'latest_result': latest_result,
         'latest_predictions': latest_predictions,
@@ -93,17 +130,17 @@ def index(request):
         'star_1_image': star_1_image,
         'star_2_image': star_2_image,
         'predictions_with_images': predictions_with_images,
+        'latest_shuffled_predictions': latest_shuffled_predictions,
+        'alltime_winning_shuffled_predictions': alltime_winning_shuffled_predictions,
+        'shuffled_predictions_with_images': shuffled_predictions_with_images,
     }
 
     return render(request, 'home/index.html', context)
 
 
+
 from django.shortcuts import render
 from predictions.models import Prediction, UploadImageModel
-
-def get_image_url(name):
-    image = UploadImageModel.objects.filter(name=name).values('image').first()
-    return image['image'] if image else None
 
 def alltime_winning_predictions_view(request):
     """
@@ -311,105 +348,6 @@ def determine_match_type(num_common_numbers, num_common_lucky_numbers):
     }
     return match_cases.get((num_common_numbers, num_common_lucky_numbers))
 
-def format_numbers(numbers):
-    """Format a set of numbers as a comma-separated string, without extra commas for single numbers."""
-    numbers_list = list(numbers)
-    return ', '.join(map(str, numbers_list))
 
 
-from django.shortcuts import render
-from scraping.models import EuroMillionsResult
-from predictions.models import ShuffledPrediction, UploadImageModel
-from django.db.models import Max
-
-
-def index_shuffled(request):
-    """
-    A view to return the index page with the latest draw results and latest winning shuffled predictions.
-
-    This view fetches the latest EuroMillions draw result from the database. It also identifies the 
-    latest shuffled prediction date where predictions have a non-null match type and fetches all predictions 
-    for that date. Additionally, it fetches all winning shuffled predictions. The context containing the latest 
-    draw result, latest shuffled predictions, and winning shuffled predictions is then passed to the 'index_shuffled.html' template 
-    for rendering.
-
-    Args:
-        request: The HTTP request object.
-
-    Returns:
-        HttpResponse: The rendered 'index_shuffled.html' template with the context containing latest_result, 
-        latest_shuffled_predictions, and winning_shuffled_predictions.
-    """    
-    
-    try:
-        latest_result = EuroMillionsResult.objects.latest('id')
-    except EuroMillionsResult.DoesNotExist:
-        latest_result = None
-
-    # Get the latest shuffled prediction date with non-null match_type
-    latest_date = ShuffledPrediction.objects.filter(match_type__isnull=False).aggregate(latest_date=Max('prediction_date'))['latest_date']
-    
-    # Fetch all shuffled predictions with the latest date and non-null match_type
-    if latest_date:
-        latest_shuffled_predictions = ShuffledPrediction.objects.filter(prediction_date=latest_date, match_type__isnull=False)
-    else:
-        latest_shuffled_predictions = []
-    
-    # Fetch all winning shuffled predictions where match_type is not null, sorted by draw_date in descending order
-    alltime_winning_shuffled_predictions = ShuffledPrediction.objects.filter(match_type__isnull=False).order_by('-draw_date')
-
-    # Fetch images for the latest result balls and stars
-    if latest_result:
-        ball_1_image = get_image_url(f"{latest_result.ball_1:02}")
-        ball_2_image = get_image_url(f"{latest_result.ball_2:02}")
-        ball_3_image = get_image_url(f"{latest_result.ball_3:02}")
-        ball_4_image = get_image_url(f"{latest_result.ball_4:02}")
-        ball_5_image = get_image_url(f"{latest_result.ball_5:02}")
-
-        star_1_image = get_image_url(f"star{latest_result.lucky_star_1}")
-        star_2_image = get_image_url(f"star{latest_result.lucky_star_2}")
-    else:
-        ball_1_image = ball_2_image = ball_3_image = ball_4_image = ball_5_image = None
-        star_1_image = star_2_image = None
-
-    shuffled_predictions_with_images = []
-    for prediction in latest_shuffled_predictions:
-        winning_balls_list = [int(ball) for ball in prediction.winning_balls.split(',')] if prediction.winning_balls else []
-        winning_stars_list = [int(star) for star in prediction.winning_lucky_stars.split(',')] if prediction.winning_lucky_stars else []
-
-        pred_ball_1_image = get_image_url(f"green{prediction.pred_ball_1:02}" if prediction.pred_ball_1 in winning_balls_list else f"{prediction.pred_ball_1:02}")
-        pred_ball_2_image = get_image_url(f"green{prediction.pred_ball_2:02}" if prediction.pred_ball_2 in winning_balls_list else f"{prediction.pred_ball_2:02}")
-        pred_ball_3_image = get_image_url(f"green{prediction.pred_ball_3:02}" if prediction.pred_ball_3 in winning_balls_list else f"{prediction.pred_ball_3:02}")
-        pred_ball_4_image = get_image_url(f"green{prediction.pred_ball_4:02}" if prediction.pred_ball_4 in winning_balls_list else f"{prediction.pred_ball_4:02}")
-        pred_ball_5_image = get_image_url(f"green{prediction.pred_ball_5:02}" if prediction.pred_ball_5 in winning_balls_list else f"{prediction.pred_ball_5:02}")
-
-        pred_lucky_1_image = get_image_url(f"greenstar{prediction.pred_lucky_1}" if prediction.pred_lucky_1 in winning_stars_list else f"star{prediction.pred_lucky_1}")
-        pred_lucky_2_image = get_image_url(f"greenstar{prediction.pred_lucky_2}" if prediction.pred_lucky_2 in winning_stars_list else f"star{prediction.pred_lucky_2}")
-
-        shuffled_predictions_with_images.append({
-            'prediction': prediction,
-            'pred_ball_1_image': pred_ball_1_image,
-            'pred_ball_2_image': pred_ball_2_image,
-            'pred_ball_3_image': pred_ball_3_image,
-            'pred_ball_4_image': pred_ball_4_image,
-            'pred_ball_5_image': pred_ball_5_image,
-            'pred_lucky_1_image': pred_lucky_1_image,
-            'pred_lucky_2_image': pred_lucky_2_image,
-        })
-
-    context = {
-        'latest_result': latest_result,
-        'latest_shuffled_predictions': latest_shuffled_predictions,
-        'alltime_winning_shuffled_predictions': alltime_winning_shuffled_predictions,
-        'ball_1_image': ball_1_image,
-        'ball_2_image': ball_2_image,
-        'ball_3_image': ball_3_image,
-        'ball_4_image': ball_4_image,
-        'ball_5_image': ball_5_image,
-        'star_1_image': star_1_image,
-        'star_2_image': star_2_image,
-        'shuffled_predictions_with_images': shuffled_predictions_with_images,
-    }
-
-    return render(request, 'home/index_shuffled.html', context)
 
