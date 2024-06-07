@@ -80,13 +80,24 @@
                             <a href="{% url 'admin:index' %}" class="dropdown-item">Admin</a>
                             {% endif %}
                             <a href="{% url 'profile_view' %}" class="dropdown-item">Profile</a>
-                            <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
                             {% else %}
                             <a href="{% url 'account_signup' %}" class="dropdown-item">Sign Up</a>
                             <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
                             {% endif %}
                         </div>
                     </li>
+                    {% if user.is_authenticated %}
+                    <li class="list-inline-item dropdown">
+                        <a class="text-black nav-link" href="{% url 'account_logout' %}" id="user-options"
+                            aria-haspopup="true" aria-expanded="false">
+                            <div class="text-center">
+                                <div><i class="fa-solid fa-person-walking-dashed-line-arrow-right fa-lg"></i></div>
+                                <p class="my-0">Logout</p>
+                            </div>
+                        </a>
+                    </li>
+                    {% endif %}
+
                 </ul>
             </div>
         </div>
