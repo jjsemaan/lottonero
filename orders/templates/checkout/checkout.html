@@ -102,36 +102,6 @@
     </div>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const subscriptionOptions = document.querySelectorAll('input[name="subscription_option"]');
-        const totalPriceField = document.getElementById('id_total_price');
-        const totalPriceDisplay = document.getElementById('total-price-value');
-
-        const monthlyPrice = "{{ subscription_type.price }}";
-        const annualPrice = (parseFloat(monthlyPrice) * 12 * 0.85).toFixed(2);
-
-        function updateTotalPrice() {
-            const selectedOption = document.querySelector('input[name="subscription_option"]:checked');
-            if (selectedOption) {
-                const price = selectedOption.value === 'monthly' ? monthlyPrice : annualPrice;
-                totalPriceField.value = price;
-                const suffix = selectedOption.value === 'monthly' ? ' / month' : ' / year';
-                totalPriceDisplay.textContent = `€ ${price}${suffix}`;
-
-                // Print the total price to the console for debugging
-                console.log(`Total price set to: ${price}`);
-            }
-        }
-
-        subscriptionOptions.forEach(option => {
-            option.addEventListener('change', updateTotalPrice);
-        });
-
-        // Initialize the total price on page load
-        updateTotalPrice();
-    });
-</script>
 {{ block.super }}
 {{ stripe_public_key|json_script:"id_stripe_public_key" }}
 {{ client_secret|json_script:"id_client_secret" }}
@@ -175,7 +145,8 @@
         var form = document.getElementById('subscription-form');
         form.addEventListener('submit', function (event) {
             event.preventDefault();
-            
+            card.update({'disabled': true});
+            $('#submit-button').attr('disabled', true);
 
             stripe.confirmCardPayment(clientSecret, {
                 payment_method: {
@@ -185,6 +156,8 @@
                 if (result.error) {
                     var errorElement = document.getElementById('card-errors');
                     errorElement.textContent = result.error.message;
+                    card.update({'disabled': false});
+                    $('#submit-button').attr('disabled', false);
                 } else {
                     if (result.paymentIntent.status === 'succeeded') {
                         form.submit();
@@ -192,6 +165,36 @@
                 }
             });
         });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const subscriptionOptions = document.querySelectorAll('input[name="subscription_option"]');
+        const totalPriceField = document.getElementById('id_total_price');
+        const totalPriceDisplay = document.getElementById('total-price-value');
+
+        const monthlyPrice = "{{ subscription_type.price }}";
+        const annualPrice = (parseFloat(monthlyPrice) * 12 * 0.85).toFixed(2);
+
+        function updateTotalPrice() {
+            const selectedOption = document.querySelector('input[name="subscription_option"]:checked');
+            if (selectedOption) {
+                const price = selectedOption.value === 'monthly' ? monthlyPrice : annualPrice;
+                totalPriceField.value = price;
+                const suffix = selectedOption.value === 'monthly' ? ' / month' : ' / year';
+                totalPriceDisplay.textContent = `€ ${price}${suffix}`;
+
+                // Print the total price to the console for debugging
+                console.log(`Total price set to: ${price}`);
+            }
+        }
+
+        subscriptionOptions.forEach(option => {
+            option.addEventListener('change', updateTotalPrice);
+        });
+
+        // Initialize the total price on page load
+        updateTotalPrice();
     });
 </script>
 {% endblock %}

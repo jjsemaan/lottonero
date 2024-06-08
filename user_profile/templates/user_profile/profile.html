@@ -30,7 +30,7 @@
                                         <label for="username">Username:</label>
                                         <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}">
                                     </div>
-
+                                    
                                     <div class="form-group text-left">
                                         <label for="first_name">First Name:</label>
                                         <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}">
@@ -51,6 +51,26 @@
                                 <div class="text-center mt-3">
                                     <a href="{% url 'change_password' %}" class="btn btn-link">Change Password</a>
                                 </div>
+
+                                <hr>
+
+                                <div class="text-center">
+                                    <h4 class="h5 text-gray-900 mb-4">Your Purchases</h4>
+                                </div>
+                                {% if subscriptions %}
+                                <ul class="list-group">
+                                    {% for subscription in subscriptions %}
+                                    <li class="list-group-item">
+                                        <strong>Subscription:</strong> {{ subscription.subscription_type.name }}<br>
+                                        <strong>Price:</strong> {{ subscription.subscribe_price }}<br>
+                                        <strong>Start Date:</strong> {{ subscription.created }}<br>
+                                        <strong>End Date:</strong> {{ subscription.subscribe_end_date }}<br>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                {% else %}
+                                <p class="text-center">You have no purchases.</p>
+                                {% endif %}
                             </div>
                         </div>
                         <div class="col-lg-2 d-none d-lg-block"></div>

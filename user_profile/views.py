@@ -3,12 +3,15 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from allauth.account.models import EmailAddress
 from django.contrib import messages
+from orders.models import Subscription
 
 @login_required
 def profile_view(request):
     user = request.user
     email = EmailAddress.objects.get(user=user)
-    return render(request, 'user_profile/profile.html', {'user': user, 'email': email})
+    subscriptions = Subscription.objects.filter(user=user)
+    return render(request, 'user_profile/profile.html', {'user': user, 'email': email, 'subscriptions': subscriptions})
+
 
 @login_required
 def update_profile(request):
