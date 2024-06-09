@@ -17,10 +17,11 @@
     {% if user.is_authenticated %}
         <a href="{% url 'plans' %}" class="btn btn-lg header-button-font rounded-pill text-uppercase mt-3">Subscribe Now!</a>
     {% else %}
-        <a href="{% url 'account_login' %}" class="btn btn-lg header-button-font rounded-pill text-uppercase mt-3">Subscribe Now!</a>
+        <a href="{% url 'account_login' %}?next={% url 'plans' %}" class="btn btn-lg header-button-font rounded-pill text-uppercase mt-3">Subscribe Now!</a>
     {% endif %}
 </div>
 {% endblock %}
+
 
 {% block content %}
 {% load custom_filters %}
