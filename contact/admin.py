@@ -26,4 +26,3 @@ class ContactMessageAdmin(admin.ModelAdmin):
     email.short_description = 'Email'
 
 admin.site.register(ContactMessage, ContactMessageAdmin)
-

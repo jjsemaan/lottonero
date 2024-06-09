@@ -16,10 +16,10 @@ def contact_view(request):
 
                 # Send email
                 send_mail(
-                    'New Contact Message',
-                    contact_message.message,
-                    'donotreply@lottonero.com',
-                    ['admin@lottonero.com'],
+                    subject=f"New message from {request.user.email}",
+                    message=contact_message.message,
+                    from_email='donotreply@lottonero.com',
+                    recipient_list=['admin@lottonero.com'],
                     fail_silently=False,
                 )
 
@@ -31,10 +31,10 @@ def contact_view(request):
 
                 # Send email
                 send_mail(
-                    'New Contact Message',
-                    contact_message.message,
-                    'donotreply@lottonero.com',
-                    ['admin@lottonero.com'],
+                    subject=f"New message from {form.cleaned_data['email']}",
+                    message=contact_message.message,
+                    from_email='donotreply@lottonero.com',
+                    recipient_list=['admin@lottonero.com'],
                     fail_silently=False,
                 )
 
