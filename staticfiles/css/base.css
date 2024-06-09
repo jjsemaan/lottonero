@@ -20,6 +20,7 @@ html {
     background-repeat: no-repeat;
     color: white;
     text-align: center;
+
 }
 
 .masthead-content {
@@ -29,25 +30,41 @@ html {
     align-items: center;
     text-align: center;
     z-index: 2;
-    background: rgba(7, 7, 7, 0.8);  /* Semi-transparent white background */
-    border-radius: 15px;  /* Rounded corners */
+    background: rgba(7, 7, 7, 0.7);
+    border-radius: 15px;
     padding: 20px;
-    margin: 20px auto;
-    max-width: 80%;  /* Adjust the width as needed */
+    margin: 20px auto 50px;
+    max-width: 80%;  
 }
 
+/* Style Allauth forms*/
+.form-group {
+    text-align: left;
+}
+
+.form-check {
+    text-align: center;
+}
+
+.text-muted {
+    text-align: center;
+    margin-top: 12px;
+}
+
+Header 
 .header-font {
     font-family: "futura-pt", sans-serif;
     font-weight: 800;
     font-style: normal;
 }
 
+/*
 .forms-font {
     font-family: "futura-pt", sans-serif;
     font-weight: 300;
     font-style: normal;
     color: rgb(90, 90, 90);
-}
+}*/
 
 .header-button-font {
     font-family: "futura-pt-condensed", sans-serif;
@@ -56,6 +73,20 @@ html {
     background-color: rgb(255, 221, 0);
     color: black;
 }
+
+.subscribe-button-font {
+    font-family: "futura-pt-condensed", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    color: white;
+    text-decoration: none;
+}
+
+.subscribe-button-font:hover {
+    color: rgb(255, 221, 0);
+    text-decoration: none;
+}
+
 
 .content-below-bg {
     position: relative;
@@ -212,6 +243,11 @@ h4.text-center > a.predict-button {
     }
 }
 
+/* Payment gateway checkout.html */
+
+.text-danger {
+    font-size: 16px;
+}
 
 
 
