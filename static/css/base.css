@@ -30,11 +30,11 @@ html {
     align-items: center;
     text-align: center;
     z-index: 2;
-    background: rgba(7, 7, 7, 0.8);  /* Semi-transparent white background */
-    border-radius: 15px;  /* Rounded corners */
+    background: rgba(7, 7, 7, 0.7);
+    border-radius: 15px;
     padding: 20px;
-    margin: 20px auto;
-    max-width: 80%;  /* Adjust the width as needed */
+    margin: 20px auto 50px;
+    max-width: 80%;  
 }
 
 /* Style Allauth forms*/

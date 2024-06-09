@@ -46,7 +46,8 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12 text-center">
-      <h2 class="text-dark">Winning Predictions from AI Patterns</h2>
+      <h2 class="text-dark">Latest Winning Predictions from</h2>
+      <h2 class="text-dark">AI Patterns</h2> 
       
       {% if latest_predictions %}
       <table class="table text-dark">
@@ -108,7 +109,8 @@
       {% endif %}
       </div>
       <div class="col-md-6 text-center">
-        <h2 class="text-dark">Latest Winning Predictions from AI Combinations</h2>
+        <h2 class="text-dark">Latest Winning Predictions from</h2>
+        <h2 class="text-dark"> AI Combinations</h2>
       </div>
       <div class="col-md-3 text-center">
         {% if user.is_authenticated %}
@@ -167,26 +169,5 @@
       {% endif %}
     </div>
   </div>
-
-  <div class="row">
-    <div class="col-md-12 text-center">
-      {% if user.is_authenticated %}
-      <h4>
-        <a href="{% url 'predictions' %}" class="btn btn-light text-uppercase"
-          style="padding: 10px 30px; margin-right: 10px;">Next Draw Predictions</a>
-        <a href="{% url 'alltime_predictions' %}" class="btn btn-light text-uppercase"
-          style="padding: 10px 30px;">Alltime Winning Predictions!</a>
-      </h4>
-      {% else %}
-      <h4>
-        <a href="{% url 'account_login' %}" class="btn btn-light text-uppercase"
-          style="padding: 10px 30px; margin-right: 10px;">Next Draw Predictions</a>
-        <a href="{% url 'account_login' %}" class="btn btn-light text-uppercase"
-          style="padding: 10px 30px;">All Wins!</a>
-      </h4>
-      {% endif %}
-    </div>
-</div>
-
 </div>
 {% endblock %}
