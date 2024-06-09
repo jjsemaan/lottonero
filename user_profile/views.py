@@ -10,7 +10,11 @@ def profile_view(request):
     user = request.user
     email = EmailAddress.objects.get(user=user)
     subscriptions = Subscription.objects.filter(user=user)
-    return render(request, 'user_profile/profile.html', {'user': user, 'email': email, 'subscriptions': subscriptions})
+    return render(request, 'user_profile/profile.html', {
+        'user': user,
+        'email': email,
+        'subscriptions': subscriptions
+    })
 
 
 @login_required

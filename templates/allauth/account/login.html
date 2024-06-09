@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "account/base.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
 
@@ -13,7 +13,7 @@
                         <div class="col-lg-8">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Welcome back!</h1>
+                                    <h1 class="h4 text-dark mb-4">Welcome back!</h1>
                                 </div>
                                 <form method="POST" action="{% url 'account_login' %}">
                                     {% csrf_token %}
@@ -41,4 +41,12 @@
         </div>
     </div>
 </div>
+
+<style>
+    /* Hide the labels for email and password fields */
+    label[for="id_login"],
+    label[for="id_password"] {
+        display: none;
+    }
+</style>
 {% endblock %}

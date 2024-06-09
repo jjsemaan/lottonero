@@ -118,6 +118,10 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
+ACCOUNT_FORMS = {
+    'signup': 'lottonero.forms.CustomSignupForm', 
+}
+
 # Set up your site ID
 SITE_ID = 1
 

@@ -61,6 +61,7 @@
                                 <ul class="list-group">
                                     {% for subscription in subscriptions %}
                                     <li class="list-group-item">
+                                        <strong>ID:</strong> {{ subscription.id }}<br>
                                         <strong>Subscription:</strong> {{ subscription.subscription_type.name }}<br>
                                         <strong>Price:</strong> {{ subscription.subscribe_price }}<br>
                                         <strong>Start Date:</strong> {{ subscription.created }}<br>
