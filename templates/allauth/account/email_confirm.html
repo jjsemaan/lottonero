@@ -1,8 +1,21 @@
 {% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account %}
+
+{% block head_title %}{% trans "Confirm E-mail Address" %}{% endblock %}
+
+
+
+
+
+{% extends "account/base.html" %}
 {% load crispy_forms_tags %}
 {% load i18n %}
 {% load account %}
+
 {% block head_title %}{% trans "Confirm E-mail Address" %}{% endblock %}
+
 
 {% block header_content %}
 <div class="container">
@@ -15,6 +28,7 @@
                         <div class="col-lg-8">
                             <div class="p-5">
                                 <div class="text-center text-black">
+                                    {% block content %}
                                     <h1>{% trans "Confirm E-mail Address" %}</h1>
 
                                     {% if confirmation %}
@@ -27,7 +41,8 @@
 
                                     <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
                                         {% csrf_token %}
-                                        <button type="submit"class="btn btn-dark btn-block">{% trans 'Confirm' %}</button>
+                                        {{ form|crispy }}
+                                        <button type="submit" class="btn btn-dark btn-block">{% trans 'Confirm' %}</button>
                                     </form>
 
                                     {% else %}
@@ -39,7 +54,10 @@
                                         endblocktrans %}</p>
 
                                     {% endif %}
+
+                                    {% endblock %}
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -47,4 +65,5 @@
             </div>
         </div>
     </div>
-    {% endblock %}
+</div>
+{% endblock %}
