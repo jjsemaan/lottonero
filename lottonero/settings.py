@@ -18,9 +18,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
-# os.environ.get("DEVELOPMENT") == "True"
 # Set DEBUG based on the 'DEVELOPMENT' environment variable
-DEBUG = True
+DEBUG = os.environ.get("DEVELOPMENT") == "True"
 
 # You can also print the DEBUG status for verification
 print(f"DEBUG is set to: {DEBUG}")
