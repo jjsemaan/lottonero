@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
     'tinymce',
     'cloudinary',
+    'contact',
     'crispy_forms',
     'crispy_bootstrap4',
     'home',

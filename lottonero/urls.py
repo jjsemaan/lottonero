@@ -14,6 +14,7 @@ urlpatterns = [
     path('scraping/', include(('scraping.urls', 'scraping'), namespace='scraping')),
     path('', include('home.urls')),
     path('user/', include('user_profile.urls')),
+    path('contact/', include('contact.urls')),
 ]
 
 if settings.DEBUG:
