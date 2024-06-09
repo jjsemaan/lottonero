@@ -115,12 +115,12 @@
             <div class="row text-center">
                 <div class="col bg-dark">
                     {% if user.is_authenticated %}
-                        <a class="text-white" href="{% url 'plans' %}">
-                            <h4 class="my-2 text-white text-uppercase">Subscribe now!</h4>
+                        <a class="subscribe-button-font subscribe-button-font:hover" href="{% url 'plans' %}">
+                            <h4 class="my-2 text-uppercase">Try it now for free!</h4>
                         </a>
                     {% else %}
-                        <a class="text-white" href="{% url 'account_login' %}">
-                            <h4 class="my-2 text-white text-uppercase">Subscribe now!</h4>
+                        <a class="subscribe-button-font subscribe-button-font:hover" href="{% url 'account_login' %}">
+                            <h4 class="my-2 text-uppercase">Try it now for free!</h4>
                         </a>
                     {% endif %}
                 </div>

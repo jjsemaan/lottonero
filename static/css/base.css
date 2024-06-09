@@ -51,19 +51,20 @@ html {
     margin-top: 12px;
 }
 
-/* Header 
+Header 
 .header-font {
     font-family: "futura-pt", sans-serif;
     font-weight: 800;
     font-style: normal;
 }
 
+/*
 .forms-font {
     font-family: "futura-pt", sans-serif;
     font-weight: 300;
     font-style: normal;
     color: rgb(90, 90, 90);
-}
+}*/
 
 .header-button-font {
     font-family: "futura-pt-condensed", sans-serif;
@@ -71,7 +72,21 @@ html {
     font-style: normal;
     background-color: rgb(255, 221, 0);
     color: black;
-}*/
+}
+
+.subscribe-button-font {
+    font-family: "futura-pt-condensed", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    color: white;
+    text-decoration: none;
+}
+
+.subscribe-button-font:hover {
+    color: rgb(255, 221, 0);
+    text-decoration: none;
+}
+
 
 .content-below-bg {
     position: relative;
