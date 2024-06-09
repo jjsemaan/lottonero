@@ -13,8 +13,11 @@
                             <div class="p-5">
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4 text-black">Contact Us</h1>
+                                    {% if user %}
+                                    <p class="text-black">Hello {{ user.username }}! You are logged in as '{{ user.email }}'. Please write your message below and an admin will get in touch with you the soonest possible.</p>
+                                    {% endif %}
                                 </div>
-                                <form id="contact_form" class="contact" method="post">
+                                <form id="contact_form" method="post">
                                     {% csrf_token %}
                                     {{ form|crispy }}
                                     <button type="submit" class="btn btn-primary">Send Message</button>
@@ -28,4 +31,21 @@
         </div>
     </div>
 </div>
+
+<style>
+    form input, form textarea {
+        display: block;
+        width: 100%;
+        padding: .375rem .75rem;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    }
+</style>
 {% endblock %}

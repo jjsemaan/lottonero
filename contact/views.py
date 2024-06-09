@@ -1,16 +1,52 @@
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from .forms import ContactMessageForm
+from .forms import AuthenticatedContactMessageForm, UnauthenticatedContactMessageForm
+from .models import ContactMessage
 
-@login_required
 def contact_view(request):
     if request.method == 'POST':
-        form = ContactMessageForm(request.POST)
-        if form.is_valid():
-            contact_message = form.save(commit=False)
-            contact_message.user = request.user
-            contact_message.save()
-            return render(request, 'contact/thank_you.html')
+        if request.user.is_authenticated:
+            form = AuthenticatedContactMessageForm(request.POST)
+            if form.is_valid():
+                contact_message = form.save(commit=False)
+                contact_message.user = request.user
+                contact_message.full_name = f"{request.user.first_name} {request.user.last_name}"
+                contact_message.email = request.user.email
+                contact_message.save()
+
+                # Send email
+                send_mail(
+                    'New Contact Message',
+                    contact_message.message,
+                    'donotreply@lottonero.com',
+                    ['admin@lottonero.com'],
+                    fail_silently=False,
+                )
+
+                return render(request, 'contact/thank_you.html')
+        else:
+            form = UnauthenticatedContactMessageForm(request.POST, user=request.user)
+            if form.is_valid():
+                contact_message = form.save()
+
+                # Send email
+                send_mail(
+                    'New Contact Message',
+                    contact_message.message,
+                    'donotreply@lottonero.com',
+                    ['admin@lottonero.com'],
+                    fail_silently=False,
+                )
+
+                return render(request, 'contact/thank_you.html')
     else:
-        form = ContactMessageForm()
-    return render(request, 'contact/contact_form.html', {'form': form})
+        if request.user.is_authenticated:
+            form = AuthenticatedContactMessageForm()
+        else:
+            form = UnauthenticatedContactMessageForm(user=request.user)
+
+    context = {
+        'form': form,
+        'user': request.user if request.user.is_authenticated else None
+    }
+    return render(request, 'contact/contact_form.html', context)
