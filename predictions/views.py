@@ -279,7 +279,7 @@ def generate_shuffled_predictions(request):
     else:
         return render(request, 'backoffice/backoffice.html')
 
-def display_shuffled_predictions(request):
+def display_combination_predictions(request):
     """
     A view to display the most recent shuffled predictions.
 
@@ -323,6 +323,6 @@ def display_shuffled_predictions(request):
             'pred_lucky_2_image': pred_lucky_2_image,
         })
     
-    return render(request, 'shuffled_predictions/shuffled_predictions.html', {'predictions_with_images': predictions_with_images})
+    return render(request, 'combination_predictions/combination_predictions.html', {'predictions_with_images': predictions_with_images})
 
 
