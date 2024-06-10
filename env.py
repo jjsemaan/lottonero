@@ -2,12 +2,12 @@ import os
 
 os.environ.setdefault(
     "DATABASE_URL", 
-    "postgresql://retool:5Pq4KfdgJQSI@ep-frosty-dew-a65kykh4.us-west-2.retooldb.com/retool?sslmode=require"
+    "postgresql://retool:N7dLvtqM1rBw@ep-still-king-a6ehxueb.us-west-2.retooldb.com/retool?sslmode=require"
     )
 
 os.environ.setdefault(
     "SECRET_KEY", 
-    "(%yncfp82@n31)fys7fm!5!c6tv&kktngz8"
+    "N7dLvtqM1rBw"
     )
 
 os.environ['DEVELOPMENT'] = 'False'  # or 'False' based on your development status
@@ -37,3 +37,5 @@ os.environ['JAZZMIN_SITE_HEADER'] = 'Lottonero Admin'
 os.environ['DEBUG'] = str(os.environ.get('DEVELOPMENT') == 'True')
 
 # You can add more environment variables here as needed
+# "postgresql://retool:5Pq4KfdgJQSI@ep-frosty-dew-a65kykh4.us-west-2.retooldb.com/retool?sslmode=require"
+# "(%yncfp82@n31)fys7fm!5!c6tv&kktngz8"
