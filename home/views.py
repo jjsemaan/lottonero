@@ -333,7 +333,7 @@ def latest_shuffled_predictions_with_matches(request):
 
 def determine_match_type(num_common_numbers, num_common_lucky_numbers):
     match_cases = {
-        (5, 2): 'Match 5 + 2',
+        (5, 2): 'Match 5 + 2'
         (5, 0): 'Match 5',
         (4, 2): 'Match 4 + 2',
         (4, 1): 'Match 4 + 1',
