@@ -42,6 +42,11 @@ class Command(BaseCommand):
         date_object = datetime.strptime(results_date, '%a %d %B %Y')
         formatted_date = date_object.strftime('%Y/%m/%d')
 
+        # Check if the draw_date already exists in the database
+        if EuroMillionsResult.objects.filter(draw_date=formatted_date).exists():
+            self.stdout.write(f"Results for {formatted_date} have already been scraped.")
+            return
+
         # Extract the winning numbers and lucky stars
         draw_results = euromillions_section.find_next_sibling('div', class_='draw-results')
         winning_numbers_section = draw_results.find('div', class_='winning-numbers')
