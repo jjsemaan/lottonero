@@ -26,21 +26,25 @@ DEBUG = os.environ.get("DEVELOPMENT") == "True"
 # You can also print the DEBUG status for verification
 print(f"DEBUG is set to: {DEBUG}")
 
-ALLOWED_HOSTS = [
-    'https://8000-jjsemaan-lottonero-pykwwkf1hp.us1.codeanyapp.com/',
-    'lottonero-e7dc9a7038d2.herokuapp.com',
-    'lottonero.com'
-]
-
+# CORS settings
 CORS_ALLOWED_ORIGINS = [
     'https://8000-jjsemaan-lottonero-pykwwkf1hp.us1.codeanyapp.com',
     'https://lottonero-e7dc9a7038d2.herokuapp.com'
 ]
 
-
+# CSRF settings
 CSRF_TRUSTED_ORIGINS = [
-    'https://8000-jjsemaan-lottonero-pykwwkf1hp.us1.codeanyapp.com/',
+    'https://8000-jjsemaan-lottonero-pykwwkf1hp.us1.codeanyapp.com',
     'https://lottonero-e7dc9a7038d2.herokuapp.com'
+]
+
+# Allowed hosts
+ALLOWED_HOSTS = [
+    '8000-jjsemaan-lottonero-pykwwkf1hp.us1.codeanyapp.com',
+    'lottonero-e7dc9a7038d2.herokuapp.com',
+    'localhost',
+    '127.0.0.1',
+    '[::1]'
 ]
 
 # Application definition
