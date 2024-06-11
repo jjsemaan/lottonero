@@ -28,13 +28,13 @@
                                                     <form action="{% url 'train_classifier' %}" method="post">
                                                         {% csrf_token %}
                                                         <div class="form-group">
-                                                            <label for="draw_date">Select Draw Date:</label>
+                                                            <label for="draw_date">Select draw date to run predictions:</label>
                                                             <input type="date" id="draw_date" name="draw_date" class="form-control" required>
                                                         </div>
                                                 </td>
                                                 <td>
-                                                    <button type="submit" class="btn btn-dark btn-lg rounded-pill text-uppercase py-3"
-                                                        name="train" value="Start Training">Run Prediction</button>
+                                                    <button type="submit" class="btn btn-primary btn-block"
+                                                        name="train" value="Start Training">Execute</button>
                                                     </form>
                                                 </td>
                                             </tr>
@@ -46,7 +46,7 @@
                                                         Scrape EuroMillions Results
                                                 </td>
                                                 <td>
-                                                    <button type="submit" class="btn btn-dark btn-lg rounded-pill text-uppercase py-3"
+                                                    <button type="submit" class="btn btn-primary btn-block"
                                                         name="train" value="Start Training">Execute</button>
                                                     </form>
                                                 </td>
@@ -59,7 +59,7 @@
                                                         Check Winning Predictions
                                                 </td>
                                                 <td>
-                                                    <button type="submit" class="btn btn-dark btn-lg rounded-pill text-uppercase py-3"
+                                                    <button type="submit" class="btn btn-primary btn-block"
                                                         name="check_predictions" value="Check Predictions">Execute</button>
                                                     </form>
                                                 </td>
@@ -72,7 +72,7 @@
                                                         Check Shuffled Winning Predictions
                                                 </td>
                                                 <td>
-                                                    <button type="submit" class="btn btn-dark btn-lg rounded-pill text-uppercase py-3"
+                                                    <button type="submit" class="btn btn-primary btn-block"
                                                         name="check_predictions" value="Check Predictions">Execute</button>
                                                     </form>
                                                 </td>
@@ -80,13 +80,13 @@
                                             <tr>
                                                 <td>5</td>
                                                 <td>
-                                                    <h2>Upload Image</h2>
                                                     <form method="post" action="{% url 'upload_image' %}" enctype="multipart/form-data">
                                                         {% csrf_token %}
                                                         {{ form.as_p }}
+                                                        Upload Image
                                                 </td>
                                                 <td>
-                                                    <button type="submit" class="btn btn-dark btn-lg rounded-pill text-uppercase py-3">Upload</button>
+                                                    <button type="submit" class="btn btn-primary btn-block">Upload</button>
                                                     </form>
                                                 </td>
                                             </tr>
@@ -98,7 +98,7 @@
                                                         {% csrf_token %}
                                                 </td>
                                                 <td>
-                                                    <button type="submit" class="btn btn-primary">Execute</button>
+                                                    <button type="submit" class="btn btn-primary btn-block">Execute</button>
                                                     </form>
                                                 </td>
                                             </tr>
