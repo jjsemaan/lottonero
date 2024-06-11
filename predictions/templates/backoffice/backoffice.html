@@ -9,7 +9,7 @@
                 <div class="card-body p-0">
                     <div class="row mb-4">
                         <div class="col-lg-2 d-none d-lg-block"></div>
-                        <div class="col-lg-8">
+                        <div class="col-lg-10">
                             <div class="p-5 text-center">
                                 
                                     {% if user.is_authenticated and user.is_staff %}
@@ -86,7 +86,7 @@
                                                         Upload Image
                                                 </td>
                                                 <td>
-                                                    <button type="submit" class="btn btn-primary btn-block">Upload</button>
+                                                    <button type="submit" class="btn btn-dark btn-block">Upload</button>
                                                     </form>
                                                 </td>
                                             </tr>
@@ -98,7 +98,7 @@
                                                         {% csrf_token %}
                                                 </td>
                                                 <td>
-                                                    <button type="submit" class="btn btn-primary btn-block">Execute</button>
+                                                    <button type="submit" class="btn btn-dark btn-block">Execute</button>
                                                     </form>
                                                 </td>
                                             </tr>
