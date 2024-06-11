@@ -14,7 +14,8 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4 text-black">Contact Us</h1>
                                     {% if user %}
-                                    <p class="text-black">Hello {{ user.username }}! You are logged in as '{{ user.email }}'. Please write your message below and an admin will get in touch with you the soonest possible.</p>
+                                    <p class="text-black">Hello {{ user.first_name }} {{ user.last_name }}! You are logged in as '{{ user.email }}'.</p>
+                                    <p class="text-black">Please write your message below and an admin will get in touch with you the soonest possible.</p>
                                     {% endif %}
                                 </div>
                                 <form id="contact_form" method="post">
