@@ -18,6 +18,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
+
+
 # Set DEBUG based on the 'DEVELOPMENT' environment variable
 DEBUG = os.environ.get("DEVELOPMENT") == "True"
 
@@ -26,12 +28,14 @@ print(f"DEBUG is set to: {DEBUG}")
 
 ALLOWED_HOSTS = [
     '8000-jjsemaan-lottonero-jwr574l49n.us1.codeanyapp.com',
+    '8000-jjsemaan-lottonero-pykwwkf1hp.us1.codeanyapp.com',
     'lottonero-e7dc9a7038d2.herokuapp.com',
     'lottonero.com'
 ]
 
 CORS_ALLOWED_ORIGINS = [
     'https://8000-jjsemaan-lottonero-jwr574l49n.us1.codeanyapp.com',
+    '8000-jjsemaan-lottonero-pykwwkf1hp.us1.codeanyapp.com',
     'https://lottonero-e7dc9a7038d2.herokuapp.com'
 ]
 

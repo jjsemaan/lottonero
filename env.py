@@ -10,7 +10,8 @@ os.environ.setdefault(
     "N7dLvtqM1rBw"
     )
 
-os.environ['DEVELOPMENT'] = 'False'  # or 'False' based on your development status
+# Set DEVELOPMENT to True by default if not already set
+os.environ.setdefault("DEVELOPMENT", "True")
 
 os.environ['EMAIL_HOST_USER'] = 'donotreply@lottonero.com'
 os.environ['EMAIL_HOST_PASSWORD'] = 'Tru8tD@L0rdn8r0'
@@ -34,7 +35,7 @@ os.environ['JAZZMIN_SITE_TITLE'] = 'Lottonero'
 os.environ['JAZZMIN_SITE_HEADER'] = 'Lottonero Admin'
 
 # Automate the DEBUG setting
-os.environ['DEBUG'] = str(os.environ.get('DEVELOPMENT') == 'True')
+DEBUG = 'DEVELOPMENT'
 
 # You can add more environment variables here as needed
 # "postgresql://retool:5Pq4KfdgJQSI@ep-frosty-dew-a65kykh4.us-west-2.retooldb.com/retool?sslmode=require"
