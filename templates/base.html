@@ -8,6 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Search Engine Optimisation -->
+    <meta name="google-site-verification" content="googlee73ec3c0eced08e7.html"> <!-- Add your site verification here -->
     {% endblock %}
 
     {% block extra_meta %}
@@ -42,6 +44,14 @@
         crossorigin="anonymous"></script>
         <!-- Stripe Payment js -->
         <script src="https://js.stripe.com/v3/"></script>
+    <!-- SEO Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V3L92FMQF7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-V3L92FMQF7');
+    </script>
     {% endblock %}
 
     {% block extra_js %}
@@ -51,8 +61,7 @@
             line-height: 0;
         }
     </style>
-    <title>Lottonero {% block extra_title %}{% endblock %}</title>
-    
+    <title>Lottonero {% block extra_title %}AI Predictions for EuroMillions Lotto{% endblock %}</title>
 </head>
 
 <body>
