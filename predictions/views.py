@@ -1,15 +1,23 @@
+from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render, redirect
 from scraping.models import EuroMillionsResult
 from .models import Prediction
 from django.db.models import Max
 
+
+def admin_required(view_func):
+    decorated_view_func = user_passes_test(lambda u: u.is_staff)(view_func)
+    return decorated_view_func
+
+@admin_required
 def get_image_url(name):
     image = UploadImageModel.objects.filter(name=name).values('image').first()
     return image['image'] if image else None
 
+
 def read_data_from_database(request):
     results = EuroMillionsResult.objects.all()
-    # You can further process 'results' as needed
+    
     return render(request, 'predictions/predictions.html', {'results': results})
 
 
@@ -43,6 +51,8 @@ def display_predictions(request):
     
     return render(request, 'predictions/predictions.html', {'predictions_with_images': predictions_with_images})
 
+
+@admin_required
 def backoffice(request):
     # Any logic needed to prepare context data
     return render(request, 'backoffice/backoffice.html')
@@ -58,6 +68,7 @@ from django.http import HttpResponseBadRequest, HttpResponseServerError
 import datetime
 from scraping.models import EuroMillionsResult
 
+@admin_required
 @csrf_protect
 def train_classifier(request):
     """
@@ -193,6 +204,8 @@ import cloudinary.uploader
 import os
 import tempfile
 
+@admin_required
+@csrf_protect
 def upload_image(request):
     if request.method == 'POST':
         if 'confirm' in request.POST:
@@ -255,6 +268,7 @@ def get_image_url(name):
     image = UploadImageModel.objects.filter(name=name).values('image').first()
     return image['image'] if image else None
 
+@admin_required
 @csrf_protect
 def generate_shuffled_predictions(request):
     """
@@ -329,6 +343,7 @@ def generate_shuffled_predictions(request):
         return render(request, 'backoffice/backoffice.html')
     else:
         return render(request, 'backoffice/backoffice.html')
+
 
 def display_combination_predictions(request):
     """
