@@ -1,0 +1,26 @@
+{% extends "account/base.html" %}
+{% load static %}
+
+{% block header_content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-xl-10 col-lg-12 col-md-9">
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <div class="row mb-4">
+                        <div class="col-lg-2 d-none d-lg-block"></div>
+                        <div class="col-lg-8">
+                            <div class="p-5 text-center">
+                                <h1 class="h4 text-gray-900 mb-4 text-black font-weight-bold">Failed to predict!</h1>
+                                <p class="text-black">You need to scrape the latest EuroMillions Jackpot result before you can predict.</p>
+                                <a href="{% url 'backoffice' %}" class="btn btn-primary mt-3">Return to Backoffice</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 d-none d-lg-block"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
