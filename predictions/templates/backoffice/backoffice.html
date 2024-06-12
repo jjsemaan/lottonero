@@ -64,7 +64,7 @@
                                             <tr>
                                                 <td>4</td>
                                                 <td>
-                                                    <form action="{% url 'train_classifier' %}" method="post">
+                                                    <form id="predictionForm" action="{% url 'train_classifier' %}" method="post">
                                                         {% csrf_token %}
                                                         <div class="form-group">
                                                             <label for="draw_date">Select draw date to run predictions:</label>
@@ -72,8 +72,7 @@
                                                         </div>
                                                 </td>
                                                 <td class="align-middle">
-                                                    <button type="submit" class="btn btn-primary btn-block"
-                                                        name="train" value="Start Training">Execute</button>
+                                                    <button type="submit" class="btn btn-primary btn-block" name="train" value="Start Training">Execute</button>
                                                     </form>
                                                 </td>
                                             </tr>
@@ -127,4 +126,15 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('draw_date').addEventListener('focus', function(e) {
+        this.addEventListener('input', function() {
+            const day = new Date(this.value).getUTCDay();
+            if (day !== 2 && day !== 5) {
+                alert('Please select a Tuesday or Friday.');
+                this.value = '';
+            }
+        });
+    });
+</script>
 {% endblock %}
