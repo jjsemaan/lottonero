@@ -2,8 +2,8 @@ from django.core.management.base import BaseCommand
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
-import re  # Import the regular expressions module
-from scraping.models import EuroMillionsResult  # Import your model
+import re
+from scraping.models import EuroMillionsResult
 
 """
     A Django management command to scrape the latest EuroMillions results from the official
