@@ -58,13 +58,10 @@ Header
     font-style: normal;
 }
 
-/*
-.forms-font {
-    font-family: "futura-pt", sans-serif;
-    font-weight: 300;
-    font-style: normal;
-    color: rgb(90, 90, 90);
-}*/
+
+.svg-container {
+    padding: 0;
+}
 
 .header-button-font {
     font-family: "futura-pt-condensed", sans-serif;

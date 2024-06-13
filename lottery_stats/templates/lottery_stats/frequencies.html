@@ -38,15 +38,22 @@
     </div>
     <div class="row"> 
         <div class="col-12 text-center justify-content-center">
-            <div>
-                <h2 class="text-dark">Main Balls Frequency</h2>
-                {{ graph_main_balls|safe }}
-            </div>
-            <div>
-                <h2 class="text-dark">Lucky Stars Frequency</h2>
-                {{ graph_lucky_stars|safe }}
-            </div>
+            {% if user.is_authenticated %}
+                <div>
+                    <h2 class="text-dark">Main Balls Frequency</h2>
+                    {{ graph_main_balls|safe }}
+                </div>
+                <div>
+                    <h2 class="text-dark">Lucky Stars Frequency</h2>
+                    {{ graph_lucky_stars|safe }}
+                </div>
+            {% else %}
+                <div>
+                    <h2 class="text-dark">Please log in to view the frequency graphs.</h2>
+                </div>
+            {% endif %}
         </div>
+        
     </div>
 </div>
 {% endblock %}

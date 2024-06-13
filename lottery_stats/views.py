@@ -2,17 +2,94 @@ from django.shortcuts import render
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objs as go
+import numpy as np
+from scipy.stats import gaussian_kde
 from scraping.models import EuroMillionsResult
 
 def plot_numbers_frequencies(df, columns, title):
     melted_df = df.melt(value_vars=columns)
     number_counts = melted_df['value'].value_counts().sort_index()
-    fig = px.bar(
-        x=number_counts.index,
-        y=number_counts.values,
-        labels={'x': 'Number', 'y': 'Frequency'},
-        title=title
+    
+    # Compute median
+    median_value = number_counts.median()
+    
+    # Compute KDE
+    kde = gaussian_kde(number_counts.values)
+    x_range = np.linspace(number_counts.index.min(), number_counts.index.max(), 100)
+    kde_values = kde(x_range)
+    
+    # Determine bar colors based on whether they are above the median
+    bar_colors = ['rgba(200, 171, 37, 0.87)' if value > median_value else 'blue' for value in number_counts.values]
+    
+    fig = go.Figure(data=[
+        go.Bar(
+            x=number_counts.index,
+            y=number_counts.values,
+            marker=dict(color=bar_colors),
+            name='Frequency'
+        )
+    ])
+    
+    # Update layout to control svg-container style and add median line
+    fig.update_layout(
+        xaxis_title='Number',
+        yaxis_title='Frequency',
+        paper_bgcolor='rgba(0,0,0,0)',  # transparent background
+        plot_bgcolor='rgba(0,0,0,0)',   # transparent plot area
+        font=dict(color='black', size=12),
+        showlegend=True,
+        legend=dict(
+            orientation='h',
+            yanchor='top',
+            y=1.02,
+            xanchor='center',
+            x=0.5
+        ),
+        title=dict(text='', x=0.5),  # Hide the title
+        xaxis=dict(
+            showgrid=False,
+            zeroline=False
+        ),
+        yaxis=dict(
+            showgrid=False,
+            zeroline=False
+        ),
+        margin=dict(l=20, r=20, t=30, b=20)  # Adjust margins
     )
+    
+    # Add a median line
+    fig.add_shape(
+        type="line",
+        x0=number_counts.index.min(),
+        y0=median_value,
+        x1=number_counts.index.max(),
+        y1=median_value,
+        line=dict(color="red", width=2, dash="dash"),
+    )
+    
+    # Add annotation for the median line
+    fig.add_annotation(
+        x=number_counts.index.max(),
+        y=median_value,
+        text=f"Median: {median_value:.2f}",
+        showarrow=False,
+        yshift=10,
+        font=dict(color="red", size=12)
+    )
+    
+    # Add KDE curve with shading
+    fig.add_trace(
+        go.Scatter(
+            x=x_range,
+            y=kde_values * number_counts.values.sum() / kde_values.sum(),  # scale KDE values to match the histogram
+            mode='lines',
+            name='KDE',
+            line=dict(color='darkgrey'),
+            fill='tozeroy',  # fill area under the curve
+            fillcolor='rgba(0, 0, 255, 0.2)'  # semi-transparent blue
+        )
+    )
+    
     fig_config = {'displayModeBar': False}
     return fig.to_html(full_html=False, config=fig_config)
 
@@ -28,6 +105,10 @@ def frequency_view(request):
         'graph_main_balls': graph_main_balls,
         'graph_lucky_stars': graph_lucky_stars
     })
+
+
+
+
 
 
 def prepare_data(df):
@@ -132,8 +213,8 @@ def plot_stacked_area_chart(frequency, title):
             x=frequency.index,
             y=frequency[combo],
             mode='lines',
-            name=str(combo),  # Convert combo tuple to string for legend
-            stackgroup='one'  # define stack group
+            name=str(combo),
+            stackgroup='one'
         ))
     fig.update_layout(
         title=title,
