@@ -6,6 +6,19 @@ import numpy as np
 from scipy.stats import gaussian_kde
 from scraping.models import EuroMillionsResult
 
+def get_filtered_data(time_range):
+    if time_range == '1m':
+        num_rows = 8  # 1 month = 8 draws
+    elif time_range == '6m':
+        num_rows = 48  # 6 months = 48 draws
+    elif time_range == '12m':
+        num_rows = 96  # 12 months = 96 draws
+    else:  # default to 3 months
+        num_rows = 24  # 3 months = 24 draws
+    
+    # Fetch the last num_rows entries
+    return EuroMillionsResult.objects.all().order_by('-draw_date')[:num_rows]
+
 def plot_numbers_frequencies(df, columns, title):
     melted_df = df.melt(value_vars=columns)
     number_counts = melted_df['value'].value_counts().sort_index()
@@ -19,7 +32,7 @@ def plot_numbers_frequencies(df, columns, title):
     kde_values = kde(x_range)
     
     # Determine bar colors based on whether they are above the median
-    bar_colors = ['rgba(200, 171, 37, 0.87)' if value > median_value else 'blue' for value in number_counts.values]
+    bar_colors = ['rgba(245, 208, 39, 0.8)' if value > median_value else 'blue' for value in number_counts.values]
     
     fig = go.Figure(data=[
         go.Bar(
@@ -32,7 +45,7 @@ def plot_numbers_frequencies(df, columns, title):
     
     # Update layout to control svg-container style and add median line
     fig.update_layout(
-        xaxis_title='Number',
+        xaxis_title='Ball Numbers',
         yaxis_title='Frequency',
         paper_bgcolor='rgba(0,0,0,0)',  # transparent background
         plot_bgcolor='rgba(0,0,0,0)',   # transparent plot area
@@ -94,17 +107,24 @@ def plot_numbers_frequencies(df, columns, title):
     return fig.to_html(full_html=False, config=fig_config)
 
 def frequency_view(request):
-    data = EuroMillionsResult.objects.all()
+    time_range = request.GET.get('time_range', '3m')
+    data = get_filtered_data(time_range)
+    
+    # Convert the queryset to a DataFrame and print its columns for debugging
     df_main_balls = pd.DataFrame(list(data.values('ball_1', 'ball_2', 'ball_3', 'ball_4', 'ball_5')))
     df_lucky_stars = pd.DataFrame(list(data.values('lucky_star_1', 'lucky_star_2')))
-
+    
     graph_main_balls = plot_numbers_frequencies(df_main_balls, ['ball_1', 'ball_2', 'ball_3', 'ball_4', 'ball_5'], 'Frequency of Main EuroMillions Balls')
     graph_lucky_stars = plot_numbers_frequencies(df_lucky_stars, ['lucky_star_1', 'lucky_star_2'], 'Frequency of EuroMillions Lucky Stars')
 
     return render(request, 'lottery_stats/frequencies.html', {
         'graph_main_balls': graph_main_balls,
-        'graph_lucky_stars': graph_lucky_stars
+        'graph_lucky_stars': graph_lucky_stars,
+        'selected_time_range': time_range
     })
+
+
+
 
 
 
