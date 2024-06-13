@@ -9,20 +9,26 @@
 <body>
     <div class="container">
         <h1>EuroMillions Statistics</h1>
+        {% if user.is_authenticated %}
         <div>
             <h2>Cumulative Frequency of Winning Combinations Over Time</h2>
             <form class="form-inline">
                 <label for="num_draws" class="mr-sm-2">Select period:</label>
                 <select id="num_draws" class="form-control mb-2 mr-sm-2" onchange="window.location.href='?num_draws=' + this.value;">
-                    <option value="8" {% if selected_draws == 8 %}selected{% endif %}>Last 8 draws (1 month)</option>
-                    <option value="24" {% if selected_draws == 24 %}selected{% endif %}>Last 24 draws (3 months)</option>
-                    <option value="48" {% if selected_draws == 48 %}selected{% endif %}>Last 48 draws (6 months)</option>
-                    <option value="96" {% if selected_draws == 96 %}selected{% endif %}>Last 96 draws (1 year)</option>
+                    <option value="8" {% if selected_draws == 8 %}selected{% endif %}>Last 1 month</option>
+                    <option value="24" {% if selected_draws == 24 %}selected{% endif %}>Last 3 Months</option>
+                    <option value="48" {% if selected_draws == 48 %}selected{% endif %}>Last 6 Months</option>
+                    <option value="96" {% if selected_draws == 96 %}selected{% endif %}>Last 12 Months</option>
                 </select>
                 <button type="submit" class="btn btn-primary mb-2">Show</button>
             </form>
             {{ graph_combinations|safe }}
         </div>
+        {% else %}
+            <div>
+                <h2 class="text-dark">Please log in to view the frequency graphs.</h2>
+            </div>
+        {% endif %}
     </div>
 </body>
 </html>
