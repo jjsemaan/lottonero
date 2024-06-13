@@ -1,18 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>EuroMillions Stats</title>
-</head>
-<body>
-    <h1>EuroMillions Statistics</h1>
-    <div>
-        <h2>Main Balls Frequency</h2>
-        {{ graph_main_balls|safe }}
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+<div class="container header-container pt-5 mt-5">
+    <div class="row pt-5 mt-3">
+        <div class="col">
+        </div>
     </div>
-    <div>
-        <h2>Lucky Stars Frequency</h2>
-        {{ graph_lucky_stars|safe }}
+</div>
+{% endblock %}
+
+{% block header_content %}
+<div class="my-3 pt-5 pb-5 justify-content-center">
+    <h1 class="header-font">AI Lotto Statistics</h1>
+    <h1 class="header-font">for EuroMillions</h1>
+    {% if user.is_authenticated %}
+    <a href="{% url 'plans' %}" class="btn btn-lg header-button-font rounded-pill text-uppercase mt-3">Subscribe
+        Now!</a>
+    {% else %}
+    <a href="{% url 'account_login' %}?next={% url 'plans' %}"
+        class="btn btn-lg header-button-font rounded-pill text-uppercase mt-3">Subscribe Now!</a>
+    {% endif %}
+</div>
+{% endblock %}
+
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 text-center">
+        </div>
+        <div class="col-md-6 text-center">
+            
+        </div>
+        <div class="col-md-3 text-center">
+        </div>
     </div>
-</body>
-</html>
+    <div class="row"> 
+        <div class="col-12 text-center justify-content-center">
+            <div>
+                <h2 class="text-dark">Main Balls Frequency</h2>
+                {{ graph_main_balls|safe }}
+            </div>
+            <div>
+                <h2 class="text-dark">Lucky Stars Frequency</h2>
+                {{ graph_lucky_stars|safe }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
