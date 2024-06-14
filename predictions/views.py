@@ -311,7 +311,7 @@ def generate_shuffled_predictions(request):
         all_balls = list(all_balls)
         all_lucky_stars = list(all_lucky_stars)
 
-        while len(shuffled_predictions) < 30:
+        while len(shuffled_predictions) < 50:
             new_balls = sorted(random.sample(all_balls, 5))
             new_lucky_stars = sorted(random.sample(all_lucky_stars, 2))
 
