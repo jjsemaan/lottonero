@@ -58,6 +58,15 @@ Header
     font-style: normal;
 }
 
+.central-font {
+    font-family: "futura-pt", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+}
+
+.banner-font {
+    color: rgb(255, 221, 0);
+}
 
 .svg-container {
     padding: 0;
