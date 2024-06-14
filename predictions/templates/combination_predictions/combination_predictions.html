@@ -11,25 +11,37 @@
 </div>
 {% endblock %}
 
-{% block header_content %}
-<div class="my-3 pt-5 pb-5 justify-content-center">
-    <h1 class="header-font text-center">AI Combination Predictions</h1>
-    <h1 class="header-font text-center">for EuroMillions</h1>
-    <a href="#" class="btn btn-lg header-button-font rounded-pill text-uppercase mt-3">See Below Predictions!</a>
+{% block subscribe_now %}
+<div class="row text-center">
+    <div class="col bg-dark">
+        {% if user %}
+            <p class="banner-font my-2">
+                Hello {{ user.first_name }}.. You can play the below predictions at 
+                <a href="https://EuroMillions.eu" target="_blank">EuroMillions.eu</a>
+                 Good luck!
+            </p>
+        {% endif %}
+    </div>
 </div>
+{% endblock %}
+
+{% block header_content %}
+    {% block bg %}
+    {% endblock %}
 {% endblock %}
 
 {% block content %}
 <div class="container">
-    <h1 class="text-center my-4">Target EuroMillions Lotto. Draw Date...</h1>
-    <p class="text-center">Disclaimer...Agree to terms and conditions</p>
+    <h1 class="text-center header-font mt-3">AI Combination Predictions</h1>
+    <h1 class="text-center header-font">for EuroMillions Lotto</h1>
+    <br>
     <table class="table text-center">
         <thead>
             <tr>
                 <th class="text-center align-middle font-weight-bold">ID</th>
                 <th class="text-center align-middle font-weight-bold">Draw Date</th>
-                <th class="text-center align-middle font-weight-bold">Shuffled Balls</th>
-                <th class="text-center align-middle font-weight-bold">Shuffled Lucky Stars</th>
+                <th class="text-center align-middle font-weight-bold">Combi Balls</th>
+                <th class="text-center align-middle font-weight-bold">Combi Lucky Stars</th>
             </tr>
         </thead>
         <tbody>
