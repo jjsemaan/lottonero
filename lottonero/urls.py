@@ -15,6 +15,7 @@ urlpatterns = [
     path('', include('home.urls')),
     path('user/', include('user_profile.urls')),
     path('contact/', include('contact.urls')),
+    path('stripe/', include('djstripe.urls', namespace='djstripe')),
 ]
 
 if settings.DEBUG:

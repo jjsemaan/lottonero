@@ -98,13 +98,13 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from djstripe.settings import djstripe_settings
 
-
 @login_required
 def pricing_page(request):
-    return render(request, 'pricing_page.html', {
-        'stripe_public_key': djstripe_settings.STRIPE_PUBLIC_KEY,
+    context = {
+        'stripe_public_key': settings.STRIPE_PUBLISHABLE_KEY,
         'stripe_pricing_table_id': settings.STRIPE_PRICING_TABLE_ID,
-    })
+    }
+    return render(request, 'pricing_page/pricing_page.html', context)
     
 
 # View to provision subscription

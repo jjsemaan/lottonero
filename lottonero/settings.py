@@ -215,13 +215,16 @@ STATICFILES_DIRS = [
 # DJ-Stripe Configuration
 DJSTRIPE_FOREIGN_KEY_TO_FIELD = "id"
 DJSTRIPE_WEBHOOK_SECRET = os.environ.get('DJSTRIPE_WEBHOOK_SECRET')
+DJSTRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')  # Add this line
 # DJSTRIPE_WEBHOOK_VALIDATION = 'verify_signature'
 
 # Stripe Payment Configuration  
 STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+STRIPE_TEST_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY') 
 STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
 STRIPE_ENDPOINT_SECRET = os.environ.get('STRIPE_ENDPOINT_SECRET')
 STRIPE_PRICING_TABLE_ID = os.environ.get('STRIPE_PRICING_TABLE_ID')
+STRIPE_LIVE_MODE = False  # Change to True in production
 
 
 # Cloudinary configuration
