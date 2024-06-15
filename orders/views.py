@@ -90,7 +90,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def subscription_confirm(request):
-    return render(request, 'subscription_confirm.html')
+    return render(request, 'subscription_confirm/subscription_confirm.html')
 
 
 from django.conf import settings
@@ -137,11 +137,6 @@ def subscription_confirm(request):
     # get the subscription object form Stripe and sync to djstripe
     subscription = stripe.Subscription.retrieve(session.subscription)
     djstripe_subscription = Subscription.sync_from_stripe_data(subscription)
-
-    # set the subscription and customer on our user
-    # subscription_holder.subscription = djstripe_subscription
-    # subscription_holder.customer = djstripe_subscription.customer
-    # subscription_holder.save()
 
     # show a message to the user and redirect
     messages.success(request, f"You've successfully signed up. Thanks for the support!")
