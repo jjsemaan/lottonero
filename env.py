@@ -21,6 +21,7 @@ os.environ['STRIPE_SECRET_KEY'] = 'sk_test_51PNZDORqKPcp1RrsbRAW3U80hXCOvyDMKYGE
 os.environ['STRIPE_PUBLISHABLE_KEY'] = 'pk_test_51PNZDORqKPcp1Rrs1PYOOcfQ64miVJRpB2Iyyg8zse2ZK7h7rmqcqT6Wb6rIFUJhfv9QGcXYuj42eRA2kkLekmb200zB1Rq0N5'
 os.environ['STRIPE_ENDPOINT_SECRET'] = 'whsec_806185019179ae9ac048b43f0664eb483da13d09ea3b5809d528af1008df8a4f'
 os.environ['STRIPE_PRICING_TABLE_ID'] ='prctbl_1PRy3kRqKPcp1RrsSNlyexrM'
+os.environ['DJSTRIPE_WEBHOOK_SECRET'] = 'your_stripe_webhook_secret'
 
 os.environ['CLOUDINARY_CLOUD_NAME'] = 'dmebot5lf'
 os.environ['CLOUDINARY_API_KEY'] = '765648534614641'
