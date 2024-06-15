@@ -80,6 +80,29 @@ def checkout(request, subscription_id):
     }
     return render(request, template, context)
 
+@login_required
 def subscription_success(request):
     return render(request, 'checkout/subscription_success.html')
+
+
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def subscription_confirm(request):
+    return render(request, 'subscription_confirm.html')
+
+
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from djstripe.settings import djstripe_settings
+
+
+@login_required
+def pricing_page(request):
+    return render(request, 'pricing_page.html', {
+        'stripe_public_key': djstripe_settings.STRIPE_PUBLIC_KEY,
+        'stripe_pricing_table_id': settings.STRIPE_PRICING_TABLE_ID,
+    })
 
