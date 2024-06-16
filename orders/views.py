@@ -99,14 +99,23 @@ def pricing_page(request):
     return render(request, 'pricing_page/pricing_page.html', context)
     
 
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseBadRequest
 from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from djstripe.settings import djstripe_settings
 from djstripe.models import Subscription, Product, Price
 import stripe
+
+@login_required
+def pricing_page(request):
+    context = {
+        'stripe_public_key': settings.STRIPE_PUBLISHABLE_KEY,
+        'stripe_pricing_table_id': settings.STRIPE_PRICING_TABLE_ID,
+    }
+    return render(request, 'pricing_page/pricing_page.html', context)
 
 @login_required
 def subscription_confirm(request):
@@ -130,31 +139,48 @@ def subscription_confirm(request):
     assert subscription_holder == request.user
 
     # Get the subscription object from Stripe and sync to djstripe
-    subscription = stripe.Subscription.retrieve(session.subscription)
-    djstripe_subscription = Subscription.sync_from_stripe_data(subscription)
+    try:
+        subscription = stripe.Subscription.retrieve(session.subscription)
+        print(f"Retrieved subscription: {subscription}")
+    except Exception as e:
+        print(f"Error retrieving subscription: {e}")
+        return HttpResponseBadRequest("Error retrieving subscription.")
+
+    try:
+        djstripe_subscription = Subscription.sync_from_stripe_data(subscription)
+        print(f"Synced subscription: {djstripe_subscription}")
+    except Exception as e:
+        print(f"Error syncing subscription: {e}")
+        return HttpResponseBadRequest("Error syncing subscription.")
 
     # Ensure the product and price are correctly synced
-    for item in subscription.items.data:
-        plan = item.plan
-        product = plan.product
-        price = plan
+    try:
+        for item in subscription['items']['data']:
+            plan = item['plan']
+            price = item['price']
+            product = plan['product']
 
-        # Retrieve and sync product and price
-        if isinstance(product, str):
-            product = stripe.Product.retrieve(product)
-        if isinstance(price, str):
-            price = stripe.Price.retrieve(price)
+            # Retrieve and sync product
+            if isinstance(product, str):
+                product = stripe.Product.retrieve(product)
+            djstripe_product = Product.sync_from_stripe_data(product)
 
-        djstripe_product = Product.sync_from_stripe_data(product)
-        djstripe_price = Price.sync_from_stripe_data(price)
+            # Retrieve and sync price
+            if isinstance(price, str):
+                price = stripe.Price.retrieve(price)
+            djstripe_price = Price.sync_from_stripe_data(price)
 
-        # Check if the default price needs to be updated
-        if djstripe_product.default_price != djstripe_price:
-            djstripe_product.default_price = djstripe_price
-            djstripe_product.save()
+            # Check if the default price needs to be updated
+            if djstripe_product.default_price != djstripe_price:
+                djstripe_product.default_price = djstripe_price
+                djstripe_product.save()
+
+    except Exception as e:
+        print(f"Error syncing product and price: {e}")
+        return HttpResponseBadRequest("Error syncing product and price.")
 
     # Show a message to the user
     messages.success(request, "You've successfully signed up. Thanks for the support!")
     
     # Render the confirmation template
-    return render(request, 'subscription_confirm.html', {'subscription': djstripe_subscription})
+    return render(request, 'subscription_confirm/subscription_confirm.html', {'subscription': djstripe_subscription})
