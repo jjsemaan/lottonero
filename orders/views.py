@@ -87,20 +87,6 @@ def subscription_success(request):
 
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-from djstripe.settings import djstripe_settings
-
-@login_required
-def pricing_page(request):
-    context = {
-        'stripe_public_key': settings.STRIPE_PUBLISHABLE_KEY,
-        'stripe_pricing_table_id': settings.STRIPE_PRICING_TABLE_ID,
-    }
-    return render(request, 'pricing_page/pricing_page.html', context)
-    
-
-from django.conf import settings
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseBadRequest
 from django.contrib.auth import get_user_model
@@ -111,6 +97,18 @@ import stripe
 
 @login_required
 def pricing_page(request):
+    """
+    Renders the pricing page with the Stripe public key and pricing table ID.
+
+    This view is protected by login_required, so only authenticated users can access it.
+
+    Args:
+        request (HttpRequest): The request object used to generate this response.
+
+    Returns:
+        HttpResponse: The rendered pricing page with context including Stripe public key 
+                      and pricing table ID.
+    """
     context = {
         'stripe_public_key': settings.STRIPE_PUBLISHABLE_KEY,
         'stripe_pricing_table_id': settings.STRIPE_PRICING_TABLE_ID,
@@ -119,7 +117,24 @@ def pricing_page(request):
 
 @login_required
 def subscription_confirm(request):
-    # Set up Stripe keys
+    """
+    Confirms a Stripe subscription and syncs it with dj-stripe.
+
+    This view handles the following:
+    1. Retrieves the session ID from the request.
+    2. Retrieves the Stripe session and subscription objects.
+    3. Syncs the subscription with the dj-stripe Subscription model.
+    4. Ensures the associated products and prices are also synced with dj-stripe.
+    5. Displays a success message to the user and renders the subscription confirmation page.
+
+    Args:
+        request (HttpRequest): The request object used to generate this response.
+
+    Returns:
+        HttpResponse: The rendered subscription confirmation page on success.
+        HttpResponseBadRequest: If any errors occur during the process, such as missing 
+                                session ID, invalid session ID, or issues with syncing data.
+    """
     stripe.api_key = djstripe_settings.STRIPE_SECRET_KEY
 
     # Get the session id from the URL and retrieve the session object from Stripe
