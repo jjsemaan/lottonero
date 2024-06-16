@@ -215,7 +215,7 @@ STATICFILES_DIRS = [
 # DJ-Stripe Configuration
 DJSTRIPE_FOREIGN_KEY_TO_FIELD = "id"
 DJSTRIPE_WEBHOOK_SECRET = os.environ.get('DJSTRIPE_WEBHOOK_SECRET')
-DJSTRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')  # Add this line
+DJSTRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
 # DJSTRIPE_WEBHOOK_VALIDATION = 'verify_signature'
 
 # Stripe Payment Configuration  

@@ -85,14 +85,6 @@ def subscription_success(request):
     return render(request, 'checkout/subscription_success.html')
 
 
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
-
-@login_required
-def subscription_confirm(request):
-    return render(request, 'subscription_confirm/subscription_confirm.html')
-
-
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
@@ -107,37 +99,62 @@ def pricing_page(request):
     return render(request, 'pricing_page/pricing_page.html', context)
     
 
-# View to provision subscription
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseBadRequest
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse
-
+from django.shortcuts import render
 from djstripe.settings import djstripe_settings
-from djstripe.models import Subscription
-
+from djstripe.models import Subscription, Product, Price
 import stripe
 
 @login_required
 def subscription_confirm(request):
-    # set our stripe keys up
+    # Set up Stripe keys
     stripe.api_key = djstripe_settings.STRIPE_SECRET_KEY
 
-    # get the session id from the URL and retrieve the session object from Stripe
+    # Get the session id from the URL and retrieve the session object from Stripe
     session_id = request.GET.get("session_id")
-    session = stripe.checkout.Session.retrieve(session_id)
+    if not session_id:
+        return HttpResponseBadRequest("No session ID provided.")
 
-    # get the subscribing user from the client_reference_id we passed in above
+    try:
+        session = stripe.checkout.Session.retrieve(session_id)
+    except stripe.error.InvalidRequestError:
+        return HttpResponseBadRequest("Invalid session ID.")
+
+    # Get the subscribing user from the client_reference_id we passed in above
     client_reference_id = int(session.client_reference_id)
     subscription_holder = get_user_model().objects.get(id=client_reference_id)
-    # sanity check that the logged in user is the one being updated
+    # Sanity check that the logged-in user is the one being updated
     assert subscription_holder == request.user
 
-    # get the subscription object form Stripe and sync to djstripe
+    # Get the subscription object from Stripe and sync to djstripe
     subscription = stripe.Subscription.retrieve(session.subscription)
     djstripe_subscription = Subscription.sync_from_stripe_data(subscription)
 
-    # show a message to the user and redirect
-    messages.success(request, f"You've successfully signed up. Thanks for the support!")
-    return HttpResponseRedirect(reverse("subscription_details"))
+    # Ensure the product and price are correctly synced
+    for item in subscription.items.data:
+        plan = item.plan
+        product = plan.product
+        price = plan
+
+        # Retrieve and sync product and price
+        if isinstance(product, str):
+            product = stripe.Product.retrieve(product)
+        if isinstance(price, str):
+            price = stripe.Price.retrieve(price)
+
+        djstripe_product = Product.sync_from_stripe_data(product)
+        djstripe_price = Price.sync_from_stripe_data(price)
+
+        # Check if the default price needs to be updated
+        if djstripe_product.default_price != djstripe_price:
+            djstripe_product.default_price = djstripe_price
+            djstripe_product.save()
+
+    # Show a message to the user
+    messages.success(request, "You've successfully signed up. Thanks for the support!")
+    
+    # Render the confirmation template
+    return render(request, 'subscription_confirm.html', {'subscription': djstripe_subscription})
