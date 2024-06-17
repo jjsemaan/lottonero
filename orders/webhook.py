@@ -4,7 +4,10 @@ import stripe
 from django.conf import settings
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from .handler import handle_checkout_session_completed, handle_payment_intent_succeeded, handle_payment_method_attached
+from .handler import (
+    handle_checkout_session_completed, handle_payment_intent_succeeded, 
+    handle_payment_method_attached, handle_subscription_created, handle_subscription_updated
+)
 
 @csrf_exempt
 def stripe_webhook(request):
@@ -33,6 +36,12 @@ def stripe_webhook(request):
     elif event['type'] == 'payment_method.attached':
         payment_method = event['data']['object']
         handle_payment_method_attached(payment_method)
+    elif event['type'] == 'customer.subscription.created':
+        subscription = event['data']['object']
+        handle_subscription_created(subscription)
+    elif event['type'] == 'customer.subscription.updated':
+        subscription = event['data']['object']
+        handle_subscription_updated(subscription)
     else:
         print(f"Unhandled event type {event['type']}")
 
