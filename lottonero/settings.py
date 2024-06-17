@@ -27,19 +27,25 @@ print(f"DEBUG is set to: {DEBUG}")
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
     'https://8000-jjsemaan-lottonero-pykwwkf1hp.us1.codeanyapp.com',
-    'https://lottonero-e7dc9a7038d2.herokuapp.com'
+    'http://8000-jjsemaan-lottonero-3eiokflj3mx.ws.codeinstitute-ide.net/',
+    'https://lottonero-e7dc9a7038d2.herokuapp.com',
+    'https://lottonero.com',
 ]
 
 # CSRF settings
 CSRF_TRUSTED_ORIGINS = [
     'https://8000-jjsemaan-lottonero-pykwwkf1hp.us1.codeanyapp.com',
-    'https://lottonero-e7dc9a7038d2.herokuapp.com'
+    'http://8000-jjsemaan-lottonero-3eiokflj3mx.ws.codeinstitute-ide.net/',
+    'https://lottonero-e7dc9a7038d2.herokuapp.com',
+    'https://lottonero.com',
 ]
 
 # Allowed hosts
 ALLOWED_HOSTS = [
     '8000-jjsemaan-lottonero-pykwwkf1hp.us1.codeanyapp.com',
+    'http://8000-jjsemaan-lottonero-3eiokflj3mx.ws.codeinstitute-ide.net/',
     'lottonero-e7dc9a7038d2.herokuapp.com',
+    'https://lottonero.com',
     'localhost',
     '127.0.0.1',
     '[::1]'
