@@ -56,9 +56,7 @@ ALLOWED_HOSTS = [
     'https://*.gitpod.io',
     'https://*.herokuapp.com',
     'https://*.lottonero.com',
-    'localhost',
-    '127.0.0.1',
-    '[::1]'
+    'localhost', '127.0.0.1', 'da99-18-202-164-254.ngrok-free.app',
 ]
 
 # Application definition
