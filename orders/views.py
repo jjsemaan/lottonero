@@ -1,16 +1,15 @@
-from django.shortcuts import render, redirect
-from .models import Subscription, SubscriptionType
-
+"""
+# from django.shortcuts import render, redirect
+# from .models import Subscription, SubscriptionType
+"""
+"""
 def subscription_types_view(request):
-    """
-    View to display all subscription types as banners.
-    """
+    
     subscription_types = SubscriptionType.objects.all()
     context = {
         'subscription_types': subscription_types,
     }
     return render(request, 'plans/plans.html', context)
-
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -83,7 +82,7 @@ def checkout(request, subscription_id):
 @login_required
 def subscription_success(request):
     return render(request, 'checkout/subscription_success.html')
-
+"""
 
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -110,7 +109,7 @@ def pricing_page(request):
                       and pricing table ID.
     """
     context = {
-        'stripe_public_key': settings.STRIPE_PUBLISHABLE_KEY,
+        'stripe_public_key': settings.STRIPE_TEST_PUBLIC_KEY,
         'stripe_pricing_table_id': settings.STRIPE_PRICING_TABLE_ID,
     }
     return render(request, 'pricing_page/pricing_page.html', context)

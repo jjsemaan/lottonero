@@ -233,22 +233,23 @@ DJSTRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
 # DJSTRIPE_WEBHOOK_VALIDATION = 'verify_signature'
 
 # Stripe Payment Configuration  
-STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+# STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
 STRIPE_TEST_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY') 
-STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
-STRIPE_ENDPOINT_SECRET = os.environ.get('STRIPE_ENDPOINT_SECRET')
-STRIPE_WEBHOOK_SECRET = os.environ.get('STRIPE_WEBHOOK_SECRET')
+STRIPE_TEST_PUBLIC_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
 STRIPE_PRICING_TABLE_ID = os.environ.get('STRIPE_PRICING_TABLE_ID')
 STRIPE_LIVE_MODE = False  # Change to True in production
 
-# Webhook security
-# SECURE_SSL_REDIRECT = True
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# Print the configuration values when the server starts
+print("DJ-Stripe Configuration")
+print(f"DJSTRIPE_FOREIGN_KEY_TO_FIELD: {DJSTRIPE_FOREIGN_KEY_TO_FIELD}")
+print(f"DJSTRIPE_WEBHOOK_SECRET: {DJSTRIPE_WEBHOOK_SECRET}")
+print(f"DJSTRIPE_PUBLIC_KEY: {DJSTRIPE_PUBLIC_KEY}")
 
-# Check the webhook secret
-if not STRIPE_WEBHOOK_SECRET:
-    raise ValueError("Missing Stripe webhook secret")
-
+print("\nStripe Payment Configuration")
+print(f"STRIPE_TEST_SECRET_KEY: {STRIPE_TEST_SECRET_KEY}")
+print(f"STRIPE_TEST_PUBLIC_KEY: {STRIPE_TEST_PUBLIC_KEY}")
+print(f"STRIPE_PRICING_TABLE_ID: {STRIPE_PRICING_TABLE_ID}")
+print(f"STRIPE_LIVE_MODE: {STRIPE_LIVE_MODE}")
 
 # Cloudinary configuration
 CLOUDINARY_STORAGE = {
