@@ -237,8 +237,17 @@ STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
 STRIPE_TEST_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY') 
 STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
 STRIPE_ENDPOINT_SECRET = os.environ.get('STRIPE_ENDPOINT_SECRET')
+STRIPE_WEBHOOK_SECRET = os.environ.get('STRIPE_WEBHOOK_SECRET')
 STRIPE_PRICING_TABLE_ID = os.environ.get('STRIPE_PRICING_TABLE_ID')
 STRIPE_LIVE_MODE = False  # Change to True in production
+
+# Webhook security
+# SECURE_SSL_REDIRECT = True
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Check the webhook secret
+if not STRIPE_WEBHOOK_SECRET:
+    raise ValueError("Missing Stripe webhook secret")
 
 
 # Cloudinary configuration
