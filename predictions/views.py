@@ -21,35 +21,41 @@ def read_data_from_database(request):
     return render(request, 'predictions/predictions.html', {'results': results})
 
 
+from django.shortcuts import render
+from django.db.models import Max
+
 def display_predictions(request):
     # Find the most recent prediction date
-    latest_date = Prediction.objects.latest('prediction_date').prediction_date
+    latest_date = Prediction.objects.aggregate(latest_date=Max('prediction_date'))['latest_date']
     # Fetch all predictions with the most recent date
     predictions = Prediction.objects.filter(prediction_date=latest_date)
     
+    image_cache = {}
+
+    def get_cached_image_url(value):
+        if value not in image_cache:
+            image_cache[value] = get_image_url(value)
+        return image_cache[value]
+
     predictions_with_images = []
     for prediction in predictions:
-        pred_ball_1_image = get_image_url(f"{prediction.pred_ball_1:02}")
-        pred_ball_2_image = get_image_url(f"{prediction.pred_ball_2:02}")
-        pred_ball_3_image = get_image_url(f"{prediction.pred_ball_3:02}")
-        pred_ball_4_image = get_image_url(f"{prediction.pred_ball_4:02}")
-        pred_ball_5_image = get_image_url(f"{prediction.pred_ball_5:02}")
-
-        pred_lucky_1_image = get_image_url(f"star{prediction.pred_lucky_1}")
-        pred_lucky_2_image = get_image_url(f"star{prediction.pred_lucky_2}")
+        pred_ball_images = [get_cached_image_url(f"{getattr(prediction, f'pred_ball_{i}'):02}") for i in range(1, 6)]
+        pred_lucky_images = [get_cached_image_url(f"star{getattr(prediction, f'pred_lucky_{i}')}")
+                             for i in range(1, 3)]
 
         predictions_with_images.append({
             'prediction': prediction,
-            'pred_ball_1_image': pred_ball_1_image,
-            'pred_ball_2_image': pred_ball_2_image,
-            'pred_ball_3_image': pred_ball_3_image,
-            'pred_ball_4_image': pred_ball_4_image,
-            'pred_ball_5_image': pred_ball_5_image,
-            'pred_lucky_1_image': pred_lucky_1_image,
-            'pred_lucky_2_image': pred_lucky_2_image,
+            'pred_ball_1_image': pred_ball_images[0],
+            'pred_ball_2_image': pred_ball_images[1],
+            'pred_ball_3_image': pred_ball_images[2],
+            'pred_ball_4_image': pred_ball_images[3],
+            'pred_ball_5_image': pred_ball_images[4],
+            'pred_lucky_1_image': pred_lucky_images[0],
+            'pred_lucky_2_image': pred_lucky_images[1],
         })
     
     return render(request, 'predictions/predictions.html', {'predictions_with_images': predictions_with_images})
+
 
 
 @admin_required
@@ -363,30 +369,32 @@ def display_combination_predictions(request):
         the context containing predictions_with_images.
     """
     # Find the most recent prediction date
-    latest_date = ShuffledPrediction.objects.latest('prediction_date').prediction_date
+    latest_date = ShuffledPrediction.objects.aggregate(latest_date=Max('prediction_date'))['latest_date']
     # Fetch all shuffled predictions with the most recent date
     predictions = ShuffledPrediction.objects.filter(prediction_date=latest_date)
     
+    image_cache = {}
+
+    def get_cached_image_url(value):
+        if value not in image_cache:
+            image_cache[value] = get_image_url(value)
+        return image_cache[value]
+
     predictions_with_images = []
     for prediction in predictions:
-        pred_ball_1_image = get_image_url(f"{prediction.pred_ball_1:02}")
-        pred_ball_2_image = get_image_url(f"{prediction.pred_ball_2:02}")
-        pred_ball_3_image = get_image_url(f"{prediction.pred_ball_3:02}")
-        pred_ball_4_image = get_image_url(f"{prediction.pred_ball_4:02}")
-        pred_ball_5_image = get_image_url(f"{prediction.pred_ball_5:02}")
-
-        pred_lucky_1_image = get_image_url(f"star{prediction.pred_lucky_1}")
-        pred_lucky_2_image = get_image_url(f"star{prediction.pred_lucky_2}")
+        pred_ball_images = [get_cached_image_url(f"{getattr(prediction, f'pred_ball_{i}'):02}") for i in range(1, 6)]
+        pred_lucky_images = [get_cached_image_url(f"star{getattr(prediction, f'pred_lucky_{i}')}")
+                             for i in range(1, 3)]
 
         predictions_with_images.append({
             'prediction': prediction,
-            'pred_ball_1_image': pred_ball_1_image,
-            'pred_ball_2_image': pred_ball_2_image,
-            'pred_ball_3_image': pred_ball_3_image,
-            'pred_ball_4_image': pred_ball_4_image,
-            'pred_ball_5_image': pred_ball_5_image,
-            'pred_lucky_1_image': pred_lucky_1_image,
-            'pred_lucky_2_image': pred_lucky_2_image,
+            'pred_ball_1_image': pred_ball_images[0],
+            'pred_ball_2_image': pred_ball_images[1],
+            'pred_ball_3_image': pred_ball_images[2],
+            'pred_ball_4_image': pred_ball_images[3],
+            'pred_ball_5_image': pred_ball_images[4],
+            'pred_lucky_1_image': pred_lucky_images[0],
+            'pred_lucky_2_image': pred_lucky_images[1],
         })
     
     return render(request, 'combination_predictions/combination_predictions.html', {'predictions_with_images': predictions_with_images})
