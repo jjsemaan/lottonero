@@ -18,24 +18,21 @@ class SubscriptionTypeAdmin(admin.ModelAdmin):
 from django.contrib import admin
 from .models import Subscription
 
-
 @admin.register(Subscription)
 class SubscriptionAdmin(admin.ModelAdmin):
-    list_display = ('order_number', 'subscription_type', 'user', 'created_on', 'subscribe_end_date', 'recurring_subscription', 'subscription_status')
-    fields = ('order_number', 'subscription_type', 'user', 'created_on', 'subscribe_end_date', 'recurring_subscription', 'trial_price', 'subscription_status', 'subscription_start_date')
-    search_fields = ('user__username', 'subscription_type__name', 'order_number')
-    readonly_fields = ('order_number', 'created_on')
+    list_display = ('user', 'created_on', 'email', 'event_id', 'prod_id')
+    fields = ('user', 'created_on', 'email', 'event_id', 'prod_id')
+    search_fields = ('user__username', 'email', 'event_id', 'prod_id')
+    readonly_fields = ('created_on',)
     ordering = ('-created_on',)
 
     def save_model(self, request, obj, form, change):
-        # Ensure the price is updated from the subscription type when saving
-        if obj.subscription_type:
-            obj.subscribe_price = obj.subscription_type.price
-        # Set subscription status based on subscribe_cancel_date
-        if obj.subscribe_cancel_date:
-            obj.subscription_status = 'disabled'
-        else:
-            obj.subscription_status = 'active'
+        """
+        Override the save method to ensure the email is updated
+        based on the user instance before saving.
+        """
+        obj.email = obj.user.email
         super().save_model(request, obj, form, change)
+
 
 
