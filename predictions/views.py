@@ -136,7 +136,7 @@ def train_classifier(request):
                 last_scraped_date = datetime.datetime.strptime(last_scraped_result.draw_date, '%Y/%m/%d')
             else:
                 last_scraped_date = last_scraped_result.draw_date
-            
+            # Strictly predict on same day as scraped 
             if last_scraped_date.strftime('%Y/%m/%d') != today_str:
                 return render(request, 'backoffice/scrape_first.html', {"message": "Please scrape the latest results first."})
 
