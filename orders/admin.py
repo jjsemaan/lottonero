@@ -35,6 +35,9 @@ class SubscriptionTypeAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 
+from django.contrib import admin
+from .models import Subscription
+
 @admin.register(Subscription)
 class SubscriptionAdmin(admin.ModelAdmin):
     """
@@ -48,9 +51,9 @@ class SubscriptionAdmin(admin.ModelAdmin):
         ordering (tuple): Default ordering for the list view.
     """
 
-    list_display = ('user', 'created_on', 'email', 'event_id', 'prod_id')
-    fields = ('user', 'created_on', 'email', 'event_id', 'prod_id')
-    search_fields = ('user__username', 'email', 'event_id', 'prod_id')
+    list_display = ('user', 'created_on', 'email', 'active', 'interval', 'cust_id', 'invoice_id', 'subscription_id', 'prod_id')
+    fields = ('user', 'created_on', 'email', 'active', 'interval', 'cust_id', 'invoice_id', 'subscription_id', 'prod_id')
+    search_fields = ('user__username', 'email', 'cust_id', 'invoice_id', 'subscription_id', 'prod_id')
     readonly_fields = ('created_on',)
     ordering = ('-created_on',)
 

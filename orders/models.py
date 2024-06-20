@@ -29,6 +29,9 @@ class SubscriptionType(models.Model):
         return self.name
 
 
+from django.db import models
+from django.contrib.auth.models import User
+
 class Subscription(models.Model):
     """
     Model representing a user's subscription.
@@ -37,7 +40,11 @@ class Subscription(models.Model):
         user (User): The user who owns the subscription.
         created_on (datetime): The date and time when the subscription was created.
         email (str): The email of the user.
-        event_id (str): The ID of the Stripe event associated with the subscription.
+        active (bool): Indicates if the subscription is currently active.
+        interval (str): The interval of the subscription (e.g., monthly, yearly).
+        cust_id (str): The customer ID associated with the subscription.
+        invoice_id (str): The invoice ID associated with the subscription.
+        subscription_id (str): The subscription ID associated with the subscription.
         prod_id (str): The ID of the product associated with the subscription.
 
     Methods:
@@ -50,7 +57,11 @@ class Subscription(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
     email = models.EmailField(max_length=254, blank=True, null=True)
-    event_id = models.CharField(max_length=255, blank=True, null=True)
+    active = models.BooleanField(default=True)
+    interval = models.CharField(max_length=255)
+    cust_id = models.CharField(max_length=255)
+    invoice_id = models.CharField(max_length=255)
+    subscription_id = models.CharField(max_length=255)
     prod_id = models.CharField(max_length=255, blank=True, null=True)
 
     def save(self, *args, **kwargs):
@@ -62,3 +73,4 @@ class Subscription(models.Model):
 
     def __str__(self):
         return f"{self.user.username} ({self.user.email}) - Product ID: {self.prod_id}"
+
