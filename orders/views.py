@@ -97,11 +97,15 @@ def subscription_confirm(request):
 
             print(f"Product and price synced successfully for product: {product}")
 
+        # Retrieve the product name
+        product_name = djstripe_product.name if djstripe_product else "Unknown Product"
+
         # Sync to OrdersSubscription model
         OrdersSubscription.objects.create(
             user=request.user,  # This is the foreign key to the User model
             email=request.user.email,
             prod_id=plan['product'],
+            product_name=product_name,
             active=plan['active'],
             interval=plan['interval'],
             cust_id=subscription['customer'],
