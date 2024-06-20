@@ -58,10 +58,10 @@ class Subscription(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     email = models.EmailField(max_length=254, blank=True, null=True)
     active = models.BooleanField(default=True)
-    interval = models.CharField(max_length=255)
-    cust_id = models.CharField(max_length=255)
-    invoice_id = models.CharField(max_length=255)
-    subscription_id = models.CharField(max_length=255)
+    interval = models.CharField(max_length=255, blank=True, null=True)
+    cust_id = models.CharField(max_length=255, blank=True, null=True)
+    invoice_id = models.CharField(max_length=255, blank=True, null=True)
+    subscription_id = models.CharField(max_length=255, blank=True, null=True)
     prod_id = models.CharField(max_length=255, blank=True, null=True)
 
     def save(self, *args, **kwargs):
