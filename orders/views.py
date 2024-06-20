@@ -127,7 +127,7 @@ def subscription_confirm(request):
 
         send_mail(
             subject,
-            "",
+            "Your Lottonero Subscription",
             from_email,
             recipient_list,
             fail_silently=False,
