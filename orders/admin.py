@@ -51,9 +51,9 @@ class SubscriptionAdmin(admin.ModelAdmin):
         ordering (tuple): Default ordering for the list view.
     """
 
-    list_display = ('user', 'created_on', 'email', 'active', 'interval', 'cust_id', 'invoice_id', 'subscription_id', 'prod_id')
-    fields = ('user', 'created_on', 'email', 'active', 'interval', 'cust_id', 'invoice_id', 'subscription_id', 'prod_id')
-    search_fields = ('user__username', 'email', 'cust_id', 'invoice_id', 'subscription_id', 'prod_id')
+    list_display = ('user', 'created_on', 'email', 'active', 'interval', 'cust_id', 'invoice_id', 'subscription_id', 'prod_id', 'product_name')
+    fields = ('user', 'created_on', 'email', 'active', 'interval', 'cust_id', 'invoice_id', 'subscription_id', 'prod_id', 'product_name')
+    search_fields = ('user__username', 'email', 'cust_id', 'invoice_id', 'subscription_id', 'prod_id', 'product_name')
     readonly_fields = ('created_on',)
     ordering = ('-created_on',)
 

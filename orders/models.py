@@ -63,6 +63,7 @@ class Subscription(models.Model):
     invoice_id = models.CharField(max_length=255, blank=True, null=True)
     subscription_id = models.CharField(max_length=255, blank=True, null=True)
     prod_id = models.CharField(max_length=255, blank=True, null=True)
+    product_name = models.CharField(max_length=255, blank=True, null=True)
 
     def save(self, *args, **kwargs):
         """
@@ -72,5 +73,5 @@ class Subscription(models.Model):
         super(Subscription, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.user.username} ({self.user.email}) - Product ID: {self.prod_id}"
+        return f"{self.user.username} ({self.email}) - Product ID: {self.prod_id} - Product Name: {self.product_name}"
 
