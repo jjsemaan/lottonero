@@ -158,12 +158,7 @@
         </div>
     </div>
 
-    {% if messages %}
-    <div class="message-container"></div>
-    {% endif %}
-
     <!-- Footer -->
-
     <footer class="text-center text-white" style="background-color: #f1f1f1;">
         <!-- Grid container -->
         <div class="container pt-4">
@@ -216,8 +211,22 @@
           © 2024 Copyright 
           <a class="text-dark" href="https://lottonero.com/">lottonero.com</a>
         </div>
-        <!-- Copyright -->
       </footer>
+
+    <!-- Toasts -->
+    {% if messages %}
+        <div class="message-container">
+            {% for message in messages %}
+                {% include 'includes/toasts/toast_success.html' %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% block postloadjs %}
+    <script type="text/javascript">
+        $('.toast').toast('show');
+    </script>
+    {% endblock %}
 
 </body>
 

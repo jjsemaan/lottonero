@@ -128,6 +128,9 @@ TEMPLATES = [
     },
 ]
 
+# Toasts
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
 # CRISPY FORMS SETTINGS
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
