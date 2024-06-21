@@ -9,7 +9,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Search Engine Optimisation -->
-    <meta name="google-site-verification" content="googlee73ec3c0eced08e7.html"> <!-- Add your site verification here -->
+    <meta name="google-site-verification" content="googlee73ec3c0eced08e7.html">
+    <!-- Add your site verification here -->
     {% endblock %}
 
     {% block extra_meta %}
@@ -18,7 +19,7 @@
     {% block corecss %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet">
@@ -51,16 +52,13 @@
     <!-- SEO Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V3L92FMQF7"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-V3L92FMQF7');
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-V3L92FMQF7');
     </script>
     <!-- Plotly graphs -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script type="text/javascript">
-        $('.toast').toast('show');
-    </script>
     {% endblock %}
 
     {% block extra_js %}
@@ -84,7 +82,7 @@
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0"></div>
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
                 <ul class="list-inline list-unstyled text-center text-lg-right my-0">
-                    
+
                     {% if user.is_authenticated %}
                     <li class="list-inline-item dropdown">
                         <a class="text-black nav-link" href="{% url 'account_logout' %}" id="user-options"
@@ -133,36 +131,37 @@
         </div>
         <!-- Toasts -->
         {% if messages %}
-            <div class="message-container">
-                {% for message in messages %}
-                    {% include 'includes/toasts/toast_success.html' %}
-                {% endfor %}
-            </div>
+        <div class="message-container">
+            {% for message in messages %}
+            {% include 'includes/toasts/toast_success.html' %}
+            {% endfor %}
+        </div>
         {% endif %}
         <!-- Subscription banner -->
         {% block subscribe_now %}
-            <div class="row text-center">
-                <div class="col bg-dark">
-                    {% if user.is_authenticated %}
-                        <a class="subscribe-button-font subscribe-button-font:hover" href="{% url 'pricing_page' %}">
-                            <h4 class="my-2 text-uppercase">Subscribe now for free!</h4>
-                        </a>
-                    {% else %}
-                        <a class="subscribe-button-font subscribe-button-font:hover" href="{% url 'account_login' %}?next={% url 'pricing_page' %}">
-                            <h4 class="my-2 text-uppercase">Subscribe now for free!</h4>
-                        </a>
-                    {% endif %}
-                </div>
+        <div class="row text-center">
+            <div class="col bg-dark">
+                {% if user.is_authenticated %}
+                <a class="subscribe-button-font subscribe-button-font:hover" href="{% url 'pricing_page' %}">
+                    <h4 class="my-2 text-uppercase">Subscribe now for free!</h4>
+                </a>
+                {% else %}
+                <a class="subscribe-button-font subscribe-button-font:hover"
+                    href="{% url 'account_login' %}?next={% url 'pricing_page' %}">
+                    <h4 class="my-2 text-uppercase">Subscribe now for free!</h4>
+                </a>
+                {% endif %}
             </div>
+        </div>
         {% endblock %}
         {% block bg %}
         <header class="masthead pt-5 pb-5"
             style="background-image: url('https://res.cloudinary.com/dmebot5lf/image/upload/v1716495659/The_AI_Lotto_Prediction_for_Euro_Millions_vqoh4y.webp')">
             <div class="container">
-                
-                    {% block header_content %}
-                    {% endblock %}
-                
+
+                {% block header_content %}
+                {% endblock %}
+
             </div>
         </header>
         {% endblock %}
@@ -176,57 +175,49 @@
     <footer class="text-center text-white" style="background-color: #f1f1f1;">
         <!-- Grid container -->
         <div class="container pt-4">
-          <!-- Section: Social media -->
-          <section class="mb-4">
-            <!-- Facebook -->
-            <a
-              data-mdb-ripple-init class="btn btn-link btn-floating btn-lg text-dark m-1"
-              href="https://facebook.com/lottonero"
-              role="button"
-              data-mdb-ripple-color="dark"
-              target="_blank"
-              ><i class="fab fa-facebook-f"></i
-            ></a>
-      
-            <!-- X (formerly Twitter) -->
-            <a
-            data-mdb-ripple-init
-            class="btn btn-link btn-floating btn-lg text-dark m-1"
-            href="https://x.com/lotto_nero"
-            role="button"
-            data-mdb-ripple-color="dark"
-            target="_blank"
-            >
-            <i class="fab fa-x-twitter"></i>
-            </a>
-            <!-- Instagram -->
-            <a
-              data-mdb-ripple-init class="btn btn-link btn-floating btn-lg text-dark m-1"
-              href="https://instagram.com/lotto.nero"
-              role="button"
-              data-mdb-ripple-color="dark"
-              target="_blank"
-              ><i class="fab fa-instagram"></i
-            ></a>
-            <!-- YouTube -->
-            <a
-            data-mdb-ripple-init class="btn btn-link btn-floating btn-lg text-dark m-1"
-            href="https://www.youtube.com/channel/UCVhrDXIY7739LTt5nX5qPwQ"
-            role="button"
-            data-mdb-ripple-color="dark"
-            target="_blank"
-            ><i class="fab fa-youtube"></i
-            ></a>
-          </section>
+            <!-- Section: Social media -->
+            <section class="mb-4">
+                <!-- Facebook -->
+                <a data-mdb-ripple-init class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="https://facebook.com/lottonero" role="button" data-mdb-ripple-color="dark" target="_blank"><i
+                        class="fab fa-facebook-f"></i></a>
+
+                <!-- X (formerly Twitter) -->
+                <a data-mdb-ripple-init class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="https://x.com/lotto_nero" role="button" data-mdb-ripple-color="dark" target="_blank">
+                    <i class="fab fa-x-twitter"></i>
+                </a>
+                <!-- Instagram -->
+                <a data-mdb-ripple-init class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="https://instagram.com/lotto.nero" role="button" data-mdb-ripple-color="dark"
+                    target="_blank"><i class="fab fa-instagram"></i></a>
+                <!-- YouTube -->
+                <a data-mdb-ripple-init class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="https://www.youtube.com/channel/UCVhrDXIY7739LTt5nX5qPwQ" role="button"
+                    data-mdb-ripple-color="dark" target="_blank"><i class="fab fa-youtube"></i></a>
+            </section>
         </div>
-      
+
         <!-- Copyright -->
         <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-          © 2024 Copyright 
-          <a class="text-dark" href="https://lottonero.com/">lottonero.com</a>
+            © 2024 Copyright
+            <a class="text-dark" href="https://lottonero.com/">lottonero.com</a>
         </div>
-      </footer>
+    </footer>
 
+    {% if messages %}
+        <div class="message-container">
+            {% for message in messages %}
+                {% include 'includes/toasts/toast_success.html' %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% block postloadjs %}
+    <script type="text/javascript">
+        $('.toast').toast('show');
+    </script>
+    {% endblock %}
 
 </body>
 
