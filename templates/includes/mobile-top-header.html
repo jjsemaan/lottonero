@@ -1,7 +1,20 @@
 <div class="d-flex justify-content-end">
     <ul class="list-inline">
+        {% if user.is_authenticated %}
+        <li class="list-inline-item d-lg-none">
+            <a class="text-black nav-link" href="{% url 'account_logout' %}" id="user-options" aria-haspopup="true"
+                aria-expanded="false">
+                <div class="text-center">
+                    <div><i class="fa-solid fa-person-walking-dashed-line-arrow-right fa-lg"></i></div>
+                    <p class="my-0">Logout</p>
+                </div>
+            </a>
+        </li>
+        {% endif %}
+
         <li class="list-inline-item dropdown">
-            <a class="text-black nav-link d-block d-lg-none" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="text-black nav-link d-block d-lg-none" href="#" id="user-options" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
                 <div class="text-center">
                     <div><i class="fas fa-user fa-lg"></i></div>
                     <p class="my-0">Account</p>
@@ -18,18 +31,6 @@
                 <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
                 {% endif %}
             </div>
-            
-            {% if user.is_authenticated %}
-            <li class="list-inline-item d-lg-none">
-                <a class="text-black nav-link" href="{% url 'account_logout' %}" id="user-options"
-                    aria-haspopup="true" aria-expanded="false">
-                    <div class="text-center">
-                        <div><i class="fa-solid fa-person-walking-dashed-line-arrow-right fa-lg"></i></div>
-                        <p class="my-0">Logout</p>
-                    </div>
-                </a>
-            </li>
-            {% endif %}  
-        </li>                 
+        </li>
     </ul>
 </div>

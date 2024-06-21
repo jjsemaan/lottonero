@@ -59,6 +59,12 @@
     <!-- Plotly graphs -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     {% endblock %}
+    
+    {% block postloadjs %}
+    <script type="text/javascript">
+        $('.toast').toast('show');
+    </script>
+    {% endblock %}
 
     {% block extra_js %}
     {% endblock %}
@@ -81,6 +87,19 @@
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0"></div>
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
                 <ul class="list-inline list-unstyled text-center text-lg-right my-0">
+                    
+                    {% if user.is_authenticated %}
+                    <li class="list-inline-item dropdown">
+                        <a class="text-black nav-link" href="{% url 'account_logout' %}" id="user-options"
+                            aria-haspopup="true" aria-expanded="false">
+                            <div class="text-center">
+                                <div><i class="fa-solid fa-person-walking-dashed-line-arrow-right fa-lg"></i></div>
+                                <p class="my-0">Logout</p>
+                            </div>
+                        </a>
+                    </li>
+                    {% endif %}
+
                     <li class="list-inline-item dropdown">
                         <a class="text-black nav-link" href="#" id="user-options" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
@@ -101,17 +120,6 @@
                             {% endif %}
                         </div>
                     </li>
-                    {% if user.is_authenticated %}
-                    <li class="list-inline-item dropdown">
-                        <a class="text-black nav-link" href="{% url 'account_logout' %}" id="user-options"
-                            aria-haspopup="true" aria-expanded="false">
-                            <div class="text-center">
-                                <div><i class="fa-solid fa-person-walking-dashed-line-arrow-right fa-lg"></i></div>
-                                <p class="my-0">Logout</p>
-                            </div>
-                        </a>
-                    </li>
-                    {% endif %}
 
                 </ul>
             </div>
@@ -134,13 +142,6 @@
                 {% endfor %}
             </div>
         {% endif %}
-
-        {% block postloadjs %}
-        <script type="text/javascript">
-            $('.toast').toast('show');
-        </script>
-        {% endblock %}
-        
         <!-- Subscription banner -->
         {% block subscribe_now %}
             <div class="row text-center">
