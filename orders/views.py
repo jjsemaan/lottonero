@@ -13,13 +13,25 @@ import stripe
 
 @login_required
 def pricing_page(request):
+    # Check if the current user has any active subscriptions
+    user_subscriptions = Subscription.objects.filter(user=request.user, active=True)
+    has_ai = user_subscriptions.filter(product_name="AI Predictions for EuroMillions Lotto").exists()
+    has_premium = user_subscriptions.filter(product_name="Premium Full Access").exists()
+    has_statistics = user_subscriptions.filter(product_name="Lotto Statistics for EuroMillions").exists()
+
     context = {
         'stripe_public_key': settings.STRIPE_TEST_PUBLIC_KEY,
         'predictions_stripe_pricing_table_id': settings.PREDICTIONS_STRIPE_PRICING_TABLE_ID,
         'premium_stripe_pricing_table_id': settings.PREMIUM_STRIPE_PRICING_TABLE_ID,
         'statistics_stripe_pricing_table_id': settings.STATISTICS_STRIPE_PRICING_TABLE_ID,
+        'has_ai': has_ai,
+        'has_premium': has_premium,
+        'has_statistics': has_statistics,
+        'total_wins_till_date': "Get your data here",  # placeholder
+        'latest_result': {'jackpot': "Latest Jackpot Value"}  # placeholder
     }
     return render(request, 'pricing_page/pricing_page.html', context)
+
 
 @login_required
 def subscription_confirm(request):
@@ -147,3 +159,4 @@ def subscription_confirm(request):
     
     # Render the confirmation template
     return render(request, 'subscription_confirm/subscription_confirm.html', {'subscription': djstripe_subscription})
+
