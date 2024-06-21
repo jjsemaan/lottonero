@@ -15,7 +15,9 @@ import stripe
 def pricing_page(request):
     context = {
         'stripe_public_key': settings.STRIPE_TEST_PUBLIC_KEY,
-        'stripe_pricing_table_id': settings.STRIPE_PRICING_TABLE_ID,
+        'predictions_stripe_pricing_table_id': settings.PREDICTIONS_STRIPE_PRICING_TABLE_ID,
+        'premium_stripe_pricing_table_id': settings.PREMIUM_STRIPE_PRICING_TABLE_ID,
+        'statistics_stripe_pricing_table_id': settings.STATISTICS_STRIPE_PRICING_TABLE_ID,
     }
     return render(request, 'pricing_page/pricing_page.html', context)
 

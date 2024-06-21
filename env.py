@@ -19,8 +19,14 @@ os.environ['DEFAULT_FROM_EMAIL'] = 'donotreply@lottonero.com'
 
 os.environ['STRIPE_SECRET_KEY'] = 'sk_test_51PNZDORqKPcp1RrsbRAW3U80hXCOvyDMKYGEqQYRPtIHPsnECtRdfGUqdfbPXvCRNUzd2p9JOTktuqBC06HbBXeI00ZFkWdNvq'
 os.environ['STRIPE_PUBLISHABLE_KEY'] = 'pk_test_51PNZDORqKPcp1Rrs1PYOOcfQ64miVJRpB2Iyyg8zse2ZK7h7rmqcqT6Wb6rIFUJhfv9QGcXYuj42eRA2kkLekmb200zB1Rq0N5'
-# os.environ['STRIPE_ENDPOINT_SECRET'] = 'whsec_kyo8ZTYz1NAOpMnND3Dx98JpubhersDQ'
-os.environ['STRIPE_PRICING_TABLE_ID'] = 'prctbl_1PTgsyRqKPcp1RrsEkSJ1QPD'
+
+# AI Predictions Pricing Table
+os.environ['PREDICTIONS_STRIPE_PRICING_TABLE_ID'] = 'prctbl_1PU5KuRqKPcp1RrsX1yTC5in'
+# Statistics Pricing Table
+os.environ['STATISTICS_STRIPE_PRICING_TABLE_ID'] = 'prctbl_1PU5XIRqKPcp1RrsUubo7zvk'
+# Premium Access Pricing Table
+os.environ['PREMIUM_STRIPE_PRICING_TABLE_ID'] = 'prctbl_1PU5cTRqKPcp1RrsznoyI6b6'
+
 os.environ['DJSTRIPE_WEBHOOK_SECRET'] = 'whsec_ZOab0DfROU2AsjVxjoNlHuyYI29mha7e'
 
 os.environ['CLOUDINARY_CLOUD_NAME'] = 'dmebot5lf'
