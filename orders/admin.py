@@ -44,17 +44,17 @@ class SubscriptionAdmin(admin.ModelAdmin):
     Admin interface for managing subscriptions.
 
     Attributes:
-        list_display (tuple): Fields to display in the list view.
-        fields (tuple): Fields to include in the form.
+        list_display (tuple): Fields to display in the list view, including the new 'cancelled_on' field.
+        fields (tuple): Fields to include in the form, including the new 'cancelled_on' field.
         search_fields (tuple): Fields to include in the search functionality.
-        readonly_fields (tuple): Fields that are read-only.
+        readonly_fields (tuple): Fields that are read-only, now including 'cancelled_on' to prevent direct editing.
         ordering (tuple): Default ordering for the list view.
     """
 
-    list_display = ('user', 'created_on', 'email', 'active', 'interval', 'cust_id', 'invoice_id', 'subscription_id', 'prod_id', 'product_name')
-    fields = ('user', 'created_on', 'email', 'active', 'interval', 'cust_id', 'invoice_id', 'subscription_id', 'prod_id', 'product_name')
+    list_display = ('user', 'created_on', 'email', 'active', 'cancelled_on', 'interval', 'cust_id', 'invoice_id', 'subscription_id', 'prod_id', 'product_name')
+    fields = ('user', 'email', 'active', 'interval', 'cust_id', 'invoice_id', 'subscription_id', 'prod_id', 'product_name')
     search_fields = ('user__username', 'email', 'cust_id', 'invoice_id', 'subscription_id', 'prod_id', 'product_name')
-    readonly_fields = ('created_on',)
+    readonly_fields = ('created_on', 'cancelled_on')
     ordering = ('-created_on',)
 
     def save_model(self, request, obj, form, change):
