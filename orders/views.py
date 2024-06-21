@@ -18,6 +18,9 @@ def pricing_page(request):
     has_ai = user_subscriptions.filter(product_name="AI Predictions for EuroMillions Lotto").exists()
     has_premium = user_subscriptions.filter(product_name="Premium Full Access").exists()
     has_statistics = user_subscriptions.filter(product_name="Lotto Statistics for EuroMillions").exists()
+    display_premium = not has_premium and (not has_statistics and not has_ai)
+    display_ai = not has_premium and not has_ai
+    display_statistics = not has_premium and not has_statistics
 
     context = {
         'stripe_public_key': settings.STRIPE_TEST_PUBLIC_KEY,
@@ -28,7 +31,10 @@ def pricing_page(request):
         'has_premium': has_premium,
         'has_statistics': has_statistics,
         'total_wins_till_date': "Get your data here",  # placeholder
-        'latest_result': {'jackpot': "Latest Jackpot Value"}  # placeholder
+        'latest_result': {'jackpot': "Latest Jackpot Value"},  # placeholder
+        'display_premium': display_premium,
+        'display_ai': display_ai,
+        'display_statistics': display_statistics,
     }
     return render(request, 'pricing_page/pricing_page.html', context)
 
