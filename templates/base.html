@@ -58,10 +58,6 @@
     </script>
     <!-- Plotly graphs -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <!-- Toasts -->
-    <script type="text/javascript">
-        $('.toast').toast('show');
-    </script>
     {% endblock %}
 
     {% block extra_js %}
@@ -138,6 +134,13 @@
                 {% endfor %}
             </div>
         {% endif %}
+
+        {% block postloadjs %}
+        <script type="text/javascript">
+            $('.toast').toast('show');
+        </script>
+        {% endblock %}
+        
         <!-- Subscription banner -->
         {% block subscribe_now %}
             <div class="row text-center">
