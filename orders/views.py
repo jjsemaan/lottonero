@@ -110,7 +110,7 @@ def subscription_confirm(request):
 
         # Sync to OrdersSubscription model
         OrdersSubscription.objects.create(
-            user=request.user,  # This is the foreign key to the User model
+            user=request.user,  
             email=request.user.email,
             prod_id=plan['product'],
             product_name=product_name,
@@ -164,5 +164,5 @@ def subscription_confirm(request):
     messages.success(request, "You've successfully signed up. Thanks for the support!")
     
     # Render the confirmation template
-    return render(request, '/', {'subscription': djstripe_subscription})
+    return render(request, 'subscription_confirm/subscription_confirm.html', {'subscription': djstripe_subscription})
 
