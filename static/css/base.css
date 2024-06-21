@@ -284,12 +284,6 @@ h4.text-center > a.predict-button {
     border-bottom-color: #343a40 !important;
 }
 
-.bag-notification-wrapper {
-    height: 100px;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
 /* Media query for screens 323px wide or less */
 @media (max-width: 323px) {
     .masthead-content h2 {

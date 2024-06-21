@@ -58,6 +58,10 @@
     </script>
     <!-- Plotly graphs -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- Toasts -->
+    <script type="text/javascript">
+        $('.toast').toast('show');
+    </script>
     {% endblock %}
 
     {% block extra_js %}
@@ -126,6 +130,15 @@
                 {% include 'includes/main-nav.html' %}
             </nav>
         </div>
+        <!-- Toasts -->
+        {% if messages %}
+            <div class="message-container">
+                {% for message in messages %}
+                    {% include 'includes/toasts/toast_success.html' %}
+                {% endfor %}
+            </div>
+        {% endif %}
+        <!-- Subscription banner -->
         {% block subscribe_now %}
             <div class="row text-center">
                 <div class="col bg-dark">
@@ -213,20 +226,6 @@
         </div>
       </footer>
 
-    <!-- Toasts -->
-    {% if messages %}
-        <div class="message-container">
-            {% for message in messages %}
-                {% include 'includes/toasts/toast_success.html' %}
-            {% endfor %}
-        </div>
-    {% endif %}
-
-    {% block postloadjs %}
-    <script type="text/javascript">
-        $('.toast').toast('show');
-    </script>
-    {% endblock %}
 
 </body>
 
