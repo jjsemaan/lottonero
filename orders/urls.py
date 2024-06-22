@@ -16,5 +16,4 @@ urlpatterns = [
         cancel_subscription_view,
         name="cancel_subscription",
     ),
-    # path('wh/', webhook, name='webhook'),
 ]
