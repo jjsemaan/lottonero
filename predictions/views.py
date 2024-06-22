@@ -377,6 +377,11 @@ def display_combination_predictions(request):
         HttpResponse: The rendered 'shuffled_predictions/shuffled_predictions.html' template with
         the context containing predictions_with_images.
     """
+    # Check if the user has the required subscription
+    if not Subscription.objects.filter(user=request.user, active=True, product_name="AI Predictions for EuroMillions Lotto").exists():
+        messages.error(request, "Access denied. You are not subscribed to AI Predictions.")
+        return redirect('pricing_page')  # Redirect them to the pricing page or another appropriate page
+        
     # Find the most recent prediction date
     latest_date = ShuffledPrediction.objects.aggregate(latest_date=Max('prediction_date'))['latest_date']
     # Fetch all shuffled predictions with the most recent date
