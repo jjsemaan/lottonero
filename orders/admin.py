@@ -44,10 +44,13 @@ class SubscriptionAdmin(admin.ModelAdmin):
     Admin interface for managing subscriptions.
 
     Attributes:
-        list_display (tuple): Fields to display in the list view, including the new 'cancelled_on' field.
-        fields (tuple): Fields to include in the form, including the new 'cancelled_on' field.
+        list_display (tuple): Fields to display in the list view, 
+        including the new 'cancelled_on' field.
+        fields (tuple): Fields to include in the form, including 
+        the new 'cancelled_on' field.
         search_fields (tuple): Fields to include in the search functionality.
-        readonly_fields (tuple): Fields that are read-only, now including 'cancelled_on' to prevent direct editing.
+        readonly_fields (tuple): Fields that are read-only, now including 
+        'cancelled_on' to prevent direct editing.
         ordering (tuple): Default ordering for the list view.
     """
 
@@ -69,6 +72,3 @@ class SubscriptionAdmin(admin.ModelAdmin):
         """
         obj.email = obj.user.email
         super().save_model(request, obj, form, change)
-
-
-

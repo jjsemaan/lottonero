@@ -1,9 +1,3 @@
-# Simple wrapper for http.server
-# to switch off caching for users
-#
-# Matt Rudge
-# 20th April, 2023
-
 import http.server
 
 

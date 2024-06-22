@@ -2,6 +2,7 @@ from django import forms
 from .models import Subscription
 from decimal import Decimal
 
+
 class OrderForm(forms.ModelForm):
     SUBSCRIPTION_CHOICES = [
         ('monthly', 'Monthly (€ 9.99)'),
