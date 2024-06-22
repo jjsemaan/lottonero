@@ -120,6 +120,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
                 'predictions.context_processors.subscription_access',
+                'lottery_stats.context_processors.subscription_access',
             ],
              'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',

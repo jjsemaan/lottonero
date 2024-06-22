@@ -1,10 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objs as go
 import numpy as np
 from scipy.stats import gaussian_kde
 from scraping.models import EuroMillionsResult
+from orders.models import Subscription
+
 
 def get_filtered_data(time_range):
     if time_range == '1m':
@@ -47,8 +51,8 @@ def plot_numbers_frequencies(df, columns, title):
     fig.update_layout(
         xaxis_title='Ball Numbers',
         yaxis_title='Frequency',
-        paper_bgcolor='rgba(0,0,0,0)',  # transparent background
-        plot_bgcolor='rgba(0,0,0,0)',   # transparent plot area
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)',
         font=dict(color='black', size=12),
         showlegend=True,
         legend=dict(
@@ -58,7 +62,7 @@ def plot_numbers_frequencies(df, columns, title):
             xanchor='center',
             x=0.5
         ),
-        title=dict(text='', x=0.5),  # Hide the title
+        title=dict(text='', x=0.5),
         xaxis=dict(
             showgrid=False,
             zeroline=False
@@ -67,7 +71,7 @@ def plot_numbers_frequencies(df, columns, title):
             showgrid=False,
             zeroline=False
         ),
-        margin=dict(l=20, r=20, t=30, b=20)  # Adjust margins
+        margin=dict(l=20, r=20, t=30, b=20)
     )
     
     # Add a median line
@@ -94,19 +98,26 @@ def plot_numbers_frequencies(df, columns, title):
     fig.add_trace(
         go.Scatter(
             x=x_range,
-            y=kde_values * number_counts.values.sum() / kde_values.sum(),  # scale KDE values to match the histogram
+            y=kde_values * number_counts.values.sum() / kde_values.sum(),
             mode='lines',
             name='KDE',
             line=dict(color='darkgrey'),
-            fill='tozeroy',  # fill area under the curve
-            fillcolor='rgba(0, 0, 255, 0.2)'  # semi-transparent blue
+            fill='tozeroy',
+            fillcolor='rgba(0, 0, 255, 0.2)'
         )
     )
     
     fig_config = {'displayModeBar': False}
     return fig.to_html(full_html=False, config=fig_config)
 
+@login_required
 def frequency_view(request):
+
+    # Check if the user has the required subscription
+    if not Subscription.objects.filter(user=request.user, active=True, product_name="Lotto Statistics for EuroMillions").exists():
+        messages.error(request, "Access denied. You are not subscribed to access Statistics.")
+        return redirect('pricing_page')
+        
     time_range = request.GET.get('time_range', '3m')
     data = get_filtered_data(time_range)
     
@@ -122,14 +133,6 @@ def frequency_view(request):
         'graph_lucky_stars': graph_lucky_stars,
         'selected_time_range': time_range
     })
-
-
-
-
-
-
-
-
 
 def prepare_data(df):
     numbers_range = range(1, 51)
@@ -151,7 +154,14 @@ def plot_correlation(df, title):
     fig.update_yaxes(tickvals=list(range(50)), ticktext=num_labels)
     return fig.to_html(full_html=False, config={'displayModeBar': True})
 
+@login_required
 def correlations_view(request):
+
+    # Check if the user has the required subscription
+    if not Subscription.objects.filter(user=request.user, active=True, product_name="Lotto Statistics for EuroMillions").exists():
+        messages.error(request, "Access denied. You are not subscribed to access Statistics.")
+        return redirect('pricing_page')
+
     data = EuroMillionsResult.objects.all()
     df_main_balls = pd.DataFrame(list(data.values('ball_1', 'ball_2', 'ball_3', 'ball_4', 'ball_5')))
     prepared_df = prepare_data(df_main_balls)
@@ -244,7 +254,14 @@ def plot_stacked_area_chart(frequency, title):
     )
     return fig.to_html(full_html=False, config={'displayModeBar': True})
 
+@login_required
 def combinations_time_view(request):
+
+    # Check if the user has the required subscription
+    if not Subscription.objects.filter(user=request.user, active=True, product_name="Lotto Statistics for EuroMillions").exists():
+        messages.error(request, "Access denied. You are not subscribed to access Statistics.")
+        return redirect('pricing_page')
+
     num_draws = request.GET.get('num_draws', 96)  # Get num_draws from query parameters or default to 96
     try:
         num_draws = int(num_draws)

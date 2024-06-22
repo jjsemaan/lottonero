@@ -30,9 +30,13 @@
                 Statistics
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="specials-link">
+                {% if has_ai_access %}
                 <a href="{% url 'frequencies' %}" class="dropdown-item">Frequencies</a>
                 <a href="{% url 'correlations' %}" class="dropdown-item">Correlations</a>
                 <a href="{% url 'combinations' %}" class="dropdown-item">Combinations</a>
+                {% else %}
+                <span class="dropdown-item disabled">Statistics Access Restricted</span>
+                {% endif %}   
             </div>
         </li>
         <li class="nav-item">

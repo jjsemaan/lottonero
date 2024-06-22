@@ -32,7 +32,7 @@ def display_predictions(request):
     # Check if the user has the required subscription
     if not Subscription.objects.filter(user=request.user, active=True, product_name="AI Predictions for EuroMillions Lotto").exists():
         messages.error(request, "Access denied. You are not subscribed to AI Predictions.")
-        return redirect('pricing_page')  # Redirect them to the pricing page or another appropriate page
+        return redirect('pricing_page')
 
     # Find the most recent prediction date
     latest_date = Prediction.objects.aggregate(latest_date=Max('prediction_date'))['latest_date']
@@ -380,7 +380,7 @@ def display_combination_predictions(request):
     # Check if the user has the required subscription
     if not Subscription.objects.filter(user=request.user, active=True, product_name="AI Predictions for EuroMillions Lotto").exists():
         messages.error(request, "Access denied. You are not subscribed to AI Predictions.")
-        return redirect('pricing_page')  # Redirect them to the pricing page or another appropriate page
+        return redirect('pricing_page')
         
     # Find the most recent prediction date
     latest_date = ShuffledPrediction.objects.aggregate(latest_date=Max('prediction_date'))['latest_date']
