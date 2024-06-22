@@ -15,7 +15,7 @@
                 Predictions
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="specials-link">
-                {% if has_ai_access %}
+                {% if has_ai_access or has_premium_access %}
                 <a href="{% url 'predictions' %}" class="dropdown-item">AI Patterns</a>
                 <a href="{% url 'display_combination_predictions' %}" class="dropdown-item">AI Combinations</a>
                 {% else %}
@@ -30,7 +30,7 @@
                 Statistics
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="specials-link">
-                {% if has_ai_access %}
+                {% if has_statistics_access or has_premium_access %}
                 <a href="{% url 'frequencies' %}" class="dropdown-item">Frequencies</a>
                 <a href="{% url 'correlations' %}" class="dropdown-item">Correlations</a>
                 <a href="{% url 'combinations' %}" class="dropdown-item">Combinations</a>

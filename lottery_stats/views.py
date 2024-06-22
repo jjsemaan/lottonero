@@ -8,6 +8,7 @@ import numpy as np
 from scipy.stats import gaussian_kde
 from scraping.models import EuroMillionsResult
 from orders.models import Subscription
+from django.db.models import Q
 
 
 def get_filtered_data(time_range):
@@ -114,8 +115,11 @@ def plot_numbers_frequencies(df, columns, title):
 def frequency_view(request):
 
     # Check if the user has the required subscription
-    if not Subscription.objects.filter(user=request.user, active=True, product_name="Lotto Statistics for EuroMillions").exists():
-        messages.error(request, "Access denied. You are not subscribed to access Statistics.")
+    if not Subscription.objects.filter(
+        Q(user=request.user, active=True, product_name="Lotto Statistics for EuroMillions") |
+        Q(user=request.user, active=True, product_name="Premium Full Access")
+    ).exists():
+        messages.error(request, "Access denied. You are not subscribed to Lotto Statistics or Premium Full Access.")
         return redirect('pricing_page')
         
     time_range = request.GET.get('time_range', '3m')
@@ -158,8 +162,11 @@ def plot_correlation(df, title):
 def correlations_view(request):
 
     # Check if the user has the required subscription
-    if not Subscription.objects.filter(user=request.user, active=True, product_name="Lotto Statistics for EuroMillions").exists():
-        messages.error(request, "Access denied. You are not subscribed to access Statistics.")
+    if not Subscription.objects.filter(
+        Q(user=request.user, active=True, product_name="Lotto Statistics for EuroMillions") |
+        Q(user=request.user, active=True, product_name="Premium Full Access")
+    ).exists():
+        messages.error(request, "Access denied. You are not subscribed to Lotto Statistics or Premium Full Access.")
         return redirect('pricing_page')
 
     data = EuroMillionsResult.objects.all()
@@ -256,17 +263,19 @@ def plot_stacked_area_chart(frequency, title):
 
 @login_required
 def combinations_time_view(request):
-
     # Check if the user has the required subscription
-    if not Subscription.objects.filter(user=request.user, active=True, product_name="Lotto Statistics for EuroMillions").exists():
-        messages.error(request, "Access denied. You are not subscribed to access Statistics.")
+    if not Subscription.objects.filter(
+        Q(user=request.user, active=True, product_name="Lotto Statistics for EuroMillions") |
+        Q(user=request.user, active=True, product_name="Premium Full Access")
+    ).exists():
+        messages.error(request, "Access denied. You are not subscribed to Lotto Statistics or Premium Full Access.")
         return redirect('pricing_page')
 
-    num_draws = request.GET.get('num_draws', 96)  # Get num_draws from query parameters or default to 96
+    num_draws = request.GET.get('num_draws', 96)
     try:
         num_draws = int(num_draws)
     except ValueError:
-        num_draws = 96  # Default if conversion fails
+        num_draws = 96
 
     data = EuroMillionsResult.objects.all().values('draw_date', 'ball_1', 'ball_2', 'ball_3', 'ball_4', 'ball_5')
     df_main_balls = pd.DataFrame(list(data))

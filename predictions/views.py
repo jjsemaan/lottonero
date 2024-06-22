@@ -6,6 +6,7 @@ from .models import Prediction
 from orders.models import Subscription
 from django.contrib import messages
 from django.db.models import Max
+from django.db.models import Q
 
 
 def admin_required(view_func):
@@ -30,8 +31,11 @@ from django.db.models import Max
 @login_required
 def display_predictions(request):
     # Check if the user has the required subscription
-    if not Subscription.objects.filter(user=request.user, active=True, product_name="AI Predictions for EuroMillions Lotto").exists():
-        messages.error(request, "Access denied. You are not subscribed to AI Predictions.")
+    if not Subscription.objects.filter(
+        Q(user=request.user, active=True, product_name="AI Predictions for EuroMillions Lotto") |
+        Q(user=request.user, active=True, product_name="Premium Full Access")
+    ).exists():
+        messages.error(request, "Access denied. You are not subscribed to AI Predictions or Premium Full Access.")
         return redirect('pricing_page')
 
     # Find the most recent prediction date
@@ -378,8 +382,11 @@ def display_combination_predictions(request):
         the context containing predictions_with_images.
     """
     # Check if the user has the required subscription
-    if not Subscription.objects.filter(user=request.user, active=True, product_name="AI Predictions for EuroMillions Lotto").exists():
-        messages.error(request, "Access denied. You are not subscribed to AI Predictions.")
+    if not Subscription.objects.filter(
+        Q(user=request.user, active=True, product_name="AI Predictions for EuroMillions Lotto") |
+        Q(user=request.user, active=True, product_name="Premium Full Access")
+    ).exists():
+        messages.error(request, "Access denied. You are not subscribed to AI Predictions or Premium Full Access.")
         return redirect('pricing_page')
         
     # Find the most recent prediction date
