@@ -14,14 +14,8 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-dark mb-4">User Profile</h1>
                                 </div>
-                                <form method="post" action="{% url 'update_profile' %}">
+                                <form method="post" action="{% url 'user_profile:update_profile' %}">
                                     {% csrf_token %}
-
-                                    <div class="form-group text-left">
-                                        <label for="username">Username:</label>
-                                        <input type="text" class="form-control" id="username" name="username"
-                                            value="{{ user.username }}">
-                                    </div>
 
                                     <div class="form-group text-left">
                                         <label for="first_name">First Name:</label>
@@ -44,7 +38,7 @@
                                     <button type="submit" class="btn btn-dark btn-block">Update Profile</button>
                                 </form>
                                 <div class="text-center mt-3">
-                                    <a href="{% url 'change_password' %}" class="btn btn-link">Change Password</a>
+                                    <a href="{% url 'user_profile:change_password' %}" class="btn btn-link">Change Password</a>
                                 </div>
                                 <hr>
                                 <div class="text-center">
@@ -56,21 +50,29 @@
                                         <tr>
                                             <th scope="col" class="font-weight-bold">Subscription</th>
                                             <th scope="col" class="font-weight-bold">Created</th>
-                                            <th scope="col" class="font-weight-bold">Cancel</th>
+                                            <th scope="col" class="font-weight-bold">Cancelled</th>
+                                            <th scope="col" class="font-weight-bold">Request</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for subscription in subscriptions %}
                                         <tr>
-                                            <td class="align-middle">{{ subscription.product_name }}</td>
+                                            <td class="align-middle text-left">{{ subscription.product_name }}</td>
                                             <td class="align-middle">
-                                                <form method="post" action="#">
-                                                    {% csrf_token %}
-                                                    {{ subscription.created_on }}
+                                                {{ subscription.created_on|date:"Y-m-d H:i" }}
                                             </td>
                                             <td class="align-middle">
-                                                <button type="submit" class="btn btn-danger btn-sm btn-block" name="train" value="#">Cancel</button>
+                                                {{ subscription.cancelled_on|date:"Y-m-d H:i" }}
+                                            </td>
+                                            <td class="align-middle">
+                                                {% if subscription.active %}
+                                                <form method="post" action="{% url 'cancel_subscription' subscription.id %}">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-danger btn-sm btn-block">Cancel</button>
                                                 </form>
+                                                {% else %}
+                                                <span>VOID</span>
+                                                {% endif %}
                                             </td>
                                         </tr>
                                         {% endfor %}
@@ -78,7 +80,7 @@
                                     
                                 </table>
                                 {% else %}
-                                <p class="text-center">You have no purchases.</p>
+                                <p class="text-center text-dark">You have no subscriptions.</p>
                                 {% endif %}
                             </div>
                         </div>

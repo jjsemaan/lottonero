@@ -3,12 +3,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseBadRequest
 from django.contrib.auth import get_user_model
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from djstripe.settings import djstripe_settings
 from orders.models import Subscription as OrdersSubscription
 from djstripe.models import Subscription as DJStripeSubscription, Product, Price
 from .models import Subscription
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 import stripe
 
 @login_required
@@ -165,4 +165,56 @@ def subscription_confirm(request):
     
     # Render the confirmation template
     return render(request, 'subscription_confirm/subscription_confirm.html', {'subscription': djstripe_subscription})
+
+
+@login_required
+def cancel_subscription_view(request, subscription_id):
+    subscription = get_object_or_404(Subscription, id=subscription_id, user=request.user)
+
+    if request.method == 'POST':
+        if 'confirm_cancel' in request.POST:
+            subscription.cancel_subscription()
+            messages.success(request, "Your subscription has been successfully cancelled.")
+
+            # Prepare the email message
+            subject = "Subscription Cancelled!"
+            html_content = f"""
+            <html>
+            <body>
+                <p style="text-align:center;">Dear {request.user.first_name} {request.user.last_name},</p>
+                
+                <p style="text-align:center;">Your subscription "{subscription.product_name}" has been cancelled.</p>
+                <p style="text-align:center;">This might take five working days to complete. </p>
+                <p style="text-align:center;">If at any point you decide to resubscribe, please visit us again.</p>
+                <p style="text-align:center;">Sincerely,</p>
+                <p style="text-align:center;">Lottonero Admin Team</p>
+                <div style="text-align:center;">
+                    <a href="https://lottonero.com" style="display:inline-block;padding:10px 20px;font-size:16px;color:#ffffff;background-color:#007bff;border-radius:5px;text-align:center;text-decoration:none;">Visit Lottonero</a>
+                </div>
+            </body>
+            </html>
+            """
+            from_email = settings.DEFAULT_FROM_EMAIL
+            recipient_list = [request.user.email]
+            bcc = ['admin@lottonero.com']
+
+            # Create EmailMessage object
+            email = EmailMessage(
+                subject,
+                html_content,
+                from_email,
+                recipient_list,
+                bcc=bcc
+            )
+            email.content_subtype = "html"  # Specify the subtype as HTML
+            email.send(fail_silently=False)
+
+            return redirect('user_profile:profile_view')  # Assuming this is correctly named and namespaced
+
+    # If it's not a POST request or no confirmation, show the confirmation page
+    context = {
+        'subscription': subscription
+    }
+    return render(request, 'confirm_cancel/confirm_cancel.html', context)
+
 

@@ -108,7 +108,7 @@
                             {% if request.user.is_superuser %}
                             <a href="{% url 'admin:index' %}" class="dropdown-item">Admin</a>
                             {% endif %}
-                            <a href="{% url 'profile_view' %}" class="dropdown-item">Profile</a>
+                            <a href="{% url 'user_profile:profile_view' %}" class="dropdown-item">Profile</a>
                             {% else %}
                             <a href="{% url 'account_signup' %}" class="dropdown-item">Sign Up</a>
                             <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
