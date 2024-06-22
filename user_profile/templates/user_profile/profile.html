@@ -31,6 +31,7 @@
 
                                     <div class="form-group text-left">
                                         <label for="email">Email:</label>
+                                        <p class="text-danger">To change your email, please write to us via our contact page.</p>
                                         <input type="email" class="form-control" id="email" name="email"
                                             value="{{ email.email }}" readonly>
                                     </div>
@@ -38,7 +39,7 @@
                                     <button type="submit" class="btn btn-dark btn-block">Update Profile</button>
                                 </form>
                                 <div class="text-center mt-3">
-                                    <a href="{% url 'user_profile:change_password' %}" class="btn btn-link">Change Password</a>
+                                    <a href="{% url 'user_profile:change_password' %}" class="btn btn-warning btn-block">Change Password</a>
                                 </div>
                                 <hr>
                                 <div class="text-center">

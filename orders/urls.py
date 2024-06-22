@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 from .views import cancel_subscription_view
 from .webhook import stripe_webhook
-from .webhooks import webhook
+# from .webhooks import webhook
 
 urlpatterns = [
     path("pricing-page/", views.pricing_page, name="pricing_page"),
