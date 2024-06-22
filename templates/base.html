@@ -61,11 +61,6 @@
     </script>
     <!-- Plotly graphs -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <!-- Mailchimp script -->
-    <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
-    <script
-        type="text/javascript">(function ($) { window.fnames = new Array(); window.ftypes = new Array(); fnames[0] = 'EMAIL'; ftypes[0] = 'email'; fnames[1] = 'FNAME'; ftypes[1] = 'text'; fnames[2] = 'LNAME'; ftypes[2] = 'text'; fnames[3] = 'ADDRESS'; ftypes[3] = 'address'; fnames[4] = 'PHONE'; ftypes[4] = 'phone'; fnames[5] = 'BIRTHDAY'; ftypes[5] = 'birthday'; }(jQuery)); var $mcj = jQuery.noConflict(true);</script>
-    </div>
     {% endblock %}
 
     {% block extra_js %}
@@ -186,8 +181,9 @@
             <section class="mb-4">
                 <!-- Facebook -->
                 <a data-mdb-ripple-init class="btn btn-link btn-floating btn-lg text-dark m-1"
-                    href="https://facebook.com/lottonero" role="button" data-mdb-ripple-color="dark" target="_blank"><i
-                        class="fab fa-facebook-f"></i></a>
+                    href="https://facebook.com/lottonero" role="button" data-mdb-ripple-color="dark" target="_blank">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
 
                 <!-- X (formerly Twitter) -->
                 <a data-mdb-ripple-init class="btn btn-link btn-floating btn-lg text-dark m-1"
@@ -197,14 +193,13 @@
                 <!-- Instagram -->
                 <a data-mdb-ripple-init class="btn btn-link btn-floating btn-lg text-dark m-1"
                     href="https://instagram.com/lotto.nero" role="button" data-mdb-ripple-color="dark"
-                    target="_blank"><i class="fab fa-instagram"></i></a>
+                    target="_blank"><i class="fab fa-instagram"></i>
+                </a>
                 <!-- YouTube -->
                 <a data-mdb-ripple-init class="btn btn-link btn-floating btn-lg text-dark m-1"
                     href="https://www.youtube.com/channel/UCVhrDXIY7739LTt5nX5qPwQ" role="button"
-                    data-mdb-ripple-color="dark" target="_blank"><i class="fab fa-youtube"></i></a>
-
-
-
+                    data-mdb-ripple-color="dark" target="_blank"><i class="fab fa-youtube"></i>
+                </a>
         </div>
         <!-- Mailchimp Signup Form -->
         <div class="container"> <!-- Ensures padding and max-width -->
@@ -254,8 +249,6 @@
                 </div>
             </div>
         </div>
-
-
         <!-- Copyright -->
         <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
             © 2024 Copyright
@@ -272,6 +265,11 @@
             }).toast('show');
         });
     </script>
+    <!-- Mailchimp script -->
+    <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+    <script
+        type="text/javascript">(function ($) { window.fnames = new Array(); window.ftypes = new Array(); fnames[0] = 'EMAIL'; ftypes[0] = 'email'; fnames[1] = 'FNAME'; ftypes[1] = 'text'; fnames[2] = 'LNAME'; ftypes[2] = 'text'; fnames[3] = 'ADDRESS'; ftypes[3] = 'address'; fnames[4] = 'PHONE'; ftypes[4] = 'phone'; fnames[5] = 'BIRTHDAY'; ftypes[5] = 'birthday'; }(jQuery)); var $mcj = jQuery.noConflict(true);</script>
+    </div>
     {% endblock %}
 
 </body>
