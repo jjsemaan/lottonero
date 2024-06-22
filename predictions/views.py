@@ -1,7 +1,10 @@
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from scraping.models import EuroMillionsResult
 from .models import Prediction
+from orders.models import Subscription
+from django.contrib import messages
 from django.db.models import Max
 
 
@@ -24,7 +27,13 @@ def read_data_from_database(request):
 from django.shortcuts import render
 from django.db.models import Max
 
+@login_required
 def display_predictions(request):
+    # Check if the user has the required subscription
+    if not Subscription.objects.filter(user=request.user, active=True, product_name="AI Predictions for EuroMillions Lotto").exists():
+        messages.error(request, "Access denied. You are not subscribed to AI Predictions.")
+        return redirect('pricing_page')  # Redirect them to the pricing page or another appropriate page
+
     # Find the most recent prediction date
     latest_date = Prediction.objects.aggregate(latest_date=Max('prediction_date'))['latest_date']
     # Fetch all predictions with the most recent date
@@ -398,5 +407,3 @@ def display_combination_predictions(request):
         })
     
     return render(request, 'combination_predictions/combination_predictions.html', {'predictions_with_images': predictions_with_images})
-
-
