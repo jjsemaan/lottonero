@@ -300,6 +300,11 @@ h4.text-center > a.predict-button {
     height: 300px; /* Or adjust based on your design needs */
 }
 
+#mc_embed_signup div#mce-responses {
+    padding: 0;
+    margin: 0;
+}
+
 /* Media query for screens 323px wide or less */
 @media (max-width: 323px) {
     .masthead-content h2 {
