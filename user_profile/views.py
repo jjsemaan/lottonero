@@ -54,3 +54,8 @@ def change_password(request):
         return render(request, 'user_profile/profile.html', {'user': user, 'email': EmailAddress.objects.get(user=user)})
     else:
         return render(request, 'user_profile/change_password.html')
+
+
+def terms_and_conditions(request):
+    return render(request, 'terms_and_conditions/terms_and_conditions.html')
+

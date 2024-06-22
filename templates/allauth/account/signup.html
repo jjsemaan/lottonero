@@ -21,6 +21,12 @@
                                     {% if redirect_field_value %}
                                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                                     {% endif %}
+
+                                    <div class="form-group">
+                                        <input type="checkbox" name="terms" id="terms" required>
+                                        <label for="terms">I agree to the <a href="{% url 'user_profile:terms_and_conditions' %}">Terms of Service</a> and <a href="#">Privacy Policy</a>.</label>
+                                    </div>
+
                                     <button type="submit" class="btn btn-primary">Sign Up</button>
                                 </form>
                                 <hr>
@@ -37,8 +43,8 @@
 </div>
 
 <style>
-    /* Hide the labels */
-    form.signup label {
+    /* Hide the labels of the form except for the checkbox */
+    form.signup label:not([for="terms"]) {
         display: none;
     }
 </style>
@@ -46,13 +52,19 @@
 <script>
     function validateForm() {
         var form = document.getElementById('signup_form');
-        var inputs = form.getElementsByTagName('input');
+        var inputs = form.querySelectorAll('input:not([type="checkbox"]), input:checked');
         for (var i = 0; i < inputs.length; i++) {
             if (inputs[i].value === '') {
                 alert('Please fill out all fields.');
                 inputs[i].focus();
                 return false;
             }
+        }
+        var termsCheckbox = document.getElementById('terms');
+        if (!termsCheckbox.checked) {
+            alert('You must agree to the terms and conditions.');
+            termsCheckbox.focus();
+            return false;
         }
         return true;
     }
