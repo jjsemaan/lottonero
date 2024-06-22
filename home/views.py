@@ -47,7 +47,6 @@ def index(request):
     else:
         latest_predictions = []
 
-    # Fetch all winning predictions where match_type is not null, sorted by draw_date in descending order
     alltime_winning_predictions = Prediction.objects.filter(
         match_type__isnull=False
     ).order_by("-draw_date")
@@ -144,7 +143,6 @@ def index(request):
     else:
         latest_shuffled_predictions = []
 
-    # Fetch all winning shuffled predictions where match_type is not null, sorted by draw_date in descending order
     alltime_winning_shuffled_predictions = ShuffledPrediction.objects.filter(
         match_type__isnull=False
     ).order_by("-draw_date")
@@ -236,10 +234,6 @@ def alltime_winning_predictions_view(request):
     """
     A view to return the all-time winning predictions page.
 
-    This view fetches all winning predictions from the database where match_type is not null,
-    sorted by draw_date in descending order. The context containing the all-time winning predictions
-    is then passed to the 'alltime.html' template for rendering.
-
     Args:
         request: The HTTP request object.
 
@@ -323,11 +317,6 @@ def alltime_winning_predictions_view(request):
 def latest_predictions_with_matches(request):
     """
     A view to update the latest predictions with matching results against the latest EuroMillions draw.
-
-    This view is triggered by a POST request. It fetches the latest draw result and the latest predictions,
-    then compares each prediction's numbers against the draw numbers. It updates each prediction with the
-    match type, the matching balls, and the matching lucky stars. The updated prediction is then saved back
-    to the database.
 
     Args:
         request: The HTTP request object.
@@ -423,11 +412,6 @@ def format_numbers(numbers):
 def latest_shuffled_predictions_with_matches(request):
     """
     A view to update the latest shuffled predictions with matching results against the latest EuroMillions draw.
-
-    This view is triggered by a POST request. It fetches the latest draw result and the latest shuffled predictions,
-    then compares each prediction's numbers against the draw numbers. It updates each prediction with the
-    match type, the matching balls, and the matching lucky stars. The updated prediction is then saved back
-    to the database.
 
     Args:
         request: The HTTP request object.
