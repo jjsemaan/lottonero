@@ -1,6 +1,7 @@
 from django import forms
 from .models import ContactMessage
 
+
 class AuthenticatedContactMessageForm(forms.ModelForm):
     """
     A form based on the ContactMessage model for authenticated users.
@@ -14,12 +15,16 @@ class AuthenticatedContactMessageForm(forms.ModelForm):
         fields (list): Specifies the only field included in the form which is 'message'.
         widgets (dict): Defines the form widgets and their HTML attributes for the 'message' field.
     """
+
     class Meta:
         model = ContactMessage
-        fields = ['message']
+        fields = ["message"]
         widgets = {
-            'message': forms.Textarea(attrs={'placeholder': 'Your message here...', 'rows': 4}),
+            "message": forms.Textarea(
+                attrs={"placeholder": "Your message here...", "rows": 4}
+            ),
         }
+
 
 class UnauthenticatedContactMessageForm(forms.ModelForm):
     """
@@ -40,17 +45,20 @@ class UnauthenticatedContactMessageForm(forms.ModelForm):
                                   an authenticated user might be using this form, hiding the email
                                   field if the user is authenticated.
     """
+
     class Meta:
         model = ContactMessage
-        fields = ['full_name', 'email', 'message']
+        fields = ["full_name", "email", "message"]
         widgets = {
-            'full_name': forms.TextInput(attrs={'placeholder': 'Full Name'}),
-            'email': forms.EmailInput(attrs={'placeholder': 'Email'}),
-            'message': forms.Textarea(attrs={'placeholder': 'Your message here...', 'rows': 4}),
+            "full_name": forms.TextInput(attrs={"placeholder": "Full Name"}),
+            "email": forms.EmailInput(attrs={"placeholder": "Email"}),
+            "message": forms.Textarea(
+                attrs={"placeholder": "Your message here...", "rows": 4}
+            ),
         }
 
     def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user', None)
+        user = kwargs.pop("user", None)
         super().__init__(*args, **kwargs)
         if user and user.is_authenticated:
-            self.fields['email'].widget = forms.HiddenInput()
+            self.fields["email"].widget = forms.HiddenInput()

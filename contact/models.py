@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class ContactMessage(models.Model):
     """
     Represents a contact message sent by users through the website.
@@ -20,7 +21,10 @@ class ContactMessage(models.Model):
         __str__(self): Returns a string representation of the message, including the sender's
                        email and the timestamp of when the message was sent.
     """
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=True, blank=True
+    )
     full_name = models.CharField(max_length=25, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
     message = models.TextField(max_length=500)
