@@ -12,7 +12,7 @@
                         <div class="col-lg-8">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-dark mb-4">User Profile</h1>
+                                    <h1 class="h4 text-dark mb-4">My Profile</h1>
                                 </div>
                                 <form method="post" action="{% url 'user_profile:update_profile' %}">
                                     {% csrf_token %}
@@ -28,19 +28,21 @@
                                         <input type="text" class="form-control" id="last_name" name="last_name"
                                             value="{{ user.last_name }}">
                                     </div>
-
+                                    <button type="submit" class="btn btn-dark btn-block">Update Profile</button>
+                                    <br>
                                     <div class="form-group text-left">
                                         <label for="email">Email:</label>
-                                        <p class="text-danger">To change your email, please write to us via our contact page.</p>
-                                        <input type="email" class="form-control" id="email" name="email"
+                                        <input type="email" class="form-control text-center" id="email" name="email"
                                             value="{{ email.email }}" readonly>
                                     </div>
-
-                                    <button type="submit" class="btn btn-dark btn-block">Update Profile</button>
+                                    <div class="text-center mt-3">
+                                        <a href="{% url 'account_email' %}" class="btn btn-primary btn-block">Change Email</a>
+                                    </div>
                                 </form>
                                 <div class="text-center mt-3">
                                     <a href="{% url 'user_profile:change_password' %}" class="btn btn-warning btn-block">Change Password</a>
                                 </div>
+                                
                                 <hr>
                                 <div class="text-center">
                                     <h4 class="h5 text-dark mb-4">Subscriptions</h4>
