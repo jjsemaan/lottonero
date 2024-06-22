@@ -16,7 +16,11 @@
                                 </div>
                                 <form method="post" action="{% url 'user_profile:update_profile' %}">
                                     {% csrf_token %}
-
+                                    <div class="form-group text-left">
+                                        <label for="username">Username:</label>
+                                        <input type="text" class="form-control" id="username" name="username" 
+                                            value="{{ user.username }}">
+                                    </div>                                    
                                     <div class="form-group text-left">
                                         <label for="first_name">First Name:</label>
                                         <input type="text" class="form-control" id="first_name" name="first_name"
@@ -31,9 +35,15 @@
                                     <button type="submit" class="btn btn-dark btn-block">Update Profile</button>
                                     <br>
                                     <div class="form-group text-left">
-                                        <label for="email">Email:</label>
-                                        <input type="email" class="form-control text-center" id="email" name="email"
-                                            value="{{ email.email }}" readonly>
+                                        {% if primary_email %}
+                                            <div class="form-group text-left">
+                                                <label for="email">Email:</label>
+                                                <input type="email" class="form-control text-center" id="email" name="email"
+                                                    value="{{ primary_email.email }}" readonly>
+                                            </div>
+                                        {% else %}
+                                            <p class="text-center text-dark">No primary email set.</p>
+                                        {% endif %}
                                     </div>
                                     <div class="text-center mt-3">
                                         <a href="{% url 'account_email' %}" class="btn btn-primary btn-block">Change Email</a>
