@@ -13,7 +13,7 @@ def profile_view(request):
     subscriptions = Subscription.objects.filter(user=user)
     return render(request, 'user_profile/profile.html', {
         'user': user,
-        'primary_email': primary_email,  # Pass the primary email to the template
+        'primary_email': primary_email,
         'subscriptions': subscriptions
     })
 
@@ -21,7 +21,7 @@ def profile_view(request):
 def update_profile(request):
     user = request.user
     primary_email = EmailAddress.objects.filter(user=user, primary=True).first()
-    subscriptions = Subscription.objects.filter(user=user)  # Fetch subscriptions for both POST and GET
+    subscriptions = Subscription.objects.filter(user=user)
 
     if request.method == 'POST':
         user.first_name = request.POST.get('first_name', user.first_name)
@@ -29,12 +29,12 @@ def update_profile(request):
 
         # Update username if your policy allows it
         username = request.POST.get('username', user.username)
-        user.username = username  # Make sure to handle unique constraint
+        user.username = username
 
         user.save()
 
         messages.success(request, 'Your profile was updated successfully.')
-        render(request, 'user_profile/profile.html')  # Redirect to a profile view page to avoid double submission
+        render(request, 'user_profile/profile.html')
 
     # Display the profile edit page
     return render(request, 'user_profile/profile.html', {
@@ -59,3 +59,5 @@ def change_password(request):
 def terms_and_conditions(request):
     return render(request, 'terms_and_conditions/terms_and_conditions.html')
 
+def privacy_policy(request):
+    return render(request, 'privacy_policy/privacy_policy.html')

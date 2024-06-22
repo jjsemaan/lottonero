@@ -24,7 +24,12 @@
 
                                     <div class="form-group">
                                         <input type="checkbox" name="terms" id="terms" required>
-                                        <label for="terms">I agree to the <a href="{% url 'user_profile:terms_and_conditions' %}">Terms of Service</a> and <a href="#">Privacy Policy</a>.</label>
+                                        <label for="terms">
+                                            I agree to the 
+                                            <a href="{% url 'user_profile:terms_and_conditions' %}" target="_blank">Terms of Service</a> 
+                                            and 
+                                            <a href="{% url 'user_profile:privacy_policy' %}" target="_blank">Privacy Policy</a>.
+                                        </label>
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">Sign Up</button>

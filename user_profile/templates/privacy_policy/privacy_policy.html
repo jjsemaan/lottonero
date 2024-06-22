@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block page_header %}
+<div class="container header-container pt-5 mt-5">
+    <div class="row pt-5 mt-3">
+        <div class="col">
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block subscribe_now %}
+<div class="row text-center">
+    <div class="col bg-dark">
+        {% if user %}
+        <p class="banner-font my-2">
+            Hello {{ user.first_name }}.. Please read the below Privacy Policy before signing up to our services.
+        </p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block header_content %}
+{% block bg %}
+{% endblock %}
+{% endblock %}
+
+{% block content %}
+<title>GDPR Compliance - ParaBIM Ltd</title>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">GDPR Compliance</h1>
+        <p class="text-muted">At ParaBIM Ltd, we are committed to ensuring the protection of personal data and
+            compliance with the General Data Protection Regulation (GDPR). Here's how we handle your data:</p>
+
+        <h2 class="mt-4 mb-3">Key Principles of GDPR</h2>
+        <ul>
+            <li><strong>Transparency:</strong> We ensure that all data collection and processing is done transparently.
+            </li>
+            <li><strong>Data Security:</strong> We implement advanced security measures to protect your data from
+                unauthorised access or breaches.</li>
+            <li><strong>Accountability:</strong> We take responsibility for managing your personal data and ensuring
+                compliance with all relevant laws.</li>
+        </ul>
+
+        <h2 class="mt-4 mb-3">Data Subject Rights</h2>
+        <ul>
+            <li><strong>Right to Access:</strong> You can request access to your personal data that we hold.</li>
+            <li><strong>Right to Rectification:</strong> You have the right to correct inaccurate or incomplete data
+                about you.</li>
+            <li><strong>Right to Erasure:</strong> You can request the deletion of your data when it is no longer
+                necessary for the purposes for which it was collected.</li>
+            <li><strong>Right to Object:</strong> You have the right to object to certain types of processing such as
+                direct marketing.</li>
+            <li><strong>Right to Restrict Processing:</strong> You have the right to request that we restrict the
+                processing of your data under certain circumstances.</li>
+            <li><strong>Data Portability:</strong> You have the right to receive your data in a structured, commonly
+                used format.</li>
+        </ul>
+
+        <h2 class="mt-4 mb-3">Data Protection Measures</h2>
+        <p>We take the following measures to ensure the safety of your data:</p>
+        <ul>
+            <li>Implementation of robust technical and organisational measures to ensure data security.</li>
+            <li>Regular updating and testing of security technology.</li>
+            <li>Staff training and awareness to ensure that all employees understand the importance of protecting
+                personal data.</li>
+        </ul>
+
+        <h2 class="mt-4 mb-3">Legal Basis for Processing</h2>
+        <p>We process your personal data only when we have one of the following legal bases:</p>
+        <ul>
+            <li>Consent: You have given clear consent for us to process your personal data for a specific purpose.</li>
+            <li>Contract: The processing is necessary for a contract we have with you, or because you have asked us to
+                take specific steps before entering into a contract.</li>
+            <li>Legal obligation: The processing is necessary for us to comply with the law (not including contractual
+                obligations).</li>
+            <li>Vital interests: The processing is necessary to protect someone’s life.</li>
+            <li>Public task: The processing is necessary for us to perform a task in the public interest or for our
+                official functions, and the task or function has a clear basis in law.</li>
+            <li>Legitimate interests: The processing is necessary for our legitimate interests or the legitimate
+                interests of a third party unless there is a good reason to protect the individual’s personal data which
+                overrides those legitimate interests.</li>
+        </ul>
+
+
+        <p>For more detailed information on our data processing practices or to exercise your data protection rights,
+            please contact our Data Protection Officer at [insert contact details].</p>
+
+    </div>
+</body>
+{% endblock %}
