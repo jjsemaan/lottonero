@@ -17,7 +17,8 @@
   <h1 class="header-font">AI Lotto Predictions</h1>
   <h1 class="header-font">for EuroMillions</h1>
   {% if user.is_authenticated %}
-  <a href="{% url 'pricing_page' %}" class="btn btn-lg header-button-font rounded-pill text-uppercase mt-3">Subscribe Now!</a>
+  <a href="{% url 'pricing_page' %}" class="btn btn-lg header-button-font rounded-pill text-uppercase mt-3">Subscribe
+    Now!</a>
   {% else %}
   <a href="{% url 'account_login' %}?next={% url 'pricing_page' %}"
     class="btn btn-lg header-button-font rounded-pill text-uppercase mt-3">Subscribe Now!</a>
