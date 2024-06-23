@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block nav_name %}Oops !{% endblock %}
+
+{% block extra_css %} 
+        <link rel="stylesheet" href="{% static 'css/error.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Message for 403 http response -->
+<div class="container wrapper d-flex justify-content-center align-items-center">
+    <div class="error-background add-shadow">
+        <h1 class="text-center">403 - Oops! Access Denied!</h1>
+        <p class="text-center">It seems you don't have the proper access to this space.</p> 
+        <p class="text-center"><a href="{% url 'home' %}" aria-label="Home">home</a>.</p>
+    </div>
+</div>
+{%endblock%}

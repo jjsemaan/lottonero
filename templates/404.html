@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block nav_name %}Oops !{% endblock %}
+
+{% block extra_css %} 
+        <link rel="stylesheet" href="{% static 'css/error.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Message for 404 http response -->
+<div class="container wrapper d-flex justify-content-center align-items-center">
+    <div class="error-background add-shadow">
+        <h1 class="text-center">404 Not Found in Lottonero.com</h1>
+        <p class="text-center">Sorry, the cpage you're looking for doesn't exist in this website. Please return to <a href="{% url 'home' %}" aria-label="Home">home page</a>.</p>
+    </div>
+</div>
+{%endblock%}

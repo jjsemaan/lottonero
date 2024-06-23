@@ -1,0 +1,25 @@
+/* --------------- ERROR PAGES ---------------- */
+
+.error-background a {
+    color: var(--light-foreground);
+    text-decoration: none;
+    transition: color 0.5s;
+}
+
+.error-background a:hover {
+    color: var(--light-highlight);
+    text-decoration: none;
+}
+
+.error-background {
+    background-color: var(--light-background);
+    color: var(--light-foreground);
+    padding: 2vh;
+    width: 70%;
+}
+
+@media screen and (max-width: 991px) {
+    .error-background {
+        width: 90%;
+    }
+}
