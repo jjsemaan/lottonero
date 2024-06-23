@@ -20,38 +20,37 @@
                                     {% csrf_token %}
                                     <div class="form-group text-left">
                                         <label for="username">Username:</label>
-                                        <input type="text" class="form-control" id="username" name="username"
-                                            value="{{ user.username }}" placeholder="Enter your username">
-                                    </div>
+                                        <input type="text" class="form-control" id="username" name="username" 
+                                            value="{{ user.username }}" placeholder="Enter your username" maxlength="20">
+                                    </div>                                    
                                     <div class="form-group text-left">
                                         <label for="first_name">First Name:</label>
                                         <input type="text" class="form-control" id="first_name" name="first_name"
-                                            value="{{ user.first_name }}" placeholder="Enter your first name">
+                                            value="{{ user.first_name }}" placeholder="Enter your first name" maxlength="20">
                                     </div>
-
+                                
                                     <div class="form-group text-left">
                                         <label for="last_name">Last Name:</label>
                                         <input type="text" class="form-control" id="last_name" name="last_name"
-                                            value="{{ user.last_name }}" placeholder="Enter your last name">
+                                            value="{{ user.last_name }}" placeholder="Enter your last name" maxlength="20">
                                     </div>
                                     <button type="submit" class="btn btn-dark btn-block">Update Profile</button>
                                     <br>
                                     <div class="form-group text-left">
                                         {% if primary_email %}
-                                        <div class="form-group text-left">
-                                            <label for="email">Email:</label>
-                                            <input type="email" class="form-control text-center" id="email" name="email"
-                                                value="{{ primary_email.email }}" readonly>
-                                        </div>
+                                            <div class="form-group text-left">
+                                                <label for="email">Email:</label>
+                                                <input type="email" class="form-control text-center" id="email" name="email"
+                                                    value="{{ primary_email.email }}" readonly maxlength="40">
+                                            </div>
                                         {% else %}
-                                        <p class="text-center text-dark">No primary email set.</p>
+                                            <p class="text-center text-dark">No primary email set.</p>
                                         {% endif %}
                                     </div>
                                     <div class="text-center mt-3">
-                                        <a href="{% url 'account_email' %}" class="btn btn-primary btn-block">Change
-                                            Email</a>
+                                        <a href="{% url 'account_email' %}" class="btn btn-primary btn-block">Change Email</a>
                                     </div>
-                                </form>
+                                </form>                                
                                 <div class="text-center mt-3">
                                     <a href="{% url 'user_profile:change_password' %}"
                                         class="btn btn-warning btn-block">Change Password</a>
