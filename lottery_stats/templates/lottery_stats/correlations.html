@@ -1,14 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>EuroMillions Stats</title>
-</head>
-<body>
-    <h1>EuroMillions Statistics</h1>
-    <div>
-        <h2>Correlation Between Main Balls</h2>
-        {{ graph_correlation|safe }}
+{% extends "base.html" %}
+{% load static %}
+
+{% block nav_name %}Lotto Statistics{% endblock %}
+
+{% block page_header %}
+<div class="container header-container pt-5 mt-5">
+    <div class="row pt-5 mt-3 no-gutters">
+        <div class="col">
+        </div>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}
+
+{% block header_content %}
+<div class="my-3 pt-5 pb-5 justify-content-center">
+    <h1 class="header-font">AI Lotto Statistics</h1>
+    <h1 class="header-font">for EuroMillions</h1>
+    {% if user.is_authenticated %}
+    <a href="{% url 'pricing_page' %}" class="btn btn-lg header-button-font rounded-pill text-uppercase mt-3">Subscribe
+        Now!</a>
+    {% else %}
+    <a href="{% url 'account_login' %}?next={% url 'pricing_page' %}"
+        class="btn btn-lg header-button-font rounded-pill text-uppercase mt-3">Subscribe Now!
+    </a>
+    {% endif %}
+</div>
+{% endblock %}
+
+
+{% block content %}
+<style>
+    p {
+        margin: 0;
+    }
+</style>
+
+<div class="container-fluid">
+        <div class="col-12 justify-content-center">
+            {% if user.is_authenticated %}
+            <div class="row no-gutters">
+                <div class="col-md-6 col-sm-12">
+                    <h1>EuroMillions Statistics</h1>
+                    <h2 class="text-dark">Correlation Between Main Balls</h2>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <p class="text-secondary">Instruction:</p>
+                    <p class="text-secondary">Table displaying last 12 month ball correlations.</p>
+                    <p class="text-secondary">Hover over the table to reveal the correlation coefficient.</p>
+                    <p class="text-secondary">Number 1 is the strongest coefficient.</p>
+                </div>
+            </div> 
+            <div> 
+                {{ graph_correlation|safe }}
+            </div>
+            {% else %}
+                <div>
+                    <h2 class="text-dark">Please log in to view the frequency graphs.</h2>
+                </div>
+            {% endif %}
+        </div>
+
+</div>
+{% endblock %}
+

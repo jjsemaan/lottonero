@@ -5,7 +5,7 @@
 
 {% block page_header %}
 <div class="container header-container pt-5 mt-5">
-    <div class="row pt-5 mt-3">
+    <div class="row pt-5 mt-3 no-gutters">
         <div class="col">
         </div>
     </div>
@@ -29,45 +29,41 @@
 
 {% block content %}
 <div class="container-fluid">
-    <div class="row">
+    <div class="row no-gutters">
         <div class="col-md-3 text-center">
         </div>
         <div class="col-md-6 text-center">
-            
         </div>
         <div class="col-md-3 text-center">
         </div>
     </div>
-    <div class="row"> 
+    <div class="row no-gutters"> 
         <div class="col-12 text-center justify-content-center">
             {% if user.is_authenticated %}
-            <div class="row">
-                <div class="col-6">
-                <h2 class="text-dark">Main Balls Frequency</h2>
+            <div class="row no-gutters">
+                <div class="col-md-6 col-sm-12">
+                    <h2 class="text-dark">Main Balls Frequency</h2>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6 col-sm-12">
                     <form class="form-inline justify-content-center">
                         <label for="timeRangeSelect" class="mr-sm-2">Select Time Range:</label>
-                    <select id="timeRangeSelect" class="form-control mb-2 mr-sm-2">
-                        <option value="3m" {% if selected_time_range == '3m' %}selected{% endif %}>Last 3 Months</option>
-                        <option value="6m" {% if selected_time_range == '6m' %}selected{% endif %}>Last 6 Months</option>
-                        <option value="12m" {% if selected_time_range == '12m' %}selected{% endif %}>Last 12 Months</option>
-                    </select>
+                        <select id="timeRangeSelect" class="form-control mb-2 mr-sm-2">
+                            <option value="3m" {% if selected_time_range == '3m' %}selected{% endif %}>Last 3 Months</option>
+                            <option value="6m" {% if selected_time_range == '6m' %}selected{% endif %}>Last 6 Months</option>
+                            <option value="12m" {% if selected_time_range == '12m' %}selected{% endif %}>Last 12 Months</option>
+                        </select>
                     </form>
                 </div>
-            </div>
-            <div class="row">
+            </div>                       
+            <div class="row no-gutters">
                 </div class="col-12">
                     {{ graph_main_balls|safe }}
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6">
+            <div class="row no-gutters">
+                <div class="col-12">
                     <h2 class="text-dark text-center">Lucky Stars Frequency</h2>
                     {{ graph_lucky_stars|safe }}
-                </div>
-                <div class="col-6">
-                    <!-- Placeholder for future addition of statistical balls table -->
                 </div>
             </div>
             {% else %}

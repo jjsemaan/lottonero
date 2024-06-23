@@ -100,7 +100,7 @@ def plot_numbers_frequencies(df, columns, title):
         yaxis_title="Frequency",
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(color="black", size=12),
+        font=dict(color="black", size=10),
         showlegend=True,
         legend=dict(
             orientation="h", yanchor="top", y=1.02, xanchor="center", x=0.5
@@ -256,20 +256,26 @@ def plot_correlation(df, title):
     fig = px.imshow(
         correlation,
         text_auto=True,
-        color_continuous_scale="Blues",
-        labels={
-            "x": "Numbers",
-            "y": "Numbers",
-            "color": "Correlation Coefficient",
-        },
+        color_continuous_scale=["#ffcc00", "#FF0000"],
         title=title,
-        aspect="auto",
+        aspect="auto"
     )
-    num_labels = [f"{i}" for i in range(1, 51)]
-    fig.update_xaxes(
-        side="bottom", tickvals=list(range(50)), ticktext=num_labels
+
+    # Assuming original height is 400, doubling to 800
+    fig.update_layout(
+        height=800,
+        font=dict(color="black", size=9),
+        xaxis=dict(
+            side="bottom",
+            tickvals=list(range(50)),
+            ticktext=[f"{i}" for i in range(1, 51)]
+        ),
+        yaxis=dict(
+            tickvals=list(range(50)),
+            ticktext=[f"{i}" for i in range(1, 51)]
+        )
     )
-    fig.update_yaxes(tickvals=list(range(50)), ticktext=num_labels)
+
     return fig.to_html(full_html=False, config={"displayModeBar": True})
 
 
@@ -301,7 +307,6 @@ def correlations_view(request):
             "Access denied. You are not subscribed to Lotto Statistics or Premium Full Access.",
         )
         return redirect("pricing_page")
-
     messages.warning(
         request, 
         "This page is not suitable for viewing on mobile devices due the size of the statistical graphs within and is better visualised on desktops and laptops."
@@ -312,7 +317,7 @@ def correlations_view(request):
     )
     prepared_df = prepare_data(df_main_balls)
     graph_correlation = plot_correlation(
-        prepared_df, "Correlation Between Main Balls"
+        prepared_df, ""
     )
 
     return render(
@@ -498,10 +503,6 @@ def combinations_time_view(request):
         )
         return redirect("pricing_page")
 
-    messages.warning(
-        request, 
-        "This page is not suitable for viewing on mobile devices due the size of the statistical graphs within and is better visualised on desktops and laptops."
-        )
     num_draws = request.GET.get("num_draws", 96)
     try:
         num_draws = int(num_draws)
