@@ -13,7 +13,7 @@
                         <div class="col-lg-8">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-dark mb-4">Welcome back!</h1>
+                                    <h1 class="h4 text-dark mb-4 pt-3">Welcome back!</h1>
                                 </div>
                                 <form method="POST" action="{% url 'account_login' %}">
                                     {% csrf_token %}
@@ -23,15 +23,6 @@
                                 <hr>
                                 <div class="text-center">
                                     <a class="small" href="{% url 'account_signup' %}">Create an Account!</a>
-                                </div>
-                                <div class="text-center">
-                                    <a class="small" href="{% url 'home' %}">Home</a>
-                                </div>
-                                <div class="text-center">
-                                    <a class="small" href="https://youtube.com" target="_blank">Youtube</a>
-                                </div>
-                                <div class="text-center">
-                                    <a class="small" href="https://instagram.com" target="_blank">Lottonero Instagram</a>
                                 </div>
                             </div>
                         </div>
