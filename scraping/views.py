@@ -20,13 +20,11 @@ def run_scrape_euromillions(request):
     call_command('scrape_euromillions', stdout=out)
     result = out.getvalue()
     
-    # Evaluate the output of the scrape command to determine which message to display
     if "have already been scraped" in result:
         messages.error(request, "No new data to scrape. All available data have already been scraped.")
     else:
         messages.success(request, "Data scraped successfully.")
 
-    # Redirect or render the backoffice page from the predictions app
     return render(request, 'backoffice/backoffice.html')
 
 def backoffice(request):
