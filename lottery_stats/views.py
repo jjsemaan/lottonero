@@ -256,7 +256,7 @@ def plot_correlation(df, title):
     fig = px.imshow(
         correlation,
         text_auto=True,
-        color_continuous_scale=["#ffcc00", "#FF0000"],
+        color_continuous_scale=["#ffff99", "#FF0000"],
         title=title,
         aspect="auto"
     )
@@ -307,6 +307,7 @@ def correlations_view(request):
             "Access denied. You are not subscribed to Lotto Statistics or Premium Full Access.",
         )
         return redirect("pricing_page")
+
     messages.warning(
         request, 
         "This page is not suitable for viewing on mobile devices due the size of the statistical graphs within and is better visualised on desktops and laptops."
@@ -503,6 +504,11 @@ def combinations_time_view(request):
         )
         return redirect("pricing_page")
 
+    messages.warning(
+        request, 
+        "This page is not suitable for viewing on mobile devices due the size of the statistical graphs within and is better visualised on desktops and laptops."
+        )
+
     num_draws = request.GET.get("num_draws", 96)
     try:
         num_draws = int(num_draws)
@@ -519,7 +525,7 @@ def combinations_time_view(request):
         num_draws,
     )
     graph_combinations = plot_stacked_area_chart(
-        frequency, "Cumulative Frequency of Winning Combinations Over Time"
+        frequency, ""
     )
 
     return render(

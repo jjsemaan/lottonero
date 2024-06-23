@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block nav_name %}Lotto Statistics{% endblock %}
+{% block nav_name %}Lotto Statistics Correlations{% endblock %}
 
 {% block page_header %}
 <div class="container header-container pt-5 mt-5">
@@ -17,8 +17,9 @@
     <h1 class="header-font">AI Lotto Statistics</h1>
     <h1 class="header-font">for EuroMillions</h1>
     {% if user.is_authenticated %}
-    <a href="{% url 'pricing_page' %}" class="btn btn-lg header-button-font rounded-pill text-uppercase mt-3">Subscribe
-        Now!</a>
+    <a href="{% url 'pricing_page' %}" class="btn btn-lg header-button-font rounded-pill text-uppercase mt-3">
+        Start Free 7 Day Trial!
+    </a>
     {% else %}
     <a href="{% url 'account_login' %}?next={% url 'pricing_page' %}"
         class="btn btn-lg header-button-font rounded-pill text-uppercase mt-3">Subscribe Now!
@@ -33,12 +34,20 @@
     p {
         margin: 0;
     }
+
+    .modebar {
+        transform: translateX(-50%) !important;
+        left: 50% !important;
+        right: auto !important;
+        top: auto !important;
+    }
+
 </style>
 
 <div class="container-fluid">
         <div class="col-12 justify-content-center">
             {% if user.is_authenticated %}
-            <div class="row no-gutters">
+            <div class="row no-gutters mb-3">
                 <div class="col-md-6 col-sm-12">
                     <h1>EuroMillions Statistics</h1>
                     <h2 class="text-dark">Correlation Between Main Balls</h2>
@@ -48,6 +57,7 @@
                     <p class="text-secondary">Table displaying last 12 month ball correlations.</p>
                     <p class="text-secondary">Hover over the table to reveal the correlation coefficient.</p>
                     <p class="text-secondary">Number 1 is the strongest coefficient.</p>
+                    <p class="text-secondary">Use the below modebar pan / zoom and double click to reset.</p>
                 </div>
             </div> 
             <div> 
