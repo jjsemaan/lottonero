@@ -247,17 +247,6 @@ STATISTICS_STRIPE_PRICING_TABLE_ID = os.environ.get('STATISTICS_STRIPE_PRICING_T
 PREMIUM_STRIPE_PRICING_TABLE_ID = os.environ.get('PREMIUM_STRIPE_PRICING_TABLE_ID')
 STRIPE_LIVE_MODE = False  # Change to True in production
 
-# Print the configuration values when the server starts
-print("DJ-Stripe Configuration")
-print(f"DJSTRIPE_FOREIGN_KEY_TO_FIELD: {DJSTRIPE_FOREIGN_KEY_TO_FIELD}")
-print(f"DJSTRIPE_WEBHOOK_SECRET: {DJSTRIPE_WEBHOOK_SECRET}")
-print(f"DJSTRIPE_PUBLIC_KEY: {DJSTRIPE_PUBLIC_KEY}")
-
-print("\nStripe Payment Configuration")
-print(f"STRIPE_TEST_SECRET_KEY: {STRIPE_TEST_SECRET_KEY}")
-print(f"STRIPE_TEST_PUBLIC_KEY: {STRIPE_TEST_PUBLIC_KEY}")
-print(f"STRIPE_LIVE_MODE: {STRIPE_LIVE_MODE}")
-
 # Cloudinary configuration
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),

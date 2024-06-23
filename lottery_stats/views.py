@@ -181,6 +181,10 @@ def frequency_view(request):
         )
         return redirect("pricing_page")
 
+    messages.warning(
+        request, 
+        "This page is not suitable for viewing on mobile devices due the size of the statistical graphs within and is better visualised on desktops and laptops."
+        )
     time_range = request.GET.get("time_range", "3m")
     data = get_filtered_data(time_range)
 
@@ -298,6 +302,10 @@ def correlations_view(request):
         )
         return redirect("pricing_page")
 
+    messages.warning(
+        request, 
+        "This page is not suitable for viewing on mobile devices due the size of the statistical graphs within and is better visualised on desktops and laptops."
+        )
     data = EuroMillionsResult.objects.all()
     df_main_balls = pd.DataFrame(
         list(data.values("ball_1", "ball_2", "ball_3", "ball_4", "ball_5"))
@@ -490,6 +498,10 @@ def combinations_time_view(request):
         )
         return redirect("pricing_page")
 
+    messages.warning(
+        request, 
+        "This page is not suitable for viewing on mobile devices due the size of the statistical graphs within and is better visualised on desktops and laptops."
+        )
     num_draws = request.GET.get("num_draws", 96)
     try:
         num_draws = int(num_draws)
