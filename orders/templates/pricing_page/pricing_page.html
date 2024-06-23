@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block nav_name %}Subscription Plans{% endblock %}
+
 {% block page_header %}
 <div class="container header-container pt-5 mt-5">
     <div class="row pt-5 mt-3">
@@ -76,5 +78,25 @@
         <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
         {% endif %}
     </div>
+    {% if not display_ai and not display_statistics %}
+        <div class="masthead-content text-white">
+            <h2>Subscriptions</h2>
+            <div class="d-flex flex-wrap justify-content-center ball-images">
+            <h6>If you are not seeing any subscription plans here, 
+                this means that you are already subscribed to 
+                AI Predictions and Statistics.
+            </h6>
+            <h6>
+                You can review or cancel your subscriptions from your 
+                <a href="{% url 'user_profile:profile_view' %}"> Profile</a> page.
+            </h6>
+            <h6>
+                Alternatively, if you are having problems accessing our services, 
+                please 
+                <a href="{% url 'contact' %}">Contact</a> us.
+            </h6>
+            </div>
+        </div>
+    {% endif %}
 </main>
 {% endblock %}

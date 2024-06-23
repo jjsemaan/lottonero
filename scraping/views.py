@@ -33,11 +33,5 @@ def backoffice(request):
 
     This view serves as a central dashboard within the 'predictions' app where users can manage scraping tasks and view the results
     through messages displayed on the same page.
-
-    Args:
-        request (HttpRequest): The HttpRequest object containing metadata about the request.
-
-    Returns:
-        HttpResponse: Renders the 'predictions/backoffice.html' dashboard.
     """
     return render(request, 'backoffice/backoffice.html')

@@ -88,6 +88,21 @@ def update_profile(request):
 
 @login_required
 def change_password(request):
+    """
+    Process a password change request for the logged-in user.
+
+    Allows the user to submit a new password via a POST request. If the form data is valid,
+    the user's password is updated and a success email is sent. A failure email is sent
+    if the form validation fails. The user is redirected to the profile page on success
+    and remains on the form with error messages if the update fails.
+
+    Args:
+        request (HttpRequest): The request object used to access session data and form data.
+
+    Returns:
+        HttpResponse: The HTTP response with either the redirection to the profile page
+                      on success or the password change form with error messages on failure.
+    """
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
@@ -118,7 +133,13 @@ def change_password(request):
     return render(request, 'user_profile/change_password.html', {'form': form})
 
 def terms_and_conditions(request):
+    """
+    A view that renders the terms and conditions page.
+    """
     return render(request, "terms_and_conditions/terms_and_conditions.html")
 
 def privacy_policy(request):
+    """
+    A view that renders the privacy policy page.
+    """
     return render(request, "privacy_policy/privacy_policy.html")
