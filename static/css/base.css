@@ -105,19 +105,19 @@ Header
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin: 20px 0; /* Space above and below the images */
+    margin: 20px 0;
 }
 
 .ball-images img {
-    width: 50px; /* Adjust size as needed */
+    width: 50px;
     height: auto;
-    margin: 5px; /* Space between images */
+    margin: 5px;
 }
 
 .table-balls img {
-    width: 30px; /* Adjust size as needed */
+    width: 30px;
     height: auto;
-    margin: 1px; /* Space between images */
+    margin: 1px;
 }
 
 .row {

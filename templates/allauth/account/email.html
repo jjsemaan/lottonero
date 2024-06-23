@@ -21,7 +21,19 @@
                 </div>
                 -->
                 <h2 class="text-center text-dark">{% trans "Change E-mail Address Form" %}</h2>
-                <p class="text-center text-danger font-weight-bold">You need to follow the below steps to change your email.</p>
+                <div class="container">
+                  <p class="text-center text-danger font-weight-bold">You need to follow the below steps to change your email.</p>
+                  <div class="row justify-content-center no-gutters mb-5">
+                      <div>
+                          <ol class="list-group step-list justify-content-left">
+                              <li class="list-group-item text-left text-secondary">Step 1 - Log into your account using your current email and password.</li>
+                              <li class="list-group-item text-left text-secondary">Step 2 - Go to the settings page and select the 'Email' option.</li>
+                              <li class="list-group-item text-left text-secondary">Step 3 - Enter your new email address and confirm it by clicking the 'Update Email' button.</li>
+                          </ol>
+                      </div>
+                  </div>
+              </div>              
+              
                 <form method="post" action="{% url 'account_email' %}" class="add_email">
                   {% csrf_token %}
                   {{ form|crispy }}
