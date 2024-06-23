@@ -26,7 +26,7 @@ class ContactMessage(models.Model):
         User, on_delete=models.CASCADE, null=True, blank=True
     )
     full_name = models.CharField(max_length=25, null=True, blank=True)
-    email = models.EmailField(null=True, blank=True)
+    email = models.EmailField(max_length=40, null=True, blank=True)
     message = models.TextField(max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)
 
