@@ -88,3 +88,7 @@ def contact_view(request):
         "user": request.user if request.user.is_authenticated else None,
     }
     return render(request, "contact/contact_form.html", context)
+
+def about(request):
+    return render(request, "about/about.html")
+

@@ -17,7 +17,7 @@
             <div class="dropdown-menu border-0" aria-labelledby="specials-link">
                 {% if has_ai_access or has_premium_access %}
                 <a href="{% url 'predictions' %}" class="dropdown-item">AI Patterns</a>
-                <a href="{% url 'display_combination_predictions' %}" class="dropdown-item">AI Combinations</a>
+                <a href="{% url 'display_combination_predictions' %}" class="dropdown-item">Combinations</a>
                 {% else %}
                 <span class="dropdown-item disabled">AI Access Restricted</span>
                 {% endif %}
@@ -40,7 +40,7 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="#">
+            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'about' %}">
                 About
             </a>
         </li>
