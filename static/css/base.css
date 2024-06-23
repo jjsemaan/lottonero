@@ -132,6 +132,10 @@ Header
     width: 1.5rem;
 }
 
+.fa-lg {
+    line-height: 0;
+}
+
 form {
     color: black;
 }

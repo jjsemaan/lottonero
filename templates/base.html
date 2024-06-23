@@ -1,9 +1,14 @@
 {% load static %}
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <!-- Block for navigation names -->
+    <title>
+        {% block nav_name %}{% endblock %}
+        | Lottonero AI Predictions for EuroMillions Lotto
+    </title>
+
+     <!-- Block Meta -->
     {% block meta %}
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta charset="utf-8">
@@ -16,10 +21,10 @@
     {% block extra_meta %}
     {% endblock %}
 
+    <!-- Block for core CSS styles -->
     {% block corecss %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet">
@@ -35,6 +40,7 @@
     {% block extra_css %}
     {% endblock %}
 
+    <!-- Block for core JS scripts -->
     {% block corejs %}
     <script src="https://kit.fontawesome.com/5cf801ac8f.js" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/e9c73d7092.js" crossorigin="anonymous"></script>
@@ -65,12 +71,7 @@
 
     {% block extra_js %}
     {% endblock %}
-    <style>
-        .fa-lg {
-            line-height: 0;
-        }
-    </style>
-    <title>Lottonero {% block extra_title %}AI Predictions for EuroMillions Lotto{% endblock %}</title>
+    
 </head>
 
 <body>
@@ -131,22 +132,6 @@
                 {% include 'includes/main-nav.html' %}
             </nav>
         </div>
-        <!-- Toasts -->
-        {% if messages %}
-            <div class="message-container">
-                {% for message in messages %}
-                    {% if message.tags == 'success' %}
-                        {% include 'includes/toasts/toast_success.html' %}
-                    {% elif message.tags == 'error' %}
-                        {% include 'includes/toasts/toast_error.html' %}
-                    {% elif message.tags == 'info' %}
-                        {% include 'includes/toasts/toast_info.html' %}
-                    {% elif message.tags == 'warning' %}
-                        {% include 'includes/toasts/toast_warning.html' %}
-                    {% endif %}
-                {% endfor %}
-            </div>
-        {% endif %}
         <!-- Subscription banner -->
         {% block subscribe_now %}
         <div class="row text-center">
@@ -180,7 +165,22 @@
             {% endblock %}
         </div>
     </div>
-
+    <!-- Toasts -->
+    {% if messages %}
+        <div class="message-container">
+            {% for message in messages %}
+                {% if message.tags == 'success' %}
+                    {% include 'includes/toasts/toast_success.html' %}
+                {% elif message.tags == 'error' %}
+                    {% include 'includes/toasts/toast_error.html' %}
+                {% elif message.tags == 'info' %}
+                    {% include 'includes/toasts/toast_info.html' %}
+                {% elif message.tags == 'warning' %}
+                    {% include 'includes/toasts/toast_warning.html' %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
     <!-- Footer -->
     <footer class="text-center text-white" style="background-color: #f1f1f1;">
         <!-- Grid container -->

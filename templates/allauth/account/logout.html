@@ -2,7 +2,8 @@
 {% load crispy_forms_tags %}
 {% load i18n %}
 
-{% block head_title %}{% trans "Sign Out" %}{% endblock %}
+{% block nav_name %}Log Out{% endblock %}
+
 {% block header_content %}
 <div class="container">
   <div class="row justify-content-center">
@@ -13,7 +14,7 @@
                       <div class="col-lg-2 d-none d-lg-block"></div>
                       <div class="col-lg-8">
                           <div class="p-5">
-                              <div class="text-center text-black">
+                              <div class="text-center text-black pt-2">
                                 <h1>{% trans "Log Out" %}</h1>
                                 <p>{% trans 'Are you sure you want to log out?' %}</p>
                               </div>
@@ -23,9 +24,10 @@
                                   {% if redirect_field_value %}
                                   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
                                   {% endif %}
-                                  <button type="submit" class="btn btn-dark btn-block">{% trans 'Log Out' %}</button>
+                                  <div class="pt-4">
+                                    <button type="submit" class="btn btn-dark btn-block">{% trans 'Log Out' %}</button>
+                                  </div>
                               </form>
-                              <hr>
                           </div>
                       </div>
                   </div>
