@@ -1,21 +1,45 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.core.management import call_command
+from django.contrib import messages
 import io
 
 def run_scrape_euromillions(request):
-    # Capture the command output
+    """
+    Executes the 'scrape_euromillions' management command and displays feedback messages directly on the backoffice dashboard.
+
+    This function runs the scraping command and uses Django's messaging framework to provide immediate feedback based on the
+    command's output, displaying messages on the backoffice dashboard located within the 'predictions' app.
+
+    Args:
+        request (HttpRequest): The HttpRequest object containing metadata about the request.
+
+    Returns:
+        HttpResponse: Renders the 'backoffice/backoffice.html' template displaying success or error messages.
+    """
     out = io.StringIO()
     call_command('scrape_euromillions', stdout=out)
     result = out.getvalue()
     
-    # Check the command output for specific messages
+    # Evaluate the output of the scrape command to determine which message to display
     if "have already been scraped" in result:
-        return redirect('scraping:backoffice_failed')  # Redirect to the failed URL
+        messages.error(request, "No new data to scrape. All available data have already been scraped.")
     else:
-        return redirect('scraping:backoffice_success')  # Redirect to the success URL
+        messages.success(request, "Data scraped successfully.")
 
-def backoffice_success(request):
-    return render(request, 'scraping/backoffice_success.html')
+    # Redirect or render the backoffice page from the predictions app
+    return render(request, 'backoffice/backoffice.html')
 
-def backoffice_failed(request):
-    return render(request, 'scraping/backoffice_failed.html')
+def backoffice(request):
+    """
+    Renders the backoffice dashboard for the predictions app where administrative actions like scraping can be initiated.
+
+    This view serves as a central dashboard within the 'predictions' app where users can manage scraping tasks and view the results
+    through messages displayed on the same page.
+
+    Args:
+        request (HttpRequest): The HttpRequest object containing metadata about the request.
+
+    Returns:
+        HttpResponse: Renders the 'predictions/backoffice.html' dashboard.
+    """
+    return render(request, 'backoffice/backoffice.html')

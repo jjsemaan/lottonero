@@ -2,7 +2,6 @@ from django import forms
 from .models import UploadImageModel
 
 
-@admin_required
 class UploadImageForm(forms.ModelForm):
     """
     A Django form for uploading images through admin backoffice.

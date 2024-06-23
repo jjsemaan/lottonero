@@ -17,10 +17,20 @@ class EuroMillionsResultAdmin(admin.ModelAdmin):
         This class is used to customize the display and functionality of EuroMillionsResult records
         in the Django admin interface. It specifies how the records are displayed, filtered, and searched.
     """
-    
-    list_display = ('draw_date', 'ball_1', 'ball_2', 'ball_3', 'ball_4', 'ball_5', 'lucky_star_1', 'lucky_star_2')
-    list_filter = ('draw_date',)
-    search_fields = ('draw_date',)
+
+    list_display = (
+        "draw_date",
+        "ball_1",
+        "ball_2",
+        "ball_3",
+        "ball_4",
+        "ball_5",
+        "lucky_star_1",
+        "lucky_star_2",
+    )
+    list_filter = ("draw_date",)
+    search_fields = ("draw_date",)
+
 
 # Register your models here.
 admin.site.register(EuroMillionsResult, EuroMillionsResultAdmin)
