@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from allauth.account.models import EmailAddress
 from django.contrib import messages
 from orders.models import Subscription
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 
 
 @login_required
@@ -82,15 +84,15 @@ def update_profile(request):
         },
     )
 
-
 @login_required
 def change_password(request):
     """
     Allows the user to change their password.
-
-    This view processes POST requests where the user submits a new password. The user's password is updated
-    in the database, and a success message is displayed. If accessed via GET, it presents the password change form.
-
+    
+    This view processes POST requests where the user submits a new password using Django's PasswordChangeForm.
+    Upon successful password change, the user's session is updated to prevent logout, and a success message is displayed.
+    If accessed via GET, it presents the password change form.
+    
     Args:
         request (HttpRequest): The HttpRequest object containing metadata about the request.
 
@@ -98,24 +100,21 @@ def change_password(request):
         HttpResponse: Redirects to the profile page on successful password change or renders the password
                       change form if accessed via GET.
     """
-    if request.method == "POST":
-        user = request.user
-        new_password = request.POST["new_password"]
-        user.set_password(new_password)
-        user.save()
-        messages.success(request, "Your password was changed successfully.")
-        return render(
-            request,
-            "user_profile/profile.html",
-            {"user": user, "email": EmailAddress.objects.get(user=user)},
-        )
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password was changed successfully.')
+            return render(request, 'user_profile/profile.html', {'form': form}) 
+        else:
+            messages.error(request, 'Please correct the error below.')
     else:
-        return render(request, "user_profile/change_password.html")
-
+        form = PasswordChangeForm(request.user)
+    return render(request, 'user_profile/change_password.html', {'form': form})
 
 def terms_and_conditions(request):
     return render(request, "terms_and_conditions/terms_and_conditions.html")
-
 
 def privacy_policy(request):
     return render(request, "privacy_policy/privacy_policy.html")

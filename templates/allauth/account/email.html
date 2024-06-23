@@ -1,4 +1,4 @@
-{% extends "account/base.html" %}
+{% extends "base.html" %}
 {% load i18n %}
 {% load static %}
 {% load crispy_forms_tags %}
@@ -25,7 +25,7 @@
                   <p class="text-center text-danger font-weight-bold">
                     You need to follow the below steps to change your email.
                   </p>
-                  <div class="row justify-content-center no-gutters mb-4">
+                  <div class="row justify-content-center no-gutters mb-4 w-100">
                       <div>
                           <ol class="list-group step-list justify-content-left">
                               <li class="list-group-item text-left text-secondary">
@@ -73,10 +73,16 @@
                       </label>
                     </div>
                     {% endfor %}
-                    <div class="buttonHolder d-flex justify-content-between">
-                      <button class="secondaryAction btn btn-success px-4" type="submit" name="action_primary">{% trans 'Make Primary' %}</button>
-                      <button class="secondaryAction btn btn-outline-success" type="submit" name="action_send">{% trans 'Re-send Verification' %}</button>
-                      <button class="primaryAction btn btn-outline-danger px-5" type="submit" name="action_remove">{% trans 'Remove' %}</button>
+                    <div class="buttonHolder d-flex justify-content-center flex-wrap">
+                      <button class="secondaryAction btn btn-success px-5 mx-2 mb-3" type="submit" name="action_primary">
+                        {% trans 'Make Primary' %}
+                      </button>
+                      <button class="secondaryAction btn btn-outline-success px-4 mx-2 mb-3" type="submit" name="action_send">
+                        {% trans 'Re-send Verification' %}
+                      </button>
+                      <button class="primaryAction btn btn-outline-danger px-5 mx-2 mb-3" type="submit" name="action_remove">
+                        {% trans 'Remove Email' %}
+                      </button>
                     </div>
                   </fieldset>
                 </form>
