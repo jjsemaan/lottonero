@@ -5,16 +5,21 @@ import io
 
 def run_scrape_euromillions(request):
     """
-    Executes the 'scrape_euromillions' management command and displays feedback messages directly on the backoffice dashboard.
+    Executes the 'scrape_euromillions' management command and displays feedbac
+    messages directly on the backoffice dashboard.
 
-    This function runs the scraping command and uses Django's messaging framework to provide immediate feedback based on the
-    command's output, displaying messages on the backoffice dashboard located within the 'predictions' app.
+    This function runs the scraping command and uses Django's messaging
+    framework to provide immediate feedback based on the
+    command's output, displaying messages on the backoffice dashboard
+    located within the 'predictions' app.
 
     Args:
-        request (HttpRequest): The HttpRequest object containing metadata about the request.
+        request (HttpRequest): The HttpRequest object containing metadata
+        about the request.
 
     Returns:
-        HttpResponse: Renders the 'backoffice/backoffice.html' template displaying success or error messages.
+        HttpResponse: Renders the 'backoffice/backoffice.html' template
+        displaying success or error messages.
     """
     out = io.StringIO()
     call_command('scrape_euromillions', stdout=out)
@@ -29,9 +34,11 @@ def run_scrape_euromillions(request):
 
 def backoffice(request):
     """
-    Renders the backoffice dashboard for the predictions app where administrative actions like scraping can be initiated.
+    Renders the backoffice dashboard for the predictions app where
+    administrative actions like scraping can be initiated.
 
-    This view serves as a central dashboard within the 'predictions' app where users can manage scraping tasks and view the results
+    This view serves as a central dashboard within the 'predictions'
+    app where users can manage scraping tasks and view the results
     through messages displayed on the same page.
     """
     return render(request, 'backoffice/backoffice.html')

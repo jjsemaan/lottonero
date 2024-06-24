@@ -36,7 +36,8 @@ def admin_required(view_func):
 @admin_required
 def get_image_url(name):
     """
-    Retrieves the URL of an image by its name from the UploadImageModel, accessible only to admin users.
+    Retrieves the URL of an image by its name from the UploadImageModel,
+    accessible only to admin users.
     """
     image = UploadImageModel.objects.filter(name=name).values("image").first()
     return image["image"] if image else None
@@ -55,18 +56,23 @@ def read_data_from_database(request):
 @login_required
 def display_predictions(request):
     """
-    Displays lottery predictions with associated images only to subscribed users.
+    Displays lottery predictions with associated images only to subscribed
+    users.
 
-    This view checks if the user has active subscriptions to certain products necessary for accessing AI predictions.
-    If not subscribed, the user is redirected to the pricing page. Otherwise, it retrieves the latest predictions,
-    caches and retrieves associated images, and presents these formatted predictions on a web page.
+    This view checks if the user has active subscriptions to certain products
+    necessary for accessing AI predictions. If not subscribed, the user is
+    redirected to the pricing page. Otherwise, it retrieves the latest
+    predictions, caches and retrieves associated images, and presents these
+    formatted predictions on a web page.
 
     Args:
-        request (HttpRequest): The HttpRequest object containing metadata about the request.
+        request (HttpRequest): The HttpRequest object containing metadata
+        about the request.
 
     Returns:
-        HttpResponse: Renders a template with predictions and their corresponding images if authorized,
-                      or redirects to the pricing page if access is denied.
+        HttpResponse: Renders a template with predictions and their
+        corresponding images if authorized, or redirects to the pricing page
+        if access is denied.
     """
     if not Subscription.objects.filter(
         Q(
@@ -131,98 +137,142 @@ def display_predictions(request):
 def backoffice(request):
     return render(request, "backoffice/backoffice.html")
 
-from sklearn.model_selection import train_test_split 
-from sklearn.ensemble import RandomForestClassifier 
-import numpy as np 
-import pandas as pd 
-from django.views.decorators.csrf import csrf_protect 
-from django.utils import timezone 
+
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+import numpy as np
+import pandas as pd
+from django.views.decorators.csrf import csrf_protect
+from django.utils import timezone
 from django.http import HttpResponseBadRequest, HttpResponseServerError
 import datetime
 from scraping.models import EuroMillionsResult
+
 
 @admin_required
 @csrf_protect
 def train_classifier(request):
     """
-    Handle POST requests to train a classifier and generate lottery predictions.
+    Handle POST requests to train a classifier and generate lottery
+    predictions.
 
-    This view function processes a POST request to train a RandomForestClassifier
-    using historical EuroMillions lottery results and generates unique lottery
-    number predictions. The predictions are stored in the database and appropriate
-    templates are rendered based on the result.
+    This view function processes a POST request to train a
+    RandomForestClassifier using historical EuroMillions lottery results and
+    generates unique lottery number predictions. The predictions are stored in
+    the database and appropriate templates are rendered based on the result.
 
     Parameters:
-    request (HttpRequest): The HTTP request object containing a POST request with a 'draw_date' field.
+    request (HttpRequest): The HTTP request object containing a POST request
+    with a 'draw_date' field.
 
     Returns:
-    HttpResponse: Renders a template with a success message and new predictions if successful.
-                  Renders a template with a message if predictions for the draw date already exist.
-                  Returns a 400 Bad Request response if the 'draw_date' is missing or invalid.
-                  Returns a 500 Internal Server Error response if any error occurs during processing.
+    HttpResponse: Renders a template with a success message and new predictions
+                  if successful.
+                  Renders a template with a message if predictions for the
+                  draw date already exist.
+                  Returns a 400 Bad Request response if the 'draw_date'
+                  is missing or invalid.
+                  Returns a 500 Internal Server Error response if any error
+                  occurs during processing.
 
     The function performs the following steps:
     1. Validates the presence and format of 'draw_date' in the POST request.
     2. Checks if predictions for the provided draw date already exist.
     3. If no existing predictions are found:
        a. Retrieves historical EuroMillions results from the database.
-       b. Trains two RandomForestClassifier models: one for predicting main balls and another for lucky stars.
+       b. Trains two RandomForestClassifier models: one for predicting main
+          balls and another for lucky stars.
        c. Generates unique predictions ensuring no duplicate sets of numbers.
        d. Saves the new predictions to the database.
        e. Renders a template displaying the new predictions.
     4. Handles errors by returning appropriate HTTP responses.
     """
 
-    if request.method == 'POST':
-        draw_date = request.POST.get('draw_date')
+    if request.method == "POST":
+        draw_date = request.POST.get("draw_date")
 
         if not draw_date:
             return HttpResponseBadRequest("Draw date is required.")
 
         # Convert the draw_date to YYYY/MM/DD format
         try:
-            draw_date_obj = datetime.datetime.strptime(draw_date, '%Y-%m-%d')
-            draw_date_str = draw_date_obj.strftime('%Y/%m/%d')
+            draw_date_obj = datetime.datetime.strptime(draw_date, "%Y-%m-%d")
+            draw_date_str = draw_date_obj.strftime("%Y/%m/%d")
         except ValueError:
             return HttpResponseBadRequest("Invalid date format.")
 
         # Check if predictions for this draw date already exist
         if Prediction.objects.filter(draw_date=draw_date_str).exists():
-            return render(request, 'backoffice/predictions_exist.html', {"message": "Predictions for this draw date already exist."})
+            return render(
+                request,
+                "backoffice/predictions_exist.html",
+                {"message": "Predictions for this draw date already exist."},
+            )
 
         try:
             # Verify the last scraped draw_date
-            last_scraped_result = EuroMillionsResult.objects.order_by('-draw_date').first()
-            today_str = timezone.now().strftime('%Y/%m/%d')
-            
+            last_scraped_result = EuroMillionsResult.objects.order_by(
+                "-draw_date"
+            ).first()
+            today_str = timezone.now().strftime("%Y/%m/%d")
+
             if not last_scraped_result:
-                return render(request, 'backoffice/scrape_first.html', {"message": "Please scrape the latest results first."})
-            
-            # Convert last_scraped_result.draw_date to datetime if it's a string
+                return render(
+                    request,
+                    "backoffice/scrape_first.html",
+                    {"message": "Please scrape the latest results first."},
+                )
+
             if isinstance(last_scraped_result.draw_date, str):
-                last_scraped_date = datetime.datetime.strptime(last_scraped_result.draw_date, '%Y/%m/%d')
+                last_scraped_date = datetime.datetime.strptime(
+                    last_scraped_result.draw_date, "%Y/%m/%d"
+                )
             else:
                 last_scraped_date = last_scraped_result.draw_date
-            # Strictly predict on same day as scraped 
-            if last_scraped_date.strftime('%Y/%m/%d') != today_str:
-                return render(request, 'backoffice/scrape_first.html', {"message": "Please scrape the latest results first."})
+            # Strictly predict on same day as scraped
+            if last_scraped_date.strftime("%Y/%m/%d") != today_str:
+                return render(
+                    request,
+                    "backoffice/scrape_first.html",
+                    {"message": "Please scrape the latest results first."},
+                )
 
-            data = EuroMillionsResult.objects.values('ball_1', 'ball_2', 'ball_3', 'ball_4', 'ball_5', 'lucky_star_1', 'lucky_star_2')
+            data = EuroMillionsResult.objects.values(
+                "ball_1",
+                "ball_2",
+                "ball_3",
+                "ball_4",
+                "ball_5",
+                "lucky_star_1",
+                "lucky_star_2",
+            )
             df = pd.DataFrame(list(data))
 
-            X = df.drop(['lucky_star_1', 'lucky_star_2'], axis=1)
-            y_balls = df[['ball_1', 'ball_2', 'ball_3', 'ball_4', 'ball_5']]
-            y_lucky = df[['lucky_star_1', 'lucky_star_2']]
+            X = df.drop(["lucky_star_1", "lucky_star_2"], axis=1)
+            y_balls = df[["ball_1", "ball_2", "ball_3", "ball_4", "ball_5"]]
+            y_lucky = df[["lucky_star_1", "lucky_star_2"]]
 
             X_arr = X.values
             y_balls_arr = y_balls.values
             y_lucky_arr = y_lucky.values
 
-            X_train_balls, X_test_balls, y_train_balls, y_test_balls = train_test_split(X_arr, y_balls_arr, test_size=0.3, random_state=42)
-            X_train_lucky, X_test_lucky, y_train_lucky, y_test_lucky = train_test_split(X_arr, y_lucky_arr, test_size=0.3, random_state=42)
+            X_train_balls, X_test_balls, y_train_balls, y_test_balls = (
+                train_test_split(
+                    X_arr, y_balls_arr, test_size=0.3, random_state=42
+                )
+            )
+            X_train_lucky, X_test_lucky, y_train_lucky, y_test_lucky = (
+                train_test_split(
+                    X_arr, y_lucky_arr, test_size=0.3, random_state=42
+                )
+            )
 
-            rf_classifier_balls = RandomForestClassifier(n_estimators=100, random_state=42)
-            rf_classifier_lucky = RandomForestClassifier(n_estimators=100, random_state=42)
+            rf_classifier_balls = RandomForestClassifier(
+                n_estimators=100, random_state=42
+            )
+            rf_classifier_lucky = RandomForestClassifier(
+                n_estimators=100, random_state=42
+            )
             rf_classifier_balls.fit(X_train_balls, y_train_balls)
             rf_classifier_lucky.fit(X_train_lucky, y_train_lucky)
 
@@ -243,7 +293,10 @@ def train_classifier(request):
                         lucky_set = tuple(sorted(lucky_pred))
                         full_set = ball_set + lucky_set
 
-                        if ball_set not in unique_balls_sets and full_set not in unique_full_sets:
+                        if (
+                            ball_set not in unique_balls_sets
+                            and full_set not in unique_full_sets
+                        ):
                             unique_balls_sets.add(ball_set)
                             unique_full_sets.add(full_set)
                             prediction = Prediction(
@@ -255,18 +308,22 @@ def train_classifier(request):
                                 pred_ball_4=ball_pred[3],
                                 pred_ball_5=ball_pred[4],
                                 pred_lucky_1=lucky_pred[0],
-                                pred_lucky_2=lucky_pred[1]
+                                pred_lucky_2=lucky_pred[1],
                             )
                             prediction.save()
                             predictions.append(prediction)
 
-            return render(request, 'backoffice/new_predictions.html', {"message": "New predictions added to the database."})
+            return render(
+                request,
+                "backoffice/new_predictions.html",
+                {"message": "New predictions added to the database."},
+            )
 
         except Exception as e:
             return HttpResponseServerError(f"An error occurred: {e}")
 
     else:
-        return render(request, 'backoffice/backoffice.html')
+        return render(request, "backoffice/backoffice.html")
 
 
 @admin_required
@@ -309,9 +366,9 @@ def upload_image(request):
                         initial={"file_name": file_name}
                     )
                     messages.error(
-                            request,
-                            f"File {file_name} already exists!",
-                        )
+                        request,
+                        f"File {file_name} already exists!",
+                    )
                     return render(
                         request,
                         "upload/confirm_overwrite.html",
@@ -353,17 +410,20 @@ from django.shortcuts import redirect
 from django.db.models import Max
 import random
 
+
 @admin_required
 @csrf_protect
 def generate_shuffled_predictions(request):
     """
-    A view to generate shuffled predictions based on the latest predictions, only on the current date and only once per day.
+    A view to generate shuffled predictions based on the latest predictions,
+    only on the current date and only once per day.
 
     Args:
         request: The HTTP request object.
 
     Returns:
-        redirect: Redirects to the previous page with appropriate messages depending on the action outcome.
+        redirect: Redirects to the previous page with appropriate messages
+        depending on the action outcome.
     """
 
     if request.method == "POST":
@@ -374,27 +434,37 @@ def generate_shuffled_predictions(request):
 
         if not latest_date_str:
             messages.error(request, "No predictions found.")
-            return redirect(request.META.get('HTTP_REFERER', '/'))
+            return redirect(request.META.get("HTTP_REFERER", "/"))
 
         # Convert latest_date from string to date object
         latest_date = datetime.strptime(latest_date_str, "%Y/%m/%d").date()
 
         # Check if latest_date is today's date
         if latest_date != datetime.today().date():
-            messages.error(request, "You can only generate shuffled predictions for today's date.")
-            return redirect(request.META.get('HTTP_REFERER', '/'))
+            messages.error(
+                request,
+                "You can only generate shuffled predictions for today's date.",
+            )
+            return redirect(request.META.get("HTTP_REFERER", "/"))
 
         # Check if shuffled predictions have already been generated today
-        if ShuffledPrediction.objects.filter(prediction_date=latest_date).exists():
-            messages.error(request, "Shuffled predictions for today have already been generated.")
-            return redirect(request.META.get('HTTP_REFERER', '/'))
+        if ShuffledPrediction.objects.filter(
+            prediction_date=latest_date
+        ).exists():
+            messages.error(
+                request,
+                "Shuffled predictions for today have already been generated.",
+            )
+            return redirect(request.META.get("HTTP_REFERER", "/"))
 
         latest_predictions = Prediction.objects.filter(
             prediction_date=latest_date_str
         )
         if not latest_predictions.exists():
-            messages.error(request, "No predictions found for the latest date.")
-            return redirect(request.META.get('HTTP_REFERER', '/'))
+            messages.error(
+                request, "No predictions found for the latest date."
+            )
+            return redirect(request.META.get("HTTP_REFERER", "/"))
 
         unique_combinations = set()
         shuffled_predictions = []
@@ -443,30 +513,32 @@ def generate_shuffled_predictions(request):
                 shuffled_prediction.save()
                 shuffled_predictions.append(shuffled_prediction)
 
-        messages.success(request, "Shuffled predictions generated successfully!")
-        return redirect(request.META.get('HTTP_REFERER', '/'))
+        messages.success(
+            request, "Shuffled predictions generated successfully!"
+        )
+        return redirect(request.META.get("HTTP_REFERER", "/"))
     else:
         messages.info(request, "This endpoint only accepts POST requests.")
-        return redirect(request.META.get('HTTP_REFERER', '/'))
-
+        return redirect(request.META.get("HTTP_REFERER", "/"))
 
 
 def display_combination_predictions(request):
     """
     A view to display the most recent shuffled predictions.
 
-    This view fetches the latest prediction date from the ShuffledPrediction model,
-    retrieves all shuffled predictions for that date, and prepares the necessary
-    image URLs for each prediction. The context containing the predictions and their
-    associated images is then passed to the 'shuffled_predictions/shuffled_predictions.html'
-    template for rendering.
+    This view fetches the latest prediction date from the ShuffledPrediction
+    model, retrieves all shuffled predictions for that date, and prepares the
+    necessary image URLs for each prediction. The context containing the
+    predictions and their associated images is then passed to the
+    'shuffled_predictions/shuffled_predictions.html' template for rendering.
 
     Args:
         request: The HTTP request object.
 
     Returns:
-        HttpResponse: The rendered 'shuffled_predictions/shuffled_predictions.html' template with
-        the context containing predictions_with_images.
+        HttpResponse: The rendered 
+        'shuffled_predictions/shuffled_predictions.html'
+        template with the context containing predictions_with_images.
     """
     if not Subscription.objects.filter(
         Q(

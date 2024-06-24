@@ -4,23 +4,28 @@ from orders.models import Subscription
 
 def subscription_access(request):
     """
-    Determines the access levels for various subscriptions based on the user's authentication status.
+    Determines the access levels for various subscriptions based on the user's
+    authentication status.
 
-    This function checks if the user is authenticated and, if so, queries the Subscription model
-    to check for active subscriptions that grant access to specific services. It returns a dictionary
-    indicating whether the user has access to AI Predictions, Premium services, and Statistics.
+    This function checks if the user is authenticated and, if so, queries the
+    Subscription model to check for active subscriptions that grant access to
+    specific services. It returns a dictionary indicating whether the user has
+    access to AI Predictions, Premium services, and Statistics.
 
     Args:
-        request (HttpRequest): The HttpRequest object containing metadata about the request.
+        request (HttpRequest): The HttpRequest object containing metadata
+        about the request.
 
     Returns:
-        dict: A dictionary with boolean values that indicate whether the user has access to:
+        dict: A dictionary with boolean values that indicate whether the user
+        has access to:
             - AI Predictions (has_ai_access)
             - Premium Full Access (has_premium_access)
             - Lotto Statistics (has_statistics_access)
 
-    The function ensures that if the user is not authenticated, all access permissions are set to False,
-    reinforcing security by denying access to critical features based on subscription status.
+    The function ensures that if the user is not authenticated, all access
+    permissions are set to False, reinforcing security by denying access to
+    critical features based on subscription status.
     """
     if request.user.is_authenticated:
         user_subscriptions = Subscription.objects.filter(

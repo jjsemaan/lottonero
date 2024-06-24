@@ -6,16 +6,21 @@ from django.contrib import messages
 
 class EuroMillionsResultAdmin(admin.ModelAdmin):
     """
-    Customizes the administration interface for EuroMillionsResult model in the Django admin site.
+    Customizes the administration interface for EuroMillionsResult model in
+    the Django admin site.
 
     Attributes:
-        list_display (tuple): Specifies the fields to be displayed in the list view of EuroMillionsResult records.
-        list_filter (tuple): Enables filtering of EuroMillionsResult records based on the draw_date field in the admin interface.
-        search_fields (tuple): Enables searching for EuroMillionsResult records based on the draw_date field in the admin interface.
+        list_display (tuple): Specifies the fields to be displayed in the list
+        view of EuroMillionsResult records.
+        list_filter (tuple): Enables filtering of EuroMillionsResult records
+        based on the draw_date field in the admin interface.
+        search_fields (tuple): Enables searching for EuroMillionsResult
+        records based on the draw_date field in the admin interface.
 
     Usage:
-        This class is used to customize the display and functionality of EuroMillionsResult records
-        in the Django admin interface. It specifies how the records are displayed, filtered, and searched.
+        This class is used to customize the display and functionality of
+        EuroMillionsResult records in the Django admin interface.
+        It specifies how the records are displayed, filtered, and searched.
     """
 
     list_display = (

@@ -21,24 +21,29 @@ import stripe
 @login_required
 def pricing_page(request):
     """
-    Renders the pricing page with available subscription options and their statuses.
+    Renders the pricing page with available subscription options and their
+    statuses.
 
-    This view checks the user's current subscription statuses to determine which subscription options
-    to display as available or already subscribed. It provides detailed information about different
-    subscription packages, utilizing Stripe API keys for payment processing if needed. The page also
-    displays placeholder information for total wins and the latest jackpot result.
+    This view checks the user's current subscription statuses to determine
+    which subscription options to display as available or already subscribed.
+    It provides detailed information about different subscription packages,
+    utilizing Stripe API keys for payment processing if needed. The page also
+    displays placeholder information for total wins and the latest jackpot
+    result.
 
     Args:
-        request (HttpRequest): The HTTP request object containing metadata about the request.
+        request (HttpRequest): The HTTP request object containing metadata
+        about the request.
 
     Returns:
-        HttpResponse: An HttpResponse object that renders the pricing_page.html template with
-                      the context containing various settings and status flags related to subscription
-                      options and other relevant user-specific data.
+        HttpResponse: An HttpResponse object that renders the pricing_page.html
+        template with the context containing various settings and status flags
+        related to subscription options and other relevant user-specific data.
 
-    The function checks if the user already has active subscriptions such as 'AI Predictions for
-    EuroMillions Lotto', 'Premium Full Access', and 'Lotto Statistics for EuroMillions'. It then
-    adjusts the display options accordingly to inform the user of available or subscribed services.
+    The function checks if the user already has active subscriptions such as
+    'AI Predictions for EuroMillions Lotto', 'Premium Full Access', and
+    'Lotto Statistics for EuroMillions'. It then adjusts the display options
+    accordingly to inform the user of available or subscribed services.
     """
     user_subscriptions = Subscription.objects.filter(
         user=request.user, active=True
@@ -76,22 +81,25 @@ def pricing_page(request):
 @login_required
 def subscription_confirm(request):
     """
-    Handles the subscription confirmation process after a Stripe checkout session.
+    Handles the subscription confirmation process after a Stripe checkout
+    session.
 
-    This view retrieves the session ID from the request, confirms it with Stripe, and retrieves
-    associated subscription data. It synchronizes subscription details with dj-stripe for local
-    record keeping and updates product and price information. It also creates an order subscription
-    record and sends a thank-you email to the user.
+    This view retrieves the session ID from the request, confirms it with
+    Stripe, and retrieves associated subscription data.
+    It synchronizes subscription details with dj-stripe for local record
+    keeping and updates product and price information. It also creates an
+    order subscription record and sends a thank-you email to the user.
 
     Args:
-        request (HttpRequest): The HttpRequest object containing metadata about the request including
-                               session details passed via GET parameters.
+        request (HttpRequest): The HttpRequest object containing metadata
+        about the request including session details passed via GET parameters.
 
     Returns:
-        HttpResponse: Renders a confirmation page if the subscription is successfully processed or
-                      returns an HttpResponseBadRequest if any step in the subscription confirmation
-                      fails due to invalid session, errors in retrieving or syncing subscription data,
-                      or any other exception during processing.
+        HttpResponse: Renders a confirmation page if the subscription is
+        successfully processed or returns an HttpResponseBadRequest if any step
+        in the subscription confirmation fails due to invalid session, errors 
+        in retrieving or syncing subscription data, or any other exception
+        during processing.
 
     Uses:
         - Stripe API for retrieving checkout session and subscription data.
@@ -106,7 +114,8 @@ def subscription_confirm(request):
         - Creating a local order subscription record.
         - Sending a thank-you email to the user.
 
-    Potential errors during the process are handled with detailed logging and user-friendly error messages.
+    Potential errors during the process are handled with detailed logging
+    and user-friendly error messages.
     """
     stripe.api_key = djstripe_settings.STRIPE_SECRET_KEY
 
@@ -241,25 +250,32 @@ def subscription_confirm(request):
 @login_required
 def cancel_subscription_view(request, subscription_id):
     """
-    Processes subscription cancellation requests and sends a confirmation email to the user.
+    Processes subscription cancellation requests and sends a confirmation
+    email to the user.
 
-    This view retrieves the specified subscription by its ID, ensuring it belongs to the current user.
-    If the user confirms cancellation via a POST request, the subscription is cancelled, a success
-    message is displayed, and a confirmation email is sent. If the request is not a POST or the user
+    This view retrieves the specified subscription by its ID, ensuring it
+    belongs to the current user. If the user confirms cancellation via a POST
+    request, the subscription is cancelled, a success message is displayed,
+    and a confirmation email is sent. If the request is not a POST or the user
     has not confirmed cancellation, it renders a confirmation page.
 
     Args:
-        request (HttpRequest): The HttpRequest object containing metadata about the request.
+        request (HttpRequest): The HttpRequest object containing metadata
+        about the request.
         subscription_id (int): The ID of the subscription to cancel.
 
     Returns:
-        HttpResponse: If POST and cancellation confirmed, redirects to the user profile page. Otherwise,
-                      renders a confirmation page to confirm the action before proceeding.
+        HttpResponse: If POST and cancellation confirmed, redirects to the
+        user profile page. Otherwise, renders a confirmation page to confirm
+        the action before proceeding.
 
     This function handles the following:
-    - User authentication and authorization to cancel the specified subscription.
-    - Sending a detailed cancellation confirmation email to the user upon successful cancellation.
-    - Redirecting to the profile view on successful cancellation or rendering a confirmation view otherwise.
+    - User authentication and authorization to cancel the specified
+    subscription.
+    - Sending a detailed cancellation confirmation email to the user
+    upon successful cancellation.
+    - Redirecting to the profile view on successful cancellation or
+    rendering a confirmation view otherwise.
     """
     subscription = get_object_or_404(
         Subscription, id=subscription_id, user=request.user
@@ -299,9 +315,7 @@ def cancel_subscription_view(request, subscription_id):
             email.content_subtype = "html"
             email.send(fail_silently=False)
 
-            return redirect(
-                "user_profile:profile_view"
-            )
+            return redirect("user_profile:profile_view")
 
     context = {"subscription": subscription}
     return render(request, "confirm_cancel/confirm_cancel.html", context)

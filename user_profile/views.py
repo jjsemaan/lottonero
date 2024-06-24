@@ -14,16 +14,20 @@ from django.conf import settings
 @login_required
 def profile_view(request):
     """
-    Display the user's profile page including their primary email and subscription details.
+    Display the user's profile page including their primary email and
+    subscription details.
 
-    This view fetches the user's primary email address and their subscriptions to render the user profile page.
+    This view fetches the user's primary email address and their
+    subscriptions to render the user profile page.
     It requires the user to be logged in.
 
     Args:
-        request (HttpRequest): The HttpRequest object containing metadata about the request.
+        request (HttpRequest): The HttpRequest object containing
+        metadata about the request.
 
     Returns:
-        HttpResponse: Renders the user_profile/profile.html template with the user's data including primary email
+        HttpResponse: Renders the user_profile/profile.html template
+        with the user's data including primary email
                       and subscriptions.
     """
     user = request.user
@@ -47,16 +51,20 @@ def update_profile(request):
     """
     Update the user's profile information such as name and username.
 
-    This view allows users to update their first name, last name, and username. It handles POST requests with
-    form data and saves the updated information to the user model. A success message is displayed after
+    This view allows users to update their first name, last name,
+    and username. It handles POST requests with
+    form data and saves the updated information to the user model.
+    A success message is displayed after
     the update. It requires the user to be logged in.
 
     Args:
-        request (HttpRequest): The HttpRequest object containing metadata about the request.
+        request (HttpRequest): The HttpRequest object containing
+        metadata about the request.
 
     Returns:
-        HttpResponse: Renders the user_profile/profile.html template with updated user information or
-                      re-renders the form in case of a GET request.
+        HttpResponse: Renders the user_profile/profile.html template
+        with updated user information or re-renders the form in case 
+        of a GET request.
     """
     user = request.user
     primary_email = EmailAddress.objects.filter(
@@ -91,17 +99,21 @@ def change_password(request):
     """
     Process a password change request for the logged-in user.
 
-    Allows the user to submit a new password via a POST request. If the form data is valid,
-    the user's password is updated and a success email is sent. A failure email is sent
-    if the form validation fails. The user is redirected to the profile page on success
-    and remains on the form with error messages if the update fails.
+    Allows the user to submit a new password via a POST request.
+    If the form data is valid, the user's password is updated and
+    a success email is sent. A failure email is sent if the form
+    validation fails. The user is redirected to the profile page
+    on success and remains on the form with error messages if
+    the update fails.
 
     Args:
-        request (HttpRequest): The request object used to access session data and form data.
+        request (HttpRequest): The request object used to access
+        session data and form data.
 
     Returns:
-        HttpResponse: The HTTP response with either the redirection to the profile page
-                      on success or the password change form with error messages on failure.
+        HttpResponse: The HTTP response with either the redirection
+        to the profile page on success or the password change form
+        with error messages on failure.
     """
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)

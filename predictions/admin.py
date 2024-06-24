@@ -105,15 +105,19 @@ class UploadImageModelAdmin(admin.ModelAdmin):
     """
     Admin interface for managing uploaded images through UploadImageModel.
 
-    This class configures the admin interface to effectively manage image uploads, providing basic
-    search and display functionalities. It's optimized for scenarios where administrators need to review
+    This class configures the admin interface to effectively manage image
+    uploads, providing basic search and display functionalities.
+    It's optimized for scenarios where administrators need to review
     or manage uploaded images associated with model instances.
 
     Attributes:
-        list_display (tuple): Defines which fields are displayed in the list view.
-        search_fields (tuple): Defines the fields that are searchable within the admin.
+        list_display (tuple): Defines which fields are displayed in the
+        list view.
+        search_fields (tuple): Defines the fields that are searchable
+        within the admin.
         fields (tuple): Fields to be displayed in the model's form view.
-        readonly_fields (tuple): Fields that should not be modified in the admin interface.
+        readonly_fields (tuple): Fields that should not be modified in
+        the admin interface.
     """
 
     list_display = ("id", "name", "image")

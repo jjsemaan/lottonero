@@ -10,34 +10,41 @@ from django.contrib import messages
 
 def contact_view(request):
     """
-    Handles the contact page requests for both authenticated and unauthenticated users.
+    Handles the contact page requests for both authenticated and
+    unauthenticated users.
 
-    This view manages the submission of contact forms. For authenticated users, it pre-fills and
-    submits the form using their stored information. For unauthenticated users, it requires manual
-    entry of contact details. After form validation, it saves the contact message to the database
+    This view manages the submission of contact forms. For authenticated users,
+    it pre-fills and submits the form using their stored information.
+    For unauthenticated users, it requires manual entry of contact details.
+    After form validation, it saves the contact message to the database
     and sends an email notification to the site administrator.
 
     For POST requests:
-        - Uses `AuthenticatedContactMessageForm` if the user is logged in, pre-filling the user's
-          details into the form and associating the message with the user's account.
-        - Uses `UnauthenticatedContactMessageForm` for visitors without an account, requiring
-          manual input of contact information.
-        - Upon form validation, saves the message and sends an email with the message content.
+        - Uses `AuthenticatedContactMessageForm` if the user is logged in,
+          pre-filling the user's details into the form and associating the
+          message with the user's account.
+        - Uses `UnauthenticatedContactMessageForm` for visitors without an
+          account, requiring manual input of contact information.
+        - Upon form validation, saves the message and sends an email
+          with the message content.
         - Redirects to a 'thank you' page upon successful submission.
 
     For GET requests:
-        - Provides a blank form for the user to fill out, choosing the form type based on
-          authentication status.
+        - Provides a blank form for the user to fill out, choosing the form
+          type based on authentication status.
 
     Args:
-        request (HttpRequest): The request object used to access various metadata of the incoming HTTP request.
+        request (HttpRequest): The request object used to access various
+        metadata of the incoming HTTP request.
 
     Returns:
-        HttpResponse: Renders the contact form or redirects to the thank-you page upon successful form submission.
+        HttpResponse: Renders the contact form or redirects to the thank-you
+        page upon successful form submission.
 
     Template used:
         - 'contact/contact_form.html' for displaying the form.
-        - 'contact/thank_you.html' for displaying the thank you page upon successful submission.
+        - 'contact/thank_you.html' for displaying the thank you page upon
+        successful submission.
     """
     if request.method == "POST":
         if request.user.is_authenticated:
@@ -60,7 +67,10 @@ def contact_view(request):
                     fail_silently=False,
                 )
 
-                messages.success(request, "Thank you for contacting us! We will get back to you soon.")
+                messages.success(
+                    request,
+                    "Thank you for contacting us! We will get back to you soon.",
+                )
                 return render(request, "contact/thank_you.html")
         else:
             form = UnauthenticatedContactMessageForm(
@@ -78,7 +88,10 @@ def contact_view(request):
                     fail_silently=False,
                 )
 
-                messages.success(request, "Thank you for contacting us! We will get back to you soon.")
+                messages.success(
+                    request,
+                    "Thank you for contacting us! We will get back to you soon.",
+                )
                 return render(request, "contact/thank_you.html")
     else:
         if request.user.is_authenticated:
@@ -92,6 +105,6 @@ def contact_view(request):
     }
     return render(request, "contact/contact_form.html", context)
 
+
 def about(request):
     return render(request, "about/about.html")
-

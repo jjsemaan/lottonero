@@ -15,21 +15,25 @@ import networkx as nx
 
 def get_filtered_data(time_range):
     """
-    Retrieves a specified number of recent EuroMillions draw results based on a given time range.
+    Retrieves a specified number of recent EuroMillions draw results based on a
+    given time range.
 
-    This function filters EuroMillions draw results to return a limited set of entries corresponding
-    to the time range specified by the user. The number of results returned varies by the time range:
+    This function filters EuroMillions draw results to return a limited set of
+    entries corresponding to the time range specified by the user.
+    The number of results returned varies by the time range:
     - '1m' returns the last 8 draws (approximately 1 month).
     - '6m' returns the last 48 draws (approximately 6 months).
     - '12m' returns the last 96 draws (approximately 12 months).
     - Any other input defaults to the last 24 draws (approximately 3 months).
 
     Args:
-        time_range (str): A string identifier for the time range (e.g., '1m', '6m', '12m').
+        time_range (str): A string identifier for the time range
+        (e.g., '1m', '6m', '12m').
 
     Returns:
-        QuerySet: A Django QuerySet containing the filtered list of EuroMillions draw results, ordered
-                  from the most recent draw to the oldest within the specified range.
+        QuerySet: A Django QuerySet containing the filtered list of
+        EuroMillions draw results, ordered from the most recent draw
+        to the oldest within the specified range.
     """
     if time_range == "1m":
         num_rows = 8
@@ -45,22 +49,26 @@ def get_filtered_data(time_range):
 
 def plot_numbers_frequencies(df, columns, title):
     """
-    Generates an interactive bar chart of number frequencies with a KDE curve and median line.
+    Generates an interactive bar chart of number frequencies with a KDE curve
+    and median line.
 
-    This function takes a DataFrame and column list, melts the DataFrame to long format for
-    those columns, and computes the value counts. It plots these frequencies as bars, color-coded
-    based on whether each value is above or below the median. It also overlays a KDE to show
+    This function takes a DataFrame and column list, melts the DataFrame to
+    long format for those columns, and computes the value counts.
+    It plots these frequencies as bars, color-coded based on whether each value
+    is above or below the median. It also overlays a KDE to show
     the distribution's density and a median line for reference.
 
     Args:
         df (DataFrame): The pandas DataFrame containing the data.
-        columns (list): A list of columns in the DataFrame that contain the number data.
+        columns (list): A list of columns in the DataFrame that
+        contain the number data.
         title (str): The title of the plot.
 
     Returns:
         str: An HTML string containing a plotly interactive figure.
 
-    The plot is styled with transparent backgrounds, custom color themes for bars and KDE, and includes
+    The plot is styled with transparent backgrounds, custom color themes for
+    bars and KDE, and includes
     annotations for the median. It can be embedded directly into web pages.
     """
     melted_df = df.melt(value_vars=columns)
@@ -150,21 +158,26 @@ def plot_numbers_frequencies(df, columns, title):
 @login_required
 def frequency_view(request):
     """
-    Renders lottery frequency graphs for EuroMillions based on a user-selected time range.
+    Renders lottery frequency graphs for EuroMillions based on a user-selected
+    time range.
 
     Args:
-        request (HttpRequest): The HTTP request object containing request metadata.
+        request (HttpRequest): The HTTP request object containing request
+        metadata.
 
     Returns:
-        HttpResponse: Renders the 'lottery_stats/frequencies.html' with frequency graphs or
-                      redirects to 'pricing_page' if the user lacks necessary subscriptions.
+        HttpResponse: Renders the 'lottery_stats/frequencies.html' with
+        frequency graphs or redirects to 'pricing_page' if the user lacks
+        necessary subscriptions.
 
     Uses:
         - `get_filtered_data`: Fetches lottery data for the specified time.
-        - `plot_numbers_frequencies`: Generates interactive Plotly graphs for the data.
+        - `plot_numbers_frequencies`: Generates interactive Plotly graphs
+        for the data.
 
     Templates:
-        - Renders 'lottery_stats/frequencies.html' to display the frequency analysis.
+        - Renders 'lottery_stats/frequencies.html' to display the frequency
+        analysis.
     """
     if not Subscription.objects.filter(
         Q(
@@ -181,9 +194,9 @@ def frequency_view(request):
         return redirect("pricing_page")
 
     messages.warning(
-        request, 
-        "This page is not suitable for viewing on mobile devices due the size of the statistical graphs within and is better visualised on desktops and laptops."
-        )
+        request,
+        "This page is not suitable for viewing on mobile devices due the size of the statistical graphs within and is better visualised on desktops and laptops.",
+    )
     time_range = request.GET.get("time_range", "3m")
     data = get_filtered_data(time_range)
 
@@ -221,12 +234,14 @@ def prepare_data(df):
     Prepares a DataFrame by encoding lottery numbers as binary occurrences.
 
     Args:
-        df (DataFrame): A pandas DataFrame containing the lottery draw data with columns
+        df (DataFrame): A pandas DataFrame containing the lottery draw data
+        with columns
                         for each ball drawn.
 
     Returns:
-        DataFrame: A new DataFrame of the same length as `df` with 50 columns ('number_1' to 'number_50'),
-                   each representing a binary occurrence of the lottery numbers in the draws.
+        DataFrame: A new DataFrame of the same length as `df` with 50 columns
+        ('number_1' to 'number_50'), each representing a binary occurrence of
+        the lottery numbers in the draws.
     """
     numbers_range = range(1, 51)
     column_names = [f"number_{i}" for i in numbers_range]
@@ -240,16 +255,19 @@ def prepare_data(df):
 
 def plot_correlation(df, title):
     """
-    Generates a heatmap plot representing the correlation matrix of lottery numbers.
+    Generates a heatmap plot representing the correlation matrix of
+    lottery numbers.
 
     Args:
-        df (DataFrame): A pandas DataFrame where each column represents a lottery number and
-                        each row indicates the presence (1) or absence (0) of that number in a specific draw.
+        df (DataFrame): A pandas DataFrame where each column represents a
+        lottery number and each row indicates the presence (1) or absence (0)
+        of that number in a specific draw.
         title (str): The title of the generated heatmap plot.
 
     Returns:
-        str: An HTML string containing a Plotly heatmap visualization of the correlation matrix,
-             which can be embedded directly into web pages.
+        str: An HTML string containing a Plotly heatmap visualization
+        of the correlation matrix, which can be embedded
+        directly into web pages.
     """
     correlation = df.corr()
     fig = px.imshow(
@@ -257,7 +275,7 @@ def plot_correlation(df, title):
         text_auto=True,
         color_continuous_scale=["#ffff99", "#FF0000"],
         title=title,
-        aspect="auto"
+        aspect="auto",
     )
 
     fig.update_layout(
@@ -266,12 +284,11 @@ def plot_correlation(df, title):
         xaxis=dict(
             side="bottom",
             tickvals=list(range(50)),
-            ticktext=[f"{i}" for i in range(1, 51)]
+            ticktext=[f"{i}" for i in range(1, 51)],
         ),
         yaxis=dict(
-            tickvals=list(range(50)),
-            ticktext=[f"{i}" for i in range(1, 51)]
-        )
+            tickvals=list(range(50)), ticktext=[f"{i}" for i in range(1, 51)]
+        ),
     )
 
     return fig.to_html(full_html=False, config={"displayModeBar": True})
@@ -283,14 +300,17 @@ def correlations_view(request):
     View function to display the correlation heatmap between lottery numbers.
 
     Args:
-        request (HttpRequest): The HttpRequest object that carries metadata about the request.
+        request (HttpRequest): The HttpRequest object that carries metadata
+        about the request.
 
     Returns:
-        HttpResponse: Renders the 'lottery_stats/correlations.html' template with the correlation
-                      heatmap or redirects to the 'pricing_page' if the user lacks necessary subscriptions.
+        HttpResponse: Renders the 'lottery_stats/correlations.html'
+        template with the correlation heatmap or redirects to the
+        'pricing_page' if the user lacks necessary subscriptions.
 
     Templates:
-        - Renders 'lottery_stats/correlations.html' to display the correlation heatmap.
+        - Renders 'lottery_stats/correlations.html' to display the
+        correlation heatmap.
     """
     if not Subscription.objects.filter(
         Q(
@@ -307,17 +327,15 @@ def correlations_view(request):
         return redirect("pricing_page")
 
     messages.warning(
-        request, 
-        "This page is not suitable for viewing on mobile devices due the size of the statistical graphs within and is better visualised on desktops and laptops."
-        )
+        request,
+        "This page is not suitable for viewing on mobile devices due the size of the statistical graphs within and is better visualised on desktops and laptops.",
+    )
     data = EuroMillionsResult.objects.all()
     df_main_balls = pd.DataFrame(
         list(data.values("ball_1", "ball_2", "ball_3", "ball_4", "ball_5"))
     )
     prepared_df = prepare_data(df_main_balls)
-    graph_correlation = plot_correlation(
-        prepared_df, ""
-    )
+    graph_correlation = plot_correlation(prepared_df, "")
 
     return render(
         request,
@@ -328,15 +346,17 @@ def correlations_view(request):
 
 def calculate_combinations_frequency(df, columns):
     """
-    Calculates the frequency of unique combinations of values across specified columns in a DataFrame.
+    Calculates the frequency of unique combinations of values across specified
+    columns in a DataFrame.
 
     Args:
         df (DataFrame): The pandas DataFrame containing the data to analyze.
         columns (list): A list of column names to include in the combinations.
 
     Returns:
-        Series: A pandas Series where the index is the unique combinations (as tuples) and the values are
-                the frequencies of these combinations in the DataFrame.
+        Series: A pandas Series where the index is the unique combinations
+        (as tuples) and the values are the frequencies of these combinations
+        in the DataFrame.
     """
     combinations = df[columns].apply(lambda row: tuple(sorted(row)), axis=1)
     frequency = combinations.value_counts()
@@ -345,16 +365,21 @@ def calculate_combinations_frequency(df, columns):
 
 def plot_combination_network(frequency, title):
     """
-    Generates an interactive network plot of number combinations based on their frequency.
+    Generates an interactive network plot of number combinations based on
+    their frequency.
 
     Args:
-        frequency (dict): A dictionary where keys are tuples representing combinations of numbers (e.g., (1, 2, 3))
-                          and values are the frequencies of these combinations.
-        title (str): The title of the plot, displayed at the top of the visualization.
+        frequency (dict): A dictionary where keys are tuples representing
+        combinations of numbers (e.g., (1, 2, 3)) and values are the
+        frequencies of these combinations.
+        title (str): The title of the plot, displayed at the top of the
+        visualization.
 
     Returns:
-        str: An HTML string containing a Plotly interactive graph which can be embedded in web pages. The graph
-             shows the connections between numbers with edges weighted by frequency and nodes sized by connectivity.
+        str: An HTML string containing a Plotly interactive graph which can
+        be embedded in web pages. The graph shows the connections between
+        numbers with edges weighted by frequency and nodes sized by
+        connectivity.
     """
     G = nx.Graph()
     for combo, freq in frequency.items():
@@ -410,16 +435,19 @@ def plot_combination_network(frequency, title):
 
 def calculate_combinations_frequency_over_time(df, columns, num_draws=96):
     """
-    Calculates the cumulative frequency of combinations over time from a given DataFrame.
+    Calculates the cumulative frequency of combinations over time from a
+    given DataFrame.
 
     Args:
         df (DataFrame): A pandas DataFrame containing the lottery draw results.
-        columns (list): List of column names to include in the combination analysis.
-        num_draws (int, optional): The number of most recent draws to consider. Defaults to 96.
+        columns (list): List of column names to include in the combination
+        analysis.
+        num_draws (int, optional): The number of most recent draws to consider.
+        Defaults to 96.
 
     Returns:
-        DataFrame: A DataFrame indexed by 'draw_date' with columns for each combination showing the
-                   cumulative frequency over time.
+        DataFrame: A DataFrame indexed by 'draw_date' with columns
+        for each combination showing the cumulative frequency over time.
     """
 
     df["combination"] = df[columns].apply(
@@ -439,15 +467,18 @@ def calculate_combinations_frequency_over_time(df, columns, num_draws=96):
 
 def plot_stacked_area_chart(frequency, title):
     """
-    Creates a stacked area chart to visualize the cumulative frequency of combinations over time.
+    Creates a stacked area chart to visualize the cumulative frequency of
+    combinations over time.
 
     Args:
-        frequency (DataFrame): A DataFrame containing cumulative frequencies of combinations over time,
+        frequency (DataFrame): A DataFrame containing cumulative frequencies
+        of combinations over time,
                                indexed by date.
         title (str): The title of the plot.
 
     Returns:
-        str: An HTML string containing a Plotly interactive stacked area chart, which can be embedded
+        str: An HTML string containing a Plotly interactive stacked area chart,
+        which can be embedded
              directly into web pages.
     """
     fig = go.Figure()
@@ -473,19 +504,24 @@ def plot_stacked_area_chart(frequency, title):
 @login_required
 def combinations_time_view(request):
     """
-    Displays a view for analyzing the cumulative frequency of winning lottery combinations over time.
+    Displays a view for analyzing the cumulative frequency of winning lottery
+    combinations over time.
 
-    This view checks if the user has the required subscription to access detailed statistics. If not,
-    the user is redirected to the pricing page with an error message. For authorized users, it retrieves
-    lottery results and calculates the cumulative frequency of winning combinations for a specified number
+    This view checks if the user has the required subscription to access
+    detailed statistics. If not,
+    the user is redirected to the pricing page with an error message. For
+    authorized users, it retrieves lottery results and calculates the
+    cumulative frequency of winning combinations for a specified number
     of recent draws, then displays these statistics in a stacked area chart.
 
     Args:
-        request (HttpRequest): The HttpRequest object containing metadata about the request.
+        request (HttpRequest): The HttpRequest object containing metadata
+        about the request.
 
     Returns:
-        HttpResponse: Renders a template with the stacked area chart of winning combinations if authorized, or
-                      redirects to the 'pricing_page' if the user lacks necessary subscriptions.
+        HttpResponse: Renders a template with the stacked area chart of
+        winning combinations if authorized, or redirects to the 'pricing_page'
+        if the user lacks necessary subscriptions.
     """
 
     if not Subscription.objects.filter(
@@ -503,9 +539,9 @@ def combinations_time_view(request):
         return redirect("pricing_page")
 
     messages.warning(
-        request, 
-        "This page is not suitable for viewing on mobile devices due the size of the statistical graphs within and is better visualised on desktops and laptops."
-        )
+        request,
+        "This page is not suitable for viewing on mobile devices due the size of the statistical graphs within and is better visualised on desktops and laptops.",
+    )
 
     num_draws = request.GET.get("num_draws", 96)
     try:
@@ -522,9 +558,7 @@ def combinations_time_view(request):
         ["ball_1", "ball_2", "ball_3", "ball_4", "ball_5"],
         num_draws,
     )
-    graph_combinations = plot_stacked_area_chart(
-        frequency, ""
-    )
+    graph_combinations = plot_stacked_area_chart(frequency, "")
 
     return render(
         request,

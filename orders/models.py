@@ -30,7 +30,7 @@ class Subscription(models.Model):
         __str__(): Returns a string representation of the subscription instance,
             displaying the username, email, and product ID.
     """
-    
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
     email = models.EmailField(max_length=254, blank=True, null=True)
@@ -49,7 +49,7 @@ class Subscription(models.Model):
         """
         self.email = self.user.email
         super(Subscription, self).save(*args, **kwargs)
-    
+
     def cancel_subscription(self):
         """
         Cancel the subscription and mark the cancellation time.
@@ -60,4 +60,3 @@ class Subscription(models.Model):
 
     def __str__(self):
         return f"{self.user.username} ({self.email}) - Product ID: {self.prod_id} - Product Name: {self.product_name}"
-

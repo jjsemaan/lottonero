@@ -59,7 +59,8 @@ class SubscriptionAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         """
-        Override the save method to ensure the email is updated based on the user instance before saving.
+        Override the save method to ensure the email is updated based
+        on the user instance before saving.
 
         Args:
             request (HttpRequest): The HTTP request object.
