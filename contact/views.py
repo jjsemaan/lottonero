@@ -5,6 +5,7 @@ from .forms import (
     UnauthenticatedContactMessageForm,
 )
 from .models import ContactMessage
+from django.contrib import messages
 
 
 def contact_view(request):
@@ -59,6 +60,7 @@ def contact_view(request):
                     fail_silently=False,
                 )
 
+                messages.success(request, "Thank you for contacting us! We will get back to you soon.")
                 return render(request, "contact/thank_you.html")
         else:
             form = UnauthenticatedContactMessageForm(
@@ -76,6 +78,7 @@ def contact_view(request):
                     fail_silently=False,
                 )
 
+                messages.success(request, "Thank you for contacting us! We will get back to you soon.")
                 return render(request, "contact/thank_you.html")
     else:
         if request.user.is_authenticated:
