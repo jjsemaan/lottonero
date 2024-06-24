@@ -30,14 +30,8 @@
     <h1 class="text-center my-4">Lottonero's Alltime Winning Predictions</h1>
     <p class="text-center">First launched on 10 May 2024</p>
     <p class="text-center">
-        Total winning amount till date is <strong>€ {{ total_winning_amount }}</strong> !!!
+        Total alltime hits till date is <strong>€ {{ total_winning_amount }}</strong> !!!
     </p>
-    <select id="num_draws" class="form-control mb-2 mr-sm-2" onchange="window.location.href='?num_draws=' + this.value;">
-        <option value="10" {% if request.GET.num_draws == '10' %}selected{% endif %}>10</option>
-        <option value="all" {% if request.GET.num_draws == 'all' %}selected{% endif %}>All</option>
-    </select>
-    
-    
     <div id="predictions-container">
         <!-- Predictions will be loaded here -->
     
@@ -75,29 +69,4 @@
     </table>
 </div>
 </div>
-<script>
-function loadPredictions() {
-    const limit = document.getElementById('prediction-dropdown').value;
-    const url = `/alltime/?limit=${limit}`;  // Adjusted to the correct endpoint
-
-    fetch(url, {
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest'
-        }
-    }).then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok: ' + response.statusText);
-        }
-        return response.json();
-    })
-    .then(data => {
-        document.getElementById('predictions-container').innerHTML = data.html;
-    })
-    .catch(error => {
-        console.error('Error loading the data:', error);
-        alert('Failed to load data: ' + error.message);
-    });
-}
-
-</script>
 {% endblock %}

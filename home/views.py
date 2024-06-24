@@ -242,19 +242,27 @@ def get_total_winning_amount(predictions):
     return sum(prediction.win_amount for prediction in predictions if prediction.win_amount)
 
 from django.core.paginator import Paginator
+from django.db.models import Sum
 
 def alltime_winning_predictions_view(request):
-    num_draws = request.GET.get('num_draws', '10')  # Default to 10 if no parameter is provided
+    num_draws = request.GET.get('num_draws', '25')
     
+    # Fetch all predictions that have a non-null match type, ordered by draw date
     alltime_winning_predictions = Prediction.objects.filter(
         match_type__isnull=False
     ).order_by("-draw_date")
+    
+    # Calculate the total winning amount for all records using an efficient database query
+    total_winning_amount = alltime_winning_predictions.aggregate(
+        total=Sum('win_amount')
+    )['total'] or 0
 
+    # Apply pagination if not showing 'all'
     if num_draws != 'all':
-        paginator = Paginator(alltime_winning_predictions, 10)  # Show 10 records per page
-        page_number = request.GET.get('page')
+        paginator = Paginator(alltime_winning_predictions, 25)
+        page_number = request.GET.get('page', 1)
         alltime_winning_predictions = paginator.get_page(page_number)
-
+    
     predictions_with_images = []
     for prediction in alltime_winning_predictions:
         winning_balls_list = (
@@ -318,13 +326,13 @@ def alltime_winning_predictions_view(request):
             }
         )
 
-        # Calculate total winning amount using the function
-        total_winning_amount = get_total_winning_amount(alltime_winning_predictions)
-
     context = {
         "alltime_winning_predictions": predictions_with_images,
         "total_winning_amount": total_winning_amount,
     }
+
+    return render(request, "home/alltime.html", context)
+
 
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         html = render_to_string('partial_predictions_list.html', context, request)
