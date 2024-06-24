@@ -12,9 +12,10 @@
                     <div class="row mb-4">
                         <div class="col-lg-2 d-none d-lg-block"></div>
                         <div class="col-lg-8">
-                            <div class="p-5 text-center">
-                                <h1 class="h4 text-gray-900 mb-4 text-black font-weight-bold">Confirm Cancellation</h1>
-                                <p class="text-black">Are you sure you want to cancel your subscription to "{{ subscription.product_name }}"?</p>
+                            <div class="p-5 text-center text-dark">
+                                <h1 class="h4 mb-4 font-weight-bold">Confirm Cancellation</h1>
+                                <p class="text-black">Are you sure you want to cancel your subscription to</p>
+                                <p>"{{ subscription.product_name }}"?</p>
                                 <form method="post">
                                     {% csrf_token %}
                                     <button type="submit" name="confirm_cancel" class="btn btn-danger">Confirm Cancellation</button>
