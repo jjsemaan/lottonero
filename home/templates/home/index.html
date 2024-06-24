@@ -16,6 +16,7 @@
 <div class="my-3 pt-5 pb-5 justify-content-center">
   <h1 class="header-font">AI Lotto Predictions</h1>
   <h1 class="header-font">for EuroMillions</h1>
+  <h2 class="header-font">Alltime hits € {{ total_combined_winning_amount }} !!!</h2>
   {% if user.is_authenticated %}
   <a href="{% url 'pricing_page' %}" class="btn btn-lg header-button-font rounded-pill text-uppercase mt-3">Subscribe
     Now!</a>
@@ -126,26 +127,26 @@
         {% if user.is_authenticated %}
         <h3>
           <a href="{% url 'display_combination_predictions' %}" class="btn btn-light btn-block"
-            style="padding: 10px 30px; margin-right: 10px;">Clich here for next draw predictions of our AI
+            style="padding: 10px 30px; margin-right: 10px;">Clich here for next draw predictions of our
             Combinations</a>
         </h3>
         {% else %}
         <h3>
           <a href="{% url 'account_login' %}" class="btn btn-light btn-block"
-            style="padding: 10px 30px; margin-right: 10px;">Clich here for next draw predictions of our AI
+            style="padding: 10px 30px; margin-right: 10px;">Clich here for next draw predictions of our 
             Combinations</a>
         </h3>
         {% endif %}
       </div>
       <div class="col-md-6 text-center">
         <h2 class="text-dark">Latest Winning Predictions from</h2>
-        <h2 class="text-dark"> AI Combinations</h2>
+        <h2 class="text-dark">Combinations</h2>
       </div>
       <div class="col-md-3 text-center">
         {% if user.is_authenticated %}
         <h3>
-          <a href="#" class="btn btn-light btn-block" style="padding: 10px 30px;">Clich
-            here to see alltime winning predictions of our AI Combinations</a>
+          <a href="{% url 'alltime_shuffled_predictions' %}" class="btn btn-light btn-block" style="padding: 10px 30px;">Clich
+            here to see alltime winning predictions of our Combinations</a>
         </h3>
         {% else %}
         <h3>

@@ -5,6 +5,7 @@ from .views import (
     latest_predictions_with_matches,
     alltime_winning_predictions_view,
     latest_shuffled_predictions_with_matches,
+    alltime_winning_shuffled_predictions_view,
 )
 
 urlpatterns = [
@@ -18,6 +19,11 @@ urlpatterns = [
         "alltime/",
         alltime_winning_predictions_view,
         name="alltime_predictions",
+    ),
+    path(
+        "alltime-shuffled/",
+        alltime_winning_shuffled_predictions_view,
+        name="alltime_shuffled_predictions",
     ),
     path(
         "latest-shuffled-predictions-with-matches/",

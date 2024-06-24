@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block nav_name %}Alltime Wins Patterns{% endblock %}
+{% block nav_name %}Alltime Wins Combinations{% endblock %}
 
 {% block page_header %}
 <div class="container header-container pt-5 mt-5">
@@ -28,8 +28,8 @@
 {% block content %}
 {% load custom_filters %}
 <div class="container">
-    <h1 class="text-center my-4">Alltime Winning AI Patterns Predictions</h1>
-    <p class="text-center mb-1">First launched on 10 May 2024</p>
+    <h1 class="text-center my-4">Alltime Winning Shuffled Predictions</h1>
+    <p class="text-center mb-1">First launched on 4 June 2024</p>
     <p class="text-center mb-1">
         Total alltime hits till date is <strong>€ {{ total_winning_amount }}</strong> !!!
     </p>
@@ -47,18 +47,17 @@
             </tr>
         </thead>
         <tbody>
-            {% for prediction_info in alltime_winning_predictions %}
+            {% for prediction_info in alltime_winning_shuffled_predictions %}
             <tr class="table-balls">
                 <td class="text-center align-middle">{{ prediction_info.prediction.id }}</td>
                 <td class="text-center align-middle">{{ prediction_info.prediction.draw_date }}</td>
                 <td class="text-center align-middle">
-                    <img src="{{ prediction_info.pred_ball_1_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_1 }}">
-                    <img src="{{ prediction_info.pred_ball_2_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_2 }}">
-                    <img src="{{ prediction_info.pred_ball_3_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_3 }}">
-                    <img src="{{ prediction_info.pred_ball_4_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_4 }}">
-                    <img src="{{ prediction_info.pred_ball_5_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_5 }}">
-                    <img src="{{ prediction_info.pred_lucky_1_image }}" alt="Lucky Star {{ prediction_info.prediction.pred_lucky_1 }}">
-                    <img src="{{ prediction_info.pred_lucky_2_image }}" alt="Lucky Star {{ prediction_info.prediction.pred_lucky_2 }}">
+                    {% for image in prediction_info.pred_ball_images %}
+                        <img src="{{ image }}" alt="Ball {{ forloop.counter }}">
+                    {% endfor %}
+                    {% for image in prediction_info.pred_lucky_images %}
+                        <img src="{{ image }}" alt="Lucky Star {{ forloop.counter }}">
+                    {% endfor %}
                 </td>
                 <td class="text-center align-middle">{{ prediction_info.prediction.match_type }}</td>
                 <td class="text-center align-middle">{{ prediction_info.prediction.win_amount }}</td>

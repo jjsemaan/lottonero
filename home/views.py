@@ -4,6 +4,8 @@ from predictions.models import Prediction, ShuffledPrediction, UploadImageModel
 from django.db.models import Max
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+from django.db.models import Sum, Q
 
 
 def get_image_url(name):
@@ -33,6 +35,18 @@ def index(request):
         latest_result = EuroMillionsResult.objects.latest("id")
     except EuroMillionsResult.DoesNotExist:
         latest_result = None
+
+    # Calculate total winning amounts
+    total_winning_amount_predictions = Prediction.objects.filter(
+        win_amount__isnull=False
+    ).aggregate(Sum('win_amount'))['win_amount__sum'] or 0
+
+    total_winning_amount_shuffled = ShuffledPrediction.objects.filter(
+        win_amount__isnull=False
+    ).aggregate(Sum('win_amount'))['win_amount__sum'] or 0
+
+    # Combine total winning amounts
+    total_combined_winning_amount = total_winning_amount_predictions + total_winning_amount_shuffled
 
     # Get the latest prediction date with non-null match_type
     latest_date = Prediction.objects.filter(
@@ -225,6 +239,7 @@ def index(request):
         "latest_shuffled_predictions": latest_shuffled_predictions,
         "alltime_winning_shuffled_predictions": alltime_winning_shuffled_predictions,
         "shuffled_predictions_with_images": shuffled_predictions_with_images,
+        "total_combined_winning_amount": total_combined_winning_amount,
     }
 
     return render(request, "home/index.html", context)
@@ -241,23 +256,36 @@ def get_total_winning_amount(predictions):
     """
     return sum(prediction.win_amount for prediction in predictions if prediction.win_amount)
 
-from django.core.paginator import Paginator
-from django.db.models import Sum
-
 def alltime_winning_predictions_view(request):
+    """
+    Serves as the view for displaying all-time winning predictions with pagination.
+
+    This view fetches all predictions from the database that have a non-null match type,
+    indicating that they are winning predictions. It calculates the total winning amount from
+    all such predictions and allows viewing these predictions in a paginated format.
+    If accessed via an AJAX request, it returns only the HTML for the predictions list,
+    suitable for dynamic page updates.
+
+    Args:
+        request (HttpRequest): The HTTP request object, which can contain a GET parameter
+        'num_draws' specifying the number of predictions to display per page (defaults to 25).
+        This can also handle AJAX requests for dynamic pagination without reloading the page.
+
+    Returns:
+        HttpResponse: Renders the 'alltime.html' template with the paginated winning predictions
+        and the total winning amount, or a JsonResponse containing HTML content if it's an AJAX request.
+
+    """
     num_draws = request.GET.get('num_draws', '25')
     
-    # Fetch all predictions that have a non-null match type, ordered by draw date
     alltime_winning_predictions = Prediction.objects.filter(
         match_type__isnull=False
     ).order_by("-draw_date")
     
-    # Calculate the total winning amount for all records using an efficient database query
     total_winning_amount = alltime_winning_predictions.aggregate(
         total=Sum('win_amount')
     )['total'] or 0
 
-    # Apply pagination if not showing 'all'
     if num_draws != 'all':
         paginator = Paginator(alltime_winning_predictions, 25)
         page_number = request.GET.get('page', 1)
@@ -523,3 +551,75 @@ def determine_match_type(num_common_numbers, num_common_lucky_numbers):
         (1, 2): "Match 1 + 2",
     }
     return match_cases.get((num_common_numbers, num_common_lucky_numbers))
+
+
+
+
+def alltime_winning_shuffled_predictions_view(request):
+    """
+    View function to display all-time winning shuffled predictions with their associated images.
+
+    This view retrieves shuffled predictions from the database where each prediction has a non-null 
+    match type and a winning amount greater than zero. It calculates the total winning amount across 
+    all such predictions and supports pagination for displaying these records.
+
+    Args:
+        request (HttpRequest): The request object used to fetch the number of records (`num_draws`) to 
+        display per page from GET parameters. Defaults to 25 records per page if not specified. If 
+        'all' is specified, all records are displayed on one page.
+
+    Returns:
+        HttpResponse: Renders the 'alltime_shuffled.html' template with context containing:
+            - alltime_winning_shuffled_predictions: A paginated list of predictions with additional data 
+              for displaying associated images.
+            - total_winning_amount: The sum of win amounts across all eligible shuffled predictions.
+    """
+    num_draws = request.GET.get('num_draws', '25')
+    
+    base_query = ShuffledPrediction.objects.filter(
+        match_type__isnull=False,
+        win_amount__isnull=False,
+        win_amount__gt=0
+    )
+    
+    total_winning_amount = base_query.aggregate(
+        total=Sum('win_amount')
+    )['total'] or 0
+
+    alltime_winning_shuffled_predictions = base_query.order_by("-draw_date")
+
+    if num_draws != 'all':
+        paginator = Paginator(alltime_winning_shuffled_predictions, int(num_draws))
+        page_number = request.GET.get('page', 1)
+        alltime_winning_shuffled_predictions = paginator.get_page(page_number)
+    
+    shuffled_predictions_with_images = []
+    for prediction in alltime_winning_shuffled_predictions:
+        pred_ball_images = [get_image_url(f"green{getattr(prediction, f'pred_ball_{i}'):02}")
+                            if getattr(prediction, f'pred_ball_{i}') in map(int, prediction.winning_balls.split(",") if prediction.winning_balls else [])
+                            else get_image_url(f"{getattr(prediction, f'pred_ball_{i}'):02}")
+                            for i in range(1, 6)]
+
+        pred_lucky_images = [get_image_url(f"greenstar{getattr(prediction, f'pred_lucky_{i}')}")
+                             if getattr(prediction, f'pred_lucky_{i}') in map(int, prediction.winning_lucky_stars.split(",") if prediction.winning_lucky_stars else [])
+                             else get_image_url(f"star{getattr(prediction, f'pred_lucky_{i}')}")
+                             for i in range(1, 3)]
+
+        shuffled_predictions_with_images.append({
+            "prediction": prediction,
+            "pred_ball_images": pred_ball_images,
+            "pred_lucky_images": pred_lucky_images,
+        })
+
+    context = {
+        "alltime_winning_shuffled_predictions": shuffled_predictions_with_images,
+        "total_winning_amount": total_winning_amount,
+    }
+
+    return render(request, "home/alltime_shuffled.html", context)
+
+
+
+
+
+
