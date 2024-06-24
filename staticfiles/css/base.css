@@ -1,6 +1,15 @@
+/*-------------------------------------- General*/
 html {
     height: 100%;
     width: 100%vw;
+}
+
+form {
+    color: black;
+}
+
+.row {
+    margin: 0;
 }
 
 .table td,
@@ -37,7 +46,20 @@ html {
     max-width: 80%;  
 }
 
-/* Style Allauth forms*/
+/*------------------------------------ Font Awesome */
+.fa-lg {
+    line-height: 0;
+}
+
+.icon {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+/* ------------------------------Style Allauth forms*/
 .form-group {
     text-align: left;
 }
@@ -102,6 +124,7 @@ Header
     z-index: 1;
 }
 
+/*-------------------------------------- Ball images*/
 .ball-images {
     display: flex;
     flex-wrap: wrap;
@@ -121,26 +144,7 @@ Header
     margin: 1px;
 }
 
-.row {
-    margin: 0;
-}
-
-.icon {
-    align-items: center;
-    display: inline-flex;
-    justify-content: center;
-    height: 1.5rem;
-    width: 1.5rem;
-}
-
-.fa-lg {
-    line-height: 0;
-}
-
-form {
-    color: black;
-}
-
+/*----------------------------------- Logo and buttons */
 .logo-font {
     text-transform: uppercase;
 }
@@ -193,8 +197,8 @@ h4.text-center > a.predict-button {
     position: relative;
 }
 
-/* Resolve overflow issuw */
-/* Target dropdown by aria-labelledby attribute */
+/* ---------------------------------------Resolve overflow issue */
+/* -----------------Target dropdown by aria-labelledby attribute */
 .dropdown-menu[aria-labelledby="user-options"] {
     min-width: 4rem;
     max-width: 5rem;
@@ -210,12 +214,11 @@ h4.text-center > a.predict-button {
     border-radius: 0;
 }
 
-/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+/* --------------------------------------- Sidenave */
 .row.content {
     height: 450px
 }
 
-/* Set gray background color and 100% height */
 .sidenav {
     padding-top: 20px;
     background-color: #f1f1f1;
@@ -238,7 +241,7 @@ h4.text-center > a.predict-button {
     padding-right: 0;
 }
 
-/* ------------------------------- bootstrap toasts */
+/* ------------------------------------- bootstrap toasts */
 
 .message-container {
     position: fixed;
@@ -306,14 +309,14 @@ h4.text-center > a.predict-button {
     clear: left; 
     font: 14px Helvetica, Arial, sans-serif; 
     width: 100%; 
-    max-width: 600px;  /* Limiting max width for better aesthetics */
+    max-width: 600px;
 }
 
 #mc_embed_shell {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 300px; /* Or adjust based on your design needs */
+    height: 300px;
 }
 
 #mc_embed_signup div#mce-responses {
@@ -324,15 +327,15 @@ h4.text-center > a.predict-button {
 /* Media query for screens 323px wide or less */
 @media (max-width: 323px) {
     .masthead-content h2 {
-        font-size: 1.5em; /* Smaller font size for small screens */
+        font-size: 1.5em;
     }
 }
 
 @media (max-width: 640px) {
     .ball-images img {
-        width: 40px; /* Adjust size as needed */
+        width: 40px;
         height: auto;
-        margin: 3px; /* Space between images */
+        margin: 3px;
     }
 }
 
@@ -347,12 +350,3 @@ h4.text-center > a.predict-button {
         display: none;
     }
 }
-
-/* Payment gateway checkout.html */
-
-.text-danger {
-    font-size: 16px;
-}
-
-
-
