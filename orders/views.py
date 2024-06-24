@@ -64,8 +64,8 @@ def pricing_page(request):
         "has_ai": has_ai,
         "has_premium": has_premium,
         "has_statistics": has_statistics,
-        "total_wins_till_date": "Get your data here",  # placeholder
-        "latest_result": {"jackpot": "Latest Jackpot Value"},  # placeholder
+        "total_wins_till_date": "Get your data here",
+        "latest_result": {"jackpot": "Latest Jackpot Value"},
         "display_premium": display_premium,
         "display_ai": display_ai,
         "display_statistics": display_statistics,
@@ -157,17 +157,14 @@ def subscription_confirm(request):
             price = item["price"]
             product = plan["product"]
 
-            # Retrieve and sync product
             if isinstance(product, str):
                 product = stripe.Product.retrieve(product)
             djstripe_product = Product.sync_from_stripe_data(product)
 
-            # Retrieve and sync price
             if isinstance(price, str):
                 price = stripe.Price.retrieve(price)
             djstripe_price = Price.sync_from_stripe_data(price)
 
-            # Check if the default price needs to be updated
             if djstripe_product.default_price != djstripe_price:
                 djstripe_product.default_price = djstripe_price
                 djstripe_product.save()
@@ -176,12 +173,10 @@ def subscription_confirm(request):
                 f"Product and price synced successfully for product: {product}"
             )
 
-        # Retrieve the product name
         product_name = (
             djstripe_product.name if djstripe_product else "Unknown Product"
         )
 
-        # Sync to OrdersSubscription model
         OrdersSubscription.objects.create(
             user=request.user,
             email=request.user.email,
@@ -196,7 +191,6 @@ def subscription_confirm(request):
 
         print("OrdersSubscription created successfully!")
 
-        # Send a thank you email to the user
         user = request.user
         subject = "Thank you for your subscription!"
         message = f"""
@@ -233,12 +227,10 @@ def subscription_confirm(request):
         print(f"Error syncing product and price: {e}")
         return HttpResponseBadRequest("Error syncing product and price.")
 
-    # Show a message to the user
     messages.success(
         request, "You've successfully signed up. Thanks for the support!"
     )
 
-    # Render the confirmation template
     return render(
         request,
         "subscription_confirm/subscription_confirm.html",

@@ -32,15 +32,14 @@ def get_filtered_data(time_range):
                   from the most recent draw to the oldest within the specified range.
     """
     if time_range == "1m":
-        num_rows = 8  # 1 month = 8 draws
+        num_rows = 8
     elif time_range == "6m":
-        num_rows = 48  # 6 months = 48 draws
+        num_rows = 48
     elif time_range == "12m":
-        num_rows = 96  # 12 months = 96 draws
-    else:  # default to 3 months
-        num_rows = 24  # 3 months = 24 draws
+        num_rows = 96
+    else:
+        num_rows = 24
 
-    # Fetch the last num_rows entries
     return EuroMillionsResult.objects.all().order_by("-draw_date")[:num_rows]
 
 
@@ -261,7 +260,6 @@ def plot_correlation(df, title):
         aspect="auto"
     )
 
-    # Assuming original height is 400, doubling to 800
     fig.update_layout(
         height=800,
         font=dict(color="black", size=9),
