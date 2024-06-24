@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block nav_name %}Alltime Wins{% endblock %}
 
 {% block page_header %}
 <div class="container header-container pt-5 mt-5">
@@ -34,7 +35,10 @@
 <body>
     <div class="container">
         <h1 class="text-center my-4">Lottonero's Alltime Winning Predictions</h1>
-        <p class="text-center">Winning balls appear in green | Winning stars appear in brown</p>
+        <p class="text-center">First launched on 10 May 2024</p>
+        <p class="text-center">
+            Total winning amount till date is <strong>€ {{ total_winning_amount }}</strong> !!!
+        </p>
         <table class="table">
             <thead>
                 <tr>

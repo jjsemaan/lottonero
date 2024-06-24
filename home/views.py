@@ -229,6 +229,18 @@ def index(request):
 
     return render(request, "home/index.html", context)
 
+def get_total_winning_amount(predictions):
+    """
+    Sums the winning amounts from a queryset of predictions.
+
+    Args:
+        predictions: A queryset of Prediction objects.
+
+    Returns:
+        int: The total winning amount.
+    """
+    return sum(prediction.win_amount for prediction in predictions if prediction.win_amount)
+
 
 def alltime_winning_predictions_view(request):
     """
@@ -307,8 +319,12 @@ def alltime_winning_predictions_view(request):
             }
         )
 
+        # Calculate total winning amount using the function
+        total_winning_amount = get_total_winning_amount(alltime_winning_predictions)
+
     context = {
         "alltime_winning_predictions": predictions_with_images,
+        "total_winning_amount": total_winning_amount,
     }
 
     return render(request, "home/alltime.html", context)
