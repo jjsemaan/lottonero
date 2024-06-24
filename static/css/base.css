@@ -193,6 +193,17 @@ h4.text-center > a.predict-button {
     position: relative;
 }
 
+/* Resolve overflow issuw */
+/* Target dropdown by aria-labelledby attribute */
+.dropdown-menu[aria-labelledby="user-options"] {
+    min-width: 4rem;
+    max-width: 5rem;
+}
+
+.dropdown-menu[aria-labelledby="user-options"] .dropdown-item {
+    padding: .25rem 1rem;
+}
+
 /* Remove the navbar's default margin-bottom and rounded borders */
 .navbar {
     margin-bottom: 0;
