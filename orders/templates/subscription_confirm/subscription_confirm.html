@@ -1,10 +1,28 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block header_content %}
-<h1>Subscription Confirm Test Page</h1>
-{% endblock %}
+{% block nav_name %}Subscription Success{% endblock %}
 
-{% block postloadjs %}
-{{ block.super }}
+{% block header_content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-xl-10 col-lg-12 col-md-9">
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <div class="row mb-4">
+                        <div class="col-lg-2 d-none d-lg-block"></div>
+                        <div class="col-lg-8">
+                            <div class="p-5 text-center">
+                                <h1 class="h4 text-gray-900 mb-4 text-dark font-weight-bold">Congratulations!</h1>
+                                <p class="text-black">You have successfully subscribed to "{{ subscription.product_name }}".</p>
+                                <a href="{% url 'home' %}" class="btn btn-secondary">Go to Homepage</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 d-none d-lg-block"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
