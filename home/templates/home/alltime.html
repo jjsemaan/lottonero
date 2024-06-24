@@ -26,51 +26,78 @@
 
 {% block content %}
 {% load custom_filters %}
+<div class="container">
+    <h1 class="text-center my-4">Lottonero's Alltime Winning Predictions</h1>
+    <p class="text-center">First launched on 10 May 2024</p>
+    <p class="text-center">
+        Total winning amount till date is <strong>€ {{ total_winning_amount }}</strong> !!!
+    </p>
+    <select id="num_draws" class="form-control mb-2 mr-sm-2" onchange="window.location.href='?num_draws=' + this.value;">
+        <option value="10" {% if request.GET.num_draws == '10' %}selected{% endif %}>10</option>
+        <option value="all" {% if request.GET.num_draws == 'all' %}selected{% endif %}>All</option>
+    </select>
+    
+    
+    <div id="predictions-container">
+        <!-- Predictions will be loaded here -->
+    
+    
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="text-center align-middle font-weight-bold">ID</th>
+                <th class="text-center align-middle font-weight-bold">Draw Date</th>
+                <th class="text-center align-middle font-weight-bold">Winning Balls</th>
+                <th class="text-center align-middle font-weight-bold">Match Type</th>
+                <th class="text-center align-middle font-weight-bold">€</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for prediction_info in alltime_winning_predictions %}
+            <tr class="table-balls">
+                <td class="text-center align-middle">{{ prediction_info.prediction.id }}</td>
+                <td class="text-center align-middle">{{ prediction_info.prediction.draw_date }}</td>
+                <td class="text-center align-middle">
+                    <img src="{{ prediction_info.pred_ball_1_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_1 }}">
+                    <img src="{{ prediction_info.pred_ball_2_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_2 }}">
+                    <img src="{{ prediction_info.pred_ball_3_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_3 }}">
+                    <img src="{{ prediction_info.pred_ball_4_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_4 }}">
+                    <img src="{{ prediction_info.pred_ball_5_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_5 }}">
+                    <img src="{{ prediction_info.pred_lucky_1_image }}" alt="Lucky Star {{ prediction_info.prediction.pred_lucky_1 }}">
+                    <img src="{{ prediction_info.pred_lucky_2_image }}" alt="Lucky Star {{ prediction_info.prediction.pred_lucky_2 }}">
+                </td>
+                <td class="text-center align-middle">{{ prediction_info.prediction.match_type }}</td>
+                <td class="text-center align-middle">{{ prediction_info.prediction.win_amount }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+<script>
+function loadPredictions() {
+    const limit = document.getElementById('prediction-dropdown').value;
+    const url = `/alltime/?limit=${limit}`;  // Adjusted to the correct endpoint
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Alltime Winning Predictions</title>
-</head>
-<body>
-    <div class="container">
-        <h1 class="text-center my-4">Lottonero's Alltime Winning Predictions</h1>
-        <p class="text-center">First launched on 10 May 2024</p>
-        <p class="text-center">
-            Total winning amount till date is <strong>€ {{ total_winning_amount }}</strong> !!!
-        </p>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th class="text-center align-middle font-weight-bold">ID</th>
-                    <th class="text-center align-middle font-weight-bold">Draw Date</th>
-                    <th class="text-center align-middle font-weight-bold">Winning Balls</th>
-                    <th class="text-center align-middle font-weight-bold">Match Type</th>
-                    <th class="text-center align-middle font-weight-bold">€</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for prediction_info in alltime_winning_predictions %}
-                <tr class="table-balls">
-                    <td class="text-center align-middle">{{ prediction_info.prediction.id }}</td>
-                    <td class="text-center align-middle">{{ prediction_info.prediction.draw_date }}</td>
-                    <td class="text-center align-middle">
-                        <img src="{{ prediction_info.pred_ball_1_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_1 }}">
-                        <img src="{{ prediction_info.pred_ball_2_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_2 }}">
-                        <img src="{{ prediction_info.pred_ball_3_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_3 }}">
-                        <img src="{{ prediction_info.pred_ball_4_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_4 }}">
-                        <img src="{{ prediction_info.pred_ball_5_image }}" alt="Ball {{ prediction_info.prediction.pred_ball_5 }}">
-                        <img src="{{ prediction_info.pred_lucky_1_image }}" alt="Lucky Star {{ prediction_info.prediction.pred_lucky_1 }}">
-                        <img src="{{ prediction_info.pred_lucky_2_image }}" alt="Lucky Star {{ prediction_info.prediction.pred_lucky_2 }}">
-                    </td>
-                    <td class="text-center align-middle">{{ prediction_info.prediction.match_type }}</td>
-                    <td class="text-center align-middle">{{ prediction_info.prediction.win_amount }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</body>
-</html>
+    fetch(url, {
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    }).then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok: ' + response.statusText);
+        }
+        return response.json();
+    })
+    .then(data => {
+        document.getElementById('predictions-container').innerHTML = data.html;
+    })
+    .catch(error => {
+        console.error('Error loading the data:', error);
+        alert('Failed to load data: ' + error.message);
+    });
+}
 
+</script>
 {% endblock %}
