@@ -12,9 +12,10 @@
                     <div class="row mb-4">
                         <div class="col-lg-2 d-none d-lg-block"></div>
                         <div class="col-lg-8">
-                            <div class="p-5 text-center">
-                                <h1 class="h4 text-gray-900 mb-4 text-dark font-weight-bold">Congratulations!</h1>
-                                <p class="text-black">Your subscription has succeeded. "{{ product }}"</p>
+                            <div class="p-5 text-center text-dark">
+                                <h1>Congratulations!</h1>
+                                <p>You are now signed up for</p>
+                                <p><strong>{{ product_name }}.</strong>!</p>
                                 <a href="{% url 'home' %}" class="btn btn-secondary">Go to Homepage</a>
                             </div>
                         </div>
