@@ -13,10 +13,12 @@
 {% endblock %}
 
 {% block header_content %}
-<div class="my-3 pt-5 pb-5 justify-content-center">
+<div class="my-3 pt-5 pb-5 justify-content-center header-font">
   <h1 class="header-font">AI Lotto Predictions</h1>
   <h1 class="header-font">for EuroMillions</h1>
-  <h2 class="header-font">Alltime hits € {{ total_combined_winning_amount }} !!!</h2>
+  <h2 class="header-font">Alltime hits</h2>
+  <h1 class="header-font">€ {{ total_combined_winning_amount }} !!!</h1>
+  <p class="small-text">(Launched in May 2024)</p>
   {% if user.is_authenticated %}
   <a href="{% url 'pricing_page' %}" class="btn btn-lg header-button-font rounded-pill text-uppercase mt-3">Subscribe
     Now!</a>
@@ -48,40 +50,44 @@
   </div>
   <p>{{ latest_result.prize_breakdown }}</p>
 </div>
+<br>
 <div class="container-fluid">
-  <div class="row">
+  <div class="row no-gutters">
     <div class="col-md-3 text-center">
       {% if user.is_authenticated %}
       <h3>
-        <a href="{% url 'predictions' %}" class="btn btn-light btn-block"
+        <a href="{% url 'predictions' %}" class="btn btn-dark btn-block"
           style="padding: 10px 30px; margin-right: 10px;">Clich here for next draw predictions of our AI
           Patterns</a>
       </h3>
       {% else %}
       <h3>
-        <a href="{% url 'account_login' %}" class="btn btn-light btn-block"
+        <a href="{% url 'account_login' %}" class="btn btn-dark btn-block"
           style="padding: 10px 30px; margin-right: 10px;">Clich here for next draw predictions of our AI
           Patterns</a>
       </h3>
       {% endif %}
     </div>
-    <div class="col-md-6 text-center">
-      <h2 class="text-dark">Latest Winning Predictions from</h2>
-      <h2 class="text-dark">AI Patterns</h2>
+    <div class="col-md-6 text-center text-dark px-2">
+      <h2>Latest Winning Predictions from</h2>
+      <h2>AI Patterns</h2>
     </div>
     <div class="col-md-3 text-center">
       {% if user.is_authenticated %}
       <h3>
-        <a href="{% url 'alltime_predictions' %}" class="btn btn-light btn-block" style="padding: 10px 30px;">Clich here
+        <a href="{% url 'alltime_predictions' %}" class="btn btn-dark btn-block" style="padding: 10px 30px;">Clich here
           to see alltime winning predictions of our AI Patterns</a>
       </h3>
       {% else %}
       <h3>
-        <a href="{% url 'account_login' %}" class="btn btn-light btn-block" style="padding: 10px 30px;">Clich here to
+        <a href="{% url 'account_login' %}" class="btn btn-dark btn-block" style="padding: 10px 30px;">Clich here to
           see alltime winning predictions of our AI Patterns</a>
       </h3>
       {% endif %}
     </div>
+    </div>
+  </div>
+    <br>
     {% if latest_predictions %}
     <table class="table text-dark">
       <thead>
@@ -114,48 +120,46 @@
         </tr>
         {% endfor %}
       </tbody>
-
       {% else %}
       <p>No winning predictions for the above draw.</p>
       {% endif %}
     </table>
-
-  </div>
-  <div class="row mt-5">
-    <div class="row">
+  <br>
+    <div class="row no-gutters">
       <div class="col-md-3 text-center">
         {% if user.is_authenticated %}
         <h3>
-          <a href="{% url 'display_combination_predictions' %}" class="btn btn-light btn-block"
+          <a href="{% url 'display_combination_predictions' %}" class="btn btn-dark btn-block"
             style="padding: 10px 30px; margin-right: 10px;">Clich here for next draw predictions of our
             Combinations</a>
         </h3>
         {% else %}
         <h3>
-          <a href="{% url 'account_login' %}" class="btn btn-light btn-block"
+          <a href="{% url 'account_login' %}" class="btn btn-dark btn-block"
             style="padding: 10px 30px; margin-right: 10px;">Clich here for next draw predictions of our 
             Combinations</a>
         </h3>
         {% endif %}
       </div>
-      <div class="col-md-6 text-center">
-        <h2 class="text-dark">Latest Winning Predictions from</h2>
-        <h2 class="text-dark">Combinations</h2>
+      <div class="col-md-6 text-center text-dark px-2">
+        <h2>Latest Winning Predictions from</h2>
+        <h2>Combinations</h2>
       </div>
       <div class="col-md-3 text-center">
         {% if user.is_authenticated %}
         <h3>
-          <a href="{% url 'alltime_shuffled_predictions' %}" class="btn btn-light btn-block" style="padding: 10px 30px;">Clich
+          <a href="{% url 'alltime_shuffled_predictions' %}" class="btn btn-dark btn-block" style="padding: 10px 30px;">Clich
             here to see alltime winning predictions of our Combinations</a>
         </h3>
         {% else %}
         <h3>
-          <a href="{% url 'account_login' %}" class="btn btn-light btn-block" style="padding: 10px 30px;">Clich here to
+          <a href="{% url 'account_login' %}" class="btn btn-dark btn-block" style="padding: 10px 30px;">Clich here to
             see alltime winning predictions of our AI Combinations</a>
         </h3>
         {% endif %}
       </div>
     </div>
+    <br>
     {% if latest_shuffled_predictions %}
     <table class="table text-dark">
       <thead>
@@ -192,7 +196,7 @@
     {% else %}
     <p>No winning combination predictions for the above draw.</p>
     {% endif %}
-  </div>
+  
 </div>
 </div>
 {% endblock %}
