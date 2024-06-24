@@ -472,21 +472,31 @@ def format_numbers(numbers):
 
 def latest_shuffled_predictions_with_matches(request):
     """
-    A view to update the latest shuffled predictions with matching results against the latest EuroMillions draw.
+    A view to update the latest shuffled predictions with matching results against the latest EuroMillions draw,
+    ensuring updates are only made if the prediction date is today.
 
     Args:
         request: The HTTP request object.
 
     Returns:
-        HttpResponse: A simple text response indicating whether the match results were updated or if
-        the endpoint was accessed with a non-POST request.
+        redirect: Redirects to the previous page with appropriate messages depending on the action outcome.
     """
 
     if request.method == "POST":
-        latest_result = EuroMillionsResult.objects.latest("id")
-        latest_date = ShuffledPrediction.objects.aggregate(
+        latest_date_query = ShuffledPrediction.objects.aggregate(
             latest_date=Max("prediction_date")
-        )["latest_date"]
+        )
+        latest_date_str = latest_date_query["latest_date"]
+
+        # Convert latest_date from string to date object
+        latest_date = datetime.strptime(latest_date_str, "%Y/%m/%d").date()
+
+        # Check if latest_date is today's date
+        if latest_date != datetime.today().date():
+            messages.error(request, "Winning predicted combinations already checked!")
+            return redirect(request.META.get('HTTP_REFERER', '/'))
+
+        latest_result = EuroMillionsResult.objects.latest("id")
         latest_predictions = ShuffledPrediction.objects.filter(
             prediction_date=latest_date
         )
@@ -516,9 +526,7 @@ def latest_shuffled_predictions_with_matches(request):
             }
 
             common_numbers = prediction_numbers & draw_numbers
-            common_lucky_numbers = (
-                prediction_lucky_numbers & draw_lucky_numbers
-            )
+            common_lucky_numbers = prediction_lucky_numbers & draw_lucky_numbers
 
             # Determine the match type
             match_info = determine_match_type(
@@ -529,16 +537,15 @@ def latest_shuffled_predictions_with_matches(request):
             if match_info:
                 prediction.match_type = match_info
                 prediction.winning_balls = format_numbers(common_numbers)
-                prediction.winning_lucky_stars = format_numbers(
-                    common_lucky_numbers
-                )
+                prediction.winning_lucky_stars = format_numbers(common_lucky_numbers)
                 prediction.save()
 
-        return HttpResponse(
-            "Match results updated. Check the database for details."
-        )
+        messages.success(request, "Match results updated. Check the database for details.")
     else:
-        return HttpResponse("This endpoint only accepts POST requests.")
+        messages.error(request, "This endpoint only accepts POST requests.")
+    
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
 
 def determine_match_type(num_common_numbers, num_common_lucky_numbers):
     match_cases = {
