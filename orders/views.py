@@ -13,6 +13,8 @@ from djstripe.models import (
 )
 from .models import Subscription
 from django.core.mail import send_mail, EmailMessage
+from django.db.models import Sum
+from predictions.models import Prediction, ShuffledPrediction
 import stripe
 
 
@@ -278,7 +280,6 @@ def cancel_subscription_view(request, subscription_id):
                 request, "Your subscription has been successfully cancelled."
             )
 
-            # Prepare the email message
             subject = "Subscription Cancelled!"
             html_content = f"""
             <html>
@@ -300,17 +301,15 @@ def cancel_subscription_view(request, subscription_id):
             recipient_list = [request.user.email]
             bcc = ["admin@lottonero.com"]
 
-            # Create EmailMessage object
             email = EmailMessage(
                 subject, html_content, from_email, recipient_list, bcc=bcc
             )
-            email.content_subtype = "html"  # Specify the subtype as HTML
+            email.content_subtype = "html"
             email.send(fail_silently=False)
 
             return redirect(
                 "user_profile:profile_view"
-            )  # Assuming this is correctly named and namespaced
+            )
 
-    # If it's not a POST request or no confirmation, show the confirmation page
     context = {"subscription": subscription}
     return render(request, "confirm_cancel/confirm_cancel.html", context)

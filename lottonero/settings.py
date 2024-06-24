@@ -120,6 +120,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
                 'predictions.context_processors.subscription_access',
+                'predictions.context_processors.total_winning_amount',
                 'lottery_stats.context_processors.subscription_access',
             ],
              'builtins': [

@@ -24,9 +24,9 @@
 {% block header_content %}
 <div class="masthead-content">
   <h2>Increase odds of winning by over 25%</h2>
-  <h4>Our total wins till date are € 2,599 {{ total_wins_till_date }}</h4>
-  <h2>{{ latest_result.jackpot }}</h2>
-  <p>Select from a variety a variety of subscriptions to suit your playing needs!</p>
+  <h3>Our total predicted wins till date are</h3>
+  <h1 class="text-warning"> € {{ total_combined_winning_amount|floatformat:"0.00" }}</h1>
+  <p>Select from a variety a variety of subscriptions to suit your playing strategy!</p>
 </div>
 {% endblock %}
 
