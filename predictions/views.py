@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -130,6 +131,15 @@ def display_predictions(request):
 def backoffice(request):
     return render(request, "backoffice/backoffice.html")
 
+from sklearn.model_selection import train_test_split 
+from sklearn.ensemble import RandomForestClassifier 
+import numpy as np 
+import pandas as pd 
+from django.views.decorators.csrf import csrf_protect 
+from django.utils import timezone 
+from django.http import HttpResponseBadRequest, HttpResponseServerError
+import datetime
+from scraping.models import EuroMillionsResult
 
 @admin_required
 @csrf_protect
@@ -163,88 +173,56 @@ def train_classifier(request):
     4. Handles errors by returning appropriate HTTP responses.
     """
 
-    if request.method == "POST":
-        draw_date = request.POST.get("draw_date")
+    if request.method == 'POST':
+        draw_date = request.POST.get('draw_date')
 
         if not draw_date:
             return HttpResponseBadRequest("Draw date is required.")
 
+        # Convert the draw_date to YYYY/MM/DD format
         try:
-            draw_date_obj = datetime.datetime.strptime(draw_date, "%Y-%m-%d")
-            draw_date_str = draw_date_obj.strftime("%Y/%m/%d")
+            draw_date_obj = datetime.datetime.strptime(draw_date, '%Y-%m-%d')
+            draw_date_str = draw_date_obj.strftime('%Y/%m/%d')
         except ValueError:
             return HttpResponseBadRequest("Invalid date format.")
 
+        # Check if predictions for this draw date already exist
         if Prediction.objects.filter(draw_date=draw_date_str).exists():
-            return render(
-                request,
-                "backoffice/predictions_exist.html",
-                {"message": "Predictions for this draw date already exist."},
-            )
+            return render(request, 'backoffice/predictions_exist.html', {"message": "Predictions for this draw date already exist."})
 
         try:
-            last_scraped_result = EuroMillionsResult.objects.order_by(
-                "-draw_date"
-            ).first()
-            today_str = timezone.now().strftime("%Y/%m/%d")
-
+            # Verify the last scraped draw_date
+            last_scraped_result = EuroMillionsResult.objects.order_by('-draw_date').first()
+            today_str = timezone.now().strftime('%Y/%m/%d')
+            
             if not last_scraped_result:
-                return render(
-                    request,
-                    "backoffice/scrape_first.html",
-                    {"message": "Please scrape the latest results first."},
-                )
-
+                return render(request, 'backoffice/scrape_first.html', {"message": "Please scrape the latest results first."})
+            
+            # Convert last_scraped_result.draw_date to datetime if it's a string
             if isinstance(last_scraped_result.draw_date, str):
-                last_scraped_date = datetime.datetime.strptime(
-                    last_scraped_result.draw_date, "%Y/%m/%d"
-                )
+                last_scraped_date = datetime.datetime.strptime(last_scraped_result.draw_date, '%Y/%m/%d')
             else:
                 last_scraped_date = last_scraped_result.draw_date
-            # Strictly predict on same day as scraped
-            if last_scraped_date.strftime("%Y/%m/%d") != today_str:
-                return render(
-                    request,
-                    "backoffice/scrape_first.html",
-                    {"message": "Please scrape the latest results first."},
-                )
+            # Strictly predict on same day as scraped 
+            if last_scraped_date.strftime('%Y/%m/%d') != today_str:
+                return render(request, 'backoffice/scrape_first.html', {"message": "Please scrape the latest results first."})
 
-            data = EuroMillionsResult.objects.values(
-                "ball_1",
-                "ball_2",
-                "ball_3",
-                "ball_4",
-                "ball_5",
-                "lucky_star_1",
-                "lucky_star_2",
-            )
+            data = EuroMillionsResult.objects.values('ball_1', 'ball_2', 'ball_3', 'ball_4', 'ball_5', 'lucky_star_1', 'lucky_star_2')
             df = pd.DataFrame(list(data))
 
-            X = df.drop(["lucky_star_1", "lucky_star_2"], axis=1)
-            y_balls = df[["ball_1", "ball_2", "ball_3", "ball_4", "ball_5"]]
-            y_lucky = df[["lucky_star_1", "lucky_star_2"]]
+            X = df.drop(['lucky_star_1', 'lucky_star_2'], axis=1)
+            y_balls = df[['ball_1', 'ball_2', 'ball_3', 'ball_4', 'ball_5']]
+            y_lucky = df[['lucky_star_1', 'lucky_star_2']]
 
             X_arr = X.values
             y_balls_arr = y_balls.values
             y_lucky_arr = y_lucky.values
 
-            X_train_balls, X_test_balls, y_train_balls, y_test_balls = (
-                train_test_split(
-                    X_arr, y_balls_arr, test_size=0.3, random_state=42
-                )
-            )
-            X_train_lucky, X_test_lucky, y_train_lucky, y_test_lucky = (
-                train_test_split(
-                    X_arr, y_lucky_arr, test_size=0.3, random_state=42
-                )
-            )
+            X_train_balls, X_test_balls, y_train_balls, y_test_balls = train_test_split(X_arr, y_balls_arr, test_size=0.3, random_state=42)
+            X_train_lucky, X_test_lucky, y_train_lucky, y_test_lucky = train_test_split(X_arr, y_lucky_arr, test_size=0.3, random_state=42)
 
-            rf_classifier_balls = RandomForestClassifier(
-                n_estimators=100, random_state=42
-            )
-            rf_classifier_lucky = RandomForestClassifier(
-                n_estimators=100, random_state=42
-            )
+            rf_classifier_balls = RandomForestClassifier(n_estimators=100, random_state=42)
+            rf_classifier_lucky = RandomForestClassifier(n_estimators=100, random_state=42)
             rf_classifier_balls.fit(X_train_balls, y_train_balls)
             rf_classifier_lucky.fit(X_train_lucky, y_train_lucky)
 
@@ -252,7 +230,8 @@ def train_classifier(request):
             unique_full_sets = set()
             predictions = []
 
-            for _ in range(100):
+            # Generate predictions ensuring all are unique
+            for _ in range(100):  # Limit to a reasonable number of attempts
                 if len(predictions) >= len(X_test_balls):
                     break
                 y_pred_balls = rf_classifier_balls.predict(X_test_balls)
@@ -264,10 +243,7 @@ def train_classifier(request):
                         lucky_set = tuple(sorted(lucky_pred))
                         full_set = ball_set + lucky_set
 
-                        if (
-                            ball_set not in unique_balls_sets
-                            and full_set not in unique_full_sets
-                        ):
+                        if ball_set not in unique_balls_sets and full_set not in unique_full_sets:
                             unique_balls_sets.add(ball_set)
                             unique_full_sets.add(full_set)
                             prediction = Prediction(
@@ -279,22 +255,18 @@ def train_classifier(request):
                                 pred_ball_4=ball_pred[3],
                                 pred_ball_5=ball_pred[4],
                                 pred_lucky_1=lucky_pred[0],
-                                pred_lucky_2=lucky_pred[1],
+                                pred_lucky_2=lucky_pred[1]
                             )
                             prediction.save()
                             predictions.append(prediction)
 
-            return render(
-                request,
-                "backoffice/new_predictions.html",
-                {"message": "New predictions added to the database."},
-            )
+            return render(request, 'backoffice/new_predictions.html', {"message": "New predictions added to the database."})
 
         except Exception as e:
             return HttpResponseServerError(f"An error occurred: {e}")
 
     else:
-        return render(request, "backoffice/backoffice.html")
+        return render(request, 'backoffice/backoffice.html')
 
 
 @admin_required
@@ -379,34 +351,41 @@ def get_image_url(name):
 @csrf_protect
 def generate_shuffled_predictions(request):
     """
-    A view to generate shuffled predictions based on the latest predictions.
-
-    This view handles POST requests to generate a set number of shuffled predictions from the latest set of predictions.
-    It fetches the latest predictions, extracts the unique balls and lucky stars, and generates new shuffled predictions
-    by randomly selecting and shuffling these numbers. Each unique combination of balls and lucky stars is saved as a
-    new ShuffledPrediction. A success message is added upon completion.
+    A view to generate shuffled predictions based on the latest predictions, only on the current date and only once per day.
 
     Args:
         request: The HTTP request object.
 
     Returns:
-        HttpResponse: Renders the 'backoffice/backoffice.html' template with a success message if predictions
-        were successfully generated, or an error message if no predictions were found.
+        redirect: Redirects to the previous page with appropriate messages depending on the action outcome.
     """
+
     if request.method == "POST":
-        latest_prediction_date = Prediction.objects.aggregate(
+        latest_date_query = Prediction.objects.aggregate(
             Max("prediction_date")
-        )["prediction_date__max"]
-        if not latest_prediction_date:
-            return HttpResponseBadRequest("No predictions found.")
+        )
+        latest_date_str = latest_date_query["prediction_date__max"]
+
+        if not latest_date_str:
+            messages.error(request, "No predictions found.")
+            return redirect(request.META.get('HTTP_REFERER', '/'))
+
+        latest_date = datetime.strptime(latest_date_str, "%Y/%m/%d").date()
+
+        if latest_date != datetime.today().date():
+            messages.error(request, "You can only generate shuffled predictions for today's date.")
+            return redirect(request.META.get('HTTP_REFERER', '/'))
+
+        if ShuffledPrediction.objects.filter(prediction_date=latest_date).exists():
+            messages.error(request, "Shuffled predictions have already been generated.")
+            return redirect(request.META.get('HTTP_REFERER', '/'))
 
         latest_predictions = Prediction.objects.filter(
-            prediction_date=latest_prediction_date
+            prediction_date=latest_date_str
         )
         if not latest_predictions.exists():
-            return HttpResponseBadRequest(
-                "No predictions found for the latest date."
-            )
+            messages.error(request, "No predictions found to proceed with combinations.")
+            return redirect(request.META.get('HTTP_REFERER', '/'))
 
         unique_combinations = set()
         shuffled_predictions = []
@@ -431,7 +410,7 @@ def generate_shuffled_predictions(request):
         all_balls = list(all_balls)
         all_lucky_stars = list(all_lucky_stars)
 
-        while len(shuffled_predictions) < 50:
+        while len(shuffled_predictions) < 50 and len(unique_combinations) < 50:
             new_balls = sorted(random.sample(all_balls, 5))
             new_lucky_stars = sorted(random.sample(all_lucky_stars, 2))
 
@@ -442,7 +421,7 @@ def generate_shuffled_predictions(request):
             if full_set not in unique_combinations:
                 unique_combinations.add(full_set)
                 shuffled_prediction = ShuffledPrediction(
-                    prediction_date=latest_prediction_date,
+                    prediction_date=latest_date_str,
                     draw_date=latest_predictions.first().draw_date,
                     pred_ball_1=new_balls[0],
                     pred_ball_2=new_balls[1],
@@ -455,15 +434,11 @@ def generate_shuffled_predictions(request):
                 shuffled_prediction.save()
                 shuffled_predictions.append(shuffled_prediction)
 
-        storage = messages.get_messages(request)
-        storage.used = True
-        messages.success(
-            request, "Shuffled predictions generated successfully!"
-        )
-
-        return render(request, "backoffice/backoffice.html")
+        messages.success(request, "Combinations generated successfully!")
+        return redirect(request.META.get('HTTP_REFERER', '/'))
     else:
-        return render(request, "backoffice/backoffice.html")
+        messages.info(request, "This endpoint only accepts POST requests.")
+        return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
 def display_combination_predictions(request):
