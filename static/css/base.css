@@ -197,8 +197,8 @@ h4.text-center > a.predict-button {
     position: relative;
 }
 
-/* ---------------------------------------Resolve overflow issue */
-/* -----------------Target dropdown by aria-labelledby attribute */
+/* Resolve overflow issue */
+/* Target dropdown by aria-labelledby attribute */
 .dropdown-menu[aria-labelledby="user-options"] {
     min-width: 4rem;
     max-width: 5rem;

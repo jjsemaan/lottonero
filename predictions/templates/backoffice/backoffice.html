@@ -14,112 +14,110 @@
                         <div class="col-lg-8 pt-5">
                             <div class="text-left">
                                 <h1 class="h4 text-gray-900 mb-4 text-black">Admin Backoffice</h1>
-                                    {% if user.is_authenticated and user.is_staff %}
-                                    <table class="table text-dark">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col" class="font-weight-bold">No.</th>
-                                                <th scope="col" class="font-weight-bold">Command</th>
-                                                <th scope="col" class="font-weight-bold">Execute</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>
-                                                    <form method="post" action="{% url 'scraping:run_scrape_euromillions' %}">
-                                                        {% csrf_token %}
-                                                        Scrape EuroMillions Results
-                                                        <p class="small-text">Strictly predict on the same day as scraped!!!</p>
-                                                </td>
-                                                <td>
-                                                    <button type="submit" class="btn btn-primary btn-block"
-                                                        name="train" value="Start Training">Execute</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>
-                                                    <form method="post" action="{% url 'latest_predictions_with_matches' %}">
-                                                        {% csrf_token %}
-                                                        Check Winning Predicted Patterns
-                                                </td>
-                                                <td>
-                                                    <button type="submit" class="btn btn-primary btn-block"
-                                                        name="check_predictions" value="Check Predictions">Execute</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>
-                                                    <form method="post" action="{% url 'latest_shuffled_predictions_with_matches' %}">
-                                                        {% csrf_token %}
-                                                        Check Winning Predicted Combinations
-                                                </td>
-                                                <td>
-                                                    <button type="submit" class="btn btn-primary btn-block"
-                                                        name="check_predictions" value="Check Predictions">Execute</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>
-                                                    <form id="predictionForm" action="{% url 'train_classifier' %}" method="post">
-                                                        {% csrf_token %}
-                                                        <div class="form-group">
-                                                            <label for="draw_date">Select draw date to run predictions:</label>
-                                                            <input type="date" id="draw_date" name="draw_date" class="form-control" required>
-                                                        </div>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <button type="submit" class="btn btn-primary btn-block" name="train" value="Start Training">Execute</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>
-                                                    Generate Predictions from Combinations
-                                                    <form method="POST" action="{% url 'generate_shuffled_predictions' %}">
-                                                        {% csrf_token %}
-                                                </td>
-                                                <td>
-                                                    <button type="submit" class="btn btn-primary btn-block">Execute</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <td>
-                                                    <form method="post" action="{% url 'upload_image' %}" enctype="multipart/form-data">
-                                                        {% csrf_token %}
-                                                        {{ form.as_p }}
-                                                        Upload Images to Cloudinary
-                                                </td>
-                                                <td>
-                                                    <button type="submit" class="btn btn-dark btn-block">Upload</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    {% else %}
-                                    <p class="text-center">You must be an admin to perform these actions.</p>
-                                    {% endif %}
-                        
-                                    <!-- Toast Messages -->
-                                    {% if messages %}
-                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                        {% for message in messages %}
-                                            {{ message }}
-                                        {% endfor %}
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                    </div>
-                                    {% endif %}
-                                
+                                {% if user.is_authenticated and user.is_staff %}
+                                <table class="table text-dark">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="font-weight-bold">No.</th>
+                                            <th scope="col" class="font-weight-bold">Command</th>
+                                            <th scope="col" class="font-weight-bold">Execute</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>
+                                                <form method="post"
+                                                    action="{% url 'scraping:run_scrape_euromillions' %}">
+                                                    {% csrf_token %}
+                                                    Scrape EuroMillions Results
+                                                    <p class="small-text">Strictly predict on the same day as scraped!!!
+                                                    </p>
+                                            </td>
+                                            <td>
+                                                <button type="submit" class="btn btn-primary btn-block" name="train"
+                                                    value="Start Training">Execute</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>
+                                                <form method="post"
+                                                    action="{% url 'latest_predictions_with_matches' %}">
+                                                    {% csrf_token %}
+                                                    Check Winning Predicted Patterns
+                                            </td>
+                                            <td>
+                                                <button type="submit" class="btn btn-primary btn-block"
+                                                    name="check_predictions" value="Check Predictions">Execute</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>
+                                                <form method="post"
+                                                    action="{% url 'latest_shuffled_predictions_with_matches' %}">
+                                                    {% csrf_token %}
+                                                    Check Winning Predicted Combinations
+                                            </td>
+                                            <td>
+                                                <button type="submit" class="btn btn-primary btn-block"
+                                                    name="check_predictions" value="Check Predictions">Execute</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>
+                                                <form id="predictionForm" action="{% url 'train_classifier' %}"
+                                                    method="post">
+                                                    {% csrf_token %}
+                                                    <div class="form-group">
+                                                        <label for="draw_date">Select draw date to run
+                                                            predictions:</label>
+                                                        <input type="date" id="draw_date" name="draw_date"
+                                                            class="form-control" required>
+                                                    </div>
+                                            </td>
+                                            <td class="align-middle">
+                                                <button type="submit" class="btn btn-primary btn-block" name="train"
+                                                    value="Start Training">Execute</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>
+                                                Generate Predictions from Combinations
+                                                <form method="POST" action="{% url 'generate_shuffled_predictions' %}">
+                                                    {% csrf_token %}
+                                            </td>
+                                            <td>
+                                                <button type="submit" class="btn btn-primary btn-block">Execute</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td>
+                                                <form method="post" action="{% url 'upload_image' %}"
+                                                    enctype="multipart/form-data">
+                                                    {% csrf_token %}
+                                                    {{ form.as_p }}
+                                                    Upload Images to Cloudinary
+                                            </td>
+                                            <td>
+                                                <button type="submit" class="btn btn-dark btn-block">Upload</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                {% else %}
+                                <p class="text-center">You must be an admin to perform these actions.</p>
+                                {% endif %}
                             </div>
                         </div>
                         <div class="col-lg-2 d-none d-lg-block"></div>
