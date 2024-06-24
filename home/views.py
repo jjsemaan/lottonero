@@ -48,12 +48,10 @@ def index(request):
     # Combine total winning amounts
     total_combined_winning_amount = total_winning_amount_predictions + total_winning_amount_shuffled
 
-    # Get the latest prediction date with non-null match_type
     latest_date = Prediction.objects.filter(
         match_type__isnull=False
     ).aggregate(latest_date=Max("prediction_date"))["latest_date"]
 
-    # Fetch all predictions with the latest date and non-null match_type
     if latest_date:
         latest_predictions = Prediction.objects.filter(
             prediction_date=latest_date, match_type__isnull=False
@@ -144,12 +142,10 @@ def index(request):
             }
         )
 
-    # Get the latest shuffled prediction date with non-null match_type
     latest_shuffled_date = ShuffledPrediction.objects.filter(
         match_type__isnull=False
     ).aggregate(latest_date=Max("prediction_date"))["latest_date"]
 
-    # Fetch all shuffled predictions with the latest date and non-null match_type
     if latest_shuffled_date:
         latest_shuffled_predictions = ShuffledPrediction.objects.filter(
             prediction_date=latest_shuffled_date, match_type__isnull=False
@@ -534,7 +530,6 @@ def latest_shuffled_predictions_with_matches(request):
     else:
         return HttpResponse("This endpoint only accepts POST requests.")
 
-
 def determine_match_type(num_common_numbers, num_common_lucky_numbers):
     match_cases = {
         (5, 2): "Match 5 + 2",
@@ -551,9 +546,6 @@ def determine_match_type(num_common_numbers, num_common_lucky_numbers):
         (1, 2): "Match 1 + 2",
     }
     return match_cases.get((num_common_numbers, num_common_lucky_numbers))
-
-
-
 
 def alltime_winning_shuffled_predictions_view(request):
     """
@@ -617,9 +609,3 @@ def alltime_winning_shuffled_predictions_view(request):
     }
 
     return render(request, "home/alltime_shuffled.html", context)
-
-
-
-
-
-
