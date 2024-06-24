@@ -1,18 +1,36 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block nav_name %}Oops !{% endblock %}
+{% block nav_name %}500 !{% endblock %}
 
 {% block extra_css %} 
         <link rel="stylesheet" href="{% static 'css/error.css' %}">
 {% endblock %}
 
+{% block page_header %}
+<div class="container header-container pt-5 mt-5">
+    <div class="row pt-5 mt-3 no-gutters">
+        <div class="col">
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block header_content %}
+<div class="my-3 pt-5 pb-5 justify-content-center">
+    <h1 class="header-font">AI Lotto Statistics</h1>
+    <h1 class="header-font">for EuroMillions</h1>
+</div>
+{% endblock %}
+
 {% block content %}
-<!-- Message for 500 http response -->
-<div class="container wrapper d-flex justify-content-center align-items-center">
-    <div class="error-background add-shadow">
-        <h1 class="text-center">500 Internal Server Error - Lottonero.com</h1>
-        <p class="text-center">Oops! Something went wrong. Please try again later or return <a href="{% url 'home' %}" aria-label="Home">home</a>.</p> 
+<div class="container mb-5"></div>
+    <!-- Message for 500 http response -->
+    <div class="container wrapper d-flex justify-content-center align-items-center">
+        <div class="error-background add-shadow">
+            <h1 class="text-center">500 Internal Server Error - Lottonero.com</h1>
+            <p class="text-center">Oops! Something went wrong. Please try again later or return <a href="{% url 'home' %}" aria-label="Home">home</a>.</p> 
+        </div>
     </div>
 </div>
 {%endblock%}
