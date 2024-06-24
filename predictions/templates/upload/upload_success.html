@@ -1,13 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Success</title>
-</head>
-<body>
-    <h1>Upload Successful</h1>
-    <p>Your image has been uploaded successfully!</p>
-    <a href="{% url 'upload_image' %}">Upload Another Image</a>
-</body>
-</html>
+{% extends "account/base.html" %}
+{% load static %}
+
+{% block nav_name %}Upload Success{% endblock %}
+
+{% block header_content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-xl-10 col-lg-12 col-md-9">
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <div class="row mb-4">
+                        <div class="col-lg-2 d-none d-lg-block"></div>
+                        <div class="col-lg-8">
+                            <div class="p-5 text-center">
+                                <h1 class="h4 text-gray-900 mb-4 text-black">Upload Success</h1>
+                                <p class="text-black">Your image has been uploaded successfully.</p>
+                                <a href="{% url 'upload_image' %}" class="btn btn-primary mt-3">Upload Another Image</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 d-none d-lg-block"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

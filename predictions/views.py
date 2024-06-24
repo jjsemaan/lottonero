@@ -318,10 +318,10 @@ def upload_image(request):
                         existing_file.image = upload_result["secure_url"]
                         existing_file.save()
                         os.remove(temp_file_path)
+                        request.session.pop("temp_file_path")
                         messages.success(
                             request, f"File {file_name} was overwritten."
                         )
-                        request.session.pop("temp_file_path")
                         return redirect("upload_success")
         else:
             form = UploadImageForm(request.POST, request.FILES)
@@ -337,6 +337,10 @@ def upload_image(request):
                     confirmation_form = OverwriteConfirmationForm(
                         initial={"file_name": file_name}
                     )
+                    messages.error(
+                            request,
+                            f"File {file_name} already exists!",
+                        )
                     return render(
                         request,
                         "upload/confirm_overwrite.html",
