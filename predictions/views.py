@@ -347,6 +347,12 @@ def get_image_url(name):
     return image["image"] if image else None
 
 
+from datetime import datetime
+from django.contrib import messages
+from django.shortcuts import redirect
+from django.db.models import Max
+import random
+
 @admin_required
 @csrf_protect
 def generate_shuffled_predictions(request):
@@ -370,21 +376,24 @@ def generate_shuffled_predictions(request):
             messages.error(request, "No predictions found.")
             return redirect(request.META.get('HTTP_REFERER', '/'))
 
+        # Convert latest_date from string to date object
         latest_date = datetime.strptime(latest_date_str, "%Y/%m/%d").date()
 
+        # Check if latest_date is today's date
         if latest_date != datetime.today().date():
             messages.error(request, "You can only generate shuffled predictions for today's date.")
             return redirect(request.META.get('HTTP_REFERER', '/'))
 
+        # Check if shuffled predictions have already been generated today
         if ShuffledPrediction.objects.filter(prediction_date=latest_date).exists():
-            messages.error(request, "Shuffled predictions have already been generated.")
+            messages.error(request, "Shuffled predictions for today have already been generated.")
             return redirect(request.META.get('HTTP_REFERER', '/'))
 
         latest_predictions = Prediction.objects.filter(
             prediction_date=latest_date_str
         )
         if not latest_predictions.exists():
-            messages.error(request, "No predictions found to proceed with combinations.")
+            messages.error(request, "No predictions found for the latest date.")
             return redirect(request.META.get('HTTP_REFERER', '/'))
 
         unique_combinations = set()
@@ -434,11 +443,12 @@ def generate_shuffled_predictions(request):
                 shuffled_prediction.save()
                 shuffled_predictions.append(shuffled_prediction)
 
-        messages.success(request, "Combinations generated successfully!")
+        messages.success(request, "Shuffled predictions generated successfully!")
         return redirect(request.META.get('HTTP_REFERER', '/'))
     else:
         messages.info(request, "This endpoint only accepts POST requests.")
         return redirect(request.META.get('HTTP_REFERER', '/'))
+
 
 
 def display_combination_predictions(request):
