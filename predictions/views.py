@@ -175,7 +175,6 @@ def train_classifier(request):
         except ValueError:
             return HttpResponseBadRequest("Invalid date format.")
 
-        # Check if predictions for this draw date already exist
         if Prediction.objects.filter(draw_date=draw_date_str).exists():
             return render(
                 request,

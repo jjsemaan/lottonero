@@ -66,7 +66,7 @@ class ShuffledPrediction(models.Model):
     The model's __str__ method provides a string representation highlighting the prediction and match type.
     """
 
-    prediction_date = models.CharField(max_length=10)  # YYYY/MM/DD format
+    prediction_date = models.CharField(max_length=10)
     draw_date = models.CharField(max_length=10, null=True, blank=True)
     pred_ball_1 = models.IntegerField()
     pred_ball_2 = models.IntegerField()

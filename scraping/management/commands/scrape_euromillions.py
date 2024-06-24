@@ -32,7 +32,6 @@ class Command(BaseCommand):
         response = requests.get(url)
         soup = BeautifulSoup(response.content, "html.parser")
 
-        # Locate the section for EuroMillions results
         euromillions_section = soup.find(
             "h3", string=lambda text: "EuroMillions Results" in text
         )
@@ -43,11 +42,9 @@ class Command(BaseCommand):
             r"EuroMillions Results\s*for\s*", "", results_date
         )
 
-        # Parse and format the date
         date_object = datetime.strptime(results_date, "%a %d %B %Y")
         formatted_date = date_object.strftime("%Y/%m/%d")
 
-        # Check if the draw_date already exists in the database
         if EuroMillionsResult.objects.filter(
             draw_date=formatted_date
         ).exists():
@@ -56,7 +53,6 @@ class Command(BaseCommand):
             )
             return
 
-        # Extract the winning numbers and lucky stars
         draw_results = euromillions_section.find_next_sibling(
             "div", class_="draw-results"
         )
@@ -72,13 +68,11 @@ class Command(BaseCommand):
             int(li.get_text()) for li in lucky_stars_section.find_all("li")
         ]
 
-        # Extract jackpot details
         jackpot_details = draw_results.find("div", class_="jackpot").get_text(
             strip=True
         )
         prize_breakdown_paragraph = draw_results.find("p").get_text(strip=True)
 
-        # Save the result to the database
         result = EuroMillionsResult(
             draw_date=formatted_date,
             ball_1=winning_numbers[0],
@@ -93,7 +87,6 @@ class Command(BaseCommand):
         )
         result.save()
 
-        # Output results to console for confirmation
         self.stdout.write(f"Date: {formatted_date}")
         self.stdout.write(f"Winning Numbers: {winning_numbers}")
         self.stdout.write(f"Lucky Stars: {lucky_stars}")

@@ -32,5 +32,4 @@ class EuroMillionsResultAdmin(admin.ModelAdmin):
     search_fields = ("draw_date",)
 
 
-# Register your models here.
 admin.site.register(EuroMillionsResult, EuroMillionsResultAdmin)

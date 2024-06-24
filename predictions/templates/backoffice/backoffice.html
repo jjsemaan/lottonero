@@ -30,6 +30,7 @@
                                                     <form method="post" action="{% url 'scraping:run_scrape_euromillions' %}">
                                                         {% csrf_token %}
                                                         Scrape EuroMillions Results
+                                                        <p class="small-text">Strictly predict on the same day as scraped!!!</p>
                                                 </td>
                                                 <td>
                                                     <button type="submit" class="btn btn-primary btn-block"
