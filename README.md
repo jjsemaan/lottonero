@@ -210,17 +210,17 @@ After deciding on the strategy (refer to below strategy diagram), the scope plan
 
 ### **3.3.1. Site Maps**
 
-The following site-maps show how the site is structured to **Logged in user** *( Appendix 2 )* ,**Not logged in user** *( Appendix 3 )* and **Site Admin** *( Appendix 3 )*.
+The following site-maps show how the site is structured to **Logged in user** *( Appendix 1 )* ,**Not logged in user** *( Appendix 2 )* and **Site Admin** *( Appendix 3 )*.
 
-*Appendix 2 - Site Map - Logged In*
+*Appendix 1 - Site Map - Logged In*
 
 ![Site Map - Logged In](/docs/sitemap-logedin.png)
 
-*Appendix 3 - Site Map - Not Logged In*
+*Appendix 2 - Site Map - Not Logged In*
 
 ![Site Map - Not Logged In](/docs/sitemap-logedout.png)
 
-*Appendix 4 - Site Map - Site Admin*
+*Appendix 3 - Site Map - Site Admin*
 
 ![Site Map - Not Logged In](/docs/sitemap-admin.png)
 

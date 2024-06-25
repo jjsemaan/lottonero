@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /accounts/
+Disallow: /admin/
+Disallow: /user_profile/ 
+Sitemap: https://lottonero-e7dc9a7038d2.herokuapp.com/sitemap.xml
