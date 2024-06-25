@@ -77,17 +77,10 @@
       <h2>AI Patterns</h2>
     </div>
     <div class="col-md-3 text-center">
-      {% if user.is_authenticated %}
       <h3>
         <a href="{% url 'alltime_predictions' %}" class="btn btn-dark btn-block" style="padding: 10px 30px;">Clich here
           to see alltime winning predictions of our AI Patterns</a>
       </h3>
-      {% else %}
-      <h3>
-        <a href="{% url 'account_login' %}" class="btn btn-dark btn-block" style="padding: 10px 30px;">Clich here to
-          see alltime winning predictions of our AI Patterns</a>
-      </h3>
-      {% endif %}
     </div>
     </div>
   </div>
@@ -150,18 +143,10 @@
         <h2>Combinations</h2>
       </div>
       <div class="col-md-3 text-center">
-        {% if user.is_authenticated %}
         <h3>
           <a href="{% url 'alltime_shuffled_predictions' %}" class="btn btn-dark btn-block" style="padding: 10px 30px;">Clich
             here to see alltime winning predictions of our Combinations</a>
         </h3>
-        {% else %}
-        <h3>
-          <a href="{% url 'account_login' %}" class="btn btn-dark btn-block" style="padding: 10px 30px;">Clich here to
-            see alltime winning predictions of our AI Combinations</a>
-        </h3>
-        {% endif %}
-      </div>
     </div>
     <br>
     {% if latest_shuffled_predictions %}
