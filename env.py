@@ -44,7 +44,3 @@ os.environ['JAZZMIN_SITE_HEADER'] = 'Lottonero Admin'
 
 # Automate the DEBUG setting
 DEBUG = 'DEVELOPMENT'
-
-# You can add more environment variables here as needed
-# "postgresql://retool:5Pq4KfdgJQSI@ep-frosty-dew-a65kykh4.us-west-2.retooldb.com/retool?sslmode=require"
-# "(%yncfp82@n31)fys7fm!5!c6tv&kktngz8"
