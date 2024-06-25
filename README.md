@@ -99,9 +99,32 @@
 
 The target audience are individuals or groups with personal interest in the EuroMillios Lottery seeking inspiration and understanding on how jackpot randomisation works. 
 
-- Ideal user likes Euromillions
+- Ideal user likes EuroMillions
 - Ideal user seeking credible predictice sources
 - Ideal user seeking credible statistics
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+### **3.1.3 Site Goals**
+
+- Offer users ability understand EuroMillions trends
+- Offer users ability to find predictions to play externally
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+### **3.1.4 Epics**
+
+As a thought process of the strategy plane, 14 epics were created and utilized. Please see below the detail list of epics with links, or a link to the project's [Kanban Board](https://github.com/users/tomik-z-cech/projects/4/views/1) *(Appendix 1)*. Those Epics were further sliced into 69 USER STORIES.
+
+*Appendix 1 - Kanban Board*
+
+![Kanban Board](/docs/kanban.JPG)
+
+- EPIC 1 : Create base html - [issue #1](https://github.com/tomik-z-cech/PP5-Ohm-Azing-Components/issues/1)
+- EPIC 2 : Create static resources - [issue #2](https://github.com/jjsemaan/lottonero/issues/2)
+
 
 [Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
 
