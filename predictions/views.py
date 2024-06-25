@@ -317,81 +317,46 @@ import random
 @csrf_protect
 def generate_shuffled_predictions(request):
     """
-    A view to generate shuffled predictions based on the latest predictions,
-    only on the current date and only once per day.
+    A view to generate shuffled predictions based on the latest predictions.
+
+    This view handles POST requests to generate a set number of shuffled predictions from the latest set of predictions.
+    It fetches the latest predictions, extracts the unique balls and lucky stars, and generates new shuffled predictions
+    by randomly selecting and shuffling these numbers. Each unique combination of balls and lucky stars is saved as a 
+    new ShuffledPrediction. A success message is added upon completion.
 
     Args:
         request: The HTTP request object.
 
     Returns:
-        redirect: Redirects to the previous page with appropriate messages
-        depending on the action outcome.
+        HttpResponse: Renders the 'backoffice/backoffice.html' template with a success message if predictions 
+        were successfully generated, or an error message if no predictions were found.
     """
+    if request.method == 'POST':
+        latest_prediction_date = Prediction.objects.aggregate(Max('prediction_date'))['prediction_date__max']
+        if not latest_prediction_date:
+            return HttpResponseBadRequest("No predictions found.")
 
-    if request.method == "POST":
-        latest_date_query = Prediction.objects.aggregate(
-            Max("prediction_date")
-        )
-        latest_date_str = latest_date_query["prediction_date__max"]
-
-        if not latest_date_str:
-            messages.error(request, "No predictions found.")
-            return redirect(request.META.get("HTTP_REFERER", "/"))
-
-        # Convert latest_date from string to date object
-        latest_date = datetime.strptime(latest_date_str, "%Y/%m/%d").date()
-
-        # Check if latest_date is today's date
-        if latest_date != datetime.today().date():
-            messages.error(
-                request,
-                "You can only generate shuffled predictions for today's date.",
-            )
-            return redirect(request.META.get("HTTP_REFERER", "/"))
-
-        # Check if shuffled predictions have already been generated today
-        if ShuffledPrediction.objects.filter(
-            prediction_date=latest_date
-        ).exists():
-            messages.error(
-                request,
-                "Shuffled predictions for today have already been generated.",
-            )
-            return redirect(request.META.get("HTTP_REFERER", "/"))
-
-        latest_predictions = Prediction.objects.filter(
-            prediction_date=latest_date_str
-        )
+        latest_predictions = Prediction.objects.filter(prediction_date=latest_prediction_date)
         if not latest_predictions.exists():
-            messages.error(
-                request, "No predictions found for the latest date."
-            )
-            return redirect(request.META.get("HTTP_REFERER", "/"))
+            return HttpResponseBadRequest("No predictions found for the latest date.")
 
         unique_combinations = set()
         shuffled_predictions = []
 
         all_balls = set()
         all_lucky_stars = set()
-
+        
         for prediction in latest_predictions:
-            all_balls.update(
-                [
-                    prediction.pred_ball_1,
-                    prediction.pred_ball_2,
-                    prediction.pred_ball_3,
-                    prediction.pred_ball_4,
-                    prediction.pred_ball_5,
-                ]
-            )
-            all_lucky_stars.update(
-                [prediction.pred_lucky_1, prediction.pred_lucky_2]
-            )
-
+            all_balls.update([
+                prediction.pred_ball_1, prediction.pred_ball_2, prediction.pred_ball_3,
+                prediction.pred_ball_4, prediction.pred_ball_5
+            ])
+            all_lucky_stars.update([prediction.pred_lucky_1, prediction.pred_lucky_2])
+        
         all_balls = list(all_balls)
         all_lucky_stars = list(all_lucky_stars)
 
-        while len(shuffled_predictions) < 50 and len(unique_combinations) < 50:
+        while len(shuffled_predictions) < 50:
             new_balls = sorted(random.sample(all_balls, 5))
             new_lucky_stars = sorted(random.sample(all_lucky_stars, 2))
 
@@ -402,7 +367,7 @@ def generate_shuffled_predictions(request):
             if full_set not in unique_combinations:
                 unique_combinations.add(full_set)
                 shuffled_prediction = ShuffledPrediction(
-                    prediction_date=latest_date_str,
+                    prediction_date=latest_prediction_date,
                     draw_date=latest_predictions.first().draw_date,
                     pred_ball_1=new_balls[0],
                     pred_ball_2=new_balls[1],
@@ -410,18 +375,19 @@ def generate_shuffled_predictions(request):
                     pred_ball_4=new_balls[3],
                     pred_ball_5=new_balls[4],
                     pred_lucky_1=new_lucky_stars[0],
-                    pred_lucky_2=new_lucky_stars[1],
+                    pred_lucky_2=new_lucky_stars[1]
                 )
                 shuffled_prediction.save()
                 shuffled_predictions.append(shuffled_prediction)
 
-        messages.success(
-            request, "Shuffled predictions generated successfully!"
-        )
-        return redirect(request.META.get("HTTP_REFERER", "/"))
+        # Clear other irrelevant messages and add a success message
+        storage = messages.get_messages(request)
+        storage.used = True
+        messages.success(request, 'Shuffled predictions generated successfully!')
+
+        return render(request, 'backoffice/backoffice.html')
     else:
-        messages.info(request, "This endpoint only accepts POST requests.")
-        return redirect(request.META.get("HTTP_REFERER", "/"))
+        return render(request, 'backoffice/backoffice.html')
 
 
 def display_combination_predictions(request):
