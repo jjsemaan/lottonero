@@ -4,6 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import re_path
 from django.views.static import serve
+from django.views.generic import TemplateView
 
 
 urlpatterns = [
@@ -26,6 +27,7 @@ urlpatterns = [
     ),
     path("contact/", include("contact.urls")),
     path("stripe/", include("djstripe.urls", namespace="djstripe")),
+    re_path(r'^robots.txt$', serve, {'path': 'robots.txt', 'document_root': settings.STATIC_ROOT}),
 ]
 
 if settings.DEBUG:
