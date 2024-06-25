@@ -145,9 +145,10 @@ from django.shortcuts import render
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
+from scraping.models import EuroMillionsResult
 from django.contrib.admin.views.decorators import staff_member_required
 
-@admin_required
+@staff_member_required
 @csrf_protect
 def train_classifier(request):
     if request.method != "POST":
@@ -225,8 +226,6 @@ def train_classifier(request):
 
     except Exception as e:
         return HttpResponseServerError(f"An error occurred: {e}")
-
-
 
 
 @admin_required
