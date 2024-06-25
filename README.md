@@ -122,8 +122,26 @@ As a thought process of the strategy plane, 32 issues were created and utilised.
 
 ![Kanban Board](/docs/kanban.JPG)
 
-- EPIC 1 : Create base html - [issue #1](https://github.com/tomik-z-cech/PP5-Ohm-Azing-Components/issues/1)
-- EPIC 2 : Create static resources - [issue #2](https://github.com/jjsemaan/lottonero/issues/2)
+- ISSUE 1 : Create base html - [issue #1](https://github.com/tomik-z-cech/PP5-Ohm-Azing-Components/issues/1)
+- ISSUE 2 : Create static resources - [issue #2](https://github.com/jjsemaan/lottonero/issues/2)
+- ISSUE 3 : Setup core dependencies - [issue #3](https://github.com/jjsemaan/lottonero/issues/3)
+- ISSUE 4 : Create footer - [issue #4](https://github.com/jjsemaan/lottonero/issues/4)
+- ISSUE 5 : Create navbar - [issue #5](https://github.com/jjsemaan/lottonero/issues/5)
+- ISSUE 6 : Add background image - [issue #6](https://github.com/jjsemaan/lottonero/issues/6)
+- ISSUE 7 : Create 404 page - [issue #7](https://github.com/jjsemaan/lottonero/issues/7)
+- ISSUE 8 : Create 500 page - [issue #8](https://github.com/jjsemaan/lottonero/issues/8)
+- ISSUE 9 : Create 403 page - [issue #9](https://github.com/jjsemaan/lottonero/issues/9)
+- ISSUE 10 : Create home page - [issue #10](https://github.com/jjsemaan/lottonero/issues/10)
+- ISSUE 12 : Scrape euromillions results - [issue #12](https://github.com/jjsemaan/lottonero/issues/12)
+- ISSUE 13 : Develop AI prediction model - [issue #13](https://github.com/jjsemaan/lottonero/issues/13)
+- ISSUE 14 : Add allauth - [issue #14](https://github.com/jjsemaan/lottonero/issues/14)
+- ISSUE 15 : Verify emails - [issue #15](https://github.com/jjsemaan/lottonero/issues/15)
+- ISSUE 16 : Style allauth forms - [issue #16](https://github.com/jjsemaan/lottonero/issues/16)
+- ISSUE 17 : Add UI staff functionality - [issue #17](https://github.com/jjsemaan/lottonero/issues/17)
+- ISSUE 18 : Create backoffice page - [issue #18](https://github.com/jjsemaan/lottonero/issues/18)
+- ISSUE 20 : Create statistics pages - [issue #20](https://github.com/jjsemaan/lottonero/issues/20)
+- ISSUE 21 : Create statistics models - [issue #21](https://github.com/jjsemaan/lottonero/issues/21)
+- ISSUE 23 : Create subscription model - [issue #23](https://github.com/jjsemaan/lottonero/issues/23)
 
 
 [Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
