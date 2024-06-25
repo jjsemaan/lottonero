@@ -82,3 +82,27 @@
   * [**8.1. Technologies used to develop and deploy this project**](https://github.com/jjsemaan/lottonero/blob/main/README.md#81-technologies-used-to-develop-and-deploy-this-project)
   * [**8.2. Requirements.txt**](https://github.com/jjsemaan/lottonero/blob/main/README.md#82-requirementstxt)
   * [**8.3. Credits**](https://github.com/jjsemaan/lottonero/blob/main/README.md#83-credits)
+
+---
+
+# **3. User Experience (UX)**
+
+## **3.1. The Strategy Plane**
+
+### **3.1.1 The Idea**
+- The intention of **lottonero** site is to be a friendly online platform where users can browse variaty playing startegies from two main categories, **AI Predictions** and **Statistics**. Almost all data information in lottonero is presented using visuals of ball images and graphs to maximise user engagement and to enhance UX/UI of the website.
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+### **3.1.2 The Ideal User**
+
+The target audience are individuals or groups with personal interest in the EuroMillios Lottery seeking inspiration and understanding on how jackpot randomisation works. 
+
+- Ideal user likes Euromillions
+- Ideal user seeking credible predictice sources
+- Ideal user seeking credible statistics
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
