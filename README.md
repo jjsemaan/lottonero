@@ -116,7 +116,7 @@ The target audience are individuals or groups with personal interest in the Euro
 ---
 ### **3.1.4 Epics**
 
-As a thought process of the strategy plane, 14 epics were created and utilized. Please see below the detail list of epics with links, or a link to the project's [Kanban Board](https://github.com/users/tomik-z-cech/projects/4/views/1) *(Appendix 1)*. Those Epics were further sliced into 69 USER STORIES.
+As a thought process of the strategy plane, 32 issues were created and utilised. Please see below the detail list of issues with links, or a link to the project's [Kanban Board](https://github.com/users/jjsemaan/projects/9/views/1)
 
 *Appendix 1 - Kanban Board*
 
