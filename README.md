@@ -142,7 +142,16 @@ As a thought process of the strategy plane, 32 issues were created and utilised.
 - ISSUE 20 : Create statistics pages - [issue #20](https://github.com/jjsemaan/lottonero/issues/20)
 - ISSUE 21 : Create statistics models - [issue #21](https://github.com/jjsemaan/lottonero/issues/21)
 - ISSUE 23 : Create subscription model - [issue #23](https://github.com/jjsemaan/lottonero/issues/23)
-
+- ISSUE 24 : Create profile page - [issue #24](https://github.com/jjsemaan/lottonero/issues/24)
+- ISSUE 25 : Create subscription page - [issue #25](https://github.com/jjsemaan/lottonero/issues/25)
+- ISSUE 26 : Set up whitenoise - [issue #26](https://github.com/jjsemaan/lottonero/issues/26)
+- ISSUE 27 : Deploy to Heroku - [issue #27](https://github.com/jjsemaan/lottonero/issues/27)
+- ISSUE 30 : Create contact page and Newsletter - [issue #30](https://github.com/jjsemaan/lottonero/issues/30)
+- ISSUE 31 : Create about page - [issue #31](https://github.com/jjsemaan/lottonero/issues/31)
+- ISSUE 32 : Create Payment Gateway - [issue #32](https://github.com/jjsemaan/lottonero/issues/32)
+- ISSUE 33 : Create terms and conditions page - [issue #33](https://github.com/jjsemaan/lottonero/issues/33)
+- ISSUE 34 : Create Favicon - [issue #33](https://github.com/jjsemaan/lottonero/issues/34)
+- ISSUE 35 : Testing - [issue #35](https://github.com/jjsemaan/lottonero/issues/35)
 
 [Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
 
