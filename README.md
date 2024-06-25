@@ -116,42 +116,91 @@ The target audience are individuals or groups with personal interest in the Euro
 ---
 ### **3.1.4 Epics**
 
-As a thought process of the strategy plane, 32 issues were created and utilised. Please see below the detail list of issues with links, or a link to the project's [Kanban Board](https://github.com/users/jjsemaan/projects/9/views/1)
+As a thought process of the strategy plane, 30 issues were created and utilised. Please see below the detail list of issues with links, or a link to the project's [Kanban Board](https://github.com/users/jjsemaan/projects/9/views/1)
 
-*Appendix 1 - Kanban Board*
+
 
 ![Kanban Board](/docs/kanban.JPG)
 
-- ISSUE 1 : Create base html - [issue #1](https://github.com/tomik-z-cech/PP5-Ohm-Azing-Components/issues/1)
-- ISSUE 2 : Create static resources - [issue #2](https://github.com/jjsemaan/lottonero/issues/2)
-- ISSUE 3 : Setup core dependencies - [issue #3](https://github.com/jjsemaan/lottonero/issues/3)
-- ISSUE 4 : Create footer - [issue #4](https://github.com/jjsemaan/lottonero/issues/4)
-- ISSUE 5 : Create navbar - [issue #5](https://github.com/jjsemaan/lottonero/issues/5)
-- ISSUE 6 : Add background image - [issue #6](https://github.com/jjsemaan/lottonero/issues/6)
-- ISSUE 7 : Create 404 page - [issue #7](https://github.com/jjsemaan/lottonero/issues/7)
-- ISSUE 8 : Create 500 page - [issue #8](https://github.com/jjsemaan/lottonero/issues/8)
-- ISSUE 9 : Create 403 page - [issue #9](https://github.com/jjsemaan/lottonero/issues/9)
-- ISSUE 10 : Create home page - [issue #10](https://github.com/jjsemaan/lottonero/issues/10)
-- ISSUE 12 : Scrape euromillions results - [issue #12](https://github.com/jjsemaan/lottonero/issues/12)
-- ISSUE 13 : Develop AI prediction model - [issue #13](https://github.com/jjsemaan/lottonero/issues/13)
-- ISSUE 14 : Add allauth - [issue #14](https://github.com/jjsemaan/lottonero/issues/14)
-- ISSUE 15 : Verify emails - [issue #15](https://github.com/jjsemaan/lottonero/issues/15)
-- ISSUE 16 : Style allauth forms - [issue #16](https://github.com/jjsemaan/lottonero/issues/16)
-- ISSUE 17 : Add UI staff functionality - [issue #17](https://github.com/jjsemaan/lottonero/issues/17)
-- ISSUE 18 : Create backoffice page - [issue #18](https://github.com/jjsemaan/lottonero/issues/18)
-- ISSUE 20 : Create statistics pages - [issue #20](https://github.com/jjsemaan/lottonero/issues/20)
-- ISSUE 21 : Create statistics models - [issue #21](https://github.com/jjsemaan/lottonero/issues/21)
-- ISSUE 23 : Create subscription model - [issue #23](https://github.com/jjsemaan/lottonero/issues/23)
-- ISSUE 24 : Create profile page - [issue #24](https://github.com/jjsemaan/lottonero/issues/24)
-- ISSUE 25 : Create subscription page - [issue #25](https://github.com/jjsemaan/lottonero/issues/25)
-- ISSUE 26 : Set up whitenoise - [issue #26](https://github.com/jjsemaan/lottonero/issues/26)
-- ISSUE 27 : Deploy to Heroku - [issue #27](https://github.com/jjsemaan/lottonero/issues/27)
-- ISSUE 30 : Create contact page and Newsletter - [issue #30](https://github.com/jjsemaan/lottonero/issues/30)
-- ISSUE 31 : Create about page - [issue #31](https://github.com/jjsemaan/lottonero/issues/31)
-- ISSUE 32 : Create Payment Gateway - [issue #32](https://github.com/jjsemaan/lottonero/issues/32)
-- ISSUE 33 : Create terms and conditions page - [issue #33](https://github.com/jjsemaan/lottonero/issues/33)
-- ISSUE 34 : Create Favicon - [issue #33](https://github.com/jjsemaan/lottonero/issues/34)
-- ISSUE 35 : Testing - [issue #35](https://github.com/jjsemaan/lottonero/issues/35)
+- EPIC 1 : Create base html - [issue #1](https://github.com/tomik-z-cech/PP5-Ohm-Azing-Components/issues/1)
+- EPIC 2 : Create static resources - [issue #2](https://github.com/jjsemaan/lottonero/issues/2)
+- EPIC 3 : Setup core dependencies - [issue #3](https://github.com/jjsemaan/lottonero/issues/3)
+- EPIC 4 : Create footer - [issue #4](https://github.com/jjsemaan/lottonero/issues/4)
+- EPIC 5 : Create navbar - [issue #5](https://github.com/jjsemaan/lottonero/issues/5)
+- EPIC 6 : Add background image - [issue #6](https://github.com/jjsemaan/lottonero/issues/6)
+- EPIC 7 : Create 404 page - [issue #7](https://github.com/jjsemaan/lottonero/issues/7)
+- EPIC 8 : Create 500 page - [issue #8](https://github.com/jjsemaan/lottonero/issues/8)
+- EPIC 9 : Create 403 page - [issue #9](https://github.com/jjsemaan/lottonero/issues/9)
+- EPIC 10 : Create home page - [issue #10](https://github.com/jjsemaan/lottonero/issues/10)
+- EPIC 12 : Scrape euromillions results - [issue #12](https://github.com/jjsemaan/lottonero/issues/12)
+- EPIC 13 : Develop AI prediction model - [issue #13](https://github.com/jjsemaan/lottonero/issues/13)
+- EPIC 14 : Add allauth - [issue #14](https://github.com/jjsemaan/lottonero/issues/14)
+- EPIC 15 : Verify emails - [issue #15](https://github.com/jjsemaan/lottonero/issues/15)
+- EPIC 16 : Style allauth forms - [issue #16](https://github.com/jjsemaan/lottonero/issues/16)
+- EPIC 17 : Add UI staff functionality - [issue #17](https://github.com/jjsemaan/lottonero/issues/17)
+- EPIC 18 : Create backoffice page - [issue #18](https://github.com/jjsemaan/lottonero/issues/18)
+- EPIC 20 : Create statistics pages - [issue #20](https://github.com/jjsemaan/lottonero/issues/20)
+- EPIC 21 : Create statistics models - [issue #21](https://github.com/jjsemaan/lottonero/issues/21)
+- EPIC 23 : Create subscription model - [issue #23](https://github.com/jjsemaan/lottonero/issues/23)
+- EPIC 24 : Create profile page - [issue #24](https://github.com/jjsemaan/lottonero/issues/24)
+- EPIC 25 : Create subscription page - [issue #25](https://github.com/jjsemaan/lottonero/issues/25)
+- EPIC 26 : Set up whitenoise - [issue #26](https://github.com/jjsemaan/lottonero/issues/26)
+- EPIC 27 : Deploy to Heroku - [issue #27](https://github.com/jjsemaan/lottonero/issues/27)
+- EPIC 30 : Create contact page and Newsletter - [issue #30](https://github.com/jjsemaan/lottonero/issues/30)
+- EPIC 31 : Create about page - [issue #31](https://github.com/jjsemaan/lottonero/issues/31)
+- EPIC 32 : Create Payment Gateway - [issue #32](https://github.com/jjsemaan/lottonero/issues/32)
+- EPIC 33 : Create terms and conditions page - [issue #33](https://github.com/jjsemaan/lottonero/issues/33)
+- EPIC 34 : Create Favicon - [issue #33](https://github.com/jjsemaan/lottonero/issues/34)
+- EPIC 35 : Testing - [issue #35](https://github.com/jjsemaan/lottonero/issues/35)
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+### **3.1.5 User stories**
+User stories were created as Issues. Each user story uses the MoSCoW prioritization technique.
+Each user story on the Kanban Board was given 2 labels (MoSCoW and Story Points) and a milestone.
+
+MoSCoW prioritization technique stands for:
+Must-Have: Critical requirements that must be implemented for the project to be considered successful.
+Should-Have: Important requirements that are not critical but add significant value.
+Could-Haves: Desirable features that would be nice to have but are not crucial.
+Won't-Have: Features that are explicitly excluded from the project scope.
+
+The **PERCENTAGE** of MoSCow from all Issues.
+- **Must-Have** :   14 story points   ( 45 % )
+- **Should-Have** : 10 story points   ( 32 % )
+- **Could-Have** :  5 story points    ( 16 % )
+- **Wont-Have** :   2 story points    ( 7 % )
+
+---
+
+## **3.2. The Scope Plane**
+
+After deciding on the strategy (refer to below strategy diagram), the scope plane was carefully created.
+
+![Lottonero Strategy](/docs/strategy.JPG)
+
+### **3.2.1. Features**
+
+- **Authentication** : Users can Register, access **My Profile** page where users can manage their information and preferences and cancel their subscriptions (CRUD)
+
+- **Home** : Users can browse through the hamepage to check the latest EuroMillions Jackpot results and review winning predictions.
+
+- **Orders** : Users can browse through the subscription options that are offered on monthly or annual basis.
+
+- **Payment Gateway** : Payments for subscriptions are received securely via Stripe then the users are redirected back to the website.
+
+- **Predictions** : Subscribers get access to two prediction models in separate pages, **AI Patterns** and **Combinations**, each offering over 30 predictions to choose from for the upcoming draw.
+
+- **Lottery Statistics** : Subscribers get access to three statistical views in three separate pages, **Frequencies**, **Correlations** and **Combinations** offering visual analytics from EuroMillions jackpot history.
+
+- **Scraping** : This feature offers seamless updates when run by the admins as it updates the homepage with the latest jackpot results scraped from the **Accessible Results** https://www.lottery.ie/accessible-results page of the EuroMillions website.
+
+- **User Profile** : Page where users can manage all aspects of their account including changing names, emails and subscription cancellation.
+
+- **Notifications** : Toasts and Email notifications are fully enabled for this website.
+
 
 [Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
 
