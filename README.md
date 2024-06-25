@@ -205,3 +205,26 @@ After deciding on the strategy (refer to below strategy diagram), the scope plan
 [Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
 
 ---
+
+## **3.3. The Structure Plane**
+
+### **3.3.1. Site Maps**
+
+The following site-maps show how the site is structured to **Logged in user** *( Appendix 2 )* ,**Not logged in user** *( Appendix 3 )* and **Site Admin** *( Appendix 3 )*.
+
+*Appendix 2 - Site Map - Logged In*
+
+![Site Map - Logged In](/docs/sitemap-logedin.png)
+
+*Appendix 3 - Site Map - Not Logged In*
+
+![Site Map - Not Logged In](/docs/sitemap-logedout.png)
+
+*Appendix 4 - Site Map - Site Admin*
+
+![Site Map - Not Logged In](/docs/sitemap-admin.png)
+
+
+[Back to top](https://github.com/tomik-z-cech/PP5-Ohm-Azing-Components/blob/main/README.md#ohm-azing-components---portfolio-project-5)
+
+---
