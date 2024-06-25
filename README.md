@@ -214,17 +214,29 @@ The following site-maps show how the site is structured to **Logged in user** *(
 
 *Appendix 1 - Site Map - Logged In*
 
-![Site Map - Logged In](/docs/sitemap-logedin.png)
+![Site Map - Logged In](/docs/sitemap-loggedin.jpg)
 
-*Appendix 2 - Site Map - Not Logged In*
+*Appendix 2 - Site Map - Not Logged Out*
 
-![Site Map - Not Logged In](/docs/sitemap-logedout.png)
+![Site Map - Not Logged Out](/docs/sitemap-loggedout.jpg)
 
 *Appendix 3 - Site Map - Site Admin*
 
-![Site Map - Not Logged In](/docs/sitemap-admin.png)
+![Site Map - Logged In](/docs/sitemap-admin.jpg)
+
+*Appendix 4 - Site Map - Logged In Subscriber Predictions*
+
+![Site Map - Logged In](/docs/sitemap-subscriber-predictions.jpg)
+
+*Appendix 5 - Site Map - Logged In Subscriber Statistics*
+
+![Site Map - Logged In](/docs/sitemap-subscriber-statistics.jpg)
+
+*Appendix 6 - Site Map - Logged In Subscriber Premium*
+
+![Site Map - Logged In](/docs/sitemap-subscriber-premium.jpg)
 
 
-[Back to top](https://github.com/tomik-z-cech/PP5-Ohm-Azing-Components/blob/main/README.md#ohm-azing-components---portfolio-project-5)
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
 
 ---

@@ -9,17 +9,27 @@
 
 <url>
   <loc>https://lottonero-e7dc9a7038d2.herokuapp.com/</loc>
-  <lastmod>2024-06-25T09:35:06+00:00</lastmod>
+  <lastmod>2024-06-25T18:15:33+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://lottonero-e7dc9a7038d2.herokuapp.com/contact/about/</loc>
-  <lastmod>2024-06-25T09:35:06+00:00</lastmod>
+  <lastmod>2024-06-25T18:15:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://lottonero-e7dc9a7038d2.herokuapp.com/contact/</loc>
-  <lastmod>2024-06-25T09:35:06+00:00</lastmod>
+  <lastmod>2024-06-25T18:15:33+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://lottonero-e7dc9a7038d2.herokuapp.com/alltime/</loc>
+  <lastmod>2024-06-25T18:15:33+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://lottonero-e7dc9a7038d2.herokuapp.com/alltime-shuffled/</loc>
+  <lastmod>2024-06-25T18:15:33+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 
