@@ -140,15 +140,16 @@ def backoffice(request):
 
 from django.views.decorators.csrf import csrf_protect
 from django.utils import timezone
-from django.http import HttpResponseBadRequest, HttpResponseServerError, HttpResponse
+from django.http import HttpResponseServerError, HttpResponse
 from django.shortcuts import render
+from django.contrib import messages
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from scraping.models import EuroMillionsResult
 from django.contrib.admin.views.decorators import staff_member_required
 
-@staff_member_required
+@admin_required
 @csrf_protect
 def train_classifier(request):
     if request.method != "POST":
@@ -156,25 +157,17 @@ def train_classifier(request):
 
     draw_date = request.POST.get("draw_date")
     if not draw_date:
-        return HttpResponseBadRequest("Draw date is required.")
+        messages.error(request, "Draw date is required.")
+        return render(request, "backoffice/backoffice.html")
 
     draw_date_str = draw_date.replace('-', '/')  # Ensure the format is YYYY/MM/DD by replacing hyphens with slashes
 
     # Check if predictions for this draw date already exist
     if Prediction.objects.filter(draw_date=draw_date_str).exists():
-        return render(request, "backoffice/predictions_exist.html", {"message": "Predictions for this draw date already exist."})
+        messages.error(request, "Predictions for this draw date already exist.")
+        return render(request, "backoffice/backoffice.html")
 
     try:
-        # Get the most recent scrape's date and ensure it matches today's date
-        last_scraped_result = EuroMillionsResult.objects.order_by("-draw_date").first()
-        if not last_scraped_result:
-            return render(request, "backoffice/scrape_first.html", {"message": "Please scrape the latest results first."})
-
-        last_scraped_date_str = last_scraped_result.draw_date
-        today_str = timezone.now().strftime("%Y/%m/%d")
-        if last_scraped_date_str != today_str:
-            return render(request, "backoffice/scrape_first.html", {"message": "Please scrape the latest results first."})
-
         # Load and prepare the dataset
         data = EuroMillionsResult.objects.values("ball_1", "ball_2", "ball_3", "ball_4", "ball_5", "lucky_star_1", "lucky_star_2")
         df = pd.DataFrame(list(data))
@@ -209,7 +202,7 @@ def train_classifier(request):
                         unique_balls_sets.add(ball_set)
                         unique_full_sets.add(full_set)
                         prediction = Prediction(
-                            prediction_date=today_str,
+                            prediction_date=timezone.now().strftime("%Y/%m/%d"),
                             draw_date=draw_date_str,
                             pred_ball_1=ball_pred[0],
                             pred_ball_2=ball_pred[1],
@@ -222,10 +215,12 @@ def train_classifier(request):
                         prediction.save()
                         predictions.append(prediction)
 
-        return render(request, "backoffice/new_predictions.html", {"message": "New predictions added to the database."})
+        messages.success(request, "New predictions added to the database.")
+        return render(request, "backoffice/backoffice.html")
 
     except Exception as e:
-        return HttpResponseServerError(f"An error occurred: {e}")
+        messages.error(request, f"An error occurred: {e}")
+        return render(request, "backoffice/backoffice.html")
 
 
 @admin_required

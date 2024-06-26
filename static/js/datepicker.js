@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const todayStr = today.toISOString().split('T')[0];
 
     const maxDate = new Date(today);
-    maxDate.setDate(today.getDate() + 4);
+    maxDate.setDate(today.getDate() + 2);
     const maxDateStr = maxDate.toISOString().split('T')[0];
 
     // Disable past dates and dates beyond three days from today
