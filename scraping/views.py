@@ -94,19 +94,19 @@ def update_prediction_with_match_results(prediction, latest_result):
 
 def determine_match_type(num_common_numbers, num_common_lucky_numbers):
     match_cases = {
-        (5, 2): 'Match 5 + 2',
-        (5, 1): 'Match 5 + 1',
+        (5, 2): '5 + 2 Stars',
+        (5, 1): '5 + 1 Stars',
         (5, 0): 'Match 5',
-        (4, 2): 'Match 4 + 2',
-        (4, 1): 'Match 4 + 1',
+        (4, 2): '4 + 2 Stars',
+        (4, 1): '4 + 1 Stars',
+        (3, 2): '3 + 2 Stars',
         (4, 0): 'Match 4',
-        (3, 2): 'Match 3 + 2',
-        (3, 1): 'Match 3 + 1',
+        (2, 2): '2 + 2 Stars',
+        (3, 1): '3 + 1 Stars',
         (3, 0): 'Match 3',
-        (2, 2): 'Match 2 + 2',
-        (2, 1): 'Match 2 + 1',
-        (2, 0): 'Match 2',
-        (1, 2): 'Match 1 + 2'
+        (1, 2): '1 + 2 Stars',
+        (2, 1): '2 + 1 Stars',
+        (2, 0): 'Match 2' 
     }
     return match_cases.get((num_common_numbers, num_common_lucky_numbers))
 
