@@ -95,6 +95,7 @@ def update_prediction_with_match_results(prediction, latest_result):
 def determine_match_type(num_common_numbers, num_common_lucky_numbers):
     match_cases = {
         (5, 2): 'Match 5 + 2',
+        (5, 1): 'Match 5 + 1',
         (5, 0): 'Match 5',
         (4, 2): 'Match 4 + 2',
         (4, 1): 'Match 4 + 1',
