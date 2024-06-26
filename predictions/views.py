@@ -147,9 +147,10 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from scraping.models import EuroMillionsResult
+from predictions.models import Prediction, ShuffledPrediction
 from django.contrib.admin.views.decorators import staff_member_required
 
-@admin_required
+@staff_member_required
 @csrf_protect
 def train_classifier(request):
     if request.method != "POST":
@@ -216,6 +217,69 @@ def train_classifier(request):
                         predictions.append(prediction)
 
         messages.success(request, "New predictions added to the database.")
+
+        # Additional functionality for ShuffledPrediction
+        if ShuffledPrediction.objects.filter(draw_date=draw_date_str).exists():
+            messages.error(request, "Shuffled predictions for this draw date already exist.")
+            return render(request, "backoffice/backoffice.html")
+
+        # Query predictions where match_type is not null
+        prediction_data = Prediction.objects.filter(match_type__isnull=False).values(
+            "pred_ball_1", "pred_ball_2", "pred_ball_3", "pred_ball_4", "pred_ball_5",
+            "pred_lucky_1", "pred_lucky_2"
+        )
+        prediction_df = pd.DataFrame(list(prediction_data))
+
+        if prediction_df.empty:
+            messages.error(request, "No valid past predictions found for training Shuffled Predictions.")
+            return render(request, "backoffice/backoffice.html")
+
+        # Prepare the feature and target datasets
+        X = prediction_df.drop(["pred_lucky_1", "pred_lucky_2"], axis=1)
+        y_balls = prediction_df[["pred_ball_1", "pred_ball_2", "pred_ball_3", "pred_ball_4", "pred_ball_5"]]
+        y_lucky = prediction_df[["pred_lucky_1", "pred_lucky_2"]]
+
+        # Train classifiers
+        X_train_balls, X_test_balls, y_train_balls, y_test_balls = train_test_split(X, y_balls, test_size=0.6, random_state=42)
+        X_train_lucky, X_test_lucky, y_train_lucky, y_test_lucky = train_test_split(X, y_lucky, test_size=0.6, random_state=42)
+        rf_classifier_balls = RandomForestClassifier(n_estimators=100, random_state=42)
+        rf_classifier_lucky = RandomForestClassifier(n_estimators=100, random_state=42)
+        rf_classifier_balls.fit(X_train_balls, y_train_balls)
+        rf_classifier_lucky.fit(X_train_lucky, y_train_lucky)
+
+        unique_balls_sets = set()
+        unique_full_sets = set()
+        predictions = []
+
+        # Generate predictions ensuring all are unique
+        for _ in range(100):  # Limit to a reasonable number of attempts
+            y_pred_balls = rf_classifier_balls.predict(X_test_balls)
+            y_pred_lucky = rf_classifier_lucky.predict(X_test_lucky)
+
+            for ball_pred, lucky_pred in zip(y_pred_balls, y_pred_lucky):
+                if len(set(ball_pred)) == 5 and len(set(lucky_pred)) == 2:
+                    ball_set = tuple(sorted(ball_pred))
+                    lucky_set = tuple(sorted(lucky_pred))
+                    full_set = ball_set + lucky_set
+
+                    if ball_set not in unique_balls_sets and full_set not in unique_full_sets:
+                        unique_balls_sets.add(ball_set)
+                        unique_full_sets.add(full_set)
+                        prediction = ShuffledPrediction(
+                            prediction_date=timezone.now().strftime("%Y/%m/%d"),
+                            draw_date=draw_date_str,
+                            pred_ball_1=ball_pred[0],
+                            pred_ball_2=ball_pred[1],
+                            pred_ball_3=ball_pred[2],
+                            pred_ball_4=ball_pred[3],
+                            pred_ball_5=ball_pred[4],
+                            pred_lucky_1=lucky_pred[0],
+                            pred_lucky_2=lucky_pred[1],
+                        )
+                        prediction.save()
+                        predictions.append(prediction)
+
+        messages.success(request, "Shuffled predictions added to the database.")
         return render(request, "backoffice/backoffice.html")
 
     except Exception as e:
