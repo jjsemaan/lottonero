@@ -169,7 +169,7 @@ def train_classifier(request):
         return render(request, "backoffice/backoffice.html")
 
     try:
-        # Load and prepare the dataset
+        # Load and prepare the lataset
         data = EuroMillionsResult.objects.values("ball_1", "ball_2", "ball_3", "ball_4", "ball_5", "lucky_star_1", "lucky_star_2")
         df = pd.DataFrame(list(data))
         X = df.drop(["lucky_star_1", "lucky_star_2"], axis=1)
