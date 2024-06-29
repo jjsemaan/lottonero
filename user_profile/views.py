@@ -155,3 +155,15 @@ def privacy_policy(request):
     A view that renders the privacy policy page.
     """
     return render(request, "privacy_policy/privacy_policy.html")
+
+# user_profile/views.py
+
+from django.shortcuts import redirect
+from allauth.account.views import ConfirmEmailView
+
+class CustomConfirmEmailView(ConfirmEmailView):
+
+    def post(self, request, *args, **kwargs):
+        self.object = confirmation = self.get_object()
+        confirmation.confirm(self.request)
+        return redirect('account_email')
