@@ -8,6 +8,12 @@ form {
     color: black;
 }
 
+/* Hide the labels for email and password fields */
+label[for="id_login"],
+label[for="id_password"] {
+    display: none;
+}
+
 .row {
     margin: 0;
 }
