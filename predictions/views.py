@@ -150,7 +150,7 @@ from scraping.models import EuroMillionsResult
 from predictions.models import Prediction, ShuffledPrediction
 from django.contrib.admin.views.decorators import staff_member_required
 
-@staff_member_required
+@admin_required
 @csrf_protect
 def train_classifier(request):
     if request.method != "POST":
@@ -161,11 +161,31 @@ def train_classifier(request):
         messages.error(request, "Draw date is required.")
         return render(request, "backoffice/backoffice.html")
 
-    draw_date_str = draw_date.replace('-', '/')  # Ensure the format is YYYY/MM/DD by replacing hyphens with slashes
+    # Ensure the format is YYYY/MM/DD by replacing hyphens with slashes
+    draw_date_str = draw_date.replace('-', '/')
 
     # Check if predictions for this draw date already exist
     if Prediction.objects.filter(draw_date=draw_date_str).exists():
         messages.error(request, "Predictions for this draw date already exist.")
+        return render(request, "backoffice/backoffice.html")
+
+    # Get the last draw date from the EuroMillionsResult table
+    last_draw = EuroMillionsResult.objects.order_by('-draw_date').first()
+    if not last_draw:
+        messages.error(request, "No draw results found.")
+        return render(request, "backoffice/backoffice.html")
+    
+    # Get the last draw date from the Prediction table
+    last_prediction = Prediction.objects.order_by('-draw_date').first()
+
+    # Ensure the format is YYYY/MM/DD by replacing hyphens with slashes
+    draw_date_str = draw_date.replace('-', '/')
+    last_draw_date_str = last_draw.draw_date
+    last_prediction_date_str = last_prediction.draw_date if last_prediction else None
+
+    # Check if the last draw date in EuroMillionsResult does not exist in the Prediction table
+    if last_prediction_date_str != last_draw_date_str:
+        messages.error(request, "The current upcoming draw has not been scraped yet!")
         return render(request, "backoffice/backoffice.html")
 
     try:
