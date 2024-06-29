@@ -1,4 +1,5 @@
 from django.shortcuts import redirect
+from allauth.account.views import ConfirmEmailView
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
@@ -156,14 +157,16 @@ def privacy_policy(request):
     """
     return render(request, "privacy_policy/privacy_policy.html")
 
-# user_profile/views.py
-
-from django.shortcuts import redirect
-from allauth.account.views import ConfirmEmailView
-
 class CustomConfirmEmailView(ConfirmEmailView):
-
+    """
+    Custom view to handle email confirmation and redirect
+    to the account email page upon success.
+    """
     def post(self, request, *args, **kwargs):
+        """
+        Handle the POST request to confirm the email and
+        redirect to the account email page.
+        """
         self.object = confirmation = self.get_object()
         confirmation.confirm(self.request)
         return redirect('account_email')
