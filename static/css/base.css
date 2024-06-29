@@ -163,6 +163,7 @@ Header
 /*----------------------------------- Logo and buttons */
 .logo-font {
     text-transform: uppercase;
+    font: Helvetica, Arial, sans-serif; ;
 }
 
 .main-logo-link {
@@ -347,7 +348,7 @@ ul.list-inline {
     margin: 0;
 }
 
-/* Media query for screens 323px wide or less */
+/* Media query for smaller screens */
 @media (max-width: 323px) {
     .masthead-content h2 {
         font-size: 1.5em;

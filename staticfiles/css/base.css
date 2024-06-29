@@ -163,6 +163,7 @@ Header
 /*----------------------------------- Logo and buttons */
 .logo-font {
     text-transform: uppercase;
+    font: Helvetica, Arial, sans-serif; ;
 }
 
 .main-logo-link {

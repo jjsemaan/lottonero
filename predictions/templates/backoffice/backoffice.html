@@ -14,7 +14,7 @@
                         <div class="col-lg-8 pt-5">
                             <div class="text-left">
                                 <h1 class="text-dark">Admin Backoffice</h1>
-                                <h3 class="tesxt-dark">VERY IMPORTANT - PLEASE READ</h3>
+                                <h3 class="text-dark">VERY IMPORTANT - PLEASE READ</h3>
                                 <p class="mb-4 text-dark">
                                     Development efforts to add validation has failed due to complexity of the views 
                                     and will be left as a future enhancements to resolve.
@@ -51,34 +51,6 @@
                                         <tr>
                                             <td>2</td>
                                             <td>
-                                                <form method="post"
-                                                    action="{% url 'latest_predictions_with_matches' %}">
-                                                    {% csrf_token %}
-                                                    Check Winning Predicted Patterns
-                                            </td>
-                                            <td>
-                                                <button type="submit" class="btn btn-primary btn-block"
-                                                    name="check_predictions" value="Check Predictions">Execute</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>
-                                                <form method="post"
-                                                    action="{% url 'latest_shuffled_predictions_with_matches' %}">
-                                                    {% csrf_token %}
-                                                    Check Winning Predicted Combinations
-                                            </td>
-                                            <td>
-                                                <button type="submit" class="btn btn-primary btn-block"
-                                                    name="check_predictions" value="Check Predictions">Execute</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>
                                                 <form id="predictionForm" action="{% url 'train_classifier' %}"
                                                     method="post">
                                                     {% csrf_token %}
@@ -96,19 +68,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>5</td>
-                                            <td>
-                                                Generate Predictions from Combinations
-                                                <form method="POST" action="{% url 'generate_shuffled_predictions' %}">
-                                                    {% csrf_token %}
-                                            </td>
-                                            <td>
-                                                <button type="submit" class="btn btn-primary btn-block">Execute</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
+                                            <td>3</td>
                                             <td>
                                                 <form method="post" action="{% url 'upload_image' %}"
                                                     enctype="multipart/form-data">
