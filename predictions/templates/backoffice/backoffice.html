@@ -14,14 +14,48 @@
                         <div class="col-lg-8 pt-5">
                             <div class="text-left">
                                 <h1 class="text-dark">Admin Backoffice</h1>
-                                <h3 class="text-dark">VERY IMPORTANT - PLEASE READ</h3>
-                                <p class="mb-4 text-dark">
-                                    Development efforts to add validation has failed due to complexity of the views 
-                                    and will be left as a future enhancements to resolve.
-                                    Please work your way in ascending order (do not run any command before the other).
-                                    Please do not attempt to run command no. 5 more than once as that will duplicate 
-                                    the data.
-                                </p>
+                                <h3 class="text-danger">Please read the below instructions...</h3>
+                                <hr>
+                                <div class="text-dark">
+                                    <ol>
+                                        <li>
+                                            <p>
+                                                The 'Scrape' button should only be clicked once at 10:30 pm (Irish Time) 
+                                                every Tuesday and Friday, after the draw results have been published to 
+                                                the accessible results page of the official EuroMillions website 
+                                                <a 
+                                                href="https://www.lottery.ie/accessible-results" 
+                                                target="_blank" rel="noopener noreferrer">
+                                                https://www.lottery.ie/accessible-results
+                                                </a>. The scrape button will parse two actions one after the other. 
+                                                First, it will scrape the jackpot results. Second, it will check for 
+                                                any winning predictions for both AI Patterns and AI Combinations. 
+                                                The scrape output will be written to the database and displayed on 
+                                                the Home page.
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p>
+                                                Once scraped, use the below date picker to select the next upcoming 
+                                                draw date and click the 'Predict' button. The predict button will add 
+                                                new predictions for both AI Patterns and AI Combinations for our 
+                                                subscribers to choose from.
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p>
+                                                The upload button is used for the purpose of uploading the website 
+                                                images to coludinary and was used by the developer to reference all 
+                                                images within the code of Lottonero. During the development, 126 
+                                                images were uploaded to the databaee. Once uploaded, each image name 
+                                                and url can be queried and utilised for various uses in the website. 
+                                                This automation exercise had leveraged development efficiency and will 
+                                                be kept to enable the development of future enhancements.
+                                            </p>
+                                        </li>
+                                    </ol>
+                                </div>
+                                
                                 {% if user.is_authenticated and user.is_staff %}
                                 <table class="table text-dark">
                                     <thead>
@@ -39,12 +73,10 @@
                                                     action="{% url 'scraping:run_scrape_euromillions' %}">
                                                     {% csrf_token %}
                                                     Scrape EuroMillions Results
-                                                    <p class="small-text">Strictly predict on the same day as scraped!!!
-                                                    </p>
                                             </td>
                                             <td>
                                                 <button type="submit" class="btn btn-primary btn-block" name="train"
-                                                    value="Start Training">Execute</button>
+                                                    value="Start Training"> Scrape </button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -63,7 +95,7 @@
                                             </td>
                                             <td class="align-middle">
                                                 <button type="submit" class="btn btn-primary btn-block" name="train"
-                                                    value="Start Training">Execute</button>
+                                                    value="Start Training">Predict</button>
                                                 </form>
                                             </td>
                                         </tr>

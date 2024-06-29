@@ -46,7 +46,7 @@
               </form>
               {% endif %}
               {% if user.emailaddress_set.all %}
-              <p class="text-left text-dark pt-3">
+                <br>
                 <div class="card mb-4">
                   <div class="card-body">
                     {% for emailaddress in user.emailaddress_set.all %}
@@ -58,7 +58,7 @@
                   </div>
                 </div>
                 {% trans 'The following e-mail addresses are associated with your account:' %}
-              </p>
+
               <form action="{% url 'account_email' %}" class="email_list" method="post">
                 {% csrf_token %}
                 <fieldset class="blockLabels">
