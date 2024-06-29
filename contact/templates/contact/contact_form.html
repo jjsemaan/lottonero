@@ -5,7 +5,6 @@
 {% block nav_name %}Contact Us{% endblock %}
 
 {% block extra_meta %}
-<meta name="description" content="Contact LottoNero.com admins for support, queries and other services relating to Euromillions lotto predictions.">
 {% endblock %}
 
 
@@ -14,7 +13,8 @@
 <style>
     /* Hide the labels for email and password fields */
     label[for="id_full_name"],
-    label[for="id_email"] {
+    label[for="id_email"],
+    label[for="id_message"] {
         display: none;
     }
 
@@ -43,11 +43,12 @@
                         <div class="col-lg-2 d-none d-lg-block"></div>
                         <div class="col-lg-8">
                             <div class="p-5">
-                                <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4 text-black">Contact Us</h1>
+                                <div class="text-center text-black">
+                                    <h1 class="mb-4">Contact Us</h1>
                                     {% if user %}
-                                    <p class="text-black">Hello {{ user.first_name }} {{ user.last_name }}! You are logged in as '{{ user.email }}'.</p>
-                                    <p class="text-black">Please write your message below and an admin will get in touch with you the soonest possible.</p>
+                                    <p>Hello {{ user.first_name }} {{ user.last_name }}! You are logged in as</p>
+                                    <p class="font-weight-bold text-secondary">{{ user.email }}</p>
+                                    <p>Please write your message below and an admin will get in touch with you the soonest possible.</p>
                                     {% endif %}
                                 </div>
                                 <form id="contact_form" method="post">
