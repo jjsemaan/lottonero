@@ -7,8 +7,7 @@
 {% block extra_meta %}
 {% endblock %}
 
-
-{% block header_content %}
+{% block extra_css %}
 <!-- Extra styles added here so not to interfere with general styeles -->
 <style>
     /* Hide the labels for email and password fields */
@@ -33,17 +32,19 @@
         transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     }
 </style>
+{% endblock %}
 
+{% block header_content %}
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-xl-10 col-lg-12 col-md-9">
             <div class="card o-hidden border-0 shadow-lg my-5">
                 <div class="card-body p-0">
-                    <div class="row mb-4">
-                        <div class="col-lg-2 d-none d-lg-block"></div>
+                    <div class="row mb-4 justify-content-center">
+                        
                             <div class="col-lg-8">
                                 <div class="p-5">
-                                    <div class="text-center text-black">
+                                    <div class="text-center text-dark">
                                         <h1 class="mb-4">Contact Us</h1>
                                         {% if user %}
                                         <p>Hello {{ user.first_name }} {{ user.last_name }}! You are logged in as</p>
@@ -58,7 +59,7 @@
                                     </form>
                                 </div>
                             </div>
-                        <div class="col-lg-2 d-none d-lg-block"></div>
+                        
                     </div>
                 </div>
             </div>

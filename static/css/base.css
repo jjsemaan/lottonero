@@ -89,13 +89,14 @@ label[for="id_password"] {
     margin-top: 12px;
 }
 
-Header 
-.header-font {
-    font-family: "futura-pt", sans-serif;
+.custom-text {
     font-weight: 800;
-    font-style: normal;
+    color: rgb(187, 159, 33);
+    font-size: 1.2em;
 }
 
+Header 
+.header-font
 .central-font {
     font-family: "futura-pt", sans-serif;
     font-weight: 800;
