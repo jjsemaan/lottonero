@@ -96,7 +96,7 @@ label[for="id_password"] {
 }
 
 Header 
-.header-font
+.header-font,
 .central-font {
     font-family: "futura-pt", sans-serif;
     font-weight: 800;
