@@ -58,7 +58,7 @@ label[for="id_password"] {
     background: rgba(7, 7, 7, 0.7);
     border-radius: 15px;
     padding: 20px;
-    margin: 20px auto 50px;
+    margin: 20px auto 20px;
     max-width: 80%;  
 }
 
@@ -75,7 +75,7 @@ label[for="id_password"] {
     width: 1.5rem;
 }
 
-/* ------------------------------Style Allauth forms*/
+/* ------------------------------Style Allauth forms */
 .form-group {
     text-align: left;
 }
@@ -95,6 +95,7 @@ label[for="id_password"] {
     font-size: 1.2em;
 }
 
+/*----------------------------------- Landing Page */
 Header 
 .header-font,
 .central-font {
@@ -117,7 +118,22 @@ Header
     font-style: normal;
     background-color: rgb(255, 221, 0);
     color: black;
+    transition: background-color 0.3s, color 0.3s;
 }
+
+.header-button-font:hover {
+    background-color: grey;
+    color: white;
+}
+
+.full-width-bg {
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
 
 /*----------------------------------- Subscribe banner */
 .subscribe-button-font {
@@ -353,6 +369,7 @@ ul.list-inline {
 @media (max-width: 323px) {
     .masthead-content h2 {
         font-size: 1.5em;
+        max-width: 95%;
     }
 }
 
@@ -361,6 +378,10 @@ ul.list-inline {
         width: 40px;
         height: auto;
         margin: 3px;
+    }
+
+    .masthead-content {
+        max-width: 95%;
     }
 }
 
