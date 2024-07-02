@@ -13,7 +13,7 @@
             <div class="dropdown-menu border-0">
                 {% if has_ai_access or has_premium_access %}
                 <a href="{% url 'predictions' %}" class="dropdown-item">AI Patterns</a>
-                <a href="{% url 'display_combination_predictions' %}" class="dropdown-item">Combinations</a>
+                <a href="{% url 'display_combination_predictions' %}" class="dropdown-item">AI Combinations</a>
                 {% else %}
                 <span class="dropdown-item disabled">AI Access Restricted</span>
                 {% endif %}
