@@ -39,32 +39,42 @@
 {% block content %}
 {% load custom_filters %}
 <div class="masthead-content text-white">
-  <div class="card m-lg-4 mx-1">
-    <div class="card-body text-dark p-lg-5 px-0">
-      <h2 class="font-weight-bold text-secondary how-it-works pb-3">How it works!</h2>
-      <p class="px-lg-5 px-1">
-        <span class="custom-text">Lottonero</span> is a platform designed to help users <span
-          class="custom-text">predict EuroMillions</span>
-        lottery results using <span class="custom-text">AI patterns and combinations</span>.
-        Our goal is to provide you with the best possible predictions based on historical jackpot data and sophisticated
-        algorithms.
-      </p>
-      <p class="px-lg-5 px-1">
-        According to <a href="https://www.lottery.ie/how-to-play/euromillions" target="_blank" rel="noopener noreferrer"
-          class="custom-text">EuroMillions Odds of Winning</a>, your chances of winning anywhere between
-        <span class="custom-text"> 'Match 2' </span>and<span class="custom-text"> 'Match 3 + 1'</span> is
-        <span class="custom-text">1 in 22 </span>and<span class="custom-text"> 1 in 706</span> players respectively.
-      </p>
-      <p class="px-lg-5 px-1">
-        However, with <span class="custom-text">Lottonero</span>, your <span class="custom-text">chances of
-          winning</span> any of these
-        prizes may be <span class="custom-text">increased</span> by an average of <span class="custom-text">14% or
-          more</span>.
-        Checkout our latest winning predictions below.
-      </p>
-      <h5 class="px-lg-5 px-1 pt-3 text-secondary">
-        Please play responsibly and Good luck!
-      </h5>
+  <div id="accordion">
+    <div class="card">
+      <div class="card-header btn">
+        <h5 class="mb-0 font-weight-bold how-it-works">
+          <a data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            How it works!
+          </a>
+        </h5>
+      </div>
+
+      <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="card-body">
+          <p class="px-lg-5 px-1 text-white">
+            <span class="custom-text">Lottonero</span> is a platform designed to help users <span
+              class="custom-text">predict
+              EuroMillions</span>
+            lottery results using <span class="custom-text">AI patterns and combinations</span>.
+            Our goal is to provide you with the best possible predictions based on historical jackpot data and
+            sophisticated
+            algorithms. According to <a href="https://www.lottery.ie/how-to-play/euromillions" target="_blank"
+              rel="noopener noreferrer" class="custom-text">EuroMillions Odds of Winning</a>, your chances of winning
+            anywhere
+            between
+            <span class="custom-text"> 'Match 2' </span>and<span class="custom-text"> 'Match 3 + 1'</span> is
+            <span class="custom-text">1 in 22 </span>and<span class="custom-text"> 1 in 706</span> players respectively.
+            However, with <span class="custom-text">Lottonero</span>, your <span class="custom-text">chances of
+              winning</span> any of these
+            prizes may be <span class="custom-text">increased</span> by an average of <span class="custom-text">14% or
+              more</span>.
+            Checkout our latest winning predictions below.
+          </p>
+          <h5 class="px-lg-5 px-1 pt-3 custom-text">
+            Please play responsibly and Good luck!
+          </h5>
+        </div>
+      </div>
     </div>
   </div>
   <br>
@@ -84,124 +94,125 @@
     <img src="{{ star_2_image }}" alt="Star {{ latest_result.lucky_star_2 }}">
   </div>
   <p>{{ latest_result.prize_breakdown }}</p>
-</div>
-<br>
-<div class="container-fluid">
-  <div class="row no-gutters justify-content-center">
-    <div class="col-xl-6 col-lg-12 text-center text-dark px-lg-5 px-0 mt-4">
-      <h3 class="full-width-bg futura-subheading">Latest Winning Predictions - AI Patterns</h3>
-      {% if user.is_authenticated %}
-      <h3 class="py-3">
-        <a href="{% url 'predictions' %}" class="btn header-button-font">
-          See Next Draw Predictions
-        </a>
-      </h3>
-      {% else %}
-      <h3>
-        <a href="{% url 'account_login' %}" class="btn header-button-font">
-          Get Next Draw Predictions
-        </a>
-      </h3>
-      {% endif %}
-      {% if latest_predictions %}
-      <table class="table text-dark">
-        <thead>
-          <tr class="text-center align-middle">
-            <th class="font-weight-bold">ID</th>
-            <th class="font-weight-bold">Draw Date</th>
-            <th class="font-weight-bold">Winning Balls</th>
-            <th class="font-weight-bold">Win Type</th>
-            <th class="font-weight-bold">€</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for prediction_info in predictions_with_images %}
-          <tr class="table-balls">
-            <td class="text-center align-middle">{{ prediction_info.prediction.id }}</td>
-            <td class="text-center align-middle">{{ prediction_info.prediction.draw_date }}</td>
-            <td class="text-center align-middle">
-              <img src="{{ prediction_info.pred_ball_1_image }}"
-                alt="Ball {{ prediction_info.prediction.pred_ball_1 }}">
-              <img src="{{ prediction_info.pred_ball_2_image }}"
-                alt="Ball {{ prediction_info.prediction.pred_ball_2 }}">
-              <img src="{{ prediction_info.pred_ball_3_image }}"
-                alt="Ball {{ prediction_info.prediction.pred_ball_3 }}">
-              <img src="{{ prediction_info.pred_ball_4_image }}"
-                alt="Ball {{ prediction_info.prediction.pred_ball_4 }}">
-              <img src="{{ prediction_info.pred_ball_5_image }}"
-                alt="Ball {{ prediction_info.prediction.pred_ball_5 }}">
-              <img src="{{ prediction_info.pred_lucky_1_image }}"
-                alt="Lucky Star {{ prediction_info.prediction.pred_lucky_1 }}">
-              <img src="{{ prediction_info.pred_lucky_2_image }}"
-                alt="Lucky Star {{ prediction_info.prediction.pred_lucky_2 }}">
-            </td>
-            <td class="text-center align-middle">{{ prediction_info.prediction.match_type }}</td>
-            <td class="text-center align-middle">{{ prediction_info.prediction.win_amount }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
+  
+  <br>
+  <div class="container-fluid">
+    <div class="row no-gutters justify-content-center">
+      <div class="col-lg-10 text-center text-white px-lg-5 px-0 mt-4">
+        <h3 class="futura-subheading mb-3">Latest Winning Predictions - AI Patterns</h3>
+        {% if latest_predictions %}
+        <table class="table text-white">
+          <thead>
+            <tr class="text-center align-middle">
+              <th class="font-weight-bold">ID</th>
+              <th class="font-weight-bold">Draw Date</th>
+              <th class="font-weight-bold">Winning Balls</th>
+              <th class="font-weight-bold">Win Type</th>
+              <th class="font-weight-bold">€</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for prediction_info in predictions_with_images %}
+            <tr class="table-balls">
+              <td class="text-center align-middle">{{ prediction_info.prediction.id }}</td>
+              <td class="text-center align-middle">{{ prediction_info.prediction.draw_date }}</td>
+              <td class="text-center align-middle">
+                <img src="{{ prediction_info.pred_ball_1_image }}"
+                  alt="Ball {{ prediction_info.prediction.pred_ball_1 }}">
+                <img src="{{ prediction_info.pred_ball_2_image }}"
+                  alt="Ball {{ prediction_info.prediction.pred_ball_2 }}">
+                <img src="{{ prediction_info.pred_ball_3_image }}"
+                  alt="Ball {{ prediction_info.prediction.pred_ball_3 }}">
+                <img src="{{ prediction_info.pred_ball_4_image }}"
+                  alt="Ball {{ prediction_info.prediction.pred_ball_4 }}">
+                <img src="{{ prediction_info.pred_ball_5_image }}"
+                  alt="Ball {{ prediction_info.prediction.pred_ball_5 }}">
+                <img src="{{ prediction_info.pred_lucky_1_image }}"
+                  alt="Lucky Star {{ prediction_info.prediction.pred_lucky_1 }}">
+                <img src="{{ prediction_info.pred_lucky_2_image }}"
+                  alt="Lucky Star {{ prediction_info.prediction.pred_lucky_2 }}">
+              </td>
+              <td class="text-center align-middle">{{ prediction_info.prediction.match_type }}</td>
+              <td class="text-center align-middle">{{ prediction_info.prediction.win_amount }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
         {% else %}
-        <p>No winning predictions for the above draw.</p>
+          <p>No winning predictions for the above draw.</p>
+          {% endif %}
+        {% if user.is_authenticated %}
+        <h3 class="py-3 mb-3">
+          <a href="{% url 'predictions' %}" class="btn header-button-font">
+            See Next Draw Predictions
+          </a>
+        </h3>
+        {% else %}
+        <h3 class="py-3 mb-3">
+          <a href="{% url 'account_login' %}" class="btn header-button-font">
+            Get Next Draw Predictions
+          </a>
+        </h3>
         {% endif %}
-      </table>
-    </div>
+      </div>
 
-    <div class="col-xl-6 col-lg-12 text-center text-dark px-lg-5 px-0 mt-4">
-      <h3 class="full-width-bg futura-subheading">Latest Winning Predictions - AI Combinations</h3>
-      {% if user.is_authenticated %}
-      <h3 class="py-3">
-        <a href="{% url 'display_combination_predictions' %}" class="btn header-button-font">
-          See Next Draw Predictions
-        </a>
-      </h3>
-      {% else %}
-      <h3>
-        <a href="{% url 'account_login' %}" class="btn header-button-font">
-          Get Next Draw Predictions
-        </a>
-      </h3>
-      {% endif %}
-      {% if latest_shuffled_predictions %}
-      <table class="table text-dark">
-        <thead>
-          <tr class="text-center align-middle">
-            <th class="font-weight-bold">ID</th>
-            <th class="font-weight-bold">Draw Date</th>
-            <th class="font-weight-bold">Winning Balls</th>
-            <th class="font-weight-bold">Win Type</th>
-            <th class="font-weight-bold">€</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for prediction_info in shuffled_predictions_with_images %}
-          <tr class="table-balls">
-            <td class="text-center align-middle">{{ prediction_info.prediction.id }}</td>
-            <td class="text-center align-middle">{{ prediction_info.prediction.draw_date }}</td>
-            <td class="text-center align-middle">
-              <img src="{{ prediction_info.pred_ball_1_image }}"
-                alt="Ball {{ prediction_info.prediction.pred_ball_1 }}">
-              <img src="{{ prediction_info.pred_ball_2_image }}"
-                alt="Ball {{ prediction_info.prediction.pred_ball_2 }}">
-              <img src="{{ prediction_info.pred_ball_3_image }}"
-                alt="Ball {{ prediction_info.prediction.pred_ball_3 }}">
-              <img src="{{ prediction_info.pred_ball_4_image }}"
-                alt="Ball {{ prediction_info.prediction.pred_ball_4 }}">
-              <img src="{{ prediction_info.pred_ball_5_image }}"
-                alt="Ball {{ prediction_info.prediction.pred_ball_5 }}">
-              <img src="{{ prediction_info.pred_lucky_1_image }}"
-                alt="Lucky Star {{ prediction_info.prediction.pred_lucky_1 }}">
-              <img src="{{ prediction_info.pred_lucky_2_image }}"
-                alt="Lucky Star {{ prediction_info.prediction.pred_lucky_2 }}">
-            </td>
-            <td class="text-center align-middle">{{ prediction_info.prediction.match_type }}</td>
-            <td class="text-center align-middle">{{ prediction_info.prediction.win_amount }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      {% else %}
-      <p>No winning combination predictions for the above draw.</p>
-      {% endif %}
+      <div class="col-lg-10 text-center text-white px-lg-5 px-0 mt-4">
+        <h3 class="futura-subheading mb-3">Latest Winning Predictions - AI Combinations</h3>
+        {% if latest_shuffled_predictions %}
+        <table class="table text-white">
+          <thead>
+            <tr class="text-center align-middle">
+              <th class="font-weight-bold">ID</th>
+              <th class="font-weight-bold">Draw Date</th>
+              <th class="font-weight-bold">Winning Balls</th>
+              <th class="font-weight-bold">Win Type</th>
+              <th class="font-weight-bold">€</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for prediction_info in shuffled_predictions_with_images %}
+            <tr class="table-balls">
+              <td class="text-center align-middle">{{ prediction_info.prediction.id }}</td>
+              <td class="text-center align-middle">{{ prediction_info.prediction.draw_date }}</td>
+              <td class="text-center align-middle">
+                <img src="{{ prediction_info.pred_ball_1_image }}"
+                  alt="Ball {{ prediction_info.prediction.pred_ball_1 }}">
+                <img src="{{ prediction_info.pred_ball_2_image }}"
+                  alt="Ball {{ prediction_info.prediction.pred_ball_2 }}">
+                <img src="{{ prediction_info.pred_ball_3_image }}"
+                  alt="Ball {{ prediction_info.prediction.pred_ball_3 }}">
+                <img src="{{ prediction_info.pred_ball_4_image }}"
+                  alt="Ball {{ prediction_info.prediction.pred_ball_4 }}">
+                <img src="{{ prediction_info.pred_ball_5_image }}"
+                  alt="Ball {{ prediction_info.prediction.pred_ball_5 }}">
+                <img src="{{ prediction_info.pred_lucky_1_image }}"
+                  alt="Lucky Star {{ prediction_info.prediction.pred_lucky_1 }}">
+                <img src="{{ prediction_info.pred_lucky_2_image }}"
+                  alt="Lucky Star {{ prediction_info.prediction.pred_lucky_2 }}">
+              </td>
+              <td class="text-center align-middle">{{ prediction_info.prediction.match_type }}</td>
+              <td class="text-center align-middle">{{ prediction_info.prediction.win_amount }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <p>No winning combination predictions for the above draw.</p>
+        {% endif %}
+        {% if user.is_authenticated %}
+        <h3 class="py-3 mb-3">
+          <a href="{% url 'display_combination_predictions' %}" class="btn header-button-font">
+            See Next Draw Predictions
+          </a>
+        </h3>
+        {% else %}
+        <h3 class="py-3 mb-3">
+          <a href="{% url 'account_login' %}" class="btn header-button-font">
+            Get Next Draw Predictions
+          </a>
+        </h3>
+        {% endif %}
+      </div>
     </div>
   </div>
 </div>
