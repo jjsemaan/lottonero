@@ -36,6 +36,14 @@ label[for="id_password"] {
     font: 12px Lato;
 }
 
+/* Vertical text in tables see media queries*/
+.rotate-text {
+    writing-mode: vertical-lr; 
+    text-orientation: mixed;
+    white-space: nowrap;
+    transform: rotate(180deg);
+}
+
 .masthead {
     position: relative;
     width: 100%;
@@ -139,6 +147,12 @@ Header
     background-color: rgb(255, 221, 0);
     color: black;
     transition: background-color 0.3s, color 0.3s;
+}
+
+.get-predictions-btn {
+    font-family: "futura-pt-condensed", sans-serif;
+    font-weight: 500;
+    font-style: normal;
 }
 
 .header-button-font:hover {
@@ -401,6 +415,12 @@ ul.list-inline {
         height: auto;
         margin: 2px;
     }
+
+    .futura-subheading {
+        font-family: "futura-pt", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
 }
 
 @media (max-width: 860px) {
@@ -424,6 +444,13 @@ ul.list-inline {
 @media (min-width: 576px) {
     .container {
         max-width: 1140px;
+    }
+
+    .rotate-text {
+        writing-mode: horizontal-tb;
+        text-orientation: mixed; 
+        white-space: normal;
+        transform: rotate(0deg);
     }
 }
 

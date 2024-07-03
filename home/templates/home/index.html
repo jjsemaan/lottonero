@@ -96,7 +96,7 @@
   <p>{{ latest_result.prize_breakdown }}</p>
   
   <br>
-  <div class="container-fluid">
+  <div class="container-fluid col-12">
     <div class="row no-gutters justify-content-center">
       <div class="col-lg-10 text-center text-white px-lg-5 px-0 mt-4">
         <h3 class="futura-subheading mb-3">Latest Winning Predictions - AI Patterns</h3>
@@ -114,8 +114,8 @@
           <tbody>
             {% for prediction_info in predictions_with_images %}
             <tr class="table-balls">
-              <td class="text-center align-middle">{{ prediction_info.prediction.id }}</td>
-              <td class="text-center align-middle">{{ prediction_info.prediction.draw_date }}</td>
+              <td class="text-center align-middle rotate-text">{{ prediction_info.prediction.id }}</td>
+              <td class="text-center align-middle rotate-text">{{ prediction_info.prediction.draw_date }}</td>
               <td class="text-center align-middle">
                 <img src="{{ prediction_info.pred_ball_1_image }}"
                   alt="Ball {{ prediction_info.prediction.pred_ball_1 }}">
@@ -132,8 +132,8 @@
                 <img src="{{ prediction_info.pred_lucky_2_image }}"
                   alt="Lucky Star {{ prediction_info.prediction.pred_lucky_2 }}">
               </td>
-              <td class="text-center align-middle">{{ prediction_info.prediction.match_type }}</td>
-              <td class="text-center align-middle">{{ prediction_info.prediction.win_amount }}</td>
+              <td class="text-center align-middle rotate-text">{{ prediction_info.prediction.match_type }}</td>
+              <td class="text-center align-middle rotate-text">{{ prediction_info.prediction.win_amount }}</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -143,13 +143,13 @@
           {% endif %}
         {% if user.is_authenticated %}
         <h3 class="py-3 mb-3">
-          <a href="{% url 'predictions' %}" class="btn header-button-font">
+          <a href="{% url 'predictions' %}" class="btn btn-success get-predictions-btn rounded-pill">
             See Next Draw Predictions
           </a>
         </h3>
         {% else %}
         <h3 class="py-3 mb-3">
-          <a href="{% url 'account_login' %}" class="btn header-button-font">
+          <a href="{% url 'account_login' %}" class="btn btn-success get-predictions-btn rounded-pill">
             Get Next Draw Predictions
           </a>
         </h3>
@@ -172,8 +172,8 @@
           <tbody>
             {% for prediction_info in shuffled_predictions_with_images %}
             <tr class="table-balls">
-              <td class="text-center align-middle">{{ prediction_info.prediction.id }}</td>
-              <td class="text-center align-middle">{{ prediction_info.prediction.draw_date }}</td>
+              <td class="text-center align-middle rotate-text">{{ prediction_info.prediction.id }}</td>
+              <td class="text-center align-middle rotate-text">{{ prediction_info.prediction.draw_date }}</td>
               <td class="text-center align-middle">
                 <img src="{{ prediction_info.pred_ball_1_image }}"
                   alt="Ball {{ prediction_info.prediction.pred_ball_1 }}">
@@ -190,8 +190,8 @@
                 <img src="{{ prediction_info.pred_lucky_2_image }}"
                   alt="Lucky Star {{ prediction_info.prediction.pred_lucky_2 }}">
               </td>
-              <td class="text-center align-middle">{{ prediction_info.prediction.match_type }}</td>
-              <td class="text-center align-middle">{{ prediction_info.prediction.win_amount }}</td>
+              <td class="text-center align-middle rotate-text">{{ prediction_info.prediction.match_type }}</td>
+              <td class="text-center align-middle rotate-text">{{ prediction_info.prediction.win_amount }}</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -201,13 +201,13 @@
         {% endif %}
         {% if user.is_authenticated %}
         <h3 class="py-3 mb-3">
-          <a href="{% url 'display_combination_predictions' %}" class="btn header-button-font">
+          <a href="{% url 'display_combination_predictions' %}" class="btn btn-success get-predictions-btn rounded-pill">
             See Next Draw Predictions
           </a>
         </h3>
         {% else %}
         <h3 class="py-3 mb-3">
-          <a href="{% url 'account_login' %}" class="btn header-button-font">
+          <a href="{% url 'account_login' %}" class="btn btn-success get-predictions-btn rounded-pill">
             Get Next Draw Predictions
           </a>
         </h3>
