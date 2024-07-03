@@ -39,8 +39,37 @@
 {% block content %}
 {% load custom_filters %}
 <div class="masthead-content text-white">
-  <h2>EUROMILLIONS RESULTS</h2>
-  <h3>for {{ latest_result.draw_date }}</h3>
+  <div class="card m-lg-4 mx-1">
+    <div class="card-body text-dark p-lg-5 px-0">
+      <h2 class="font-weight-bold text-secondary how-it-works pb-3">How it works!</h2>
+      <p class="px-lg-5 px-1">
+        <span class="custom-text">Lottonero</span> is a platform designed to help users <span
+          class="custom-text">predict EuroMillions</span>
+        lottery results using <span class="custom-text">AI patterns and combinations</span>.
+        Our goal is to provide you with the best possible predictions based on historical jackpot data and sophisticated
+        algorithms.
+      </p>
+      <p class="px-lg-5 px-1">
+        According to <a href="https://www.lottery.ie/how-to-play/euromillions" target="_blank" rel="noopener noreferrer"
+          class="custom-text">EuroMillions Odds of Winning</a>, your chances of winning anywhere between
+        <span class="custom-text"> 'Match 2' </span>and<span class="custom-text"> 'Match 3 + 1'</span> is
+        <span class="custom-text">1 in 22 </span>and<span class="custom-text"> 1 in 706</span> players respectively.
+      </p>
+      <p class="px-lg-5 px-1">
+        However, with <span class="custom-text">Lottonero</span>, your <span class="custom-text">chances of
+          winning</span> any of these
+        prizes may be <span class="custom-text">increased</span> by an average of <span class="custom-text">14% or
+          more</span>.
+        Checkout our latest winning predictions below.
+      </p>
+      <h5 class="px-lg-5 px-1 pt-3 text-secondary">
+        Please play responsibly and Good luck!
+      </h5>
+    </div>
+  </div>
+  <br>
+  <h1 class="futura-subheading">EuroMillions Results</h1>
+  <h2 class="futura-subheading">for {{ latest_result.draw_date }}</h2>
 
   <div class="d-flex flex-wrap justify-content-center ball-images">
     <!-- Balls -->
@@ -60,7 +89,7 @@
 <div class="container-fluid">
   <div class="row no-gutters justify-content-center">
     <div class="col-xl-6 col-lg-12 text-center text-dark px-lg-5 px-0 mt-4">
-      <h2 class="full-width-bg">Latest Winning Predictions - AI Patterns</h2>
+      <h3 class="full-width-bg futura-subheading">Latest Winning Predictions - AI Patterns</h3>
       {% if user.is_authenticated %}
       <h3 class="py-3">
         <a href="{% url 'predictions' %}" class="btn header-button-font">
@@ -118,7 +147,7 @@
     </div>
 
     <div class="col-xl-6 col-lg-12 text-center text-dark px-lg-5 px-0 mt-4">
-      <h2 class="full-width-bg">Latest Winning Predictions - AI Combinations</h2>
+      <h3 class="full-width-bg futura-subheading">Latest Winning Predictions - AI Combinations</h3>
       {% if user.is_authenticated %}
       <h3 class="py-3">
         <a href="{% url 'display_combination_predictions' %}" class="btn header-button-font">
