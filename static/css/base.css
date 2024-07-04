@@ -38,8 +38,8 @@ label[for="id_password"] {
 
 /* Vertical text in tables see media queries*/
 .rotate-text {
-    writing-mode: vertical-lr; 
-    text-orientation: mixed;
+    writing-mode: vertical-rr; 
+    text-orientation: upright;
     white-space: nowrap;
     transform: rotate(180deg);
 }
@@ -451,11 +451,11 @@ ul.list-inline {
     .container {
         max-width: 1140px;
     }
-    
+
     .rotate-text {
-        writing-mode: vertical-lr;
+        writing-mode: horizontal-tb;
         text-orientation: mixed; 
-        white-space: nowrap;
+        white-space: normal;
         transform: rotate(0deg);
     }
 }
