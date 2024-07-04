@@ -463,9 +463,9 @@ ul.list-inline {
 @media (max-width: 380px) {
     .rotate-text {
         writing-mode: vertical-lr; 
-        text-orientation: sideways;
+        text-orientation: mixed;
         white-space: nowrap;
-        transform: rotate(0deg);
-        -webkit-transform: rotate(0deg);
+        transform: rotate(90deg);
+        -webkit-transform: rotate(90deg);
     }
 }
