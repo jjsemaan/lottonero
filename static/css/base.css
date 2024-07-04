@@ -38,8 +38,8 @@ label[for="id_password"] {
 
 /* Vertical text in tables see media queries*/
 .rotate-text {
-    writing-mode: vertical-rr; 
-    text-orientation: upright;
+    writing-mode: vertical-lr; 
+    text-orientation: sideways;
     white-space: nowrap;
     transform: rotate(180deg);
 }
