@@ -299,7 +299,7 @@ def train_classifier(request):
                         prediction.save()
                         predictions.append(prediction)
 
-        messages.success(request, "Shuffled predictions added to the database.")
+        messages.success(request, "Combination predictions added to the database.")
         return render(request, "backoffice/backoffice.html")
 
     except Exception as e:
@@ -462,7 +462,7 @@ def generate_shuffled_predictions(request):
         # Clear other irrelevant messages and add a success message
         storage = messages.get_messages(request)
         storage.used = True
-        messages.success(request, 'Shuffled predictions generated successfully!')
+        messages.success(request, 'Combination predictions generated successfully!')
 
         return render(request, 'backoffice/backoffice.html')
     else:
