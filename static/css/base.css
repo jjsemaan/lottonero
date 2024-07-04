@@ -42,6 +42,7 @@ label[for="id_password"] {
     text-orientation: sideways;
     white-space: nowrap;
     transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
 }
 
 .masthead {
