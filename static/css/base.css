@@ -41,7 +41,7 @@ label[for="id_password"] {
     writing-mode: vertical-lr; 
     text-orientation: mixed;
     white-space: nowrap;
-    transform: rotate(0deg);
+    transform: rotate(180deg);
 }
 
 .masthead {
@@ -53,7 +53,6 @@ label[for="id_password"] {
     background-repeat: no-repeat;
     color: white;
     text-align: center;
-
 }
 
 .masthead-content {
@@ -68,6 +67,10 @@ label[for="id_password"] {
     padding: 20px;
     margin: 20px auto 20px;
     max-width: 70%;  
+}
+
+#masthead-bg {
+    background: rgba(119, 119, 119, 0.7);
 }
 
 .card-header {
@@ -448,12 +451,12 @@ ul.list-inline {
     .container {
         max-width: 1140px;
     }
-
+    
     .rotate-text {
-        writing-mode: horizontal-tb;
+        writing-mode: vertical-lr;
         text-orientation: mixed; 
-        white-space: normal;
-        transform: rotate(180deg);
+        white-space: nowrap;
+        transform: rotate(0deg);
     }
 }
 
