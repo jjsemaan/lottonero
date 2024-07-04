@@ -465,7 +465,7 @@ ul.list-inline {
         writing-mode: vertical-lr; 
         text-orientation: sideways;
         white-space: nowrap;
-        transform: rotate(180deg);
-        -webkit-transform: rotate(180deg);
+        transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
     }
 }
