@@ -85,9 +85,13 @@ label[for="id_password"] {
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
-    background-color: transparent;
+    background-color: white;
     background-clip: border-box;
     border: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+#card-homepage-bg {
+    background-color: transparent;
 }
 
 /*------------------------------------ Font Awesome */
@@ -186,7 +190,6 @@ Header
     color: rgb(255, 221, 0);
     text-decoration: none;
 }
-
 
 .content-below-bg {
     position: relative;
