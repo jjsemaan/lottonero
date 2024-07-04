@@ -4,7 +4,6 @@ from tinymce.widgets import TinyMCE
 from django.db import models
 
 
-
 @admin.register(Subscription)
 class SubscriptionAdmin(admin.ModelAdmin):
     """

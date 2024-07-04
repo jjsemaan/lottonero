@@ -453,7 +453,7 @@ ul.list-inline {
         writing-mode: horizontal-tb;
         text-orientation: mixed; 
         white-space: normal;
-        transform: rotate(0deg);
+        transform: rotate(180deg);
     }
 }
 
