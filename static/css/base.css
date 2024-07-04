@@ -451,17 +451,20 @@ ul.list-inline {
     .container {
         max-width: 1140px;
     }
-
-    .rotate-text {
-        writing-mode: horizontal-tb;
-        text-orientation: mixed; 
-        white-space: normal;
-        transform: rotate(0deg);
-    }
 }
 
 @media (max-width: 767px) {
     .sidenav-left {
         display: none;
+    }
+}
+
+@media (min-width: 576px) {
+    .rotate-text {
+        writing-mode: horizontal-tb;
+        text-orientation: mixed; 
+        white-space: normal;
+        transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
     }
 }
