@@ -113,9 +113,12 @@
           </thead>
           <tbody>
             {% for prediction_info in predictions_with_images %}
+            
             <tr class="table-balls">
-              <td class="text-center align-middle rotate-text">{{ prediction_info.prediction.id }}</td>
-              <td class="text-center align-middle rotate-text">{{ prediction_info.prediction.draw_date }}</td>
+            
+              <td class="text-center align-middle"><div class="rotate-text">{{ prediction_info.prediction.id }}</div></td>
+              <td class="text-center align-middle"><div class="rotate-text">{{ prediction_info.prediction.draw_date }}</div></td>
+            
               <td class="text-center align-middle">
                 <img src="{{ prediction_info.pred_ball_1_image }}"
                   alt="Ball {{ prediction_info.prediction.pred_ball_1 }}">
@@ -132,9 +135,10 @@
                 <img src="{{ prediction_info.pred_lucky_2_image }}"
                   alt="Lucky Star {{ prediction_info.prediction.pred_lucky_2 }}">
               </td>
-              <td class="text-center align-middle rotate-text">{{ prediction_info.prediction.match_type }}</td>
-              <td class="text-center align-middle rotate-text">{{ prediction_info.prediction.win_amount }}</td>
+              <td class="text-center align-middle"><div class="rotate-text">{{ prediction_info.prediction.match_type }}</div></td>
+              <td class="text-center align-middle"><div class="rotate-text">{{ prediction_info.prediction.win_amount }}</div></td>
             </tr>
+            
             {% endfor %}
           </tbody>
         </table>
@@ -172,8 +176,8 @@
           <tbody>
             {% for prediction_info in shuffled_predictions_with_images %}
             <tr class="table-balls">
-              <td class="text-center align-middle rotate-text">{{ prediction_info.prediction.id }}</td>
-              <td class="text-center align-middle rotate-text">{{ prediction_info.prediction.draw_date }}</td>
+              <td class="text-center align-middle"><div class="rotate-text">{{ prediction_info.prediction.id }}</div></td>
+              <td class="text-center align-middle"><div class="rotate-text">{{ prediction_info.prediction.draw_date }}</div></td>
               <td class="text-center align-middle">
                 <img src="{{ prediction_info.pred_ball_1_image }}"
                   alt="Ball {{ prediction_info.prediction.pred_ball_1 }}">
@@ -190,8 +194,8 @@
                 <img src="{{ prediction_info.pred_lucky_2_image }}"
                   alt="Lucky Star {{ prediction_info.prediction.pred_lucky_2 }}">
               </td>
-              <td class="text-center align-middle rotate-text">{{ prediction_info.prediction.match_type }}</td>
-              <td class="text-center align-middle rotate-text">{{ prediction_info.prediction.win_amount }}</td>
+              <td class="text-center align-middle"><div class="rotate-text">{{ prediction_info.prediction.match_type }}</div></td>
+              <td class="text-center align-middle"><div class="rotate-text">{{ prediction_info.prediction.win_amount }}</div></td>
             </tr>
             {% endfor %}
           </tbody>
