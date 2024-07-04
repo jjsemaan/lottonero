@@ -41,7 +41,7 @@ label[for="id_password"] {
     writing-mode: vertical-lr; 
     text-orientation: mixed;
     white-space: nowrap;
-    transform: rotate(180deg);
+    transform: rotate(0deg);
 }
 
 .masthead {
