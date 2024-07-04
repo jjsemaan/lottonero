@@ -5,128 +5,118 @@
 
 {% block header_content %}
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-xl-10 col-lg-12 col-md-9">
+    <div class="row justify-content-center no-gutters">
+        <div class="col-10">
             <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-0">
-                    <div class="row mb-4">
-                        <div class="col-lg-2 d-none d-lg-block"></div>
-                        <div class="col-lg-8 pt-5">
-                            <div class="text-left text-dark">
-                                <h1>Admin Backoffice</h1>
-                                <h3 class="text-danger">Please read the below instructions...</h3>
-                                <hr>
-                                <div>
-                                    <ol>
-                                        <li>
-                                            <p>
-                                                The 'Scrape' button should only be clicked once at 10:30 pm (Irish Time) 
-                                                every Tuesday and Friday, after the draw results have been published to 
-                                                the accessible results page of the official EuroMillions website 
-                                                <a 
-                                                href="https://www.lottery.ie/accessible-results" 
-                                                target="_blank" rel="noopener noreferrer">
-                                                https://www.lottery.ie/accessible-results
-                                                </a>. The scrape button will parse two actions one after the other. 
-                                                First, it will scrape the jackpot results. Second, it will check for 
-                                                any winning predictions for both AI Patterns and AI Combinations. 
-                                                The scrape output will be written to the database and displayed on 
-                                                the Home page.
-                                            </p>
-                                            <p>
-                                                N.B. You will need to add the values / win amount of the winning 
-                                                predictions manually from the admin panel as the developer was 
-                                                not able to scrape these values and had deemed this to be a future 
-                                                enhancement.
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                Once scraped, use the below date picker to select the next upcoming 
-                                                draw date and click the 'Predict' button. The predict button will add 
-                                                new predictions for both AI Patterns and AI Combinations for our 
-                                                subscribers to choose from.
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                The upload button is used for the purpose of uploading the website 
-                                                images to coludinary and was used by the developer to reference all 
-                                                images within the code of Lottonero. During the development, 126 
-                                                images were uploaded to the databaee. Once uploaded, each image name 
-                                                and url can be queried and utilised for various uses in the website. 
-                                                This automation exercise had leveraged development efficiency and will 
-                                                be kept to enable the development of future enhancements.
-                                            </p>
-                                        </li>
-                                    </ol>
-                                </div>
-                                {% if user.is_authenticated and user.is_staff %}
-                                <table class="table text-dark">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col" class="font-weight-bold">No.</th>
-                                            <th scope="col" class="font-weight-bold">Command</th>
-                                            <th scope="col" class="font-weight-bold">Execute</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>
-                                                <form method="post"
-                                                    action="{% url 'scraping:run_scrape_euromillions' %}">
-                                                    {% csrf_token %}
-                                                    Scrape EuroMillions Results
-                                            </td>
-                                            <td>
-                                                <button type="submit" class="btn btn-primary btn-block" name="train"
-                                                    value="Start Training"> Scrape </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>
-                                                <form id="predictionForm" action="{% url 'train_classifier' %}"
-                                                    method="post">
-                                                    {% csrf_token %}
-                                                    <div class="form-group">
-                                                        <label for="draw_date">Select draw date to run
-                                                            predictions:</label>
-                                                        <input type="date" id="draw_date" name="draw_date"
-                                                            class="form-control" required>
-                                                    </div>
-                                            </td>
-                                            <td class="align-middle">
-                                                <button type="submit" class="btn btn-primary btn-block" name="train"
-                                                    value="Start Training">Predict</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>
-                                                <form method="post" action="{% url 'upload_image' %}"
-                                                    enctype="multipart/form-data">
-                                                    {% csrf_token %}
-                                                    {{ form.as_p }}
-                                                    Upload Images to Cloudinary
-                                            </td>
-                                            <td>
-                                                <button type="submit" class="btn btn-dark btn-block">Upload</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                {% else %}
-                                <p class="text-center">You must be an admin to perform these actions.</p>
-                                {% endif %}
-                            </div>
+                <div class="card-body px-2 py-5 text-dark text-left">
+
+                    <h1 class="px-5 display-5 display-md-1">Admin Backoffice</h1>
+                    <h3 class="px-5 text-danger display-6 display-md-3">Please read the below instructions...</h3>
+                    <hr>
+
+                    <ol class="pr-3">
+                        <li>
+                            <p>
+                                The 'Scrape' button should only be clicked once at 10:30 pm (Irish Time)
+                                every Tuesday and Friday, after the draw results have been published to
+                                the accessible results page of the official EuroMillions website
+                                <a href="https://www.lottery.ie/accessible-results" target="_blank"
+                                    rel="noopener noreferrer">
+                                    https://www.lottery.ie/accessible-results
+                                </a>. The scrape button will parse two actions one after the other.
+                                First, it will scrape the jackpot results. Second, it will check for
+                                any winning predictions for both AI Patterns and AI Combinations.
+                                The scrape output will be written to the database and displayed on
+                                the Home page.
+                            </p>
+                            <p>
+                                N.B. You will need to add the values / win amount of the winning
+                                predictions manually from the admin panel as the developer was
+                                not able to scrape these values and had deemed this to be a future
+                                enhancement.
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                Once scraped, use the below date picker to select the next upcoming
+                                draw date and click the 'Predict' button. The predict button will add
+                                new predictions for both AI Patterns and AI Combinations for our
+                                subscribers to choose from.
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                The upload button is used for the purpose of uploading the website
+                                images to coludinary and was used by the developer to reference all
+                                images within the code of Lottonero. During the development, 126
+                                images were uploaded to the databaee. Once uploaded, each image name
+                                and url can be queried and utilised for various uses in the website.
+                                This automation exercise had leveraged development efficiency and will
+                                be kept to enable the development of future enhancements.
+                            </p>
+                        </li>
+                    </ol>
+
+                </div>
+                <div class="card-body px-2">
+                    {% if user.is_authenticated and user.is_staff %}
+                    <div class="row justify-content-center no-gutters">
+                        <div class="col-lg-6 col-md-8 col-sm-10">
+                            <table class="table text-dark text-left px-3 w-100">
+                                <tbody>
+                                    <tr class="d-flex flex-column">
+                                        <td>1</td>
+                                        <td class="flex-grow-1">
+                                            <form method="post" action="{% url 'scraping:run_scrape_euromillions' %}">
+                                                {% csrf_token %}
+                                                Scrape EuroMillions Results
+                                        </td>
+                                        <td>
+                                            <button type="submit" class="btn btn-primary btn-block" name="train"
+                                                value="Start Training"> Scrape </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    <tr class="d-flex flex-column">
+                                        <td>2</td>
+                                        <td class="flex-grow-1">
+                                            <form id="predictionForm" action="{% url 'train_classifier' %}"
+                                                method="post">
+                                                {% csrf_token %}
+                                                <div class="form-group">
+                                                    <label for="draw_date">Select draw date to run
+                                                        predictions:</label>
+                                                    <input type="date" id="draw_date" name="draw_date"
+                                                        class="form-control" required>
+                                                </div>
+                                        </td>
+                                        <td class="align-middle">
+                                            <button type="submit" class="btn btn-primary btn-block" name="train"
+                                                value="Start Training">Predict</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    <tr class="d-flex flex-column">
+                                        <td>3</td>
+                                        <td class="flex-grow-1">
+                                            <form method="post" action="{% url 'upload_image' %}"
+                                                enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                {{ form.as_p }}
+                                                Upload Images to Cloudinary
+                                        </td>
+                                        <td>
+                                            <button type="submit" class="btn btn-dark btn-block">Upload</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="col-lg-2 d-none d-lg-block"></div>
                     </div>
+                    {% else %}
+                    <p class="text-center">You must be an admin to perform these actions.</p>
+                    {% endif %}
                 </div>
             </div>
         </div>

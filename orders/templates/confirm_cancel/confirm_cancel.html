@@ -12,14 +12,14 @@
                     <div class="row mb-4">
                         <div class="col-lg-2 d-none d-lg-block"></div>
                         <div class="col-lg-8">
-                            <div class="p-5 text-center text-dark">
+                            <div class="py-5 px-3 text-center text-dark">
                                 <h1 class="h4 mb-4 font-weight-bold">Confirm Cancellation</h1>
                                 <p class="text-black">Are you sure you want to cancel your subscription to</p>
                                 <p>"{{ subscription.product_name }}"?</p>
                                 <form method="post">
                                     {% csrf_token %}
-                                    <button type="submit" name="confirm_cancel" class="btn btn-danger">Confirm Cancellation</button>
-                                    <a href="{% url 'user_profile:profile_view' %}" class="btn btn-secondary">Back to Profile</a>
+                                    <button type="submit" name="confirm_cancel" class="btn btn-danger mb-3 mx-2">Confirm Cancellation</button>
+                                    <a href="{% url 'user_profile:profile_view' %}" class="btn btn-secondary mb-3 mx-2">Back to Profile</a>
                                 </form>
                             </div>
                         </div>
