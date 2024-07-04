@@ -38,11 +38,11 @@ label[for="id_password"] {
 
 /* Vertical text in tables see media queries*/
 .rotate-text {
-    writing-mode: vertical-lr; 
-    text-orientation: sideways;
-    white-space: nowrap;
-    transform: rotate(180deg);
-    -webkit-transform: rotate(180deg);
+    writing-mode: horizontal-tb;
+    text-orientation: mixed; 
+    white-space: normal;
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
 }
 
 .masthead {
@@ -460,12 +460,12 @@ ul.list-inline {
     }
 }
 
-@media (min-width: 576px) {
+@media (max-width: 380px) {
     .rotate-text {
-        writing-mode: horizontal-tb;
-        text-orientation: mixed; 
-        white-space: normal;
-        transform: rotate(0deg);
-        -webkit-transform: rotate(0deg);
+        writing-mode: vertical-lr; 
+        text-orientation: sideways;
+        white-space: nowrap;
+        transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
     }
 }
