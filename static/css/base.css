@@ -4,6 +4,14 @@ html {
     width: 100%vw;
 }
 
+a {
+    color: #28a745;
+}
+
+a:hover {
+    color: #28a745;
+}
+
 form {
     color: black;
 }
