@@ -1,7 +1,6 @@
 /*-------------------------------------- General*/
 html {
     height: 100%;
-    width: 100%vw;
 }
 
 a {
@@ -238,8 +237,10 @@ Header
 
 /*----------------------------------- Logo and buttons */
 .logo-font {
+    font-family: "futura-pt", sans-serif;
+    font-weight: 800;
+    font-style: normal;
     text-transform: uppercase;
-    font: Arial, sans-serif; ;
 }
 
 .main-logo-link {
