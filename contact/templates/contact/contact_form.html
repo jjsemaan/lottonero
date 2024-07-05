@@ -17,7 +17,8 @@
         display: none;
     }
 
-    form input, form textarea {
+    form input,
+    form textarea {
         display: block;
         width: 100%;
         padding: .375rem .75rem;
@@ -37,29 +38,26 @@
 {% block header_content %}
 <div class="container">
     <div class="row justify-content-center no-gutters">
-        <div class="col-xl-10 col-lg-12 col-md-9">
+        <div class="col-10">
             <div class="card o-hidden border-0 shadow-lg my-5">
                 <div class="card-body p-0">
                     <div class="row mb-4 justify-content-center no-gutters">
-                        
-                            <div class="col-lg-8">
-                                <div class="p-5">
-                                    <div class="text-center text-dark">
-                                        <h1 class="mb-4">Contact Us</h1>
-                                        {% if user %}
-                                        <p>Hello {{ user.first_name }} {{ user.last_name }}! You are logged in as</p>
-                                        <p class="font-weight-bold text-secondary">{{ user.email }}</p>
-                                        <p>Please write your message below and an admin will get in touch with you the soonest possible.</p>
-                                        {% endif %}
-                                    </div>
-                                    <form id="contact_form" method="post">
-                                        {% csrf_token %}
-                                        {{ form|crispy }}
-                                        <button type="submit" class="btn btn-dark btn-block">Send Message</button>
-                                    </form>
-                                </div>
+                        <div class="col-lg-8 py-5 px-3">
+                            <div class="text-center text-dark">
+                                <h1 class="mb-4 header-font">Contact Us</h1>
+                                {% if user %}
+                                <p>Hello {{ user.first_name }} {{ user.last_name }}! You are logged in as</p>
+                                <p class="font-weight-bold text-secondary">{{ user.email }}</p>
+                                <p>Please write your message below and an admin will get in touch with you the soonest
+                                    possible.</p>
+                                {% endif %}
                             </div>
-                        
+                            <form id="contact_form" method="post">
+                                {% csrf_token %}
+                                {{ form|crispy }}
+                                <button type="submit" class="btn btn-dark btn-block">Send Message</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
