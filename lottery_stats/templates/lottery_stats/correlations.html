@@ -25,21 +25,6 @@
 
 
 {% block content %}
-<!-- Extra styles added here so not to interfere with general styeles -->
-<style>
-    p {
-        margin: 0;
-    }
-
-    .modebar {
-        transform: translateX(-50%) !important;
-        left: 50% !important;
-        right: auto !important;
-        top: auto !important;
-    }
-
-</style>
-
 <div class="container-fluid mt-4">
         <div class="col-12 justify-content-center">
             {% if user.is_authenticated %}
@@ -47,13 +32,19 @@
                 <div class="col-md-6 col-sm-12">
                     <h1>EuroMillions Statistics</h1>
                     <h2 class="text-dark">Correlation Between Main Balls</h2>
+                    <p class="text-danger font-weight-bold">This page may not suitable for viewing on mobile devices!</p>
                 </div>
-                <div class="col-md-6 col-sm-12">
-                    <p class="text-secondary">Instruction:</p>
-                    <p class="text-secondary">Table displaying last 12 month ball correlations.</p>
-                    <p class="text-secondary">Hover over the table to reveal the correlation coefficient.</p>
-                    <p class="text-secondary">Number 1 is the strongest coefficient.</p>
-                    <p class="text-secondary">Use the below modebar pan / zoom and double click to reset.</p>
+                <div class="col-md-6 col-sm-12 px-4">
+                    <p class="text-secondary"><strong>Instructions:</strong>
+                        <br>
+                        Table displaying last 12 month ball correlations.
+                        <br>
+                        Hover over the table to reveal the correlation coefficient.
+                        <br>
+                        Number 1 is the strongest coefficient.
+                        <br>
+                        Use the below modebar to pan / zoom and double click to reset.
+                    </p>
                 </div>
             </div> 
             <div> 

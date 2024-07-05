@@ -228,6 +228,14 @@ Header
     margin: 1px;
 }
 
+/*----------------------------------- Plotly */
+.modebar {
+    transform: translateX(-50%) !important;
+    left: 50% !important;
+    right: auto !important;
+    top: auto !important;
+}
+
 /*----------------------------------- Logo and buttons */
 .logo-font {
     text-transform: uppercase;

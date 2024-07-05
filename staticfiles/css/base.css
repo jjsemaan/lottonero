@@ -4,6 +4,14 @@ html {
     width: 100%vw;
 }
 
+a {
+    color: #28a745;
+}
+
+a:hover {
+    color: #28a745;
+}
+
 form {
     color: black;
 }
@@ -220,10 +228,18 @@ Header
     margin: 1px;
 }
 
+/*----------------------------------- Plotly */
+.modebar {
+    transform: translateX(-50%) !important;
+    left: 50% !important;
+    right: auto !important;
+    top: auto !important;
+}
+
 /*----------------------------------- Logo and buttons */
 .logo-font {
     text-transform: uppercase;
-    font: Helvetica, Arial, sans-serif; ;
+    font: Arial, sans-serif; ;
 }
 
 .main-logo-link {

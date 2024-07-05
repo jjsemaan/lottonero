@@ -38,8 +38,22 @@
         <div class="col-12 text-center justify-content-center">
             {% if user.is_authenticated %}
             <div class="row no-gutters">
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-6 col-sm-12 px-3 text-left">
                     <h2 class="text-dark">Main Balls Frequency</h2>
+                    <p class="text-secondary"><strong>Instructions:</strong>
+                        <br>
+                        Hover over the table to reveal the most frequent winning numbers.
+                        <br>
+                        Kernel Density Estimation (KDE) curve is added to smooth out the 
+                        <br>
+                        observed data points to infer properties about the population from  
+                        <br>
+                        which the numbers were taken.
+                        <br>
+                        Use the drop down selector to filter data.
+                        <br>
+                        Use the below modebar to pan / zoom and double click to reset.
+                    </p>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <form class="form-inline justify-content-center">
