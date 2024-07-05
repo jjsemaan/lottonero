@@ -32,12 +32,14 @@
 {% block content %}
 {% load custom_filters %}
 <div class="container">
-    <h1 class="text-center my-4">Alltime Winning AI Combimations Predictions</h1>
-    <p class="text-center mb-1">First launched on 4 June 2024</p>
-    <p class="text-center mb-1">
-        Total alltime hits till date is <strong>€ {{ total_winning_amount }}</strong> !!!
-    </p>
-    <p class="text-center text-secondary mb-4"><small>Below are just some of our latest hits.</small></p>
+    <div class="text-center px-3">
+        <h1 class="my-4 text-secondary futura-subheading">Alltime Winning AI Combimations Predictions</h1>
+        <p class="mb-1 text-secondary futura-subheading">First launched on 4 June 2024</p>
+        <p class="mb-1">
+            Total alltime AI Combimations hits till date is <strong>€ {{ total_winning_amount }}</strong> !!!
+        </p>
+        <p class="text-center text-secondary mb-4"><small>Below are just some of our latest hits.</small></p>
+    </div>
     <div id="predictions-container">
         <!-- Predictions will be loaded here -->
     <table class="table">
@@ -53,8 +55,8 @@
         <tbody>
             {% for prediction_info in alltime_winning_shuffled_predictions %}
             <tr class="table-balls">
-                <td class="text-center align-middle">{{ prediction_info.prediction.id }}</td>
-                <td class="text-center align-middle">{{ prediction_info.prediction.draw_date }}</td>
+                <td class="text-center align-middle"><div class="rotate-text">{{ prediction_info.prediction.id }}</td></div>
+                <td class="text-center align-middle"><div class="rotate-text">{{ prediction_info.prediction.draw_date }}</td></div>
                 <td class="text-center align-middle">
                     {% for image in prediction_info.pred_ball_images %}
                         <img src="{{ image }}" alt="Ball {{ forloop.counter }}">
@@ -63,8 +65,8 @@
                         <img src="{{ image }}" alt="Lucky Star {{ forloop.counter }}">
                     {% endfor %}
                 </td>
-                <td class="text-center align-middle">{{ prediction_info.prediction.match_type }}</td>
-                <td class="text-center align-middle">{{ prediction_info.prediction.win_amount }}</td>
+                <td class="text-center align-middle"><div class="rotate-text">{{ prediction_info.prediction.match_type }}</td></div>
+                <td class="text-center align-middle"><div class="rotate-text">{{ prediction_info.prediction.win_amount }}</td></div>
             </tr>
             {% endfor %}
         </tbody>
