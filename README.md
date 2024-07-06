@@ -263,12 +263,32 @@ However, the main reason behind the synchronisation is to created a direct conne
 
 - **Header and Footer** : Header and footer is established on every single page. **Header** is displayed on top of each page, **Footer** is displayed at the very bottom of each page so it doesn't cover any content *( Appendix 9 )*. The footer constitutes Social Media Icons, a Newsletter section and copyright info.
 
-*Appendix 9 - Header and Footer Wire-frame*
+*Appendix 9 - Header and Footer Wireframe*
 
-![Header and Footer Wire-frame](/docs/wireframes/header-footer-wireframe.JPG)
+![Header and Footer Wireframe](/docs/wireframes/header-footer-wireframe.JPG)
 
-- **Landing page** : Provides the user with a clear understanding about the page. The page displays the lates EuroMillions jackpot details, the latest winning predictions, a button that opens a card providing futher additional info about the website, and an option for the user to subscribe for **Lottonero** services *( Appendix 10 )*.
+- **Landing page** : Provides the user with a clear understanding about the page. The page displays the latest EuroMillions jackpot details, the latest winning predictions, a button that opens a card providing futher additional info about the website, and an option for the user to subscribe for **Lottonero** services *( Appendix 10 )*.
 
-*Appendix 10 - Landing Page Wire-frame*
+*Appendix 10 - Landing Page Wireframe*
 
-![Landing Page Wire-frame](/docs/wireframes/landing-wireframe.JPG)
+![Landing Page Wireframe](/docs/wireframes/landing-wireframe.JPG)
+
+- **AI Patterns page** : Provides the user with a set of AI generated pattern-based predictions targeting the upcoming EuroMillions jackpot. 
+Users are required to subscribe for this service otherwise access will be denied. *( Appendix 11 )*.
+
+*Appendix 11 - AI Patterns Page Wireframe*
+
+![AI Patterns Page Wireframe](/docs/wireframes/patterns-wireframe.JPG)
+
+- **AI Combinations page** : Provides the user with a set of AI generated combination-based predictions targeting the upcoming EuroMillions jackpot. 
+Users are required to subscribe for this service otherwise access will be denied. *( Appendix 12 )*.
+
+*Appendix 12 - AI Combinations Page Wireframe*
+
+![AI Combinations Page Wireframe](/docs/wireframes/combinations-wireframe.JPG)
+
+- **Statistics Frequency page** : Provides the user with two advance statictical frequency charts presenting highest ranking / winning ball numbers as well as median and KDE curves. Users are required to subscribe for this service otherwise access will be denied. *( Appendix 13 )*.
+
+*Appendix 13 - Statistics Frequency Page Wireframe*
+
+![Statistics Frequency Page Wireframe](/docs/wireframes/stats-freq-wireframe.JPG)
