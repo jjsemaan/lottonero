@@ -304,3 +304,39 @@ Users are required to subscribe for this service otherwise access will be denied
 *Appendix 15 - Statistics Correlations Page Wireframe*
 
 ![Statistics Correlations Page Wireframe](/docs/wireframes/stats-corr-wireframe.JPG)
+
+- **Alltime Patterns page** : Provides the user with a list of the last 25 winning predictions from AI Patterns. *( Appendix 16 )*.
+
+*Appendix 16 - Alltime Patterns Page Wireframe*
+
+![Alltime Patterns Page Wireframe](/docs/wireframes/alltime-patterns-wireframe.JPG)
+
+- **Alltime Combinations page** : Provides the user with a list of the last 25 winning predictions from AI Combinations. *( Appendix 17 )*.
+
+*Appendix 17 - Alltime Combinations Page Wireframe*
+
+![Alltime Combinations Page Wireframe](/docs/wireframes/alltime-combi-wireframe.JPG)
+
+- **About page** : Provides the user with information about the website. *( Appendix 18 )*.
+
+*Appendix 18 - About Page Wireframe*
+
+![About Page Wireframe](/docs/wireframes/about-wireframe.JPG)
+
+- **Contact page** : Displays a contact form for the user to send a message to the website admin. If the user is logged in their email will be picked up automatically otherwise if the user is logged out, they will be prompted to add their email before sending. *( Appendix 19 )*.
+
+*Appendix 19 - Contact Page Wireframe*
+
+![Contact Page Wireframe](/docs/wireframes/contact-wireframe.JPG)
+
+- **Admin Backoffice page** : Displays a list with three command buttons with use-instructions. *( Appendix 20 )*.
+
+*Appendix 20 - Admin Backoffice Page Wireframe*
+
+![Admin Backoffice Page Wireframe](/docs/wireframes/admin-wireframe.JPG)
+
+- **Profile page** : This is a user-profile management page where a user is able to make changes to their profile and view or cancel their subscriptions. *( Appendix 21 )*.
+
+*Appendix 21 - Profile Page Wireframe*
+
+![Profile Page Wireframe](/docs/wireframes/profile-wireframe.JPG)
