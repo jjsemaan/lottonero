@@ -122,7 +122,7 @@ As a thought process of the strategy plane, 30 issues were created and utilised.
 
 ![Kanban Board](/docs/kanban.JPG)
 
-- EPIC 1 : Create base html - [issue #1](https://github.com/tomik-z-cech/PP5-Ohm-Azing-Components/issues/1)
+- EPIC 1 : Create base html - [issue #1](https://github.com/jjsemaan/lottonero/issues/1)
 - EPIC 2 : Create static resources - [issue #2](https://github.com/jjsemaan/lottonero/issues/2)
 - EPIC 3 : Setup core dependencies - [issue #3](https://github.com/jjsemaan/lottonero/issues/3)
 - EPIC 4 : Create footer - [issue #4](https://github.com/jjsemaan/lottonero/issues/4)
@@ -329,7 +329,7 @@ Users are required to subscribe for this service otherwise access will be denied
 
 ![Contact Page Wireframe](/docs/wireframes/contact-wireframe.JPG)
 
-- **Admin Backoffice page** : Displays a list with three command buttons with use-instructions. *( Appendix 20 )*.
+- **Admin Backoffice page** : The Backoffice button appears only to logged-in andmins. Once clicked, it displays a list with three command buttons with use-instructions. *( Appendix 20 )*.
 
 *Appendix 20 - Admin Backoffice Page Wireframe*
 
@@ -363,7 +363,7 @@ The Logo was written using Google font futura in an attemp to blend with the rem
 
 ### **3.5.2. Color pallette**
 
-Based on the website name Lottonero with 'nero' meaning black, the website is mainly based on black and Grey text over a white background with a variation on cheerful colors inspired by the standard bootstrap buttons that matched the main Lottonero background image and referenced using the [Color-Hex Website](https://www.color-hex.com/color-palette/24304). *( Appendix 23 )*.
+Based on the website name Lottonero with 'nero' meaning black, the website is mainly based on black and Grey text over a white background with a variation on cheerful colors inspired by the standard bootstrap buttons that matched the main Lottonero background image and referenced using the [Color-Hex Website](https://www.color-hex.com/color-palette/24304). *( Appendix 23 )*
 
 *Appendix 23 - Color pallette*
 
@@ -384,6 +384,53 @@ One font was picked and saved in base.css:
 *Appendix 24 - Futura-pt Font*
 
 ![Futura-pt Font](/docs/futura-font.JPG)
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+### **3.5.4. Icons and pictures**
+
+Icons used throughout the projects are [Font Awesone Icons](https://fontawesome.com/). 
+The Font Awesome icons were mainly used for the Account (user profile), log out as well as social media functionality as buttons in the top nave and the footer respectively to better enhance user experience.
+
+Graphic designer Elie Obeid from ParaBIM Ltd. in Ireland (CRO registration 699503 - founded by Lottonero's developer Jalal Semaan) had provided the main background image used in this project.
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+# **4. Features**
+
+## **4.1. Features used in every HTML template**
+
+### **4.1.1 Header**
+- A Mobile Top Header containing a Logo in the top left, which is also used as a link to the Home page `{% url 'home' %}`. The logo disappears when the hamburger menu appears when the resolution changes to less than 992 pixels in width. User **Account** and **Log Out** icons are in the top right corner and will remain there on smaller screens, when the resolution changes to less than 992 pixels in width. *( Appendix 25 )*
+- A Main Nav subheader contains all Lottonero pages. This will allow the user to navigate through the pages and to navigate back to home page when click on logo. *( Appendix 26 )*
+- Both '{% include 'includes/mobile-top-header.html' %}' and '{% include 'includes/main-nav.html' %}' are included in `base.html`.
+
+*Appendix 25 - Header on Larger Screens*
+
+![Header on Larger Screens](/docs/features/header-desktop.JPG)
+
+*Appendix 26 - Header on devices less 992px in width*
+
+![Header on devices less 992px](/docs/features/header-mobile.JPG)
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+### **4.1.2. Footer**
+
+- Footer  *( Appendix 27 )* is designed to reveal basic social media icons **Lottonero** and the integrated [Mailchimp Newsletter](https://mailchimp.com/landers/newsletters/)
+- Footer is designed to cover full width `width: 100%` of the browsing window.
+- Footer is responsive and remains unchanged on smaller screens below 992 pixels in width.
+- Footer is included in `base.html`.
+
+*Appendix 27 - Footer*
+
+![Footer](/docs/features/footer.JPG)
 
 [Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
 
