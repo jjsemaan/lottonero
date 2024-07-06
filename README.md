@@ -258,3 +258,17 @@ However, the main reason behind the synchronisation is to created a direct conne
 [Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
 
 ---
+
+## **3.4. Wire-frames**
+
+- **Header and Footer** : Header and footer is established on every single page. **Header** is displayed on top of each page, **Footer** is displayed at the very bottom of each page so it doesn't cover any content *( Appendix 9 )*. The footer constitutes Social Media Icons, a Newsletter section and copyright info.
+
+*Appendix 9 - Header and Footer Wire-frame*
+
+![Header and Footer Wire-frame](/docs/wireframes/header-footer-wireframe.JPG)
+
+- **Landing page** : Provides the user with a clear understanding about the page. The page displays the lates EuroMillions jackpot details, the latest winning predictions, a button that opens a card providing futher additional info about the website, and an option for the user to subscribe for **Lottonero** services *( Appendix 10 )*.
+
+*Appendix 10 - Landing Page Wire-frame*
+
+![Landing Page Wire-frame](/docs/wireframes/landing-wireframe.JPG)
