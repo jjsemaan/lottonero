@@ -340,3 +340,51 @@ Users are required to subscribe for this service otherwise access will be denied
 *Appendix 21 - Profile Page Wireframe*
 
 ![Profile Page Wireframe](/docs/wireframes/profile-wireframe.JPG)
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+## **3.5. The Surface Plane**
+
+Once the Strategy, Scope, Structure and Skeleton Planes were realised, the Surface Plane (Design) is developed.
+
+### **3.5.1. Logo**
+
+The Logo was written using Google font futura in an attemp to blend with the remaining contents on the site. A designer logo may be added later as a future enhancement *( Appendix 22 )*
+
+*Appendix 22 - Logo*
+
+![Logo](/docs/logo.JPG)
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+### **3.5.2. Color pallette**
+
+Based on the website name Lottonero with 'nero' meaning black, the website is mainly based on black and Grey text over a white background with a variation on cheerful colors inspired by the standard bootstrap buttons that matched the main Lottonero background image and referenced using the [Color-Hex Website](https://www.color-hex.com/color-palette/24304). *( Appendix 23 )*.
+
+*Appendix 23 - Color pallette*
+
+![Color pallette](/docs/color-pallette.JPG)
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+### **3.5.3. Fonts**
+
+[Adobe Fonts](https://fonts.adobe.com/fonts/futura-pt) site was used to pick the best typography style to match the theme. 
+As a developer I needed to ensure that all text is clearly displayed and comprehended
+
+One font was picked and saved in base.css:
+ - futura-pt (Sans Serif) -  *( Appendix 24 )*
+
+*Appendix 24 - Futura-pt Font*
+
+![Futura-pt Font](/docs/futura-font.JPG)
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
