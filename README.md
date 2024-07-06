@@ -292,3 +292,15 @@ Users are required to subscribe for this service otherwise access will be denied
 *Appendix 13 - Statistics Frequency Page Wireframe*
 
 ![Statistics Frequency Page Wireframe](/docs/wireframes/stats-freq-wireframe.JPG)
+
+- **Statistics Combinations page** : Provides the user with a statictical combinations graph presenting ball combinations from the jackpot history. Users are required to subscribe for this service otherwise access will be denied. *( Appendix 14 )*.
+
+*Appendix 14 - Statistics Combinations Page Wireframe*
+
+![Statistics Combinations Page Wireframe](/docs/wireframes/stats-combi-wireframe.JPG)
+
+- **Statistics Correlations page** : Provides the user with a statictical correlations heatmap presenting ball correlations from the jackpot history. Users are required to subscribe for this service otherwise access will be denied. *( Appendix 15 )*.
+
+*Appendix 15 - Statistics Correlations Page Wireframe*
+
+![Statistics Correlations Page Wireframe](/docs/wireframes/stats-corr-wireframe.JPG)
