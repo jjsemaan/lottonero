@@ -39,12 +39,12 @@
     + [**4.1.2. Footer**](https://github.com/jjsemaan/lottonero/blob/main/README.md#412-footer)
     + [**4.1.3. Favicon**](https://github.com/jjsemaan/lottonero/blob/main/README.md#413-favicon)
     + [**4.1.4. Error Pages**](https://github.com/jjsemaan/lottonero/blob/main/README.md#414-error-pages)
-    + [**4.1.5. Toasts**](https://github.com/jjsemaan/lottonero/blob/main/README.md#419-toasts)
+    + [**4.1.5. Toasts**](https://github.com/jjsemaan/lottonero/blob/main/README.md#415-toasts)
   * [**4.2. Main Content**](https://github.com/jjsemaan/lottonero/blob/main/README.md#42-main-content)
     + [**4.2.1. Landing Page**](https://github.com/jjsemaan/lottonero/blob/main/README.md#421-landing-page)
-    + [**4.2.2. Shop Page**](https://github.com/jjsemaan/lottonero/blob/main/README.md#422-shop-page)
-    + [**4.2.3. Item Detail Page**](https://github.com/jjsemaan/lottonero/blob/main/README.md#423-item-detail-page)
-    + [**4.2.4. Wishlist Page**](https://github.com/jjsemaan/lottonero/blob/main/README.md#424-wishlist-page)
+    + [**4.2.2. Subscriptions Page**](https://github.com/jjsemaan/lottonero/blob/main/README.md#422-subscriptions-page)
+    + [**4.2.3. AI Predictions Pages**](https://github.com/jjsemaan/lottonero/blob/main/README.md#423-ai-predictons-pages)
+    + [**4.2.4. Statistics Pages**](https://github.com/jjsemaan/lottonero/blob/main/README.md#424-statistics-pages)
     + [**4.2.5. Vault Page**](https://github.com/jjsemaan/lottonero/blob/main/README.md#425-vault-page)
     + [**4.2.6. Checkout Page**](https://github.com/jjsemaan/lottonero/blob/main/README.md#426-checkout-page)
     + [**4.2.7. Checkout Success Page**](https://github.com/jjsemaan/lottonero/blob/main/README.md#427-checkout-success-page)
@@ -499,7 +499,7 @@ Since the Landing page is too large to be captured in a print screen, please ref
 
 ---
 
-### **4.2.2. AI Predictions Pages**
+### **4.2.3. AI Predictions Pages**
 
 - **App :** `predictions`
 - **Template File :** `predictions.html` - extends `base.html`
@@ -509,13 +509,44 @@ Since the Landing page is too large to be captured in a print screen, please ref
 
 ![Predictions AI Patterns Page](/docs/features/predict-patterns-page.JPG)
 
+- **App :** `predictions`
 - **Template File :** `combination_predictions.html` - extends `base.html`
-- **User :** Provides the subscribed user with EuroMillions predictions using AI Combinations method which creates combinations from its own previous winning predictions. *( Appendix 33)*. 
+- **User :** Provides the subscribed user with EuroMillions predictions using AI Combinations method which creates combinations from its own previous winning predictions *( Appendix 33)*. 
 The user is then free to rely on these predictions while playing the EuroMillions lottery external to Lottonero.
 
 *Appendix 33 - Predictions AI Combinations Page*
 
 ![Predictions AI Combinations Page](/docs/features/predict-combinations-page.JPG)
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+### **4.2.4. Statistics Pages**
+
+- **App :** `lottery-stats`
+- **Template File :** `frequencies.html` - extends `base.html`
+- **User :** Provides the user with two advance statictical frequency charts presenting highest ranking / winning ball numbers as well as median and KDE curves. This page features a dropdown selector to filter the graphs by quarterly time periods. Subscribed users are able to visualise the analytical data, thus enabling informed decisions when selecting their preferred numbers *( Appendix 34)*. Due to large graphic content of this page, a toast warning will pop up stating that this page is better viewed on larger screens.
+
+*Appendix 34 - Frequencies Page*
+
+![Frequencies Page](/docs/features/frequencies-page.JPG)
+
+- **App :** `lottery-stats`
+- **Template File :** `correlations.html` - extends `base.html`
+- **User :** Provides the user with a statictical correlations heatmap presenting ball correlations from the jackpot history. This page features a mode-bar for graphical interactivity that enables the user to zoom / pan or capture a snapshot of the graph and more. Subscribed users are able to visualise the analytical data, thus enabling informed decisions when selecting their preferred numbers *( Appendix 35)*. Due to large graphic content of this page, a toast warning will pop up stating that this page is better viewed on larger screens.
+
+*Appendix 35 - Correlations Page*
+
+![Correlations Page](/docs/features/correlations-page.JPG)
+
+- **App :** `lottery-stats`
+- **Template File :** `combinations.html` - extends `base.html`
+- **User :** Provides the user with a statictical combinations graph presenting ball combinations from the jackpot history. This page features a dropdown selector to filter the graphs by quarterly time periods and a mode-bar for graphical interactivity that enables the user to zoom / pan or capture a snapshot of the graph and more. Subscribed users are able to visualise the analytical data, thus enabling informed decisions when selecting their preferred numbers *( Appendix 36)*. Due to large graphic content of this page, a toast warning will pop up stating that this page is better viewed on larger screens.
+
+*Appendix 36 - Combinations Page*
+
+![Combinations Page](/docs/features/combinations-page.JPG)
 
 [Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
 
