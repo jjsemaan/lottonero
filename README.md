@@ -45,7 +45,7 @@
     + [**4.2.2. Subscriptions Page**](https://github.com/jjsemaan/lottonero/blob/main/README.md#422-subscriptions-page)
     + [**4.2.3. AI Predictions Pages**](https://github.com/jjsemaan/lottonero/blob/main/README.md#423-ai-predictons-pages)
     + [**4.2.4. Statistics Pages**](https://github.com/jjsemaan/lottonero/blob/main/README.md#424-statistics-pages)
-    + [**4.2.5. Vault Page**](https://github.com/jjsemaan/lottonero/blob/main/README.md#425-vault-page)
+    + [**4.2.5. Alltime Hits Pages**](https://github.com/jjsemaan/lottonero/blob/main/README.md#425-alltime-hits-pages)
     + [**4.2.6. Checkout Page**](https://github.com/jjsemaan/lottonero/blob/main/README.md#426-checkout-page)
     + [**4.2.7. Checkout Success Page**](https://github.com/jjsemaan/lottonero/blob/main/README.md#427-checkout-success-page)
     + [**4.2.8. Order History Page**](https://github.com/jjsemaan/lottonero/blob/main/README.md#428-order-history-page)
@@ -547,6 +547,28 @@ The user is then free to rely on these predictions while playing the EuroMillion
 *Appendix 36 - Combinations Page*
 
 ![Combinations Page](/docs/features/combinations-page.JPG)
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+### **4.2.5. Alltime Hits Pages**
+
+- **App :** `Home`
+- **Template File :** `alltime.html` - extends `base.html`
+- **User :** Provides the user with a list of alltime winning predictions from the AI pattern predictions method *( Appendix 37)*. This page is accessible to site visitors for marketing purposes. This page is limited to 25 winning rows in order for Heroku not to time out. This page should be paginated as a future enhancement.
+
+*Appendix 37 - Alltime AI Patters Page*
+
+![Alltime AI Patters Page](/docs/features/alltime-patterns-page.JPG)
+
+- **App :** `Home`
+- **Template File :** `alltime_shuffled.html` - extends `base.html`
+- **User :** Provides the user with a list of alltime winning predictions from the AI combinations predictions method *( Appendix 38)*. This page is accessible to site visitors for marketing purposes. This page is limited to 25 winning rows in order for Heroku not to time out. This page should be paginated as a future enhancement.
+
+*Appendix 38 - Alltime AI Patters Page*
+
+![Alltime AI Combinations Page](/docs/features/alltime-combinations-page.JPG)
 
 [Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
 
