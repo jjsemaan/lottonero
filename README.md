@@ -435,3 +435,11 @@ Graphic designer Elie Obeid from ParaBIM Ltd. in Ireland (CRO registration 69950
 [Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
 
 ---
+
+### **4.1.3. Favicon**
+
+- Every template in this project is equipped with a Favicon. This is useful when multiple tabs opened. *( Appendix 28)*
+
+*Appendix 28 - Favicon*
+
+![Favicon](/static/favicon.ico)
