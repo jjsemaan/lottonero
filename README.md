@@ -39,12 +39,7 @@
     + [**4.1.2. Footer**](https://github.com/jjsemaan/lottonero/blob/main/README.md#412-footer)
     + [**4.1.3. Favicon**](https://github.com/jjsemaan/lottonero/blob/main/README.md#413-favicon)
     + [**4.1.4. Error Pages**](https://github.com/jjsemaan/lottonero/blob/main/README.md#414-error-pages)
-    + [**4.1.5. Scroll bar**](https://github.com/jjsemaan/lottonero/blob/main/README.md#415-scroll-bar)
-    + [**4.1.6. Loader**](https://github.com/jjsemaan/lottonero/blob/main/README.md#416-loader)
-    + [**4.1.7. Sorting criterion**](https://github.com/jjsemaan/lottonero/blob/main/README.md#417-sorting-criterion)
-    + [**4.1.8. Pagination**](https://github.com/jjsemaan/lottonero/blob/main/README.md#418-pagination)
-    + [**4.1.9. Toasts**](https://github.com/jjsemaan/lottonero/blob/main/README.md#419-toasts)
-    + [**4.1.10. Easter Egg**](https://github.com/jjsemaan/lottonero/blob/main/README.md#4110-easter-egg)
+    + [**4.1.5. Toasts**](https://github.com/jjsemaan/lottonero/blob/main/README.md#419-toasts)
   * [**4.2. Main Content**](https://github.com/jjsemaan/lottonero/blob/main/README.md#42-main-content)
     + [**4.2.1. Landing Page**](https://github.com/jjsemaan/lottonero/blob/main/README.md#421-landing-page)
     + [**4.2.2. Shop Page**](https://github.com/jjsemaan/lottonero/blob/main/README.md#422-shop-page)
@@ -453,18 +448,30 @@ Graphic designer Elie Obeid from [ParaBIM Ltd.](https://parabim.ie/) in Ireland 
 - This project is developed to include custom error pages. In case the user clicks on a broken link, submits an action that isn't supported or tries to reach a certain page without permission, then the user isn't completely "cut off" from browsing, instead an error page with header and footer appears and the user is informed of the situation.
 
 - The following custom error pages were created :
-  - 403 - Received when user attempts to access a web resource for which they lack the necessary permissions. *( Appendix 29 )*
-  - 404 - Encountered when the requested web resource by user is not found on the server. *( Appendix 30 )*
-  - 500 - Displayed when the web server encounters an internal error while processing the request. *( Appendix 31 )*
+  - 403 - Received when user attempts to access a web resource for which they lack the necessary permissions.
+  - 404 - Encountered when the requested web resource by user is not found on the server.
+  - 500 - Displayed when the web server encounters an internal error while processing the request.
 
-*Appendix 31 - 403.html*
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
 
-![403.html](/docs/features/403html.png)
+---
 
-*Appendix 32 - 404.html*
+### **4.1.5. Toasts**
+- Toasts are used to communicate with the user. Four levels of toasts are in use (success, error, info and warning). Toasts do appear on the right top corner of the page with useful message for the user. Templates for toasts are under `templates/includes/toasts`. 
 
-![404.html](/docs/features/404html.png)
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
 
-*Appendix 33 - 500.html*
+---
 
-![500.html](/docs/features/500html.png)
+## **4.2. Main Content**
+
+### **4.2.1. Landing Page**
+
+- **App :** `home`
+- **Template File :** `index.html` - extends `base.html`
+- **User :** Provides the user with a clear understanding of what the page is about. The user is also provided with the latest jackpot details and the latest winning predictions of the jackpot in addition to a subscribe button and a 'How it Works' button for further explanation of the site-uses.
+Since the Landing page is too large to be caprured in a print screen, please refer to the [Landing Page](https://lottonero-e7dc9a7038d2.herokuapp.com/) here.
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
