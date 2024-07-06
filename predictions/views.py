@@ -153,6 +153,27 @@ from django.contrib.admin.views.decorators import staff_member_required
 @admin_required
 @csrf_protect
 def train_classifier(request):
+    """
+    Handles the training and generation of EuroMillions predictions using Random Forest Classifier.
+
+    This view function performs the following steps:
+    1. Ensures the request method is POST. If not, it renders the backoffice page.
+    2. Retrieves and validates the draw date from the POST data.
+    3. Checks for existing predictions for the given draw date and ensures no duplicate predictions.
+    4. Validates that the last scraped draw results are available.
+    5. Retrieves EuroMillions results data and splits it into training and testing sets.
+    6. Trains Random Forest classifiers to predict ball and lucky star numbers.
+    7. Generates unique prediction sets and saves them to the database.
+    8. Checks for existing shuffled predictions and ensures no duplicate shuffled predictions.
+    9. Retrieves past valid predictions, trains new models, and generates unique shuffled prediction sets.
+    10. Handles errors and provides appropriate user messages.
+
+    Parameters:
+    request (HttpRequest): The HTTP request object.
+
+    Returns:
+    HttpResponse: The HTTP response rendering the backoffice template with appropriate messages.
+    """
     if request.method != "POST":
         return render(request, "backoffice/backoffice.html")
 
@@ -161,35 +182,28 @@ def train_classifier(request):
         messages.error(request, "Draw date is required.")
         return render(request, "backoffice/backoffice.html")
 
-    # Ensure the format is YYYY/MM/DD by replacing hyphens with slashes
     draw_date_str = draw_date.replace('-', '/')
 
-    # Check if predictions for this draw date already exist
     if Prediction.objects.filter(draw_date=draw_date_str).exists():
         messages.error(request, "Predictions for this draw date already exist.")
         return render(request, "backoffice/backoffice.html")
 
-    # Get the last draw date from the EuroMillionsResult table
     last_draw = EuroMillionsResult.objects.order_by('-draw_date').first()
     if not last_draw:
         messages.error(request, "No draw results found.")
         return render(request, "backoffice/backoffice.html")
     
-    # Get the last draw date from the Prediction table
     last_prediction = Prediction.objects.order_by('-draw_date').first()
 
-    # Ensure the format is YYYY/MM/DD by replacing hyphens with slashes
     draw_date_str = draw_date.replace('-', '/')
     last_draw_date_str = last_draw.draw_date
     last_prediction_date_str = last_prediction.draw_date if last_prediction else None
 
-    # Check if the last draw date in EuroMillionsResult does not exist in the Prediction table
     if last_prediction_date_str != last_draw_date_str:
         messages.error(request, "The current upcoming draw has not been scraped yet!")
         return render(request, "backoffice/backoffice.html")
 
     try:
-        # Load and prepare the lataset
         data = EuroMillionsResult.objects.values("ball_1", "ball_2", "ball_3", "ball_4", "ball_5", "lucky_star_1", "lucky_star_2")
         df = pd.DataFrame(list(data))
         X = df.drop(["lucky_star_1", "lucky_star_2"], axis=1)
@@ -208,8 +222,7 @@ def train_classifier(request):
         unique_full_sets = set()
         predictions = []
 
-        # Generate predictions ensuring all are unique
-        for _ in range(100):  # Limit to a reasonable number of attempts
+        for _ in range(100):
             y_pred_balls = rf_classifier_balls.predict(X_test_balls)
             y_pred_lucky = rf_classifier_lucky.predict(X_test_lucky)
 
@@ -238,12 +251,10 @@ def train_classifier(request):
 
         messages.success(request, "New predictions added to the database.")
 
-        # Additional functionality for ShuffledPrediction
         if ShuffledPrediction.objects.filter(draw_date=draw_date_str).exists():
             messages.error(request, "Shuffled predictions for this draw date already exist.")
             return render(request, "backoffice/backoffice.html")
 
-        # Query predictions where match_type is not null
         prediction_data = Prediction.objects.filter(match_type__isnull=False).values(
             "pred_ball_1", "pred_ball_2", "pred_ball_3", "pred_ball_4", "pred_ball_5",
             "pred_lucky_1", "pred_lucky_2"
@@ -254,12 +265,10 @@ def train_classifier(request):
             messages.error(request, "No valid past predictions found for training Shuffled Predictions.")
             return render(request, "backoffice/backoffice.html")
 
-        # Prepare the feature and target datasets
         X = prediction_df.drop(["pred_lucky_1", "pred_lucky_2"], axis=1)
         y_balls = prediction_df[["pred_ball_1", "pred_ball_2", "pred_ball_3", "pred_ball_4", "pred_ball_5"]]
         y_lucky = prediction_df[["pred_lucky_1", "pred_lucky_2"]]
 
-        # Train classifiers
         X_train_balls, X_test_balls, y_train_balls, y_test_balls = train_test_split(X, y_balls, test_size=0.6, random_state=42)
         X_train_lucky, X_test_lucky, y_train_lucky, y_test_lucky = train_test_split(X, y_lucky, test_size=0.6, random_state=42)
         rf_classifier_balls = RandomForestClassifier(n_estimators=100, random_state=42)
@@ -271,8 +280,7 @@ def train_classifier(request):
         unique_full_sets = set()
         predictions = []
 
-        # Generate predictions ensuring all are unique
-        for _ in range(100):  # Limit to a reasonable number of attempts
+        for _ in range(100):
             y_pred_balls = rf_classifier_balls.predict(X_test_balls)
             y_pred_lucky = rf_classifier_lucky.predict(X_test_lucky)
 

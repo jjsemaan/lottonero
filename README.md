@@ -394,7 +394,7 @@ One font was picked and saved in base.css:
 Icons used throughout the projects are [Font Awesone Icons](https://fontawesome.com/). 
 The Font Awesome icons were mainly used for the Account (user profile), log out as well as social media functionality as buttons in the top nave and the footer respectively to better enhance user experience.
 
-Graphic designer Elie Obeid from ParaBIM Ltd. in Ireland (CRO registration 699503 - founded by Lottonero's developer Jalal Semaan) had provided the main background image used in this project.
+Graphic designer Elie Obeid from [ParaBIM Ltd.](https://parabim.ie/) in Ireland (CRO registration 699503 - founded by Lottonero's developer Jalal Semaan) had provided the main background image used in this project.
 
 [Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
 
@@ -423,7 +423,7 @@ Graphic designer Elie Obeid from ParaBIM Ltd. in Ireland (CRO registration 69950
 
 ### **4.1.2. Footer**
 
-- Footer  *( Appendix 27 )* is designed to reveal basic social media icons **Lottonero** and the integrated [Mailchimp Newsletter](https://mailchimp.com/landers/newsletters/)
+- Footer  *( Appendix 27 )* is designed to reveal basic social media icons for **Lottonero**, the integrated [Mailchimp Newsletter](https://mailchimp.com/landers/newsletters/) and Copyright credentials.
 - Footer is designed to cover full width `width: 100%` of the browsing window.
 - Footer is responsive and remains unchanged on smaller screens below 992 pixels in width.
 - Footer is included in `base.html`.
@@ -438,8 +438,33 @@ Graphic designer Elie Obeid from ParaBIM Ltd. in Ireland (CRO registration 69950
 
 ### **4.1.3. Favicon**
 
-- Every template in this project is equipped with a Favicon. This is useful when multiple tabs opened. *( Appendix 28)*
+- Every template in this project is equipped with a Favicon. This is useful when multiple tabs are opened. *( Appendix 28)*
 
 *Appendix 28 - Favicon*
 
 ![Favicon](/static/favicon.ico)
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+### **4.1.4. Error Pages**
+
+- This project is developed to include custom error pages. In case the user clicks on a broken link, submits an action that isn't supported or tries to reach a certain page without permission, then the user isn't completely "cut off" from browsing, instead an error page with header and footer appears and the user is informed of the situation.
+
+- The following custom error pages were created :
+  - 403 - Received when user attempts to access a web resource for which they lack the necessary permissions. *( Appendix 29 )*
+  - 404 - Encountered when the requested web resource by user is not found on the server. *( Appendix 30 )*
+  - 500 - Displayed when the web server encounters an internal error while processing the request. *( Appendix 31 )*
+
+*Appendix 31 - 403.html*
+
+![403.html](/docs/features/403html.png)
+
+*Appendix 32 - 404.html*
+
+![404.html](/docs/features/404html.png)
+
+*Appendix 33 - 500.html*
+
+![500.html](/docs/features/500html.png)
