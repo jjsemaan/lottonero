@@ -673,3 +673,39 @@ This project could be significantly improved by adding more features to include 
 [Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
 
 ---
+
+# **5. Marketing**
+
+## **5.1. Social Media Presence**
+
+[Lottonero Facebook Page](https://www.facebook.com/people/Lottonero/61561632711805/) was created in order to capture more online presence. The page will be used for adding posts to inform EuroMillios lottery enthusiast about our latest winning predictions. This will leverage the site's unique visitors count and generate more income. Facebook and other social platform do provide easy, cheap and effortless ways of advertisement *( Appendix 45 )*.
+
+*Appendix 45 - Facebook Page*
+
+![Facebook Page](/docs/fb-page.JPG)
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+## **5.2. Search Engine Optimization (SEO)**
+
+Key words within the **Lottonero** business scope were researched same as description tags. [Wordtracker](https://www.wordtracker.com/) was used to ensure that both short-tail and long-tail keywords are included. Keywords such as 'AI', 'EuroMIllions' and 'lotto' are aimed at reaching search queries within the business scope.
+
+Files `sitemap.xml` and `robots.txt` were created to increase visibility of the site. These files are essential for SEO (Search Engine Optimization). The `sitemap.xml` file was generated using XML Sitemap and included in the root folder of the project. A robots.txt file was created in the root folder to instruct search engine crawlers on how to access and crawl the site's pages.
+
+Page [XML-Sitemaps.com](https://www.xml-sitemaps.com/) was used to generate site map in `*.xml` format *( Appendix 46 )*.
+
+*Appendix 46 - XML Site-map generator*
+
+![XML Site-map generator](/docs/sitemap.JPG)
+
+Once the file `robots.txt` was created, it was tested by [SEO AI](https://seo.ai/) *( Appendix 47 )*.
+
+*Appendix 47 - Testing of `robots.txt`*
+
+![Testing of robots.txt](/docs/robots.JPG)
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
