@@ -46,14 +46,12 @@
     + [**4.2.3. AI Predictions Pages**](https://github.com/jjsemaan/lottonero/blob/main/README.md#423-ai-predictons-pages)
     + [**4.2.4. Statistics Pages**](https://github.com/jjsemaan/lottonero/blob/main/README.md#424-statistics-pages)
     + [**4.2.5. Alltime Hits Pages**](https://github.com/jjsemaan/lottonero/blob/main/README.md#425-alltime-hits-pages)
-    + [**4.2.6. Checkout Page**](https://github.com/jjsemaan/lottonero/blob/main/README.md#426-checkout-page)
-    + [**4.2.7. Checkout Success Page**](https://github.com/jjsemaan/lottonero/blob/main/README.md#427-checkout-success-page)
-    + [**4.2.8. Order History Page**](https://github.com/jjsemaan/lottonero/blob/main/README.md#428-order-history-page)
+    + [**4.2.6. About Page**](https://github.com/jjsemaan/lottonero/blob/main/README.md#426-about-page)
+    + [**4.2.7. Contact Page**](https://github.com/jjsemaan/lottonero/blob/main/README.md#427-contact-page)
+    + [**4.2.8. Backoffice Page**](https://github.com/jjsemaan/lottonero/blob/main/README.md#428-backoffice-page)
     + [**4.2.9. My Profile Page**](https://github.com/jjsemaan/lottonero/blob/main/README.md#429-my-profile-page)
-    + [**4.2.10. Search Results Page**](https://github.com/jjsemaan/lottonero/blob/main/README.md#4210-search-results-page)
-    + [**4.2.11. Forms**](https://github.com/jjsemaan/lottonero/blob/main/README.md#4211-forms)
-    + [**4.2.12. Admin Tools**](https://github.com/jjsemaan/lottonero/blob/main/README.md#4212-admin-tools)
-    + [**4.2.13. User Emails**](https://github.com/jjsemaan/lottonero/blob/main/README.md#4213-user-emails)
+    + [**4.2.10. Forms**](https://github.com/jjsemaan/lottonero/blob/main/README.md#4210-forms)
+    + [**4.2.11. User Emails**](https://github.com/jjsemaan/lottonero/blob/main/README.md#4211-user-emails)
   * [**4.3. Future Features**](https://github.com/jjsemaan/lottonero/blob/main/README.md#43-future-features)
 - [**5. Marketing**](https://github.com/jjsemaan/lottonero/blob/main/README.md#5-marketing)
   * [**5.1. Social Media Presence**](https://github.com/jjsemaan/lottonero/blob/main/README.md#51-social-media-presence)
@@ -192,7 +190,7 @@ After deciding on the strategy (refer to below strategy diagram), the scope plan
 
 - **Scraping** : This feature offers seamless updates when run by the admins as it updates the homepage with the latest jackpot results scraped from the **Accessible Results** https://www.lottery.ie/accessible-results page of the EuroMillions website.
 
-- **User Profile** : Page where users can manage all aspects of their account including changing names, emails and subscription cancellation.
+- **User Profile** : Page where users can manage all aspects of their account including changing names, emails, password and subscription cancellation.
 
 - **Notifications** : Toasts and Email notifications are fully enabled for this website.
 
@@ -312,25 +310,25 @@ Users are required to subscribe for this service otherwise access will be denied
 
 ![Alltime Combinations Page Wireframe](/docs/wireframes/alltime-combi-wireframe.JPG)
 
-- **About page** : Provides the user with information about the website. *( Appendix 18 )*.
+- **About page** : Provides the user with information about the website *( Appendix 18 )*.
 
 *Appendix 18 - About Page Wireframe*
 
 ![About Page Wireframe](/docs/wireframes/about-wireframe.JPG)
 
-- **Contact page** : Displays a contact form for the user to send a message to the website admin. If the user is logged in their email will be picked up automatically otherwise if the user is logged out, they will be prompted to add their email before sending. *( Appendix 19 )*.
+- **Contact page** : Displays a contact form for the user to send a message to the website admin. If the user is logged in their email will be picked up automatically otherwise if the user is logged out, they will be prompted to add their email before sending *( Appendix 19 )*.
 
 *Appendix 19 - Contact Page Wireframe*
 
 ![Contact Page Wireframe](/docs/wireframes/contact-wireframe.JPG)
 
-- **Admin Backoffice page** : The Backoffice button appears only to logged-in andmins. Once clicked, it displays a list with three command buttons with use-instructions. *( Appendix 20 )*.
+- **Admin Backoffice page** : The Backoffice button appears only to logged-in andmins. Once clicked, it displays a list with three command buttons with use-instructions *( Appendix 20 )*.
 
 *Appendix 20 - Admin Backoffice Page Wireframe*
 
 ![Admin Backoffice Page Wireframe](/docs/wireframes/admin-wireframe.JPG)
 
-- **Profile page** : This is a user-profile management page where a user is able to make changes to their profile and view or cancel their subscriptions. *( Appendix 21 )*.
+- **Profile page** : This is a user-profile management page where a user is able to make changes to their profile and view or cancel their subscriptions *( Appendix 21 )*.
 
 *Appendix 21 - Profile Page Wireframe*
 
@@ -554,7 +552,7 @@ The user is then free to rely on these predictions while playing the EuroMillion
 
 ### **4.2.5. Alltime Hits Pages**
 
-- **App :** `Home`
+- **App :** `home`
 - **Template File :** `alltime.html` - extends `base.html`
 - **User :** Provides the user with a list of alltime winning predictions from the AI pattern predictions method *( Appendix 37)*. This page is accessible to site visitors for marketing purposes. This page is limited to 25 winning rows in order for Heroku not to time out. This page should be paginated as a future enhancement.
 
@@ -562,13 +560,115 @@ The user is then free to rely on these predictions while playing the EuroMillion
 
 ![Alltime AI Patters Page](/docs/features/alltime-patterns-page.JPG)
 
-- **App :** `Home`
+- **App :** `home`
 - **Template File :** `alltime_shuffled.html` - extends `base.html`
 - **User :** Provides the user with a list of alltime winning predictions from the AI combinations predictions method *( Appendix 38)*. This page is accessible to site visitors for marketing purposes. This page is limited to 25 winning rows in order for Heroku not to time out. This page should be paginated as a future enhancement.
 
 *Appendix 38 - Alltime AI Patters Page*
 
 ![Alltime AI Combinations Page](/docs/features/alltime-combinations-page.JPG)
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+### **4.2.6. About Page**
+
+- **App :** `contact`
+- **Template File :** `about.html` - extends `base.html`
+- **User :**  Provides the user with information about the website *( Appendix 39)*.
+
+*Appendix 39 - About Page*
+
+![About Page](/docs/features/about-page.JPG)
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+### **4.2.7. Contact Page**
+
+- **App :** `contact`
+- **Template File :** `contact.html` - extends `base.html`
+- **User :**  Provides the user a form to complete and send a message to the website admin *( Appendix 40)*.
+This page can recognise logged in users and use their logged in email with the form. Otherwise a logged out user or visitor will be prompted to enter their email before the massage is submitted /sent.
+
+*Appendix 40 - Contact Page*
+
+![Contact Page](/docs/features/contact-page.JPG)
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+### **4.2.8. Backoffice Page**
+
+- **App :** `predictions`
+- **Template File :** `backoffice.html` - extends `base.html`
+- **User :**  The Backoffice page button appears only to logged-in andmins. Once clicked, it displays a list with three command buttons with use-instructions *( Appendix 41)*.
+This page allows the admin to scrape the EuroMillions jackpot details from the EuroMillions Accessible Results page, check the results against the predictions and update the home page accordingly. On this page is a 'Predict' button that creates the predictions for the upcoming draw using a datepicker. These two buttons in particular allow the admin to perform the core services for this website without having to do any manual input exceot for the winning anount of each winning prediction which will need to be added from Django's admin panel.
+Should the developer be capable of scraping the winning amouts with the jackpot details, that would have required some major change to the db and as such was left as a future enhancement. 
+
+*Appendix 41 - Backoffice Page*
+
+![Backoffice Page](/docs/features/backoffice-page.JPG)
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+### **4.2.9. My Profile Page**
+
+- **App :** `user_profile`
+- **Template File :** `profile.html` - extends `base.html`
+- **User :**  Page where users can manage all aspects of their account including changing names, emails, password and subscription cancellation. *( Appendix 42)*.
+
+*Appendix 42 - My Profile Page*
+
+![Backoffice Page](/docs/features/profile-page.JPG)
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+### **4.2.10. Forms**
+
+- **App :** `AllAuth` extension
+- **Template File :** `*.html` in `./templates/account` - extends `base.html`
+- **User :** Forms do interact with user. They are designed to be clear and straight to the point, always in center of the screen. *( Appendix 43 )*.
+
+*Appendix 43 - Forms*
+
+![Forms](/docs/features/forms.JPG)
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+### **4.2.11. User Emails**
+
+- **App :** `orders`
+- **Template File :** `*.html` in `./templates/emails`
+- **User :** This project leverages user emails for muliple activities in association with AllAuth in addition to Subscription Success and Cancellation *( Appendix 44 )*.
+
+*Appendix 44 - Email Sample*
+
+![Email Sample](/docs/features/email.JPG)
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+## **4.3. Future Features**
+
+This project could be significantly improved by adding more features to include :
+
+- Loader modals when pages are loading
+- A designer logo
+- Automated synchronisation with dj-stripe
+- Functionality to scrape the win amounts with the jackpot details
+- The pagination of Alltime pages
+- Further research into AI robots that create predictions, from patterns and combinations
 
 [Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
 
