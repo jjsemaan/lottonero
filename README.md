@@ -470,7 +470,52 @@ Graphic designer Elie Obeid from [ParaBIM Ltd.](https://parabim.ie/) in Ireland 
 - **App :** `home`
 - **Template File :** `index.html` - extends `base.html`
 - **User :** Provides the user with a clear understanding of what the page is about. The user is also provided with the latest jackpot details and the latest winning predictions of the jackpot in addition to a subscribe button and a 'How it Works' button for further explanation of the site-uses.
-Since the Landing page is too large to be caprured in a print screen, please refer to the [Landing Page](https://lottonero-e7dc9a7038d2.herokuapp.com/) here.
+Since the Landing page is too large to be captured in a print screen, please refer to the [Landing Page](https://lottonero-e7dc9a7038d2.herokuapp.com/) here.
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+### **4.2.2. Subscriptions Page**
+
+- **App :** `orders`
+- **Template File :** `pricing_page.html` - extends `base.html`
+- **User :** Provides the user with three types of subscriptions to choose from, 'AI Predictions for EuroMillions Lotto', 'Lotto Statistics for EuroMillions' and 'Premium Full Access' *( Appendix 29)*. 
+- **Payment :** Since Subscriptions involve trial periods and recurrring payments and require significant management and maintenance time, Stripe will manage the payment and subscriptions untill Lottonero's extension of  dj-stripe is fully integrated in the future *( Appendix 30)*. However, in the meanntime, once a subscription payment is made, the subscribed user is redireted to Lottonero's success page with a session_id that writes the subscription details to the db to enable instantaneous access to their desired services *( Appendix 31)*. 
+
+*Appendix 29 - Subscriptions Page*
+
+![Subscriptions Page](/docs/features/subscriptions-page.JPG)
+
+*Appendix 30 - Payment Page*
+
+![Payment Page](/docs/features/payment-page.JPG)
+
+*Appendix 31 - Payment Success Page*
+
+![Payment Success Page](/docs/features/success-page.JPG)
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+### **4.2.2. AI Predictions Pages**
+
+- **App :** `predictions`
+- **Template File :** `predictions.html` - extends `base.html`
+- **User :** Provides the subscribed user with EuroMillions predictions using AI Patterns method which creates number patterns from the db holding the EuroMillions jackpot history *( Appendix 32)*. The user is then free to rely on these predictions while playing the EuroMillions lottery external to Lottonero.
+
+*Appendix 32 - Predictions AI Patterns Page*
+
+![Predictions AI Patterns Page](/docs/features/predict-patterns-page.JPG)
+
+- **Template File :** `combination_predictions.html` - extends `base.html`
+- **User :** Provides the subscribed user with EuroMillions predictions using AI Combinations method which creates combinations from its own previous winning predictions. *( Appendix 33)*. 
+The user is then free to rely on these predictions while playing the EuroMillions lottery external to Lottonero.
+
+*Appendix 33 - Predictions AI Combinations Page*
+
+![Predictions AI Combinations Page](/docs/features/predict-combinations-page.JPG)
 
 [Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
 
