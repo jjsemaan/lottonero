@@ -64,12 +64,11 @@
   * [**7.1. Transfer of progress from IDE**](https://github.com/jjsemaan/lottonero/blob/main/README.md#71-transfer-of-progress-from-ide)
   * [**7.2. Offline cloning**](https://github.com/jjsemaan/lottonero/blob/main/README.md#72-offline-cloning)
   * [**7.3. Deployment Prerequisites**](https://github.com/jjsemaan/lottonero/blob/main/README.md#73-deployment-prerequisites)
-    + [**7.3.1. Gmail**](https://github.com/jjsemaan/lottonero/blob/main/README.md#731-gmail)
-    + [**7.3.2. Neon Tech DB**](https://github.com/jjsemaan/lottonero/blob/main/README.md#732-neon-tech-db)
-    + [**7.3.3. AWS Cloud Service**](https://github.com/jjsemaan/lottonero/blob/main/README.md#733-aws-cloud-service)
-    + [**7.3.4. Django AWS Connection**](https://github.com/jjsemaan/lottonero/blob/main/README.md#734-django-aws-connection)
-    + [**7.3.5. Stripe Configuration & Connection**](https://github.com/jjsemaan/lottonero/blob/main/README.md#735-stripe-configuration--connection)
-    + [**7.3.6. Settings.py & file-tree**](https://github.com/jjsemaan/lottonero/blob/main/README.md#--736-settingspy---file-tree--)
+    + [**7.3.1. Microsoft O365**](https://github.com/jjsemaan/lottonero/blob/main/README.md#731-email)
+    + [**7.3.2. Retool DB**](https://github.com/jjsemaan/lottonero/blob/main/README.md#732-neon-tech-db)
+    + [**7.3.3. Cloudinary Service**](https://github.com/jjsemaan/lottonero/blob/main/README.md#733-aws-cloud-service)
+    + [**7.3.4. Stripe Configuration & Connection**](https://github.com/jjsemaan/lottonero/blob/main/README.md#734-stripe-configuration--connection)
+    + [**7.3.5. Settings.py & file-tree**](https://github.com/jjsemaan/lottonero/blob/main/README.md#--736-settingspy---file-tree--)
   * [**7.4. Deployment to Heroku**](https://github.com/jjsemaan/lottonero/blob/main/README.md#74-deployment-to-heroku)
 - [**8. Technologies & Credits**](https://github.com/jjsemaan/lottonero/blob/main/README.md#8-technologies---credits)
   * [**8.1. Technologies used to develop and deploy this project**](https://github.com/jjsemaan/lottonero/blob/main/README.md#81-technologies-used-to-develop-and-deploy-this-project)
@@ -723,6 +722,243 @@ Testing is documented separately in [testing.md](/docs/testing.md) file.
 ## **6.3. Bugs**
 
 Bugs are documented separately in [bugs.md](/docs/bugs.md) file.
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+# **7. Deployment**
+
+## **7.1. Transfer of progress from IDE**
+
+- **Task :** To ensure regular commits are done to avoid any data/progress loss.
+- **Method :** 
+   - commands `git add [filename]` was used to add specific file to staging area, alternatively command `git add .` was used to add all changed files to staging area
+   - command `git commit -m "[commit description]"` was used to add commitments into queue
+   - command `git push` was used to push all commitments to remote repository on GitHub
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+## **7.2. Offline cloning**
+
+- **Task :** To use repository on local machine.
+- **Method :** 
+  - Navigate to GitHub and follow `Code -> HTTPS -> Copy button` . after those steps open your local coding environment and type `git clone [copied link]`.
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+## **7.3. Deployment Prerequisites**
+
+### **7.3.1. Microsoft O365**
+
+- **Task :** Obtain email settings Microsoft Admin and enable SMTP to be used as mailing client.
+- **Method :** 
+  - Email settings
+  - EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+  - EMAIL_HOST = 'smtp.office365.com'
+  - EMAIL_PORT = 587  # Use 465 for SSL or 587 for TLS
+  - EMAIL_USE_TLS = True
+  - EMAIL_USE_SSL = False
+  - EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+  - EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+  - DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+### **7.3.2. Rettol DB**
+
+- **Task :** Obtain database URL to be used as project's database.
+- **Method :** 
+  - Select one of the DB providers, I did use [Retool](https://lottonero.retool.com/)
+  - Navigate to `https://lottonero.retool.com/` and follow all steps for registering new account
+  - Login to Retool DB Console with newly created account credentials
+  - Navigate to `+ New Project`
+  - Select `Name, Plan and Region`
+  - Confirm the instance by pressing `Create Project`
+  - Obtain database URL in format `postgresql://USERNAME:PASSWORD****************`
+  - Update `settings.py` in the project directory
+  - Update `env.py` with Retool username and password
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+### **7.3.3. Cloudinay Service**
+
+- **Task :** Obtain Cloudinary Access Key and Secret Key in order to use Cloudinary to host media files on cloud storage
+- **Method :** 
+  - Cloudinary configuration
+  - CLOUDINARY_STORAGE
+  - 'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+  - 'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+  - 'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+### **7.3.4. Stripe Configuration & Connection**
+
+- **Task :** Obtain all relevant settings and keys for online payments on project site
+- **Testing :** - Dummy card details were used for testing purposes 4242 4242 4242 4242, expiry 04/24, cvc 242, zip 42424
+- **Method :** 
+  - Navigate to [Stripe](https://stripe.com/)
+  - Create an account and login
+  - Get your API keys (`STRIPE_PUBLIC_KEY` and `STRIPE_SECRET_KEY`)
+  - Set those in your `env.py` for development and in Heroku vars for deployment
+  - Install stripe by `pip install stripe` 
+  - Create Webhook listeners
+  - Add listener endpoint (URL for webhook listeners after deployment)
+  - Add al keys to `env.py` and to Heroku config vars
+
+*Appendix 57 - Webhook testing*
+
+![Webhook testing](/docs/webhook-testing.JPG)
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+### **7.3.5. Settings.py & file-tree**
+
+- **Task :** Prepare `settings.py` adn file-tree for deployment 
+- **Method :** 
+  - Create file `env.py` to keep all sensitive information in
+  - See example of `env.py` file *( Appendix 72 )*
+  - Add `env.py` into `.gitignore` file to ensure this fill won't be uploaded to GitHub
+  - update `settings.py` with `import os`
+  - for every secured variable add code `VARIABLE = os.environ.get("VARIABLE")`
+  - ensure this process for Microsoft Email, Retool DB, Cloudinary, DEBUG and Django Secret Key
+ 
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+## **7.4. Deployment to Heroku**
+
+- **Task :** To ensure users are able to view live version of **Lottonero** project.
+- **Method :** 
+  - Register & Log In with heroku
+  - Navigate to `New > Create New App`
+  - Select Name of the app that is unique
+  - Navigate to `Settings > Reveal Config Vars`
+  - Add all variables from `env.py` to ConfigVars of Heroku App *( Appendix 73)*
+  - Add variable pair `PORT:8000`
+  - For the testing deployment add variable pair `COLLECT_STATIC:1`
+  - Add the Heroku app URL into `ALLOWED HOSTS` in `settings.py`
+  - In root create file name `Procfile`
+  - Navigate to `Deploy > GitHub > Connect`
+  - Navigate to `Deploy > Deploy Branch`
+  - Optionally, you can enable automatic deploys
+  - See the deployment log - if the deployment was successful, you will be prompted with option to see live page
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+# **8. Technologies & Credits**
+
+## **8.1. Technologies used to develop and deploy this project**
+
+- [**Python**](https://www.python.org/) - main BackEnd programming language of the project
+- [**HTML**](https://developer.mozilla.org/en-US/docs/Web/HTML) - templates programming language of this project (FrontEnd)
+- [**CSS**](https://developer.mozilla.org/en-US/docs/Web/CSS) - styling the project via external CSS file `./static/css/style.css`
+- [**Java Script**](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - dynamic templates programming language of this project (FrontEnd)
+- [**jQuery**](https://api.jquery.com/) - API for JavaScript - dynamic templates programming language of this project (FrontEnd)
+- [**Bootstrap v. 4**](https://getbootstrap.com/) - styling framework used in this project (FrontEnd)
+- [**Heroku**](https://heroku.com) - to deploy this project
+- [**Balsamiq**](https://balsamiq.com/support/) - to create wire-frames
+- [**Git**](https://git-scm.com/doc) - to make commitments of progress and push the results back to GitHub
+- [**GitHub**](https://github.com/) - to keep the track of version control
+- [**Gitpod**](https://www.gitpod.io/) - Cloud IDE
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+## **8.2. Requirements.txt**
+
+Following modules were used in development of **Lottonero** website :
+
+- **asgiref==3.8.1**: ASGI (Asynchronous Server Gateway Interface) reference implementation and utilities, used for building asynchronous web applications in Python.
+- **beautifulsoup4==4.11.1**: A library for parsing HTML and XML documents, useful for web scraping and data extraction.
+- **black==24.4.2**: A code formatter for Python that enforces consistent code style.
+- **blinker==1.8.1**: A fast, simple object-to-object and broadcast signaling library, often used for event handling.
+- **channels==4.1.0**: Extends Django to handle WebSockets, HTTP2, and other protocols, enabling real-time functionality.
+- **click==8.1.7**: A package for creating command-line interfaces with ease.
+- **cloudinary==1.40.0**: A cloud-based service for managing images and videos, including storage, transformations, and delivery.
+- **coverage==7.5.4**: A tool for measuring code coverage of Python programs, helpful for testing.
+- **crispy-bootstrap4==2024.1**: Django app to manage forms, specifically integrating with the Bootstrap 4 framework.
+- **dash==2.9.3**: A framework for building analytical web applications in Python.
+- **dash-bootstrap-components==1.6.0**: Bootstrap components for use with Dash, making it easier to build responsive web applications.
+- **dash-core-components==2.0.0**: Core set of components for building Dash applications, such as graphs and sliders.
+- **dash-html-components==2.0.0**: HTML components for Dash, allowing for the integration of HTML tags within Dash applications.
+- **dash-table==5.0.0**: Dash component for creating interactive tables in web applications.
+- **dj-database-url==0.5.0**: Allows easy configuration of Django database connections using URL strings.
+- **dj-stripe==2.8.4**: Integrates Stripe payments into Django applications.
+- **Django==4.2.11**: A high-level Python web framework that encourages rapid development and clean, pragmatic design.
+- **django-allauth==0.62.1**: An integrated set of Django applications addressing authentication, registration, account management, and more.
+- **django-appconf==1.0.6**: A helper for handling configuration defaults of Django apps.
+- **django-cloudinary-storage==0.3.0**: Django integration for Cloudinary file storage.
+- **django-cors-headers==4.3.1**: Django app for handling the server headers required for Cross-Origin Resource Sharing (CORS).
+- **django-crispy-forms==2.1**: Django app for building and managing forms, with support for various CSS frameworks.
+- **django-environ==0.11.2**: Allows you to utilize 12-factor inspired environment variables to configure your Django application.
+- **django-jazzmin==3.0.0**: A theme for Django admin that improves the interface's aesthetics and usability.
+- **django-js-asset==2.2.0**: A Django app for managing JavaScript assets.
+- **django-plotly-dash==2.3.1**: Integrates Dash applications into Django projects.
+- **django-tinymce==4.0.0**: A Django application to use the TinyMCE editor for editing HTML content.
+- **django-user-accounts==3.3.2**: A Django application for managing user accounts, including registration and authentication.
+- **dpd_components==0.1.0**: A library for reusable, interactive components in Dash.
+- **Flask==3.0.3**: A lightweight WSGI web application framework in Python, often considered a microframework.
+- **gunicorn==20.1.0**: A Python WSGI HTTP Server for UNIX, designed for running Python web applications.
+- **iniconfig==2.0.0**: A library for handling configuration files in .ini format.
+- **itsdangerous==2.2.0**: A library for securely signing data, useful for tokens in web applications.
+- **joblib==1.4.0**: A set of tools for lightweight pipelining in Python, used for parallel computing.
+- **networkx==3.2.1**: A Python library for the creation, manipulation, and study of complex networks of nodes and edges.
+- **numpy==1.26.4**: A fundamental package for scientific computing in Python, providing support for arrays and matrices.
+- **oauthlib==3.2.2**: A library for creating OAuth clients and servers.
+- **pandas==2.2.2**: A powerful data manipulation and analysis library for Python, providing data structures like DataFrames.
+- **pathspec==0.12.1**: A utility library for pattern matching of file paths, used by tools like Black.
+- **plotly==5.22.0**: A graphing library that makes interactive, publication-quality graphs online.
+- **pluggy==1.5.0**: A plugin and hook calling mechanism for Python, used in various frameworks like pytest.
+- **psycopg2==2.9.9**: PostgreSQL database adapter for Python.
+- **python3-openid==3.2.0**: A library for OpenID authentication.
+- **pytz==2024.1**: A library that allows accurate and cross-platform timezone calculations.
+- **requests-oauthlib==2.0.0**: OAuth library support for Python requests.
+- **scikit-learn==1.4.2**: A machine learning library for Python, providing simple and efficient tools for data mining and analysis.
+- **scipy==1.13.0**: A Python library used for scientific and technical computing.
+- **sqlparse==0.5.0**: A non-validating SQL parser for Python.
+- **stripe==4.2.0**: Stripe API bindings for Python, facilitating payment processing.
+- **tenacity==8.2.3**: A library for retrying code upon failure.
+- **threadpoolctl==3.5.0**: A Python helper to control the number of threads in native libraries that are used for computations.
+- **tzdata==2024.1**: A package that provides time zone database for date and time functionalities.
+- **Werkzeug==3.0.2**: A comprehensive WSGI web application library for Python.
+- **whitenoise==6.6.0**: A library for serving static files in production environments for Django.
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+## **8.3. Credits**
+
+- [**Daisy McGirr**](https://www.linkedin.com/in/daisy-mcgirr/?originalSubdomain=uk) - brilliant mentor
+- [**Elie Obeid**](https://parabim.ie/) - created background image and ball graphics
+- [**Adobe Fonts**](https://fonts.adobe.com/) - used for picking the best typography
+- [**Retool**](https://lottonero.retool.com/) - used as a database storage
+- [**Cloudinary**](https://console.cloudinary.com/) - used as a storage of media files
+- [**FavIcon.io**](https://favicon.io/favicon-converter/) - used to compress favicon
+- [**Font Awesome Icons**](https://fontawesome.com/) - used to pick icons
+- [**W3Schools**](https://www.w3schools.com/) - useful information and cheat sheets
+- [**Markdown-Toc**](https://ecotrust-canada.github.io/markdown-toc/) - Table of contents generator
+- [**XML-Sitemaps.com**](https://www.xml-sitemaps.com/) - XML Site-map generator
+- [**Facebook**](https://www.facebook.com/profile.php?id=61556654592935) - Used as social media platform to promote the business goals
+- [**SEO.AI**](https://seo.ai/) - `robots.txt` testing tool
 
 [Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
 
