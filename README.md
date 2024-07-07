@@ -771,7 +771,7 @@ Bugs are documented separately in [bugs.md](/docs/bugs.md) file.
 
 ---
 
-### **7.3.2. Rettol DB**
+### **7.3.2. Retool DB**
 
 - **Task :** Obtain database URL to be used as project's database.
 - **Method :** 
