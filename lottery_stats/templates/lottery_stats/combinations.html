@@ -4,7 +4,6 @@
 {% block nav_name %}Lotto Statistics Combinations{% endblock %}
 
 {% block extra_meta %}
-<meta name="description" content="Displaying statistical combinations from the past and latest EuroMillions lotto jackpot history.">
 {% endblock %}
 
 {% block page_header %}
@@ -24,20 +23,6 @@
 {% endblock %}
 
 {% block content %}
-<!-- Extra styles added here so not to interfere with general styeles -->
-<style>
-    p {
-        margin: 0;
-    }
-
-    .modebar {
-        transform: translateX(-50%) !important;
-        left: 50% !important;
-        right: auto !important;
-        top: auto !important;
-    }
-
-</style>
 <div class="row no-gutters mt-3"> 
     <div class="col-12 justify-content-center">
         {% if user.is_authenticated %}

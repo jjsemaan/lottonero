@@ -70,8 +70,45 @@ The only file failing the PEP8 standard is `lottonero/settings.py` due length of
    - Please note this needs to be done for all states of the templates (i.e. Logged In / Logged Out, Empty Vault/Items in Vault etc.)
 - **Results :**
 
-| Directory           | File                         | State             | Warnings | Errors | Nature of Problem                                    | Result |
-| ------------------- | ---------------------------- | ----------------- | -------- | ------ | ---------------------------------------------------- | ------ |
-| \\home              | `index.html`                 | Not Applicable    | 4        | 3      | Navigation should have been separated from base.html | FAIL   |
-| \\home              | `alltime.html`               | Not Applicable    | 4        | 1      | Navigation should have been separated from base.html | FAIL   |
-| \\home              | `alltime_shuffled.html`      | Not Applicable    | 4        | 1      | Navigation should have been separated from base.html | FAIL   |
+| Directory           | File                         | State             | Warnings | Errors | Nature of Problem         | Result |
+| ------------------- | ---------------------------- | ----------------- | -------- | ------ | ------------------------- | ------ |
+| \\home              | `index.html`                 | Not Applicable    | 0        | 0      |                           | PASS   |
+| \\home              | `alltime.html`               | Not Applicable    | 0        | 0      |                           | PASS   |
+| \\home              | `alltime_shuffled.html`      | Not Applicable    | 0        | 0      |                           | PASS   |
+| \\contact           | `about.html`                 | Not Applicable    | 0        | 0      |                           | PASS   |
+| \\contact           | `contact.html`               | Not Applicable    | 0        | 0      |                           | PASS   |
+| \\lottery_stats     | `frequencies.html`           | Logged In         | 2        | MULTI  | Plotly syntax not recognised | FAIL   |
+| \\lottery_stats     | `correlations.html`          | Logged In         | 2        | MULTI  | Plotly syntax not recognised | FAIL   |
+| \\lottery_stats     | `combinations.html`          | Logged In         | 2        | MULTI  | Plotly syntax not recognised | FAIL   |
+| \\orders            | `pricing_page.html`          | Logged In         | 0        | 0      |                           | PASS   |
+| \\orders            | `confirm_cancel.html`        | Logged In         | 0        | 0      |                           | PASS   |
+| \\orders            | `subscription_confirm.html`  | Logged In         | 0        | 0      |                           | PASS   |
+| \\predictions       | `backoffice.html`            | Only as Admin     | 0        | 9      | No issues found in reported errors | PASS   |
+| \\user_profile      | `privacy_policy.html`        | Not Applicable    | 0        | 0      |                           | PASS   |
+| \\user_profile      | `terms_and_conditions.html`  | Not Applicable    | 0        | 0      |                           | PASS   |
+| \\user_profile      | `profile.html`               | Not Applicable    | 0        | 0      |                           | PASS   |
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/docs/validation.md#611-table-of-contents---validation)
+
+[Back to README.md](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+## **6.1.4. CSS Validation**
+
+My styling files were separated into smaller files by app names for easy navigation.
+
+- **Task :**  To ensure the code in `*.css` is compliant with W3C standards.
+- **Tools :** 
+  - [W3C CSS Validator](https://jigsaw.w3.org/css-validator/) - CSS Validator
+- **Method :** 
+   - Open the `*.css` file
+   - Copy and Paste the code from IDE to validator
+   - See results
+- **Results :**
+
+| Directory     | File               | Warnings | Errors | Nature of Problem                     | Result |
+| ------------- | ------------------ | -------- | ------ | ------------------------------------- | ------ |
+| \\static\\css | `base.css`         | 0        | 0      |                                       | PASS   |
+
+*Appendix 48 - CSS Pass*
+
+![Facebook Page](/docs/css-check.JPG)
