@@ -6,9 +6,7 @@
 - [**6.1.2. PEP8 Validation**](https://github.com/jjsemaan/lottonero/blob/main/docs/validation.md#612-pep8-validation)
 - [**6.1.3. HTML Validation**](https://github.com/jjsemaan/lottonero/blob/main/docs/validation.md#613-html-validation)
 - [**6.1.4. CSS Validation**](https://github.com/jjsemaan/lottonero/blob/main/docs/validation.md#614-css-validation)
-- [**6.1.5. JS Validation**](https://github.com/jjsemaan/lottonero/blob/main/docs/validation.md#615-js-validation)
-- [**6.1.6. WAVE Validation**](https://github.com/jjsemaan/lottonero/blob/main/docs/validation.md#616-wave-validation)
-- [**6.1.7. Lighthouse**](https://github.com/jjsemaan/lottonero/blob/main/docs/validation.md#617-lighthouse)
+- [**6.1.5. Lighthouse**](https://github.com/jjsemaan/lottonero/blob/main/docs/validation.md#615-lighthouse)
 
 ## **6.1.2. PEP8 Validation**
 
@@ -92,6 +90,8 @@ The only file failing the PEP8 standard is `lottonero/settings.py` due length of
 
 [Back to README.md](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
 
+---
+
 ## **6.1.4. CSS Validation**
 
 My styling files were separated into smaller files by app names for easy navigation.
@@ -111,4 +111,33 @@ My styling files were separated into smaller files by app names for easy navigat
 
 *Appendix 48 - CSS Pass*
 
-![Facebook Page](/docs/css-check.JPG)
+![CSS Validation](/docs/css-check.JPG)
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/docs/validation.md#611-table-of-contents---validation)
+
+[Back to README.md](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
+
+## **6.1.5. Lighthouse**
+
+- **Task :** To ensure that speeds of project loading are viable.
+- **Tools :** 
+  - [Chrome Lighthouse](https://developer.chrome.com/docs/lighthouse/overview) - Chrome Lighthouse documentation
+- **Method :** 
+   - Browse each page and click on `More Tools > Developer Tools > Lighthouse > Analyze Page Load`
+   - See results on the right hand panel
+- **Finding :**
+  - Performance is 65 , page need improvement towards server response time.
+- **Results :**
+  - Various suggestions were made between minifying the CSS, reducing unused JS files and others. 
+
+*Appendix 49 - Lighthouse*
+
+![Lighthouse Result](/docs/validation/lighthouse-result.JPG)
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/docs/validation.md#611-table-of-contents---validation)
+
+[Back to README.md](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---
