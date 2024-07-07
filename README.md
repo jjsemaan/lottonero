@@ -68,7 +68,7 @@
     + [**7.3.2. Retool DB**](https://github.com/jjsemaan/lottonero/blob/main/README.md#732-neon-tech-db)
     + [**7.3.3. Cloudinary Service**](https://github.com/jjsemaan/lottonero/blob/main/README.md#733-aws-cloud-service)
     + [**7.3.4. Stripe Configuration & Connection**](https://github.com/jjsemaan/lottonero/blob/main/README.md#734-stripe-configuration--connection)
-    + [**7.3.5. Settings.py & file-tree**](https://github.com/jjsemaan/lottonero/blob/main/README.md#--736-settingspy---file-tree--)
+    + [**7.3.5. Settings.py & file-tree**](https://github.com/jjsemaan/lottonero/blob/main/README.md#--735-settingspy---file-tree--)
   * [**7.4. Deployment to Heroku**](https://github.com/jjsemaan/lottonero/blob/main/README.md#74-deployment-to-heroku)
 - [**8. Technologies & Credits**](https://github.com/jjsemaan/lottonero/blob/main/README.md#8-technologies---credits)
   * [**8.1. Technologies used to develop and deploy this project**](https://github.com/jjsemaan/lottonero/blob/main/README.md#81-technologies-used-to-develop-and-deploy-this-project)
