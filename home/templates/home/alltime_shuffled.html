@@ -4,7 +4,6 @@
 {% block nav_name %}Alltime Wins Combinations{% endblock %}
 
 {% block extra_meta %}
-<meta name="description" content="Displaying lottoneros alltime winning predictions from utilising ball combinations">
 {% endblock %}
 
 {% block page_header %}
@@ -42,35 +41,35 @@
     </div>
     <div id="predictions-container">
         <!-- Predictions will be loaded here -->
-    <table class="table">
-        <thead>
-            <tr>
-                <th class="text-center align-middle font-weight-bold">ID</th>
-                <th class="text-center align-middle font-weight-bold">Draw Date</th>
-                <th class="text-center align-middle font-weight-bold">Winning Balls</th>
-                <th class="text-center align-middle font-weight-bold">Match Type</th>
-                <th class="text-center align-middle font-weight-bold">€</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for prediction_info in alltime_winning_shuffled_predictions %}
-            <tr class="table-balls">
-                <td class="text-center align-middle"><div class="rotate-text">{{ prediction_info.prediction.id }}</td></div>
-                <td class="text-center align-middle"><div class="rotate-text">{{ prediction_info.prediction.draw_date }}</td></div>
-                <td class="text-center align-middle">
-                    {% for image in prediction_info.pred_ball_images %}
-                        <img src="{{ image }}" alt="Ball {{ forloop.counter }}">
-                    {% endfor %}
-                    {% for image in prediction_info.pred_lucky_images %}
-                        <img src="{{ image }}" alt="Lucky Star {{ forloop.counter }}">
-                    {% endfor %}
-                </td>
-                <td class="text-center align-middle"><div class="rotate-text">{{ prediction_info.prediction.match_type }}</td></div>
-                <td class="text-center align-middle"><div class="rotate-text">{{ prediction_info.prediction.win_amount }}</td></div>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="text-center align-middle font-weight-bold">ID</th>
+                    <th class="text-center align-middle font-weight-bold">Draw Date</th>
+                    <th class="text-center align-middle font-weight-bold">Winning Balls</th>
+                    <th class="text-center align-middle font-weight-bold">Match Type</th>
+                    <th class="text-center align-middle font-weight-bold">€</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for prediction_info in alltime_winning_shuffled_predictions %}
+                <tr class="table-balls">
+                    <td class="text-center align-middle"><div class="rotate-text">{{ prediction_info.prediction.id }}</div></td>
+                    <td class="text-center align-middle"><div class="rotate-text">{{ prediction_info.prediction.draw_date }}</div></td>
+                    <td class="text-center align-middle">
+                        {% for image in prediction_info.pred_ball_images %}
+                            <img src="{{ image }}" alt="Ball {{ forloop.counter }}">
+                        {% endfor %}
+                        {% for image in prediction_info.pred_lucky_images %}
+                            <img src="{{ image }}" alt="Lucky Star {{ forloop.counter }}">
+                        {% endfor %}
+                    </td>
+                    <td class="text-center align-middle"><div class="rotate-text">{{ prediction_info.prediction.match_type }}</div></td>
+                    <td class="text-center align-middle"><div class="rotate-text">{{ prediction_info.prediction.win_amount }}</div></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endblock %}

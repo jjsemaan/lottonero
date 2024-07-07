@@ -709,3 +709,21 @@ Once the file `robots.txt` was created, it was tested by [SEO AI](https://seo.ai
 [Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
 
 ---
+
+# **6. Validation, Testing & Bugs**
+
+## **6.1. Validation**
+
+Validation is documented separately in [validation.md](/docs/validation.md) file.
+
+## **6.2. Testing**
+
+Testing is documented separately in [testing.md](/docs/testing.md) file.
+
+## **6.3. Bugs**
+
+Bugs are documented separately in [bugs.md](/docs/bugs.md) file.
+
+[Back to top](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+---

@@ -56,3 +56,22 @@ The only file failing the PEP8 standard is `lottonero/settings.py` due length of
 [Back to top](https://github.com/jjsemaan/lottonero/blob/main/docs/validation.md#611-table-of-contents---validation)
 
 [Back to README.md](https://github.com/jjsemaan/lottonero/blob/main/README.md#lottonero---portfolio-project-5)
+
+## **6.1.3. HTML Validation**
+
+- **Task :** To ensure source code generated from all `*.html` templates is compliant with W3C standards.
+- **Tools :** 
+  - [W3C HTML Validator](https://validator.w3.org/) - HTML Validator
+- **Method :** 
+   - Open each page of the project
+   - In Chrome : Right click on page background and select `View Page Source`
+   - Copy and Paste the generated code from browser to validator
+   - See results *( Appendix 82 )*
+   - Please note this needs to be done for all states of the templates (i.e. Logged In / Logged Out, Empty Vault/Items in Vault etc.)
+- **Results :**
+
+| Directory           | File                         | State             | Warnings | Errors | Nature of Problem                                    | Result |
+| ------------------- | ---------------------------- | ----------------- | -------- | ------ | ---------------------------------------------------- | ------ |
+| \\home              | `index.html`                 | Not Applicable    | 4        | 3      | Navigation should have been separated from base.html | FAIL   |
+| \\home              | `alltime.html`               | Not Applicable    | 4        | 1      | Navigation should have been separated from base.html | FAIL   |
+| \\home              | `alltime_shuffled.html`      | Not Applicable    | 4        | 1      | Navigation should have been separated from base.html | FAIL   |
